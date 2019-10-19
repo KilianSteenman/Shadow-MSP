@@ -15,7 +15,8 @@
     -->
 
     <extensions defaultExtensionNs="com.intellij">
-        <!-- Add your extensions here -->
+        <fileType name="Mission Script file" implementationClass="nl.shadowlink.mission.plugin.MissionFileType"
+                  language="Mission" extensions="dsc"/>
     </extensions>
 
     <actions>

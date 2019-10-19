@@ -1,6 +1,11 @@
+buildscript {
+    repositories { mavenCentral() }
+    dependencies { classpath(kotlin("gradle-plugin", "1.2.30")) }
+}
+
 plugins {
     id("org.jetbrains.intellij") version "0.4.10"
-    java
+    kotlin("jvm") version "1.2.30"
 }
 
 group = "nl.shadowlink.mission"
