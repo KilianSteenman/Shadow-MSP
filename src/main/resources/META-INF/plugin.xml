@@ -16,6 +16,7 @@
     <extensions defaultExtensionNs="com.intellij">
         <fileType name="Mission Script file" implementationClass="nl.shadowlink.mission.plugin.MissionFileType"
                   language="Mission" extensions="dsc"/>
+        <lang.parserDefinition language="Mission" implementationClass="nl.shadowlink.mission.plugin.parser.MissionParserDefinition"/>
     </extensions>
 
     <actions>
