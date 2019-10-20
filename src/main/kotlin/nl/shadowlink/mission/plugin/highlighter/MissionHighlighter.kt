@@ -18,6 +18,8 @@ class MissionHighlighter : SyntaxHighlighterBase() {
             MissionTokenType.INT -> arrayOf(DefaultLanguageHighlighterColors.NUMBER)
             MissionTokenType.FLOAT -> arrayOf(DefaultLanguageHighlighterColors.NUMBER)
             MissionTokenType.LABEL -> arrayOf(DefaultLanguageHighlighterColors.FUNCTION_DECLARATION)
+            MissionTokenType.LABEL_REF -> arrayOf(DefaultLanguageHighlighterColors.FUNCTION_CALL)
+            MissionTokenType.SYMBOL -> arrayOf(DefaultLanguageHighlighterColors.GLOBAL_VARIABLE)
             else -> emptyArray()
         }
     }

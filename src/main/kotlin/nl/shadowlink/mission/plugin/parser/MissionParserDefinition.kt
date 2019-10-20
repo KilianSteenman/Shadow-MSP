@@ -15,7 +15,8 @@ import nl.shadowlink.mission.plugin.MissionFile
 import nl.shadowlink.mission.plugin.lexer.MissionLexer
 import nl.shadowlink.mission.plugin.MissionLanguage
 import nl.shadowlink.mission.plugin.lexer.MissionTokenType
-import nl.shadowlink.mission.plugin.psi.LabelElement
+import nl.shadowlink.mission.plugin.psi.LabelDefinitionElement
+import nl.shadowlink.mission.plugin.psi.LabelReferenceElement
 
 class MissionParserDefinition : ParserDefinition {
 
@@ -29,7 +30,10 @@ class MissionParserDefinition : ParserDefinition {
     override fun createLexer(project: Project): Lexer = MissionLexer()
 
     override fun createElement(node: ASTNode): PsiElement {
-        return LabelElement(node)
+        return when(node.elementType) {
+            MissionTokenType.LABEL -> LabelDefinitionElement(node)
+            else -> LabelReferenceElement(node)
+        }
     }
 
     override fun getWhitespaceTokens(): TokenSet = MissionTokenType.WHITE_SPACE_TYPES

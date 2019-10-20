@@ -18,6 +18,7 @@
                   language="Mission" extensions="dsc"/>
         <lang.parserDefinition language="Mission" implementationClass="nl.shadowlink.mission.plugin.parser.MissionParserDefinition"/>
         <lang.syntaxHighlighterFactory language="Mission" implementationClass="nl.shadowlink.mission.plugin.highlighter.MissionHighlighterFactory"/>
+        <lang.refactoringSupport language="Mission" implementationClass="nl.shadowlink.mission.plugin.refactoring.MissionRefactoringSupportProvider"/>
     </extensions>
 
     <actions>

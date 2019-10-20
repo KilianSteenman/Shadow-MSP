@@ -21,7 +21,8 @@ class MissionTokenType(type: Type) : IElementType(type.name, MissionLanguage) {
 
     companion object {
         val OPCODE = MissionTokenType(Type.OPCODE)
-        val LABEL =  MissionTokenType(Type.LABEL)
+        val LABEL = MissionTokenType(Type.LABEL)
+        val LABEL_REF = MissionTokenType(Type.LABEL)
         val SPACE = MissionTokenType(Type.SPACE)
         val COMMENT = MissionTokenType(Type.INLINE_COMMENT)
         val STRING = MissionTokenType(Type.STRING)

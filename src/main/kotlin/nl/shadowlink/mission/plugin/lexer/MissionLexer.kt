@@ -59,7 +59,7 @@ class MissionLexer : LexerBase() {
             isMatch(COMMENT) -> MissionTokenType.COMMENT
             isMatch(LABEL) -> MissionTokenType.LABEL
             isMatch(STRING) -> MissionTokenType.STRING
-            isMatch(JUMP_REF) -> MissionTokenType.LABEL
+            isMatch(JUMP_REF) -> MissionTokenType.LABEL_REF
             isMatch(SPACE) -> MissionTokenType.SPACE
             isMatch(MODEL) -> MissionTokenType.MODEL
             isMatch(SYMBOL) -> MissionTokenType.SYMBOL

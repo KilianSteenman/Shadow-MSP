@@ -17,6 +17,7 @@ class MissionPsiParser : PsiParser {
             when (builder.tokenType as MissionTokenType) {
                 MissionTokenType.OPCODE -> handleDefault(marker, builder, MissionTokenType.OPCODE)
                 MissionTokenType.LABEL -> handleDefault(marker, builder, MissionTokenType.LABEL)
+                MissionTokenType.LABEL_REF -> handleDefault(marker, builder, MissionTokenType.LABEL_REF)
                 MissionTokenType.SPACE -> handleDefault(marker, builder, MissionTokenType.SPACE)
                 MissionTokenType.STRING -> handleDefault(marker, builder, MissionTokenType.STRING)
                 MissionTokenType.MODEL -> handleDefault(marker, builder, MissionTokenType.MODEL)
