@@ -17,6 +17,7 @@
         <fileType name="Mission Script file" implementationClass="nl.shadowlink.mission.plugin.MissionFileType"
                   language="Mission" extensions="dsc"/>
         <lang.parserDefinition language="Mission" implementationClass="nl.shadowlink.mission.plugin.parser.MissionParserDefinition"/>
+        <lang.syntaxHighlighterFactory language="Mission" implementationClass="nl.shadowlink.mission.plugin.highlighter.MissionHighlighterFactory"/>
     </extensions>
 
     <actions>
