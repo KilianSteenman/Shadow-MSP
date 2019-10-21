@@ -1,6 +1,7 @@
 package nl.shadowlink.mission.plugin.psi
 
 import com.intellij.openapi.project.Project
+import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFileFactory
 import nl.shadowlink.mission.plugin.MissionFile
 import nl.shadowlink.mission.plugin.MissionFileType
@@ -16,6 +17,12 @@ class PsiElementFactory(private val project: Project) {
         val text = ":$name"
         val dummyFile = createMissionFile(text)
         return dummyFile.findChildByClass(LabelDefinitionElement::class.java)!!
+    }
+
+    fun createLabelReference(name: String): PsiElement {
+        val text = "@$name"
+        val dummyFile = createMissionFile(text)
+        return dummyFile.findChildByClass(LabelReferenceElement::class.java)!!
     }
 
     private fun createMissionFile(text: String): MissionFile {
