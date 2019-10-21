@@ -20,6 +20,8 @@
         <lang.syntaxHighlighterFactory language="MissionScript" implementationClass="nl.shadowlink.mission.plugin.highlighter.MissionHighlighterFactory"/>
         <lang.refactoringSupport language="MissionScript" implementationClass="nl.shadowlink.mission.plugin.refactoring.MissionRefactoringSupportProvider"/>
         <lang.findUsagesProvider language="MissionScript" implementationClass="nl.shadowlink.mission.plugin.usages.MissionFindUsagesProvider"/>
+        <lang.commenter language="MissionScript" implementationClass="nl.shadowlink.mission.plugin.commenter.MissionCommenter"/>
+
         <colorSettingsPage implementation="nl.shadowlink.mission.plugin.highlighter.MissionColorSettingsPage"/>
     </extensions>
 
