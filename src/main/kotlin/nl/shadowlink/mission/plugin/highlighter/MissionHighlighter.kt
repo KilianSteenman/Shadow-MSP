@@ -11,16 +11,20 @@ import nl.shadowlink.mission.plugin.lexer.MissionTokenType
 class MissionHighlighter : SyntaxHighlighterBase() {
 
     override fun getTokenHighlights(tokenType: IElementType?): Array<TextAttributesKey> {
-        return when (tokenType as MissionTokenType) {
-            MissionTokenType.STRING -> arrayOf(DefaultLanguageHighlighterColors.STRING)
-            MissionTokenType.COMMENT -> arrayOf(DefaultLanguageHighlighterColors.LINE_COMMENT)
-            MissionTokenType.MODEL -> arrayOf(DefaultLanguageHighlighterColors.CONSTANT)
-            MissionTokenType.INT -> arrayOf(DefaultLanguageHighlighterColors.NUMBER)
-            MissionTokenType.FLOAT -> arrayOf(DefaultLanguageHighlighterColors.NUMBER)
-            MissionTokenType.LABEL -> arrayOf(DefaultLanguageHighlighterColors.FUNCTION_DECLARATION)
-            MissionTokenType.LABEL_REF -> arrayOf(DefaultLanguageHighlighterColors.FUNCTION_CALL)
-            MissionTokenType.SYMBOL -> arrayOf(DefaultLanguageHighlighterColors.GLOBAL_VARIABLE)
-            else -> emptyArray()
+        return if (tokenType is MissionTokenType) {
+            when (tokenType) {
+                MissionTokenType.STRING -> arrayOf(MissionColor.STRING.attributesKey)
+                MissionTokenType.COMMENT -> arrayOf(MissionColor.LINE_COMMENT.attributesKey)
+                MissionTokenType.MODEL -> arrayOf(DefaultLanguageHighlighterColors.CONSTANT)
+                MissionTokenType.INT -> arrayOf(MissionColor.NUMBER.attributesKey)
+                MissionTokenType.FLOAT -> arrayOf(MissionColor.NUMBER.attributesKey)
+                MissionTokenType.LABEL -> arrayOf(DefaultLanguageHighlighterColors.FUNCTION_DECLARATION)
+                MissionTokenType.LABEL_REF -> arrayOf(DefaultLanguageHighlighterColors.FUNCTION_CALL)
+                MissionTokenType.SYMBOL -> arrayOf(DefaultLanguageHighlighterColors.GLOBAL_VARIABLE)
+                else -> emptyArray()
+            }
+        } else {
+            emptyArray()
         }
     }
 

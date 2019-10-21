@@ -15,11 +15,12 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <fileType name="Mission Script file" implementationClass="nl.shadowlink.mission.plugin.MissionFileType"
-                  language="Mission" extensions="dsc"/>
-        <lang.parserDefinition language="Mission" implementationClass="nl.shadowlink.mission.plugin.parser.MissionParserDefinition"/>
-        <lang.syntaxHighlighterFactory language="Mission" implementationClass="nl.shadowlink.mission.plugin.highlighter.MissionHighlighterFactory"/>
-        <lang.refactoringSupport language="Mission" implementationClass="nl.shadowlink.mission.plugin.refactoring.MissionRefactoringSupportProvider"/>
-        <lang.findUsagesProvider language="Mission" implementationClass="nl.shadowlink.mission.plugin.usages.MissionFindUsagesProvider"/>
+                  language="MissionScript" extensions="dsc"/>
+        <lang.parserDefinition language="MissionScript" implementationClass="nl.shadowlink.mission.plugin.parser.MissionParserDefinition"/>
+        <lang.syntaxHighlighterFactory language="MissionScript" implementationClass="nl.shadowlink.mission.plugin.highlighter.MissionHighlighterFactory"/>
+        <lang.refactoringSupport language="MissionScript" implementationClass="nl.shadowlink.mission.plugin.refactoring.MissionRefactoringSupportProvider"/>
+        <lang.findUsagesProvider language="MissionScript" implementationClass="nl.shadowlink.mission.plugin.usages.MissionFindUsagesProvider"/>
+        <colorSettingsPage implementation="nl.shadowlink.mission.plugin.highlighter.MissionColorSettingsPage"/>
     </extensions>
 
     <actions>
