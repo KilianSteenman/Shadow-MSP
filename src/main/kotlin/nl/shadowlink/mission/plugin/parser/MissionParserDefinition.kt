@@ -18,6 +18,7 @@ import nl.shadowlink.mission.plugin.lexer.MissionTokenType
 import nl.shadowlink.mission.plugin.psi.DefaultElement
 import nl.shadowlink.mission.plugin.psi.LabelDefinitionElement
 import nl.shadowlink.mission.plugin.psi.LabelReferenceElement
+import nl.shadowlink.mission.plugin.psi.StringElement
 
 class MissionParserDefinition : ParserDefinition {
 
@@ -34,6 +35,7 @@ class MissionParserDefinition : ParserDefinition {
         return when(node.elementType) {
             MissionTokenType.LABEL -> LabelDefinitionElement(node)
             MissionTokenType.LABEL_REF -> LabelReferenceElement(node)
+            MissionTokenType.STRING -> StringElement(node)
             else -> DefaultElement(node)
         }
     }

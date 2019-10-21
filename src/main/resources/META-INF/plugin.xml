@@ -23,6 +23,8 @@
         <lang.findUsagesProvider language="MissionScript" implementationClass="nl.shadowlink.mission.plugin.usages.MissionFindUsagesProvider"/>
         <lang.commenter language="MissionScript" implementationClass="nl.shadowlink.mission.plugin.commenter.MissionCommenter"/>
 
+        <annotator language="MissionScript" implementationClass="nl.shadowlink.mission.plugin.annotator.MissionAnnotator"/>
+
         <colorSettingsPage implementation="nl.shadowlink.mission.plugin.highlighter.MissionColorSettingsPage"/>
     </extensions>
 

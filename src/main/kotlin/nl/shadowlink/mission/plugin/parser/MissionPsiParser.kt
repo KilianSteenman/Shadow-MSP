@@ -26,7 +26,7 @@ class MissionPsiParser : PsiParser {
                 MissionTokenType.INT -> handleDefault(marker, builder, MissionTokenType.INT)
                 else -> {
                     builder.advanceLexer()
-                    marker.error("Unknown token type")
+                    marker.done(MissionTokenType.SPACE)
                 }
             }
         }
