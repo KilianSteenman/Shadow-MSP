@@ -29,7 +29,7 @@ class MissionFindUsagesProvider: FindUsagesProvider {
     }
 
     override fun getType(element: PsiElement): String {
-        return element::class.jvmName
+        return "Label declaration"
     }
 
     override fun getHelpId(psiElement: PsiElement): String? {
