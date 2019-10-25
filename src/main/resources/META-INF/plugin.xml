@@ -26,6 +26,10 @@
         <annotator language="MissionScript" implementationClass="nl.shadowlink.mission.plugin.annotator.MissionAnnotator"/>
 
         <colorSettingsPage implementation="nl.shadowlink.mission.plugin.highlighter.MissionColorSettingsPage"/>
+
+        <!-- Run related extensions -->
+        <configurationType implementation="nl.shadowlink.mission.plugin.run.MissionConfigurationType"/>
+        <programRunner id="MissionScript" implementation="nl.shadowlink.mission.plugin.run.MissionProgramRunner"/>
     </extensions>
 
     <actions>
