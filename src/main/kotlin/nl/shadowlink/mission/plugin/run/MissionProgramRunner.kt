@@ -43,7 +43,7 @@ class MissionProgramRunner : DefaultProgramRunner() {
             toolWindow = manager.registerToolWindow("Run Mission Script", true, ToolWindowAnchor.BOTTOM)
         }
         val contentManager = toolWindow.contentManager
-        val content = contentManager
+        val content = contentManager.getContent(0) ?: contentManager
                 .factory
                 .createContent(console.component, "Mission", false)
         contentManager.addContent(content)
