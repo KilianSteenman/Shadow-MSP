@@ -51,10 +51,10 @@ class MissionProgramRunner : DefaultProgramRunner() {
 
         console.println("Compiling...")
 
-        compileFiles(console, environment) { /*launcher.launchGame(console, gamePath)*/ }
+        compileFiles(gamePath, console, environment) { launcher.launchGame(console, gamePath) }
     }
 
-    private fun compileFiles(console: ConsoleView, environment: ExecutionEnvironment, compilationFinished: () -> Unit) {
+    private fun compileFiles(gamePath: String, console: ConsoleView, environment: ExecutionEnvironment, compilationFinished: () -> Unit) {
         val projectPath = environment.project.basePath!!.replace("/", "\\")
 
         val files = FileBasedIndex.getInstance()
@@ -66,13 +66,13 @@ class MissionProgramRunner : DefaultProgramRunner() {
                     it.forEach { file -> console.println("File ${file.name}") }
                 }
 
-        compileFile(files.toList(), projectPath, 0, console, compilationFinished)
+        compileFile(files.toList(), projectPath, gamePath, 0, console, compilationFinished)
     }
 
-    private fun compileFile(files: List<VirtualFile>, projectPath: String, fileIndex: Int, console: ConsoleView, compilationFinished: (() -> Unit)? = null) {
+    private fun compileFile(files: List<VirtualFile>, projectPath: String, gamePath: String, fileIndex: Int, console: ConsoleView, compilationFinished: (() -> Unit)? = null) {
         val file = files.toList().getOrNull(fileIndex)
         if (file != null) {
-            compiler.compileFile(file, projectPath, Game.VC, console) { compileFile(files, projectPath, fileIndex + 1, console, compilationFinished) }
+            compiler.compileFile(file, projectPath, gamePath, Game.VC, console) { compileFile(files, projectPath, gamePath, fileIndex + 1, console, compilationFinished) }
         } else {
             console.println("All files compiled")
             compilationFinished?.invoke()

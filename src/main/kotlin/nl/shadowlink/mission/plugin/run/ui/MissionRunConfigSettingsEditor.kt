@@ -2,9 +2,17 @@ package nl.shadowlink.mission.plugin.run.ui
 
 import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.options.SettingsEditor
+import com.intellij.openapi.project.Project
+import com.intellij.openapi.project.ProjectManager
 import com.intellij.openapi.ui.TextBrowseFolderListener
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
+import com.intellij.psi.search.FileTypeIndex
+import com.intellij.psi.search.GlobalSearchScope
 import com.intellij.ui.layout.panel
+import com.intellij.util.EnvironmentUtil
+import com.intellij.util.indexing.FileBasedIndex
+import nl.shadowlink.mission.plugin.MissionFileType
+import nl.shadowlink.mission.plugin.extensions.println
 import nl.shadowlink.mission.plugin.game.Game
 import nl.shadowlink.mission.plugin.run.MissionRunConfiguration
 import javax.swing.DefaultComboBoxModel
@@ -15,6 +23,7 @@ class MissionRunConfigSettingsEditor : SettingsEditor<MissionRunConfiguration>()
     private val gamePathField = createGameInstallBrowseTextField(Game.VC)
     private val gameComboBoxModel = DefaultComboBoxModel<String>(arrayOf(Game.III.gameName, Game.VC.gameName, Game.SA.gameName))
     private var comboBoxTest: String? = null
+    private var scriptFile: String? = null
 
     override fun resetEditorFrom(missionRunConfiguration: MissionRunConfiguration) {
         gamePathField.text = missionRunConfiguration.gamePath
@@ -31,7 +40,21 @@ class MissionRunConfigSettingsEditor : SettingsEditor<MissionRunConfiguration>()
                 label("Game directory")
                 gamePathField(grow)
             }
+            row {
+                label("Main script")
+                comboBox(DefaultComboBoxModel<String>(scriptFiles()), ::scriptFile)
+            }
         }
+    }
+
+    private fun scriptFiles(): Array<String> {
+        return FileBasedIndex.getInstance()
+                .getContainingFiles(
+                        FileTypeIndex.NAME,
+                        MissionFileType,
+                        GlobalSearchScope.allScope(ProjectManager.getInstance().openProjects[0])
+                ).map { file -> file.name }
+                .toTypedArray()
     }
 
     override fun applyEditorTo(missionRunConfiguration: MissionRunConfiguration) {

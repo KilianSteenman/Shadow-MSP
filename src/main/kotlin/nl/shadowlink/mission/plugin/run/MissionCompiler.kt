@@ -14,7 +14,7 @@ import java.io.File
 
 internal class MissionCompiler {
 
-    fun compileFile(file: VirtualFile, projectPath: String, game: Game, console: ConsoleView, fileCompiled: (() -> Unit)?) {
+    fun compileFile(file: VirtualFile, projectPath: String, gamePath: String, game: Game, console: ConsoleView, fileCompiled: (() -> Unit)?) {
         val filePath = "Z:$projectPath\\${file.name}"
         console.println("Compiling $file", ConsoleViewContentType.NORMAL_OUTPUT)
         try {
@@ -38,6 +38,13 @@ internal class MissionCompiler {
                         sannyLogFile.delete()
                     } else {
                         console.println("Compilation done")
+
+                        if(file.name == "stripped.dsc") {
+                            val compiledFile = File("${projectPath.replace("\\", "/")}/stripped.scm")
+                            val targetFile = File("${gamePath.replace("\\", "/").replace("/gta-vc.exe", "")}/data/main.scm")
+                            compiledFile.copyTo(targetFile, overwrite = true)
+                            console.println("Copied to game dir")
+                        }
                     }
                     fileCompiled?.invoke()
                 }
