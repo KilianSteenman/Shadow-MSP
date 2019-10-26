@@ -1,16 +1,14 @@
 package nl.shadowlink.mission.plugin.run
 
 import com.intellij.execution.ExecutionException
-import com.intellij.execution.ExecutionResult
-import com.intellij.execution.Executor
 import com.intellij.execution.configurations.*
 import com.intellij.execution.runners.ExecutionEnvironment
 import com.intellij.execution.runners.ProgramRunner
-import com.intellij.openapi.options.SettingsEditor
 import nl.shadowlink.mission.plugin.extensions.log
 import com.intellij.execution.configurations.GeneralCommandLine
 import com.intellij.execution.filters.TextConsoleBuilderFactory
 import com.intellij.execution.process.*
+import com.intellij.execution.runners.DefaultProgramRunner
 import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.openapi.wm.ToolWindowAnchor
 import com.intellij.openapi.wm.ToolWindowManager
@@ -22,10 +20,19 @@ import com.intellij.util.indexing.FileBasedIndex
 import nl.shadowlink.mission.plugin.MissionFileType
 import nl.shadowlink.mission.plugin.extensions.println
 
-
-class MissionProgramRunner : ProgramRunner<MissionRunnerSettings> {
+class MissionProgramRunner : DefaultProgramRunner() {
 
     override fun execute(environment: ExecutionEnvironment) {
+        val runConfiguration = environment.runProfile
+        var gamePath = ""
+        if (runConfiguration is MissionRunConfiguration) {
+            gamePath = runConfiguration.gamePath
+        }
+
+        if (gamePath.isEmpty()) {
+            throw ExecutionException("GamePath not set")
+        }
+
         val console = TextConsoleBuilderFactory.getInstance().createBuilder(environment.project).console
         val manager = ToolWindowManager.getInstance(environment.project)
 
@@ -42,15 +49,16 @@ class MissionProgramRunner : ProgramRunner<MissionRunnerSettings> {
 
         console.println("Compiling...")
 
-        compileFiles(console, environment) { launchGame(console) }
+        compileFiles(console, environment) { launchGame(console, gamePath) }
     }
 
-    private fun launchGame(console: ConsoleView) {
+    private fun launchGame(console: ConsoleView, gamePath: String) {
         console.println("Launching game...")
 
         GeneralCommandLine()
                 .withExePath("wine")
-                .withParameters("/Users/kilian/.wine/drive_c/Program Files/Steam/steamapps/common/Grand Theft Auto Vice City/gta-vc.exe")
+                .withParameters(gamePath)
+                .also { console.println(it.commandLineString, ConsoleViewContentType.LOG_DEBUG_OUTPUT) }
                 .createProcess()
     }
 
@@ -113,23 +121,22 @@ class MissionProgramRunner : ProgramRunner<MissionRunnerSettings> {
         log().warn("Execute")
     }
 
-    override fun onProcessStarted(settings: RunnerSettings?, executionResult: ExecutionResult?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun getSettingsEditor(executor: Executor?, configuration: RunConfiguration?): SettingsEditor<MissionRunnerSettings>? {
+//    override fun onProcessStarted(settings: RunnerSettings?, executionResult: ExecutionResult?) {
 //        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        return null
-    }
+//    }
 
-    override fun createConfigurationData(settingsProvider: ConfigurationInfoProvider?): MissionRunnerSettings? {
-//        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        return null
-    }
+//    override fun getSettingsEditor(executor: Executor?, configuration: RunConfiguration?): SettingsEditor<MissionRunnerSettings>? {
+////        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+//        return null//MissionRunConfigSettingsEditor()// as SettingsEditor<MissionRunnerSettings>
+//    }
 
-    override fun checkConfiguration(settings: RunnerSettings?, configurationPerRunnerSettings: ConfigurationPerRunnerSettings?) {
+//    override fun createConfigurationData(settingsProvider: ConfigurationInfoProvider?): MissionRunnerSettings {
+//        return MissionRunnerSettings()
+//    }
+
+//    override fun checkConfiguration(settings: RunnerSettings?, configurationPerRunnerSettings: ConfigurationPerRunnerSettings?) {
 //        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+//    }
 
     override fun canRun(executorId: String, profile: RunProfile): Boolean {
         return executorId == "Run"

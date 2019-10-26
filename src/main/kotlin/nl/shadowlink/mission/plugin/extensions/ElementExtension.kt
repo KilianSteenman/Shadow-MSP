@@ -1,0 +1,17 @@
+package nl.shadowlink.mission.plugin.extensions
+
+import org.jdom.Element
+
+internal fun Element.writeString(name: String, value: String) {
+    addContent(Element("option").apply {
+        setAttribute("name", name)
+        setAttribute("value", value)
+    })
+}
+
+internal fun Element.readString(name: String): String? =
+        children.find { it.name == "option" && it.getAttributeValue("name") == name }
+                ?.getAttributeValue("value")
+
+internal fun Element.readString(name: String, defaultValue: String): String =
+        readString(name) ?: defaultValue
