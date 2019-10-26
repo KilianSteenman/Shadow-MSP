@@ -91,8 +91,8 @@ class MissionLexer : LexerBase() {
         private val JUMP_REF = Pattern.compile("@.+")
         private val STRING = Pattern.compile("'.+'")
         private val SPACE = Pattern.compile("\\s+")
-        private val MODEL = Pattern.compile("#\\w+")
-        private val SYMBOL = Pattern.compile("\\$\\w+")
+        private val MODEL = Pattern.compile("#\\w*")
+        private val SYMBOL = Pattern.compile("\\$\\w*")
         private val FLOAT = Pattern.compile("-?\\d+\\.\\d+")
         private val INT = Pattern.compile("-?\\d+")
     }
