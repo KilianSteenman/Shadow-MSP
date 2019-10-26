@@ -5,14 +5,15 @@ import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.ui.TextBrowseFolderListener
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.ui.layout.panel
+import nl.shadowlink.mission.plugin.game.Game
 import nl.shadowlink.mission.plugin.run.MissionRunConfiguration
 import javax.swing.DefaultComboBoxModel
 import javax.swing.JComponent
 
 class MissionRunConfigSettingsEditor : SettingsEditor<MissionRunConfiguration>() {
 
-    private val gamePathField = createGameInstallBrowseTextField()
-    private val gameComboBoxModel = DefaultComboBoxModel<String>(arrayOf("GTA: III", "GTA: VC", "GTA: SA"))
+    private val gamePathField = createGameInstallBrowseTextField(Game.VC)
+    private val gameComboBoxModel = DefaultComboBoxModel<String>(arrayOf(Game.III.gameName, Game.VC.gameName, Game.SA.gameName))
     private var comboBoxTest: String? = null
 
     override fun resetEditorFrom(missionRunConfiguration: MissionRunConfiguration) {
@@ -38,14 +39,13 @@ class MissionRunConfigSettingsEditor : SettingsEditor<MissionRunConfiguration>()
         missionRunConfiguration.game = gameComboBoxModel.selectedItem as String? ?: ""
     }
 
-    private fun createGameInstallBrowseTextField(): TextFieldWithBrowseButton {
+    private fun createGameInstallBrowseTextField(game: Game): TextFieldWithBrowseButton {
         val field = TextFieldWithBrowseButton()
 
         val chooseDirectoryDescriptor = FileChooserDescriptorFactory.createSingleLocalFileDescriptor().apply {
             isHideIgnored = false
-            title = "Select game (gta-vc.exe)"
+            title = "Select game (${game.exeName})"
             isShowFileSystemRoots = false
-            withFileFilter { file -> file.nameWithoutExtension == "gta-vc.exe" && file.extension == "exe" }
         }
 
         field.addBrowseFolderListener(TextBrowseFolderListener(chooseDirectoryDescriptor))
