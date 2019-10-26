@@ -83,23 +83,6 @@ class MissionProgramRunner : DefaultProgramRunner() {
         log().warn("Execute")
     }
 
-//    override fun onProcessStarted(settings: RunnerSettings?, executionResult: ExecutionResult?) {
-//        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-//    }
-
-//    override fun getSettingsEditor(executor: Executor?, configuration: RunConfiguration?): SettingsEditor<MissionRunnerSettings>? {
-////        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-//        return null//MissionRunConfigSettingsEditor()// as SettingsEditor<MissionRunnerSettings>
-//    }
-
-//    override fun createConfigurationData(settingsProvider: ConfigurationInfoProvider?): MissionRunnerSettings {
-//        return MissionRunnerSettings()
-//    }
-
-//    override fun checkConfiguration(settings: RunnerSettings?, configurationPerRunnerSettings: ConfigurationPerRunnerSettings?) {
-//        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-//    }
-
     override fun canRun(executorId: String, profile: RunProfile): Boolean {
         return executorId == "Run"
     }
