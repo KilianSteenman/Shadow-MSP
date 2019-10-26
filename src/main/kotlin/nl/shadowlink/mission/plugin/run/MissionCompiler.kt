@@ -7,12 +7,15 @@ import com.intellij.execution.process.ProcessAdapter
 import com.intellij.execution.process.ProcessEvent
 import com.intellij.execution.ui.ConsoleView
 import com.intellij.execution.ui.ConsoleViewContentType
+import com.intellij.openapi.vfs.VirtualFile
 import nl.shadowlink.mission.plugin.extensions.println
 import nl.shadowlink.mission.plugin.game.Game
+import java.io.File
 
 internal class MissionCompiler {
 
-    fun compileFile(file: String, game: Game, console: ConsoleView, fileCompiled: (() -> Unit)?) {
+    fun compileFile(file: VirtualFile, projectPath: String, game: Game, console: ConsoleView, fileCompiled: (() -> Unit)?) {
+        val filePath = "Z:$projectPath\\${file.name}"
         console.println("Compiling $file", ConsoleViewContentType.NORMAL_OUTPUT)
         try {
             val handler = OSProcessHandler(GeneralCommandLine()
@@ -21,13 +24,21 @@ internal class MissionCompiler {
                     .withParameters("\\${game.sannyGameTypeParam}")
                     .withParameters("\\nosplash")
                     .withParameters("\\compile")
-                    .withParameters(file)
+                    .withParameters(filePath)
             )
             handler.startNotify()
             handler.addProcessListener(object : ProcessAdapter() {
 
                 override fun processTerminated(event: ProcessEvent) {
-                    console.println("Compilation done")
+                    console.println("Checking ${projectPath.replace("\\", "/")}/compile.log")
+                    val sannyLogFile = File("${projectPath.replace("\\", "/")}/compile.log")
+                    if(sannyLogFile.exists()) {
+                        console.println("Compilation failed", ConsoleViewContentType.ERROR_OUTPUT)
+                        console.println(sannyLogFile.readText(), ConsoleViewContentType.ERROR_OUTPUT)
+                        sannyLogFile.delete()
+                    } else {
+                        console.println("Compilation done")
+                    }
                     fileCompiled?.invoke()
                 }
 

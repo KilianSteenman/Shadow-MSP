@@ -51,7 +51,7 @@ class MissionProgramRunner : DefaultProgramRunner() {
 
         console.println("Compiling...")
 
-        compileFiles(console, environment) { launcher.launchGame(console, gamePath) }
+        compileFiles(console, environment) { /*launcher.launchGame(console, gamePath)*/ }
     }
 
     private fun compileFiles(console: ConsoleView, environment: ExecutionEnvironment, compilationFinished: () -> Unit) {
@@ -72,7 +72,7 @@ class MissionProgramRunner : DefaultProgramRunner() {
     private fun compileFile(files: List<VirtualFile>, projectPath: String, fileIndex: Int, console: ConsoleView, compilationFinished: (() -> Unit)? = null) {
         val file = files.toList().getOrNull(fileIndex)
         if (file != null) {
-            compiler.compileFile("Z:$projectPath\\${file.name}", Game.VC, console) { compileFile(files, projectPath, fileIndex + 1, console, compilationFinished) }
+            compiler.compileFile(file, projectPath, Game.VC, console) { compileFile(files, projectPath, fileIndex + 1, console, compilationFinished) }
         } else {
             console.println("All files compiled")
             compilationFinished?.invoke()
