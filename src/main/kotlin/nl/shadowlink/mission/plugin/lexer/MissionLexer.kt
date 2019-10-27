@@ -65,6 +65,7 @@ class MissionLexer : LexerBase() {
             isMatch(SYMBOL) -> MissionTokenType.SYMBOL
             isMatch(FLOAT) -> MissionTokenType.FLOAT
             isMatch(INT) -> MissionTokenType.INT
+            isMatch(DEFINE) -> MissionTokenType.DEFINE
             else -> {
                 firstTokenStart = firstTokenEnd
                 firstTokenEnd += 1
@@ -95,5 +96,6 @@ class MissionLexer : LexerBase() {
         private val SYMBOL = Pattern.compile("\\$\\w*")
         private val FLOAT = Pattern.compile("-?\\d+\\.\\d+")
         private val INT = Pattern.compile("-?\\d+")
+        private val DEFINE = Pattern.compile("DEFINE")
     }
 }

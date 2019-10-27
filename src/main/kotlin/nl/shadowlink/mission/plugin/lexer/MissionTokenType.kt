@@ -16,7 +16,8 @@ class MissionTokenType(type: Type) : IElementType(type.name, MissionLanguage) {
         ERROR,
         SYMBOL,
         FLOAT,
-        INT
+        INT,
+        DEFINE
     }
 
     companion object {
@@ -31,6 +32,7 @@ class MissionTokenType(type: Type) : IElementType(type.name, MissionLanguage) {
         val SYMBOL = MissionTokenType(Type.SYMBOL)
         val FLOAT = MissionTokenType(Type.FLOAT)
         val INT = MissionTokenType(Type.INT)
+        val DEFINE = MissionTokenType(Type.DEFINE)
 
         val WHITE_SPACE_TYPES = TokenSet.create(SPACE)
         val COMMENT_TYPES = TokenSet.create(COMMENT)
