@@ -24,6 +24,7 @@
         <lang.commenter language="MissionScript" implementationClass="nl.shadowlink.mission.plugin.commenter.MissionCommenter"/>
 
         <annotator language="MissionScript" implementationClass="nl.shadowlink.mission.plugin.annotator.MissionAnnotator"/>
+        <completion.contributor language="MissionScript" implementationClass="nl.shadowlink.mission.plugin.completion.MissionCompletionContributor"/>
 
         <colorSettingsPage implementation="nl.shadowlink.mission.plugin.highlighter.MissionColorSettingsPage"/>
 
