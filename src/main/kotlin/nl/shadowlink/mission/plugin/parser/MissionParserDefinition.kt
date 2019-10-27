@@ -34,6 +34,7 @@ class MissionParserDefinition : ParserDefinition {
             MissionTokenType.LABEL_REF -> LabelReferenceElement(node)
             MissionTokenType.STRING -> StringElement(node)
             MissionTokenType.SYMBOL -> GlobalVarReferenceElement(node)
+            MissionTokenType.MODEL -> ModelElement(node)
             else -> DefaultElement(node)
         }
     }
