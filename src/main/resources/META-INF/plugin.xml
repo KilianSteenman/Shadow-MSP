@@ -17,16 +17,27 @@
         <fileType name="Mission Script file" implementationClass="nl.shadowlink.mission.plugin.MissionFileType"
                   language="MissionScript" extensions="dsc"/>
 
-        <lang.parserDefinition language="MissionScript" implementationClass="nl.shadowlink.mission.plugin.parser.MissionParserDefinition"/>
-        <lang.syntaxHighlighterFactory language="MissionScript" implementationClass="nl.shadowlink.mission.plugin.highlighter.MissionHighlighterFactory"/>
-        <lang.refactoringSupport language="MissionScript" implementationClass="nl.shadowlink.mission.plugin.refactoring.MissionRefactoringSupportProvider"/>
-        <lang.findUsagesProvider language="MissionScript" implementationClass="nl.shadowlink.mission.plugin.usages.MissionFindUsagesProvider"/>
-        <lang.commenter language="MissionScript" implementationClass="nl.shadowlink.mission.plugin.commenter.MissionCommenter"/>
+        <lang.parserDefinition language="MissionScript"
+                               implementationClass="nl.shadowlink.mission.plugin.parser.MissionParserDefinition"/>
+        <lang.syntaxHighlighterFactory language="MissionScript"
+                                       implementationClass="nl.shadowlink.mission.plugin.highlighter.MissionHighlighterFactory"/>
+        <lang.refactoringSupport language="MissionScript"
+                                 implementationClass="nl.shadowlink.mission.plugin.refactoring.MissionRefactoringSupportProvider"/>
+        <lang.findUsagesProvider language="MissionScript"
+                                 implementationClass="nl.shadowlink.mission.plugin.usages.MissionFindUsagesProvider"/>
+        <lang.commenter language="MissionScript"
+                        implementationClass="nl.shadowlink.mission.plugin.commenter.MissionCommenter"/>
 
-        <annotator language="MissionScript" implementationClass="nl.shadowlink.mission.plugin.annotator.MissionAnnotator"/>
-        <completion.contributor language="MissionScript" implementationClass="nl.shadowlink.mission.plugin.completion.MissionCompletionContributor"/>
+        <annotator language="MissionScript"
+                   implementationClass="nl.shadowlink.mission.plugin.annotator.MissionAnnotator"/>
+        <completion.contributor language="MissionScript"
+                                implementationClass="nl.shadowlink.mission.plugin.completion.MissionCompletionContributor"/>
 
+        <!-- Settings -->
         <colorSettingsPage implementation="nl.shadowlink.mission.plugin.highlighter.MissionColorSettingsPage"/>
+        <applicationConfigurable instance="nl.shadowlink.mission.plugin.configuration.MissionConfiguration"
+                                 groupId="language"
+                                 id="MissionScript"/>
 
         <!-- Run related extensions -->
         <configurationType implementation="nl.shadowlink.mission.plugin.run.MissionConfigurationType"/>
