@@ -8,13 +8,14 @@ import com.intellij.psi.tree.TokenSet
 import com.intellij.lang.cacheBuilder.DefaultWordsScanner
 import nl.shadowlink.mission.plugin.lexer.MissionLexer
 import nl.shadowlink.mission.plugin.lexer.MissionTokenType
+import nl.shadowlink.mission.plugin.psi.ModelElement
 import kotlin.reflect.jvm.jvmName
 
 class MissionFindUsagesProvider: FindUsagesProvider {
 
     override fun getWordsScanner(): WordsScanner {
         return DefaultWordsScanner(MissionLexer(),
-                TokenSet.create(MissionTokenType.LABEL, MissionTokenType.LABEL_REF),
+                MissionTokenType.LABEL_TYPES,
                 MissionTokenType.COMMENT_TYPES,
                 TokenSet.EMPTY
         )

@@ -35,5 +35,6 @@ class MissionTokenType(type: Type) : IElementType(type.name, MissionLanguage) {
         val WHITE_SPACE_TYPES = TokenSet.create(SPACE)
         val COMMENT_TYPES = TokenSet.create(COMMENT)
         val STRING_TYPES = TokenSet.create(STRING)
+        val LABEL_TYPES = TokenSet.create(LABEL, LABEL_REF)
     }
 }
