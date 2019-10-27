@@ -8,6 +8,7 @@ import com.intellij.execution.process.ProcessEvent
 import com.intellij.execution.ui.ConsoleView
 import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.openapi.vfs.VirtualFile
+import nl.shadowlink.mission.plugin.configuration.MissionSettings
 import nl.shadowlink.mission.plugin.extensions.println
 import nl.shadowlink.mission.plugin.game.Game
 import java.io.File
@@ -20,7 +21,7 @@ internal class MissionCompiler {
         try {
             val handler = OSProcessHandler(GeneralCommandLine()
                     .withExePath("wine")
-                    .withParameters("/Users/kilian/.wine/drive_c/Program Files/Sanny Builder 3/sanny.exe")
+                    .withParameters(MissionSettings().sannyPath)
                     .withParameters("\\${game.sannyGameTypeParam}")
                     .withParameters("\\nosplash")
                     .withParameters("\\compile")
