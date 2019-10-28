@@ -15,14 +15,14 @@ import java.io.File
 
 internal class MissionCompiler {
 
-    fun compileFile(file: VirtualFile, projectPath: String, gamePath: String, game: Game, console: ConsoleView, fileCompiled: (() -> Unit)?) {
+    fun compileFile(missionSettings: MissionSettings, runConfig: MissionRunConfiguration, file: VirtualFile, projectPath: String, console: ConsoleView, fileCompiled: (() -> Unit)?) {
         val filePath = "Z:$projectPath\\${file.name}"
         console.println("Compiling $file", ConsoleViewContentType.NORMAL_OUTPUT)
         try {
             val handler = OSProcessHandler(GeneralCommandLine()
                     .withExePath("wine")
-                    .withParameters(MissionSettings().sannyPath)
-                    .withParameters("\\${game.sannyGameTypeParam}")
+                    .withParameters(missionSettings.sannyPath)
+                    .withParameters("\\${runConfig.game.sannyGameTypeParam}")
                     .withParameters("\\nosplash")
                     .withParameters("\\compile")
                     .withParameters(filePath)
@@ -42,7 +42,7 @@ internal class MissionCompiler {
 
                         if(file.name == "stripped.dsc") {
                             val compiledFile = File("${projectPath.replace("\\", "/")}/stripped.scm")
-                            val targetFile = File("${gamePath.replace("\\", "/").replace("/gta-vc.exe", "")}/data/main.scm")
+                            val targetFile = File("${runConfig.gamePath.replace("\\", "/").replace("/gta-vc.exe", "")}/data/main.scm")
                             compiledFile.copyTo(targetFile, overwrite = true)
                             console.println("Copied to game dir")
                         }

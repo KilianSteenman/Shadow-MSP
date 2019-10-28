@@ -15,8 +15,8 @@ import com.intellij.psi.search.FileTypeIndex
 import com.intellij.psi.search.GlobalSearchScope
 import com.intellij.util.indexing.FileBasedIndex
 import nl.shadowlink.mission.plugin.MissionFileType
+import nl.shadowlink.mission.plugin.configuration.MissionSettings
 import nl.shadowlink.mission.plugin.extensions.println
-import nl.shadowlink.mission.plugin.game.Game
 
 class MissionProgramRunner : DefaultProgramRunner() {
 
@@ -51,10 +51,10 @@ class MissionProgramRunner : DefaultProgramRunner() {
 
         console.println("Compiling...")
 
-        compileFiles(gamePath, console, environment) { launcher.launchGame(console, gamePath) }
+        compileFiles(runConfiguration as MissionRunConfiguration, console, environment) { launcher.launchGame(console, gamePath) }
     }
 
-    private fun compileFiles(gamePath: String, console: ConsoleView, environment: ExecutionEnvironment, compilationFinished: () -> Unit) {
+    private fun compileFiles(runConfig: MissionRunConfiguration, console: ConsoleView, environment: ExecutionEnvironment, compilationFinished: () -> Unit) {
         val projectPath = environment.project.basePath!!.replace("/", "\\")
 
         val files = FileBasedIndex.getInstance()
@@ -66,13 +66,13 @@ class MissionProgramRunner : DefaultProgramRunner() {
                     it.forEach { file -> console.println("File ${file.name}") }
                 }
 
-        compileFile(files.toList(), projectPath, gamePath, 0, console, compilationFinished)
+        compileFile(files.toList(), projectPath, runConfig, 0, console, compilationFinished)
     }
 
-    private fun compileFile(files: List<VirtualFile>, projectPath: String, gamePath: String, fileIndex: Int, console: ConsoleView, compilationFinished: (() -> Unit)? = null) {
+    private fun compileFile(files: List<VirtualFile>, projectPath: String, runConfig: MissionRunConfiguration, fileIndex: Int, console: ConsoleView, compilationFinished: (() -> Unit)? = null) {
         val file = files.toList().getOrNull(fileIndex)
         if (file != null) {
-            compiler.compileFile(file, projectPath, gamePath, Game.VC, console) { compileFile(files, projectPath, gamePath, fileIndex + 1, console, compilationFinished) }
+            compiler.compileFile(MissionSettings(), runConfig, file, projectPath, console) { compileFile(files, projectPath, runConfig, fileIndex + 1, console, compilationFinished) }
         } else {
             console.println("All files compiled")
             compilationFinished?.invoke()

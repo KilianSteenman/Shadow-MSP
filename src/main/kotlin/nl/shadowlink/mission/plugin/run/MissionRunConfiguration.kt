@@ -10,14 +10,15 @@ import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
 import nl.shadowlink.mission.plugin.extensions.readString
 import nl.shadowlink.mission.plugin.extensions.writeString
+import nl.shadowlink.mission.plugin.game.Game
 import nl.shadowlink.mission.plugin.run.ui.MissionRunConfigSettingsEditor
 import org.jdom.Element
 
-class MissionRunConfiguration(project: Project, factory: ConfigurationFactory?, name: String?) : RunConfigurationBase<MissionRunState>(project, factory, name) {
+internal class MissionRunConfiguration(project: Project, factory: ConfigurationFactory?, name: String?) : RunConfigurationBase<MissionRunState>(project, factory, name) {
 
     var gamePath: String = ""
 
-    var game: String = ""
+    var game: Game = Game.VC
 
     override fun getConfigurationEditor(): SettingsEditor<out RunConfiguration> {
         return MissionRunConfigSettingsEditor()
@@ -30,12 +31,12 @@ class MissionRunConfiguration(project: Project, factory: ConfigurationFactory?, 
     override fun writeExternal(element: Element) {
         super.writeExternal(element)
         element.writeString("path", gamePath)
-        element.writeString("game", game)
+//        element.writeString("game", game)
     }
 
     override fun readExternal(element: Element) {
         super.readExternal(element)
         gamePath = element.readString("path", "")
-        game = element.readString("game", "")
+//        game = element.readString("game", "")
     }
 }

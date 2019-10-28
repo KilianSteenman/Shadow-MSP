@@ -18,7 +18,7 @@ import nl.shadowlink.mission.plugin.run.MissionRunConfiguration
 import javax.swing.DefaultComboBoxModel
 import javax.swing.JComponent
 
-class MissionRunConfigSettingsEditor : SettingsEditor<MissionRunConfiguration>() {
+internal class MissionRunConfigSettingsEditor : SettingsEditor<MissionRunConfiguration>() {
 
     private val gamePathField = createGameInstallBrowseTextField(Game.VC)
     private val gameComboBoxModel = DefaultComboBoxModel<String>(arrayOf(Game.III.gameName, Game.VC.gameName, Game.SA.gameName))
@@ -59,7 +59,7 @@ class MissionRunConfigSettingsEditor : SettingsEditor<MissionRunConfiguration>()
 
     override fun applyEditorTo(missionRunConfiguration: MissionRunConfiguration) {
         missionRunConfiguration.gamePath = gamePathField.text
-        missionRunConfiguration.game = gameComboBoxModel.selectedItem as String? ?: ""
+//        missionRunConfiguration.game = gameComboBoxModel.selectedItem as String? ?: ""
     }
 
     private fun createGameInstallBrowseTextField(game: Game): TextFieldWithBrowseButton {
