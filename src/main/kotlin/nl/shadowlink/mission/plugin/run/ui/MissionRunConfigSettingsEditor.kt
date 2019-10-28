@@ -15,12 +15,15 @@ import nl.shadowlink.mission.plugin.MissionFileType
 import nl.shadowlink.mission.plugin.extensions.println
 import nl.shadowlink.mission.plugin.game.Game
 import nl.shadowlink.mission.plugin.run.MissionRunConfiguration
+import java.awt.event.ActionEvent
 import javax.swing.DefaultComboBoxModel
+import javax.swing.JCheckBox
 import javax.swing.JComponent
 
 internal class MissionRunConfigSettingsEditor : SettingsEditor<MissionRunConfiguration>() {
 
     private val gamePathField = createGameInstallBrowseTextField(Game.VC)
+    private val launchGameCheckbox = JCheckBox()
     private val gameComboBoxModel = DefaultComboBoxModel<String>(arrayOf(Game.III.gameName, Game.VC.gameName, Game.SA.gameName))
     private var comboBoxTest: String? = null
     private var scriptFile: String? = null
@@ -28,6 +31,7 @@ internal class MissionRunConfigSettingsEditor : SettingsEditor<MissionRunConfigu
     override fun resetEditorFrom(missionRunConfiguration: MissionRunConfiguration) {
         gamePathField.text = missionRunConfiguration.gamePath
         gameComboBoxModel.selectedItem = missionRunConfiguration.game
+        launchGameCheckbox.isSelected = missionRunConfiguration.launchGame
     }
 
     override fun createEditor(): JComponent {
@@ -44,6 +48,10 @@ internal class MissionRunConfigSettingsEditor : SettingsEditor<MissionRunConfigu
                 label("Main script")
                 comboBox(DefaultComboBoxModel<String>(scriptFiles()), ::scriptFile)
             }
+            row {
+                label("Launch game")
+                launchGameCheckbox(grow)
+            }
         }
     }
 
@@ -59,6 +67,7 @@ internal class MissionRunConfigSettingsEditor : SettingsEditor<MissionRunConfigu
 
     override fun applyEditorTo(missionRunConfiguration: MissionRunConfiguration) {
         missionRunConfiguration.gamePath = gamePathField.text
+        missionRunConfiguration.launchGame = launchGameCheckbox.isSelected
 //        missionRunConfiguration.game = gameComboBoxModel.selectedItem as String? ?: ""
     }
 

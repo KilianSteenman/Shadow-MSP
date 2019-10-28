@@ -51,7 +51,11 @@ class MissionProgramRunner : DefaultProgramRunner() {
 
         console.println("Compiling...")
 
-        compileFiles(runConfiguration as MissionRunConfiguration, console, environment) { launcher.launchGame(console, gamePath) }
+        compileFiles(runConfiguration as MissionRunConfiguration, console, environment) {
+            if(runConfiguration.launchGame) {
+                launcher.launchGame(console, gamePath)
+            }
+        }
     }
 
     private fun compileFiles(runConfig: MissionRunConfiguration, console: ConsoleView, environment: ExecutionEnvironment, compilationFinished: () -> Unit) {

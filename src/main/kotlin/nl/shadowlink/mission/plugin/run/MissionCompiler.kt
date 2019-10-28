@@ -26,6 +26,7 @@ internal class MissionCompiler {
                     .withParameters("\\nosplash")
                     .withParameters("\\compile")
                     .withParameters(filePath)
+                    .also { console.println(it.commandLineString, ConsoleViewContentType.LOG_DEBUG_OUTPUT) }
             )
             handler.startNotify()
             handler.addProcessListener(object : ProcessAdapter() {
