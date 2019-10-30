@@ -6,7 +6,7 @@ import java.io.File
 
 class OpcodeDatabase {
 
-    private val opcodes = mutableListOf<String>()
+    val opcodes = mutableListOf<String>()
 
     init {
         val opcodesFilePath = MissionSettings().sannyPath.replace("sanny.exe", "data/vc/opcodes.txt")

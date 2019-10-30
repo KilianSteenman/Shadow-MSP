@@ -1,7 +1,6 @@
 package nl.shadowlink.mission.plugin.highlighter
 
 import com.intellij.lexer.Lexer
-import com.intellij.openapi.editor.DefaultLanguageHighlighterColors
 import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.openapi.fileTypes.SyntaxHighlighterBase
 import com.intellij.psi.tree.IElementType
@@ -23,7 +22,11 @@ class MissionHighlighter : SyntaxHighlighterBase() {
                 MissionTokenType.LABEL_REF -> arrayOf(MissionColor.LABEL_REF.attributesKey)
                 MissionTokenType.SYMBOL -> arrayOf(MissionColor.GLOBAL_VAR.attributesKey)
                 MissionTokenType.LOCAL_VAR -> arrayOf(MissionColor.LOCAL_VAR.attributesKey)
-                MissionTokenType.DEFINE -> arrayOf(MissionColor.KEYWORD.attributesKey)
+                MissionTokenType.KEY_DEFINE -> arrayOf(MissionColor.KEYWORD.attributesKey)
+                MissionTokenType.KEY_OBJECT -> arrayOf(MissionColor.KEYWORD.attributesKey)
+                MissionTokenType.KEY_OBJECTS -> arrayOf(MissionColor.KEYWORD.attributesKey)
+                MissionTokenType.KEY_MISSION -> arrayOf(MissionColor.KEYWORD.attributesKey)
+                MissionTokenType.KEY_MISSIONS -> arrayOf(MissionColor.KEYWORD.attributesKey)
                 else -> emptyArray()
             }
         } else {
