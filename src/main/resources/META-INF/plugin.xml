@@ -60,6 +60,13 @@
     </extensions>
 
     <actions>
-        <!-- Add your actions here -->
+
+        <action id="nl.shadowlink.mission.plugin.actions.OpenInSannyBuilderAction"
+                class="nl.shadowlink.mission.plugin.actions.OpenInSannyBuilderAction"
+                text="Open in Sanny Builder"
+                description="Open file in Sanny Builder">
+            <add-to-group group-id="RevealGroup" anchor="last"/>
+        </action>
+
     </actions>
 </idea-plugin>
