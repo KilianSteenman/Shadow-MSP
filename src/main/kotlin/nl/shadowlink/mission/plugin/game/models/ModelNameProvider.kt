@@ -1,4 +1,4 @@
-package nl.shadowlink.mission.plugin.game
+package nl.shadowlink.mission.plugin.game.models
 
 class ModelNameProvider {
 

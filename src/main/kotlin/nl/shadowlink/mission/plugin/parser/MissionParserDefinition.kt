@@ -32,9 +32,11 @@ class MissionParserDefinition : ParserDefinition {
         return when(node.elementType) {
             MissionTokenType.LABEL -> LabelDefinitionElement(node)
             MissionTokenType.LABEL_REF -> LabelReferenceElement(node)
-            MissionTokenType.STRING -> StringElement(node)
+            MissionTokenType.STRING_KEY -> StringKeyElement(node)
             MissionTokenType.SYMBOL -> GlobalVarReferenceElement(node)
             MissionTokenType.MODEL -> ModelElement(node)
+            MissionTokenType.OPCODE -> OpcodeElement(node)
+            MissionTokenType.STRING -> StringElement(node)
             else -> DefaultElement(node)
         }
     }

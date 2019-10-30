@@ -20,6 +20,7 @@ class MissionPsiParser : PsiParser {
                 MissionTokenType.LABEL_REF -> handleDefault(marker, builder, MissionTokenType.LABEL_REF)
                 MissionTokenType.SPACE -> handleDefault(marker, builder, MissionTokenType.SPACE)
                 MissionTokenType.STRING -> handleDefault(marker, builder, MissionTokenType.STRING)
+                MissionTokenType.STRING_KEY -> handleDefault(marker, builder, MissionTokenType.STRING_KEY)
                 MissionTokenType.MODEL -> handleDefault(marker, builder, MissionTokenType.MODEL)
                 MissionTokenType.SYMBOL -> handleDefault(marker, builder, MissionTokenType.SYMBOL)
                 MissionTokenType.FLOAT -> handleDefault(marker, builder, MissionTokenType.FLOAT)

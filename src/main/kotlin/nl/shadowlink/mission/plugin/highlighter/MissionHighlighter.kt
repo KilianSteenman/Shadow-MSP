@@ -14,6 +14,7 @@ class MissionHighlighter : SyntaxHighlighterBase() {
         return if (tokenType is MissionTokenType) {
             when (tokenType) {
                 MissionTokenType.STRING -> arrayOf(MissionColor.STRING.attributesKey)
+                MissionTokenType.STRING_KEY -> arrayOf(MissionColor.STRING.attributesKey)
                 MissionTokenType.COMMENT -> arrayOf(MissionColor.LINE_COMMENT.attributesKey)
                 MissionTokenType.MODEL -> arrayOf(DefaultLanguageHighlighterColors.CONSTANT)
                 MissionTokenType.INT -> arrayOf(MissionColor.NUMBER.attributesKey)

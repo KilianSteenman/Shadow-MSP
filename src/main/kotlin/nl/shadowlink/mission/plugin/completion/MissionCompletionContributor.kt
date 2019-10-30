@@ -5,7 +5,7 @@ import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.util.ProcessingContext
 import com.intellij.patterns.PlatformPatterns
 import nl.shadowlink.mission.plugin.MissionLanguage
-import nl.shadowlink.mission.plugin.game.ModelNameProvider
+import nl.shadowlink.mission.plugin.game.models.ModelNameProvider
 import nl.shadowlink.mission.plugin.lexer.MissionTokenType
 
 class MissionCompletionContributor : CompletionContributor() {

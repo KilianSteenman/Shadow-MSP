@@ -59,6 +59,7 @@ class MissionLexer : LexerBase() {
             isMatch(COMMENT) -> MissionTokenType.COMMENT
             isMatch(LABEL) -> MissionTokenType.LABEL
             isMatch(STRING) -> MissionTokenType.STRING
+            isMatch(STRING_KEY) -> MissionTokenType.STRING_KEY
             isMatch(JUMP_REF) -> MissionTokenType.LABEL_REF
             isMatch(SPACE) -> MissionTokenType.SPACE
             isMatch(MODEL) -> MissionTokenType.MODEL
@@ -90,7 +91,8 @@ class MissionLexer : LexerBase() {
         private val COMMENT = Pattern.compile("//.+")
         private val LABEL = Pattern.compile(":.+")
         private val JUMP_REF = Pattern.compile("@.+")
-        private val STRING = Pattern.compile("'.+'")
+        private val STRING_KEY = Pattern.compile("'.+'")
+        private val STRING = Pattern.compile("\".+\"")
         private val SPACE = Pattern.compile("\\s+")
         private val MODEL = Pattern.compile("#\\w*")
         private val SYMBOL = Pattern.compile("\\$\\w*")

@@ -12,6 +12,7 @@ class MissionTokenType(type: Type) : IElementType(type.name, MissionLanguage) {
         SPACE,
         INLINE_COMMENT,
         STRING,
+        STRING_KEY,
         MODEL,
         ERROR,
         SYMBOL,
@@ -26,6 +27,7 @@ class MissionTokenType(type: Type) : IElementType(type.name, MissionLanguage) {
         val LABEL_REF = MissionTokenType(Type.LABEL)
         val SPACE = MissionTokenType(Type.SPACE)
         val COMMENT = MissionTokenType(Type.INLINE_COMMENT)
+        val STRING_KEY = MissionTokenType(Type.STRING_KEY)
         val STRING = MissionTokenType(Type.STRING)
         val MODEL = MissionTokenType(Type.MODEL)
         val ERROR = MissionTokenType(Type.ERROR)
@@ -36,7 +38,7 @@ class MissionTokenType(type: Type) : IElementType(type.name, MissionLanguage) {
 
         val WHITE_SPACE_TYPES = TokenSet.create(SPACE)
         val COMMENT_TYPES = TokenSet.create(COMMENT)
-        val STRING_TYPES = TokenSet.create(STRING)
+        val STRING_TYPES = TokenSet.create(STRING_KEY, STRING)
         val LABEL_TYPES = TokenSet.create(LABEL, LABEL_REF)
     }
 }
