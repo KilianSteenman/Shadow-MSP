@@ -95,13 +95,20 @@ class MissionPsiParser : PsiParser {
         while (paramType != null && isValidOpcodeExpressionType(paramType)) {
             logWarn("ParamType: $paramType")
 
-            val tokenType = if(paramType == MissionTokenType.LOCAL_VAR) {
-                when(builder.lookAhead(1)) {
-                    MissionTokenType.EQUAL -> MissionTokenType.LOCAL_VAR_DEF
-                    else -> MissionTokenType.LOCAL_VAR_REF
+            val tokenType = when(paramType) {
+                MissionTokenType.LOCAL_VAR -> {
+                    when(builder.lookAhead(1)) {
+                        MissionTokenType.EQUAL -> MissionTokenType.LOCAL_VAR_DEF
+                        else -> MissionTokenType.LOCAL_VAR_REF
+                    }
                 }
-            } else {
-                paramType
+                MissionTokenType.GLOBAL_VAR -> {
+                    when(builder.lookAhead(1)) {
+                        MissionTokenType.EQUAL -> MissionTokenType.GLOBAL_VAR_DEF
+                        else -> MissionTokenType.GLOBAL_VAR_REF
+                    }
+                }
+                else -> paramType
             }
 
             val paramMarker = builder.mark()

@@ -15,7 +15,9 @@ class MissionTokenType(type: Type) : IElementType(type.name, MissionLanguage) {
         STRING_KEY,
         MODEL,
         ERROR,
-        SYMBOL,
+        GLOBAL_VAR,
+        GLOBAL_VAR_DEF,
+        GLOBAL_VAR_REF,
         LOCAL_VAR,
         LOCAL_VAR_REF,
         LOCAL_VAR_DEF,
@@ -41,7 +43,9 @@ class MissionTokenType(type: Type) : IElementType(type.name, MissionLanguage) {
         val STRING = MissionTokenType(Type.STRING)
         val MODEL = MissionTokenType(Type.MODEL)
         val ERROR = MissionTokenType(Type.ERROR)
-        val GLOBAL_VAR = MissionTokenType(Type.SYMBOL)
+        val GLOBAL_VAR = MissionTokenType(Type.GLOBAL_VAR)
+        val GLOBAL_VAR_DEF = MissionTokenType(Type.GLOBAL_VAR_DEF)
+        val GLOBAL_VAR_REF = MissionTokenType(Type.GLOBAL_VAR_REF)
         val LOCAL_VAR = MissionTokenType(Type.LOCAL_VAR)
         val LOCAL_VAR_REF = MissionTokenType(Type.LOCAL_VAR_REF)
         val LOCAL_VAR_DEF = MissionTokenType(Type.LOCAL_VAR_DEF)

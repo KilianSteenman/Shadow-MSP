@@ -14,12 +14,12 @@ class LocalVarReferenceElement(node: ASTNode) : LocalVarElement(node) {
     override fun getReference(): PsiReference? {
         val file = PsiTreeUtil.getParentOfType(this, PsiFile::class.java)
         val defs = PsiTreeUtil.collectElementsOfType(file, LocalVarDefinitionElement::class.java)
-        val labelDef = defs.firstOrNull { definition -> definition.name == this.name }
+        val localVarDef = defs.firstOrNull { definition -> definition.name == this.name }
 
-        if (labelDef != null) {
+        if (localVarDef != null) {
             return object : PsiReferenceBase<LocalVarReferenceElement>(this, TextRange(0, this.textLength)) {
                 override fun resolve(): PsiElement? {
-                    return labelDef
+                    return localVarDef
                 }
 
                 override fun handleElementRename(newName: String): PsiElement {
