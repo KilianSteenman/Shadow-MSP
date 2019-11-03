@@ -19,6 +19,8 @@ class MissionTokenType(type: Type) : IElementType(type.name, MissionLanguage) {
         LOCAL_VAR,
         FLOAT,
         INT,
+        EQUAL,
+        EQUALS,
         KEY_DEFINE,
         KEY_MISSIONS,
         KEY_MISSION,
@@ -41,6 +43,8 @@ class MissionTokenType(type: Type) : IElementType(type.name, MissionLanguage) {
         val LOCAL_VAR = MissionTokenType(Type.LOCAL_VAR)
         val FLOAT = MissionTokenType(Type.FLOAT)
         val INT = MissionTokenType(Type.INT)
+        val EQUALS = MissionTokenType(Type.EQUALS)
+        val EQUAL = MissionTokenType(Type.EQUAL)
         val KEY_DEFINE = MissionTokenType(Type.KEY_DEFINE)
         val KEY_MISSIONS = MissionTokenType(Type.KEY_MISSIONS)
         val KEY_MISSION = MissionTokenType(Type.KEY_MISSION)
@@ -52,7 +56,13 @@ class MissionTokenType(type: Type) : IElementType(type.name, MissionLanguage) {
         val COMMENT_TYPES = TokenSet.create(COMMENT)
         val STRING_TYPES = TokenSet.create(STRING_KEY, STRING)
         val LABEL_TYPES = TokenSet.create(LABEL, LABEL_REF)
-        val KEYWORD_TYPES = TokenSet.create(KEY_DEFINE, KEY_MISSIONS, KEY_MISSION, KEY_OBJECTS, KEY_OBJECT)
-        val OPCODE_EXPRESSION_TYPES = TokenSet.create(OPCODE_TEXT, STRING_KEY, STRING, MODEL, FLOAT, INT, GLOBAL_VAR, LABEL_REF, LOCAL_VAR)
+
+        val KEYWORD_TYPES = TokenSet.create(
+                KEY_DEFINE, KEY_MISSIONS, KEY_MISSION, KEY_OBJECTS, KEY_OBJECT
+        )
+
+        val OPCODE_EXPRESSION_TYPES = TokenSet.create(
+                OPCODE_TEXT, STRING_KEY, STRING, MODEL, FLOAT, INT, EQUAL, EQUALS, GLOBAL_VAR, LABEL_REF, LOCAL_VAR
+        )
     }
 }
