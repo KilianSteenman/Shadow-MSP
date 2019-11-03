@@ -8,7 +8,7 @@ import nl.shadowlink.mission.plugin.game.opcodes.OpcodeDatabaseFactory
 
 class OpcodeElement(node: ASTNode) : ASTWrapperPsiElement(node), Annotatable {
 
-    private val opcode: String get() = text.substring(0, textLength - 1)
+    private val opcode: String get() = text.substring(0, 4)
 
     override fun annotate(holder: AnnotationHolder) {
         if(!OpcodeDatabaseFactory.getDatabase().isOpcodeValid(opcode)) {

@@ -23,7 +23,8 @@ class MissionTokenType(type: Type) : IElementType(type.name, MissionLanguage) {
         KEY_MISSIONS,
         KEY_MISSION,
         KEY_OBJECTS,
-        KEY_OBJECT
+        KEY_OBJECT,
+        OPCODE_TEXT
     }
 
     companion object {
@@ -36,7 +37,7 @@ class MissionTokenType(type: Type) : IElementType(type.name, MissionLanguage) {
         val STRING = MissionTokenType(Type.STRING)
         val MODEL = MissionTokenType(Type.MODEL)
         val ERROR = MissionTokenType(Type.ERROR)
-        val SYMBOL = MissionTokenType(Type.SYMBOL)
+        val GLOBAL_VAR = MissionTokenType(Type.SYMBOL)
         val LOCAL_VAR = MissionTokenType(Type.LOCAL_VAR)
         val FLOAT = MissionTokenType(Type.FLOAT)
         val INT = MissionTokenType(Type.INT)
@@ -45,11 +46,13 @@ class MissionTokenType(type: Type) : IElementType(type.name, MissionLanguage) {
         val KEY_MISSION = MissionTokenType(Type.KEY_MISSION)
         val KEY_OBJECTS = MissionTokenType(Type.KEY_OBJECTS)
         val KEY_OBJECT = MissionTokenType(Type.KEY_OBJECT)
+        val OPCODE_TEXT = MissionTokenType(Type.OPCODE_TEXT)
 
         val WHITE_SPACE_TYPES = TokenSet.create(SPACE)
         val COMMENT_TYPES = TokenSet.create(COMMENT)
         val STRING_TYPES = TokenSet.create(STRING_KEY, STRING)
         val LABEL_TYPES = TokenSet.create(LABEL, LABEL_REF)
         val KEYWORD_TYPES = TokenSet.create(KEY_DEFINE, KEY_MISSIONS, KEY_MISSION, KEY_OBJECTS, KEY_OBJECT)
+        val OPCODE_EXPRESSION_TYPES = TokenSet.create(OPCODE_TEXT, STRING_KEY, STRING, MODEL, FLOAT, INT, GLOBAL_VAR, LABEL_REF, LOCAL_VAR)
     }
 }

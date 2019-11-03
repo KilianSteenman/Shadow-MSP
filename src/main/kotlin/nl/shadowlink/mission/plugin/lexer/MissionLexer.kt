@@ -63,7 +63,7 @@ class MissionLexer : LexerBase() {
             isMatch(JUMP_REF) -> MissionTokenType.LABEL_REF
             isMatch(SPACE) -> MissionTokenType.SPACE
             isMatch(MODEL) -> MissionTokenType.MODEL
-            isMatch(SYMBOL) -> MissionTokenType.SYMBOL
+            isMatch(SYMBOL) -> MissionTokenType.GLOBAL_VAR
             isMatch(LOCAL_VAR) -> MissionTokenType.LOCAL_VAR
             isMatch(FLOAT) -> MissionTokenType.FLOAT
             isMatch(INT) -> MissionTokenType.INT
@@ -72,6 +72,7 @@ class MissionLexer : LexerBase() {
             isMatch(KEY_MISSION) -> MissionTokenType.KEY_MISSION
             isMatch(KEY_OBJECTS) -> MissionTokenType.KEY_OBJECTS
             isMatch(KEY_OBJECT) -> MissionTokenType.KEY_OBJECT
+            isMatch(OPCODE_TEXT) -> MissionTokenType.OPCODE_TEXT
             else -> {
                 firstTokenStart = firstTokenEnd
                 firstTokenEnd += 1
@@ -104,6 +105,7 @@ class MissionLexer : LexerBase() {
         private val LOCAL_VAR = Pattern.compile("\\d{1,2}@")
         private val FLOAT = Pattern.compile("-?\\d+\\.\\d+")
         private val INT = Pattern.compile("-?\\d+")
+        private val OPCODE_TEXT = Pattern.compile("[a-zA-Z_=]+")
         private val KEY_DEFINE = Pattern.compile("DEFINE")
         private val KEY_OBJECTS = Pattern.compile("OBJECTS")
         private val KEY_OBJECT = Pattern.compile("OBJECT")

@@ -20,7 +20,7 @@ class MissionHighlighter : SyntaxHighlighterBase() {
                 MissionTokenType.FLOAT -> arrayOf(MissionColor.NUMBER.attributesKey)
                 MissionTokenType.LABEL -> arrayOf(MissionColor.LABEL.attributesKey)
                 MissionTokenType.LABEL_REF -> arrayOf(MissionColor.LABEL_REF.attributesKey)
-                MissionTokenType.SYMBOL -> arrayOf(MissionColor.GLOBAL_VAR.attributesKey)
+                MissionTokenType.GLOBAL_VAR -> arrayOf(MissionColor.GLOBAL_VAR.attributesKey)
                 MissionTokenType.LOCAL_VAR -> arrayOf(MissionColor.LOCAL_VAR.attributesKey)
                 MissionTokenType.KEY_DEFINE -> arrayOf(MissionColor.KEYWORD.attributesKey)
                 MissionTokenType.KEY_OBJECT -> arrayOf(MissionColor.KEYWORD.attributesKey)

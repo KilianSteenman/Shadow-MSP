@@ -14,6 +14,7 @@ import com.intellij.psi.tree.IFileElementType
 import nl.shadowlink.mission.plugin.MissionFile
 import nl.shadowlink.mission.plugin.lexer.MissionLexer
 import nl.shadowlink.mission.plugin.MissionLanguage
+import nl.shadowlink.mission.plugin.lexer.MissionExpressionType
 import nl.shadowlink.mission.plugin.lexer.MissionTokenType
 import nl.shadowlink.mission.plugin.psi.*
 
@@ -30,10 +31,15 @@ class MissionParserDefinition : ParserDefinition {
 
     override fun createElement(node: ASTNode): PsiElement {
         return when(node.elementType) {
+            MissionExpressionType.DEFINE_MISSION_COUNT -> DefineMissionCountElement(node)
+            MissionExpressionType.DEFINE_OBJECT_COUNT -> DefineObjectCountElement(node)
+            MissionExpressionType.OPCODE_EXPRESSION -> OpcodeExpression(node)
+            MissionTokenType.KEY_DEFINE -> DefinitionElement(node)
+            MissionTokenType.KEY_OBJECTS -> ObjectCountElement(node)
             MissionTokenType.LABEL -> LabelDefinitionElement(node)
             MissionTokenType.LABEL_REF -> LabelReferenceElement(node)
             MissionTokenType.STRING_KEY -> StringKeyElement(node)
-            MissionTokenType.SYMBOL -> GlobalVarReferenceElement(node)
+            MissionTokenType.GLOBAL_VAR -> GlobalVarReferenceElement(node)
             MissionTokenType.LOCAL_VAR -> LocalVarElement(node)
             MissionTokenType.MODEL -> ModelElement(node)
             MissionTokenType.OPCODE -> OpcodeElement(node)
