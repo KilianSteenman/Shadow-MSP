@@ -1,4 +1,4 @@
-package nl.shadowlink.mission.plugin.psi
+package nl.shadowlink.mission.plugin.psi.label
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
@@ -8,7 +8,7 @@ import com.intellij.psi.PsiFile
 import com.intellij.psi.PsiReference
 import com.intellij.psi.PsiReferenceBase
 import com.intellij.psi.util.PsiTreeUtil
-import nl.shadowlink.mission.plugin.extensions.logWarn
+import nl.shadowlink.mission.plugin.psi.PsiElementFactory
 
 class LabelReferenceElement(node: ASTNode) : ASTWrapperPsiElement(node) {
 

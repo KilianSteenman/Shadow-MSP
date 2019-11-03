@@ -17,6 +17,10 @@ import nl.shadowlink.mission.plugin.MissionLanguage
 import nl.shadowlink.mission.plugin.lexer.MissionExpressionType
 import nl.shadowlink.mission.plugin.lexer.MissionTokenType
 import nl.shadowlink.mission.plugin.psi.*
+import nl.shadowlink.mission.plugin.psi.label.LabelDefinitionElement
+import nl.shadowlink.mission.plugin.psi.label.LabelReferenceElement
+import nl.shadowlink.mission.plugin.psi.local.LocalVarDefinitionElement
+import nl.shadowlink.mission.plugin.psi.local.LocalVarReferenceElement
 
 class MissionParserDefinition : ParserDefinition {
 
@@ -40,7 +44,8 @@ class MissionParserDefinition : ParserDefinition {
             MissionTokenType.LABEL_REF -> LabelReferenceElement(node)
             MissionTokenType.STRING_KEY -> StringKeyElement(node)
             MissionTokenType.GLOBAL_VAR -> GlobalVarReferenceElement(node)
-            MissionTokenType.LOCAL_VAR -> LocalVarElement(node)
+            MissionTokenType.LOCAL_VAR_DEF -> LocalVarDefinitionElement(node)
+            MissionTokenType.LOCAL_VAR_REF -> LocalVarReferenceElement(node)
             MissionTokenType.MODEL -> ModelElement(node)
             MissionTokenType.OPCODE -> OpcodeElement(node)
             MissionTokenType.STRING -> StringElement(node)

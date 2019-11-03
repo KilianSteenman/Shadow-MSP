@@ -17,6 +17,8 @@ class MissionTokenType(type: Type) : IElementType(type.name, MissionLanguage) {
         ERROR,
         SYMBOL,
         LOCAL_VAR,
+        LOCAL_VAR_REF,
+        LOCAL_VAR_DEF,
         FLOAT,
         INT,
         EQUAL,
@@ -41,6 +43,8 @@ class MissionTokenType(type: Type) : IElementType(type.name, MissionLanguage) {
         val ERROR = MissionTokenType(Type.ERROR)
         val GLOBAL_VAR = MissionTokenType(Type.SYMBOL)
         val LOCAL_VAR = MissionTokenType(Type.LOCAL_VAR)
+        val LOCAL_VAR_REF = MissionTokenType(Type.LOCAL_VAR_REF)
+        val LOCAL_VAR_DEF = MissionTokenType(Type.LOCAL_VAR_DEF)
         val FLOAT = MissionTokenType(Type.FLOAT)
         val INT = MissionTokenType(Type.INT)
         val EQUALS = MissionTokenType(Type.EQUALS)
