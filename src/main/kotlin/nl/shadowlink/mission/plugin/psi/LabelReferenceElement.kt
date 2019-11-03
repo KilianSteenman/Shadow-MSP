@@ -4,9 +4,11 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiFile
 import com.intellij.psi.PsiReference
 import com.intellij.psi.PsiReferenceBase
 import com.intellij.psi.util.PsiTreeUtil
+import nl.shadowlink.mission.plugin.extensions.logWarn
 
 class LabelReferenceElement(node: ASTNode) : ASTWrapperPsiElement(node) {
 
@@ -15,22 +17,14 @@ class LabelReferenceElement(node: ASTNode) : ASTWrapperPsiElement(node) {
     }
 
     override fun getReference(): PsiReference? {
-        var sibling = PsiTreeUtil.getNextSiblingOfType(this, LabelDefinitionElement::class.java)
-        while (sibling != null && sibling.name != this.name) {
-            sibling = PsiTreeUtil.getNextSiblingOfType(sibling, LabelDefinitionElement::class.java)
-        }
+        val file = PsiTreeUtil.getParentOfType(this, PsiFile::class.java)
+        val labelDefinitions = PsiTreeUtil.collectElementsOfType(file, LabelDefinitionElement::class.java)
+        val labelDef = labelDefinitions.firstOrNull { definition -> definition.name == this.name }
 
-        if (sibling == null) {
-            sibling = PsiTreeUtil.getPrevSiblingOfType(this, LabelDefinitionElement::class.java)
-            while (sibling != null && sibling.name != this.name) {
-                sibling = PsiTreeUtil.getPrevSiblingOfType(sibling, LabelDefinitionElement::class.java)
-            }
-        }
-
-        if (sibling != null) {
+        if (labelDef != null) {
             return object : PsiReferenceBase<LabelReferenceElement>(this, TextRange(0, this.textLength)) {
                 override fun resolve(): PsiElement? {
-                    return sibling
+                    return labelDef
                 }
 
                 override fun handleElementRename(newName: String): PsiElement {
