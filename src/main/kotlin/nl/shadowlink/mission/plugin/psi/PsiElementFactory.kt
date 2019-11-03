@@ -8,6 +8,7 @@ import nl.shadowlink.mission.plugin.MissionFileType
 import nl.shadowlink.mission.plugin.psi.global.GlobalVarElement
 import nl.shadowlink.mission.plugin.psi.label.LabelDefinitionElement
 import nl.shadowlink.mission.plugin.psi.label.LabelReferenceElement
+import nl.shadowlink.mission.plugin.psi.local.LocalVarElement
 
 /**
  * Generate PSIElement objects by creating a dummy file, parsing a string, and extracting the PSIElement

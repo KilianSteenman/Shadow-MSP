@@ -17,12 +17,17 @@ import nl.shadowlink.mission.plugin.MissionLanguage
 import nl.shadowlink.mission.plugin.lexer.MissionExpressionType
 import nl.shadowlink.mission.plugin.lexer.MissionTokenType
 import nl.shadowlink.mission.plugin.psi.*
+import nl.shadowlink.mission.plugin.psi.defines.DefineMissionCountElement
+import nl.shadowlink.mission.plugin.psi.defines.DefineObjectCountElement
+import nl.shadowlink.mission.plugin.psi.defines.DefinitionElement
 import nl.shadowlink.mission.plugin.psi.global.GlobalVarDefinitionElement
 import nl.shadowlink.mission.plugin.psi.global.GlobalVarReferenceElement
 import nl.shadowlink.mission.plugin.psi.label.LabelDefinitionElement
 import nl.shadowlink.mission.plugin.psi.label.LabelReferenceElement
 import nl.shadowlink.mission.plugin.psi.local.LocalVarDefinitionElement
 import nl.shadowlink.mission.plugin.psi.local.LocalVarReferenceElement
+import nl.shadowlink.mission.plugin.psi.opcode.OpcodeElement
+import nl.shadowlink.mission.plugin.psi.opcode.OpcodeExpression
 
 class MissionParserDefinition : ParserDefinition {
 

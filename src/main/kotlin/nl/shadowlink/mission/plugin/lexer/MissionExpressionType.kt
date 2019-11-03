@@ -2,7 +2,6 @@ package nl.shadowlink.mission.plugin.lexer
 
 import com.intellij.psi.tree.IElementType
 import nl.shadowlink.mission.plugin.MissionLanguage
-import nl.shadowlink.mission.plugin.psi.OpcodeExpression
 
 class MissionExpressionType(type: Type) : IElementType(type.name, MissionLanguage) {
 
