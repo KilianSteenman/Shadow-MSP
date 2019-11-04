@@ -17,28 +17,28 @@ import nl.shadowlink.mission.plugin.psi.local.LocalVarElement
  */
 class PsiElementFactory(private val project: Project) {
 
-    fun createLabelDefinition(name: String): LabelDefinitionElement {
+    fun createLabelDefinition(name: String): PsiElement {
         val text = ":$name"
         val dummyFile = createMissionFile(text)
-        return dummyFile.findChildByClass(LabelDefinitionElement::class.java)!!
+        return dummyFile.firstChild
     }
 
     fun createLabelReference(name: String): PsiElement {
         val text = "@$name"
         val dummyFile = createMissionFile(text)
-        return dummyFile.findChildByClass(LabelReferenceElement::class.java)!!
+        return dummyFile.firstChild
     }
 
     fun createLocalVar(name: String): PsiElement {
         val text = "$name@"
         val dummyFile = createMissionFile(text)
-        return dummyFile.findChildByClass(LocalVarElement::class.java)!!
+        return dummyFile.firstChild
     }
 
     fun createGlobalVar(name: String): PsiElement {
         val text = "\$$name"
         val dummyFile = createMissionFile(text)
-        return dummyFile.findChildByClass(GlobalVarElement::class.java)!!
+        return dummyFile.firstChild
     }
 
     private fun createMissionFile(text: String): MissionFile {

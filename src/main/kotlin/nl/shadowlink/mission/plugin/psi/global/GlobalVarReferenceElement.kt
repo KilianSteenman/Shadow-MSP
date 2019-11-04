@@ -23,7 +23,7 @@ class GlobalVarReferenceElement(node: ASTNode) : GlobalVarElement(node) {
                 }
 
                 override fun handleElementRename(newName: String): PsiElement {
-                    val replacement = PsiElementFactory(this@GlobalVarReferenceElement.project).createLabelReference(newName)
+                    val replacement = PsiElementFactory(this@GlobalVarReferenceElement.project).createGlobalVar(newName)
                     return this@GlobalVarReferenceElement.replace(replacement)
                 }
             }

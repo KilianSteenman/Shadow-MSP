@@ -46,7 +46,6 @@ class MissionParserDefinition : ParserDefinition {
             MissionExpressionType.DEFINE_OBJECT_COUNT -> DefineObjectCountElement(node)
             MissionExpressionType.OPCODE_EXPRESSION -> OpcodeExpression(node)
             MissionTokenType.KEY_DEFINE -> DefinitionElement(node)
-            MissionTokenType.KEY_OBJECTS -> ObjectCountElement(node)
             MissionTokenType.LABEL -> LabelDefinitionElement(node)
             MissionTokenType.LABEL_REF -> LabelReferenceElement(node)
             MissionTokenType.STRING_KEY -> StringKeyElement(node)
