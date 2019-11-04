@@ -11,6 +11,7 @@ import com.intellij.psi.PsiReferenceBase
 import com.intellij.psi.util.PsiTreeUtil
 import nl.shadowlink.mission.plugin.annotator.Annotatable
 import nl.shadowlink.mission.plugin.psi.PsiElementFactory
+import nl.shadowlink.mission.plugin.quickfixes.CreateLabelQuickFix
 
 class LabelReferenceElement(node: ASTNode) : ASTWrapperPsiElement(node), Annotatable {
 
@@ -20,8 +21,9 @@ class LabelReferenceElement(node: ASTNode) : ASTWrapperPsiElement(node), Annotat
 
     override fun annotate(holder: AnnotationHolder) {
         val labelDefinition = findLabelDefinition()
-        if(labelDefinition == null) {
+        if (labelDefinition == null) {
             holder.createErrorAnnotation(this, "Unable to find Label $name")
+                    .registerFix(CreateLabelQuickFix(this))
         }
     }
 
@@ -46,7 +48,7 @@ class LabelReferenceElement(node: ASTNode) : ASTWrapperPsiElement(node), Annotat
 
     private fun findLabelDefinition(): LabelDefinitionElement? {
         val file = PsiTreeUtil.getParentOfType(this, PsiFile::class.java)
-        val labelDefinitions = PsiTreeUtil.collectElementsOfType(file, LabelDefinitionElement::class.java)
-        return labelDefinitions.firstOrNull { definition -> definition.name == this.name }
+        return PsiTreeUtil.collectElementsOfType(file, LabelDefinitionElement::class.java)
+                .firstOrNull { definition -> definition.name == this.name }
     }
 }

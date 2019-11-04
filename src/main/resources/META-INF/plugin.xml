@@ -39,9 +39,14 @@
         <annotator
                 language="MissionScript"
                 implementationClass="nl.shadowlink.mission.plugin.annotator.MissionAnnotator"/>
+
+        <!-- Completions -->
         <completion.contributor
                 language="MissionScript"
-                implementationClass="nl.shadowlink.mission.plugin.completion.MissionCompletionContributor"/>
+                implementationClass="nl.shadowlink.mission.plugin.completion.OpcodeCompletionContributor"/>
+        <completion.contributor
+                language="MissionScript"
+                implementationClass="nl.shadowlink.mission.plugin.completion.ModelCompletionProvider"/>
 
         <!-- Settings -->
         <colorSettingsPage
