@@ -18,6 +18,8 @@ repositories {
 }
 
 dependencies {
+    compile("org.ini4j", "ini4j", "0.5.4")
+
     testCompile("junit", "junit", "4.12")
 }
 
