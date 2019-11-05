@@ -29,6 +29,8 @@ class OpcodeCompletionContributor : CompletionContributor() {
                                 .forEach { opcode ->
                                     result.addElement(
                                             LookupElementBuilder.create("${opcode.opcode}: ${opcode.format}")
+                                                    .withPresentableText(opcode.format.trim())
+                                                    .withTailText(" ${opcode.opcode}")
                                                     .withIcon(MissionIcons.FILE)
                                     )
                                 }
