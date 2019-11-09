@@ -13,6 +13,7 @@ import com.intellij.psi.impl.source.tree.PsiWhiteSpaceImpl
 import nl.shadowlink.mission.plugin.MissionFile
 import nl.shadowlink.mission.plugin.MissionIcons
 import nl.shadowlink.mission.plugin.MissionLanguage
+import nl.shadowlink.mission.plugin.extensions.logWarn
 import nl.shadowlink.mission.plugin.game.models.ModelNameProvider
 import nl.shadowlink.mission.plugin.game.opcodes.OpcodeDatabaseFactory
 import nl.shadowlink.mission.plugin.lexer.MissionTokenType
@@ -32,6 +33,9 @@ class OpcodeCompletionContributor : CompletionContributor() {
                                                     .withPresentableText(opcode.format.trim())
                                                     .withTailText(" ${opcode.opcode}")
                                                     .withIcon(MissionIcons.FILE)
+                                                    .withInsertHandler { context, item ->
+                                                        logWarn("Inserting: $item")
+                                                    }
                                     )
                                 }
                     }
