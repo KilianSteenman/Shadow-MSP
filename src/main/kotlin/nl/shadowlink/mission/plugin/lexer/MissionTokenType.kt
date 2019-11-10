@@ -72,5 +72,9 @@ class MissionTokenType(type: Type) : IElementType(type.name, MissionLanguage) {
         val OPCODE_EXPRESSION_TYPES = TokenSet.create(
                 OPCODE_TEXT, STRING_KEY, STRING, MODEL, FLOAT, INT, EQUAL, EQUALS, GLOBAL_VAR, LABEL_REF, LOCAL_VAR
         )
+
+        val OPCODE_PARAM_TYPES = TokenSet.create(
+                FLOAT, INT, MODEL, LOCAL_VAR_DEF, LOCAL_VAR_REF, GLOBAL_VAR_DEF, GLOBAL_VAR_REF, STRING, STRING_KEY, LABEL_REF
+        )
     }
 }
