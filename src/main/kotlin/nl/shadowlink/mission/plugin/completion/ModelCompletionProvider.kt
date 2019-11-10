@@ -17,7 +17,7 @@ class ModelCompletionProvider : CompletionContributor() {
                 .withLanguage(MissionLanguage),
                 object : CompletionProvider<CompletionParameters>() {
                     override fun addCompletions(parameters: CompletionParameters, context: ProcessingContext, result: CompletionResultSet) {
-                        modelNameProvider.models()
+                        modelNameProvider.models
                                 .forEach { model -> result.addElement(LookupElementBuilder.create(model)) }
                     }
                 }
