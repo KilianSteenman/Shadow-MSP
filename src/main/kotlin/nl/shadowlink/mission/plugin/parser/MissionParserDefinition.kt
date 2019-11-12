@@ -58,6 +58,7 @@ class MissionParserDefinition : ParserDefinition {
             MissionTokenType.MODEL -> ModelElement(node)
             MissionTokenType.OPCODE -> OpcodeElement(node)
             MissionTokenType.STRING -> StringElement(node)
+            MissionTokenType.INT -> IntElement(node)
             else -> DefaultElement(node)
         }
     }
