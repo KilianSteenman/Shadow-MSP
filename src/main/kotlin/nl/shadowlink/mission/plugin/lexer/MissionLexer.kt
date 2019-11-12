@@ -74,6 +74,7 @@ class MissionLexer : LexerBase() {
             isMatch(KEY_MISSION) -> MissionTokenType.KEY_MISSION
             isMatch(KEY_OBJECTS) -> MissionTokenType.KEY_OBJECTS
             isMatch(KEY_OBJECT) -> MissionTokenType.KEY_OBJECT
+            isMatch(KEY_MISSION_AT) -> MissionTokenType.KEY_AT
             isMatch(OPCODE_TEXT) -> MissionTokenType.OPCODE_TEXT
             else -> {
                 firstTokenStart = firstTokenEnd
@@ -97,8 +98,8 @@ class MissionLexer : LexerBase() {
     companion object {
         private val OPCODE = Pattern.compile(".{4}:")
         private val COMMENT = Pattern.compile("//.+")
-        private val LABEL = Pattern.compile(":.+")
-        private val JUMP_REF = Pattern.compile("@.+")
+        private val LABEL = Pattern.compile(":[\\w\\d]+")
+        private val JUMP_REF = Pattern.compile("@[\\w\\d]+")
         private val STRING_KEY = Pattern.compile("'.+?'")
         private val STRING = Pattern.compile("\".+?\"")
         private val SPACE = Pattern.compile("\\s+")
@@ -115,5 +116,6 @@ class MissionLexer : LexerBase() {
         private val KEY_OBJECT = Pattern.compile("OBJECT")
         private val KEY_MISSIONS = Pattern.compile("MISSIONS")
         private val KEY_MISSION = Pattern.compile("MISSION")
+        private val KEY_MISSION_AT = Pattern.compile("AT")
     }
 }

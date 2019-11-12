@@ -30,6 +30,7 @@ class MissionTokenType(type: Type) : IElementType(type.name, MissionLanguage) {
         KEY_MISSION,
         KEY_OBJECTS,
         KEY_OBJECT,
+        KEY_AT,
         OPCODE_TEXT
     }
 
@@ -58,6 +59,7 @@ class MissionTokenType(type: Type) : IElementType(type.name, MissionLanguage) {
         val KEY_MISSION = MissionTokenType(Type.KEY_MISSION)
         val KEY_OBJECTS = MissionTokenType(Type.KEY_OBJECTS)
         val KEY_OBJECT = MissionTokenType(Type.KEY_OBJECT)
+        val KEY_AT = MissionTokenType(Type.KEY_AT)
         val OPCODE_TEXT = MissionTokenType(Type.OPCODE_TEXT)
 
         val WHITE_SPACE_TYPES = TokenSet.create(SPACE)
@@ -66,7 +68,7 @@ class MissionTokenType(type: Type) : IElementType(type.name, MissionLanguage) {
         val LABEL_TYPES = TokenSet.create(LABEL, LABEL_REF)
 
         val KEYWORD_TYPES = TokenSet.create(
-                KEY_DEFINE, KEY_MISSIONS, KEY_MISSION, KEY_OBJECTS, KEY_OBJECT
+                KEY_DEFINE, KEY_MISSIONS, KEY_MISSION, KEY_OBJECTS, KEY_OBJECT, KEY_AT
         )
 
         val OPCODE_EXPRESSION_TYPES = TokenSet.create(
