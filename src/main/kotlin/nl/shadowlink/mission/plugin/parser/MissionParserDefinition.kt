@@ -18,6 +18,7 @@ import nl.shadowlink.mission.plugin.lexer.MissionExpressionType
 import nl.shadowlink.mission.plugin.lexer.MissionTokenType
 import nl.shadowlink.mission.plugin.psi.*
 import nl.shadowlink.mission.plugin.psi.defines.DefineMissionCountElement
+import nl.shadowlink.mission.plugin.psi.defines.DefineMissionElement
 import nl.shadowlink.mission.plugin.psi.defines.DefineObjectCountElement
 import nl.shadowlink.mission.plugin.psi.defines.DefinitionElement
 import nl.shadowlink.mission.plugin.psi.global.GlobalVarDefinitionElement
@@ -43,6 +44,7 @@ class MissionParserDefinition : ParserDefinition {
     override fun createElement(node: ASTNode): PsiElement {
         return when(node.elementType) {
             MissionExpressionType.DEFINE_MISSION_COUNT -> DefineMissionCountElement(node)
+            MissionExpressionType.DEFINE_MISSION -> DefineMissionElement(node)
             MissionExpressionType.DEFINE_OBJECT_COUNT -> DefineObjectCountElement(node)
             MissionExpressionType.OPCODE_EXPRESSION -> OpcodeExpression(node)
             MissionTokenType.KEY_DEFINE -> DefinitionElement(node)

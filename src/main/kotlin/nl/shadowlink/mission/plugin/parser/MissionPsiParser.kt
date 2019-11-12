@@ -58,11 +58,7 @@ class MissionPsiParser : PsiParser {
                 }
                 defineMarker.done(MissionExpressionType.DEFINE_MISSION_COUNT)
             }
-            MissionTokenType.KEY_MISSION -> {
-                builder.advanceLexer()
-                defineType.done(MissionTokenType.KEY_MISSION)
-                defineMarker.done(MissionExpressionType.DEFINE_MISSION)
-            }
+            MissionTokenType.KEY_MISSION -> parseDefineMission(defineType, defineMarker, builder)
             MissionTokenType.KEY_OBJECTS -> {
                 builder.advanceLexer()
                 defineType.done(MissionTokenType.KEY_OBJECTS)
@@ -86,6 +82,37 @@ class MissionPsiParser : PsiParser {
                 defineMarker.done(MissionExpressionType.DEFINE_MISSION_COUNT)
             }
         }
+    }
+
+    private fun parseDefineMission(defineType: PsiBuilder.Marker, defineMarker: PsiBuilder.Marker, builder: PsiBuilder) {
+        builder.advanceLexer()
+        defineType.done(MissionTokenType.KEY_MISSION)
+
+        val missionIndex = builder.mark()
+        if(builder.tokenType == MissionTokenType.INT) {
+            builder.advanceLexer()
+            missionIndex.done(MissionTokenType.INT)
+        } else {
+            missionIndex.error("Expected mission index")
+        }
+
+        val missionAtKeyword = builder.mark()
+        if(builder.tokenType == MissionTokenType.KEY_AT) {
+            builder.advanceLexer()
+            missionAtKeyword.done(MissionTokenType.KEY_AT)
+        } else {
+            missionAtKeyword.error("Expected AT keyword")
+        }
+
+        val missionLabel = builder.mark()
+        if(builder.tokenType == MissionTokenType.LABEL_REF) {
+            builder.advanceLexer()
+            missionLabel.done(MissionTokenType.LABEL_REF)
+        } else {
+            missionLabel.error("Expected label reference")
+        }
+
+        defineMarker.done(MissionExpressionType.DEFINE_MISSION)
     }
 
     private fun handleOpcode(marker: PsiBuilder.Marker, builder: PsiBuilder) {
