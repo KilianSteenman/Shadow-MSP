@@ -48,6 +48,11 @@
                 language="MissionScript"
                 implementationClass="nl.shadowlink.mission.plugin.completion.ModelCompletionProvider"/>
 
+        <!-- Folding -->
+        <lang.foldingBuilder
+                language="MissionScript"
+                implementationClass="nl.shadowlink.mission.plugin.folding.MissionFolding"/>
+
         <!-- Settings -->
         <colorSettingsPage
                 implementation="nl.shadowlink.mission.plugin.highlighter.MissionColorSettingsPage"/>
