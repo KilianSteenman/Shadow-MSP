@@ -31,7 +31,8 @@ class MissionTokenType(type: Type) : IElementType(type.name, MissionLanguage) {
         KEY_OBJECTS,
         KEY_OBJECT,
         KEY_AT,
-        OPCODE_TEXT
+        OPCODE_TEXT,
+        OBJECT_NAME
     }
 
     companion object {
@@ -59,6 +60,7 @@ class MissionTokenType(type: Type) : IElementType(type.name, MissionLanguage) {
         val KEY_MISSION = MissionTokenType(Type.KEY_MISSION)
         val KEY_OBJECTS = MissionTokenType(Type.KEY_OBJECTS)
         val KEY_OBJECT = MissionTokenType(Type.KEY_OBJECT)
+        val OBJECT_NAME = MissionTokenType(Type.OBJECT_NAME)
         val KEY_AT = MissionTokenType(Type.KEY_AT)
         val OPCODE_TEXT = MissionTokenType(Type.OPCODE_TEXT)
 

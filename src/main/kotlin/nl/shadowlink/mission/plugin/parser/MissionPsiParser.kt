@@ -71,11 +71,7 @@ class MissionPsiParser : PsiParser {
                 }
                 defineMarker.done(MissionExpressionType.DEFINE_OBJECT_COUNT)
             }
-            MissionTokenType.KEY_OBJECT -> {
-                builder.advanceLexer()
-                defineType.done(MissionTokenType.KEY_OBJECT)
-                defineMarker.done(MissionExpressionType.DEFINE_OBJECT)
-            }
+            MissionTokenType.KEY_OBJECT -> parseDefineObject(defineType, defineMarker, builder)
             else -> {
                 builder.advanceLexer()
                 defineType.done(MissionTokenType.KEY_MISSIONS)
@@ -84,12 +80,27 @@ class MissionPsiParser : PsiParser {
         }
     }
 
+    private fun parseDefineObject(defineType: PsiBuilder.Marker, defineMarker: PsiBuilder.Marker, builder: PsiBuilder) {
+        builder.advanceLexer()
+        defineType.done(MissionTokenType.KEY_OBJECT)
+
+        val objectName = builder.mark()
+        if (builder.tokenType == MissionTokenType.OPCODE_TEXT) {
+            builder.advanceLexer()
+            objectName.done(MissionTokenType.OBJECT_NAME)
+        } else {
+            objectName.error("Expected object name")
+        }
+
+        defineMarker.done(MissionExpressionType.DEFINE_OBJECT)
+    }
+
     private fun parseDefineMission(defineType: PsiBuilder.Marker, defineMarker: PsiBuilder.Marker, builder: PsiBuilder) {
         builder.advanceLexer()
         defineType.done(MissionTokenType.KEY_MISSION)
 
         val missionIndex = builder.mark()
-        if(builder.tokenType == MissionTokenType.INT) {
+        if (builder.tokenType == MissionTokenType.INT) {
             builder.advanceLexer()
             missionIndex.done(MissionTokenType.INT)
         } else {
@@ -97,7 +108,7 @@ class MissionPsiParser : PsiParser {
         }
 
         val missionAtKeyword = builder.mark()
-        if(builder.tokenType == MissionTokenType.KEY_AT) {
+        if (builder.tokenType == MissionTokenType.KEY_AT) {
             builder.advanceLexer()
             missionAtKeyword.done(MissionTokenType.KEY_AT)
         } else {
@@ -105,12 +116,19 @@ class MissionPsiParser : PsiParser {
         }
 
         val missionLabel = builder.mark()
-        if(builder.tokenType == MissionTokenType.LABEL_REF) {
+        if (builder.tokenType == MissionTokenType.LABEL_REF) {
             builder.advanceLexer()
             missionLabel.done(MissionTokenType.LABEL_REF)
         } else {
             missionLabel.error("Expected label reference")
         }
+
+        // TODO: Somehow include comments
+//        if (MissionTokenType.COMMENT_TYPES.contains(builder.tokenType)) {
+//            val commentMark = builder.mark()
+//            builder.advanceLexer()
+//            commentMark.done(MissionTokenType.COMMENT)
+//        }
 
         defineMarker.done(MissionExpressionType.DEFINE_MISSION)
     }
@@ -121,15 +139,15 @@ class MissionPsiParser : PsiParser {
         var paramType = builder.lookAhead(0)
         while (paramType != null && isValidOpcodeExpressionType(paramType)) {
 
-            val tokenType = when(paramType) {
+            val tokenType = when (paramType) {
                 MissionTokenType.LOCAL_VAR -> {
-                    when(builder.lookAhead(1)) {
+                    when (builder.lookAhead(1)) {
                         MissionTokenType.EQUAL -> MissionTokenType.LOCAL_VAR_DEF
                         else -> MissionTokenType.LOCAL_VAR_REF
                     }
                 }
                 MissionTokenType.GLOBAL_VAR -> {
-                    when(builder.lookAhead(1)) {
+                    when (builder.lookAhead(1)) {
                         MissionTokenType.EQUAL -> MissionTokenType.GLOBAL_VAR_DEF
                         else -> MissionTokenType.GLOBAL_VAR_REF
                     }
