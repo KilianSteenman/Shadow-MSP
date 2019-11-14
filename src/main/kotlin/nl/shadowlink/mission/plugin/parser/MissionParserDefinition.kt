@@ -17,10 +17,7 @@ import nl.shadowlink.mission.plugin.MissionLanguage
 import nl.shadowlink.mission.plugin.lexer.MissionExpressionType
 import nl.shadowlink.mission.plugin.lexer.MissionTokenType
 import nl.shadowlink.mission.plugin.psi.*
-import nl.shadowlink.mission.plugin.psi.defines.DefineMissionCountElement
-import nl.shadowlink.mission.plugin.psi.defines.DefineMissionElement
-import nl.shadowlink.mission.plugin.psi.defines.DefineObjectCountElement
-import nl.shadowlink.mission.plugin.psi.defines.DefinitionElement
+import nl.shadowlink.mission.plugin.psi.defines.*
 import nl.shadowlink.mission.plugin.psi.global.GlobalVarDefinitionElement
 import nl.shadowlink.mission.plugin.psi.global.GlobalVarReferenceElement
 import nl.shadowlink.mission.plugin.psi.label.LabelDefinitionElement
@@ -29,6 +26,10 @@ import nl.shadowlink.mission.plugin.psi.local.LocalVarDefinitionElement
 import nl.shadowlink.mission.plugin.psi.local.LocalVarReferenceElement
 import nl.shadowlink.mission.plugin.psi.opcode.OpcodeElement
 import nl.shadowlink.mission.plugin.psi.opcode.OpcodeExpression
+import nl.shadowlink.mission.plugin.psi.params.IntElement
+import nl.shadowlink.mission.plugin.psi.params.ModelElement
+import nl.shadowlink.mission.plugin.psi.params.StringElement
+import nl.shadowlink.mission.plugin.psi.params.StringKeyElement
 
 class MissionParserDefinition : ParserDefinition {
 
@@ -59,6 +60,7 @@ class MissionParserDefinition : ParserDefinition {
             MissionTokenType.OPCODE -> OpcodeElement(node)
             MissionTokenType.STRING -> StringElement(node)
             MissionTokenType.INT -> IntElement(node)
+            MissionTokenType.OBJECT_NAME -> ObjectNameElement(node)
             else -> DefaultElement(node)
         }
     }

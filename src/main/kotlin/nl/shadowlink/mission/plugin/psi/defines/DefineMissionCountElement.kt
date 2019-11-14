@@ -5,9 +5,7 @@ import com.intellij.lang.ASTNode
 import com.intellij.lang.annotation.AnnotationHolder
 import com.intellij.psi.util.PsiTreeUtil
 import nl.shadowlink.mission.plugin.annotator.Annotatable
-import nl.shadowlink.mission.plugin.extensions.logInfo
-import nl.shadowlink.mission.plugin.lexer.MissionTokenType
-import nl.shadowlink.mission.plugin.psi.IntElement
+import nl.shadowlink.mission.plugin.psi.params.IntElement
 
 class DefineMissionCountElement(node: ASTNode) : ASTWrapperPsiElement(node), Annotatable {
 

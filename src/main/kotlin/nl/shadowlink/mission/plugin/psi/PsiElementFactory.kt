@@ -41,6 +41,11 @@ class PsiElementFactory(private val project: Project) {
         return dummyFile.firstChild
     }
 
+    fun createObjectName(name: String): PsiElement {
+        val dummyFile = createMissionFile(name)
+        return dummyFile.firstChild
+    }
+
     private fun createMissionFile(text: String): MissionFile {
         val file = PsiFileFactory.getInstance(project).createFileFromText("dummy.dsc", MissionFileType, text)
         return file as MissionFile
