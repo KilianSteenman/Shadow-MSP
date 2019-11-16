@@ -52,6 +52,9 @@
         <lang.foldingBuilder
                 language="MissionScript"
                 implementationClass="nl.shadowlink.mission.plugin.folding.MissionFolding"/>
+        <lang.foldingBuilder
+                language="MissionScript"
+                implementationClass="nl.shadowlink.mission.plugin.folding.OpcodeFolding"/>
 
         <!-- Settings -->
         <colorSettingsPage

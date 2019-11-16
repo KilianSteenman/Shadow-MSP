@@ -10,7 +10,6 @@ import com.intellij.psi.util.PsiTreeUtil
 import com.intellij.openapi.editor.FoldingGroup
 import nl.shadowlink.mission.plugin.psi.defines.DefineMissionElement
 
-
 class MissionFolding : FoldingBuilderEx() {
 
     override fun getPlaceholderText(node: ASTNode): String? {
@@ -18,7 +17,7 @@ class MissionFolding : FoldingBuilderEx() {
     }
 
     override fun buildFoldRegions(root: PsiElement, document: Document, quick: Boolean): Array<FoldingDescriptor> {
-        val group = FoldingGroup.newGroup("simple")
+        val group = FoldingGroup.newGroup("Mission")
 
         val descriptors = ArrayList<FoldingDescriptor>()
         val defineMissionExpressions = PsiTreeUtil.findChildrenOfType(root, DefineMissionElement::class.java)
