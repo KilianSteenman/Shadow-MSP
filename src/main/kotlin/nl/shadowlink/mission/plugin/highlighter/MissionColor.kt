@@ -14,9 +14,9 @@ enum class MissionColor(humanName: String, val attributesKey: TextAttributesKey)
     KEYWORD("Keywords//Define", Default.KEYWORD),
 
     LABEL("Labels//Declaration", Default.FUNCTION_DECLARATION),
-    LABEL_REF("Labels//Reference", Default.FUNCTION_CALL),
+    LABEL_REF("Labels//Reference", Default.FUNCTION_DECLARATION),
 
-    GLOBAL_VAR("Variables//Global", Default.GLOBAL_VARIABLE),
+    GLOBAL_VAR("Variables//Global", Default.INSTANCE_FIELD),
     LOCAL_VAR("Variables//Local", Default.LOCAL_VARIABLE);
 
     private val textAttributesKey = TextAttributesKey.createTextAttributesKey("missionscript.$name", attributesKey)
