@@ -69,6 +69,10 @@ class MissionLexer : LexerBase() {
             isMatch(INT) -> MissionTokenType.INT
             isMatch(EQUALS) -> MissionTokenType.EQUALS
             isMatch(EQUAL) -> MissionTokenType.EQUAL
+            isMatch(PLUS) -> MissionTokenType.PLUS
+            isMatch(MINUS) -> MissionTokenType.MINUS
+            isMatch(MULTIPLY) -> MissionTokenType.MULTIPLY
+            isMatch(DIVIDE) -> MissionTokenType.DIVIDE
             isMatch(KEY_DEFINE) -> MissionTokenType.KEY_DEFINE
             isMatch(KEY_MISSIONS) -> MissionTokenType.KEY_MISSIONS
             isMatch(KEY_MISSION) -> MissionTokenType.KEY_MISSION
@@ -110,6 +114,10 @@ class MissionLexer : LexerBase() {
         private val INT = Pattern.compile("-?\\d+")
         private val EQUALS = Pattern.compile("={2}")
         private val EQUAL = Pattern.compile("=")
+        private val PLUS = Pattern.compile("\\+")
+        private val MINUS = Pattern.compile("-")
+        private val DIVIDE = Pattern.compile("/")
+        private val MULTIPLY = Pattern.compile("\\*")
         private val OPCODE_TEXT = Pattern.compile("[a-zA-Z_=]+")
         private val KEY_DEFINE = Pattern.compile("DEFINE")
         private val KEY_OBJECTS = Pattern.compile("OBJECTS")

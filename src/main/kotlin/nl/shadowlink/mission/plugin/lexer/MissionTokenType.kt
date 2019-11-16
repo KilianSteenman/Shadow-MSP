@@ -25,6 +25,10 @@ class MissionTokenType(type: Type) : IElementType(type.name, MissionLanguage) {
         INT,
         EQUAL,
         EQUALS,
+        PLUS,
+        MINUS,
+        MULTIPLY,
+        DIVIDE,
         KEY_DEFINE,
         KEY_MISSIONS,
         KEY_MISSION,
@@ -55,6 +59,10 @@ class MissionTokenType(type: Type) : IElementType(type.name, MissionLanguage) {
         val INT = MissionTokenType(Type.INT)
         val EQUALS = MissionTokenType(Type.EQUALS)
         val EQUAL = MissionTokenType(Type.EQUAL)
+        val PLUS = MissionTokenType(Type.PLUS)
+        val MINUS = MissionTokenType(Type.MINUS)
+        val MULTIPLY = MissionTokenType(Type.MULTIPLY)
+        val DIVIDE = MissionTokenType(Type.DIVIDE)
         val KEY_DEFINE = MissionTokenType(Type.KEY_DEFINE)
         val KEY_MISSIONS = MissionTokenType(Type.KEY_MISSIONS)
         val KEY_MISSION = MissionTokenType(Type.KEY_MISSION)
@@ -74,7 +82,8 @@ class MissionTokenType(type: Type) : IElementType(type.name, MissionLanguage) {
         )
 
         val OPCODE_EXPRESSION_TYPES = TokenSet.create(
-                OPCODE_TEXT, STRING_KEY, STRING, MODEL, FLOAT, INT, EQUAL, EQUALS, GLOBAL_VAR, LABEL_REF, LOCAL_VAR
+                OPCODE_TEXT, STRING_KEY, STRING, MODEL, FLOAT, INT, EQUAL, EQUALS, GLOBAL_VAR, LABEL_REF, LOCAL_VAR,
+                PLUS, MINUS, MULTIPLY, DIVIDE
         )
 
         val OPCODE_PARAM_TYPES = TokenSet.create(
