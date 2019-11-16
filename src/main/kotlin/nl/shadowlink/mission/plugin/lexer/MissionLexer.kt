@@ -97,7 +97,7 @@ class MissionLexer : LexerBase() {
 
     companion object {
         private val OPCODE = Pattern.compile(".{4}:")
-        private val COMMENT = Pattern.compile("//.+")
+        private val COMMENT = Pattern.compile("//.*")
         private val LABEL = Pattern.compile(":[\\w\\d]+")
         private val JUMP_REF = Pattern.compile("@[\\w\\d]+")
         private val STRING_KEY = Pattern.compile("'.+?'")
