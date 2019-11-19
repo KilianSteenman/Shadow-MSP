@@ -35,6 +35,7 @@ class MissionTokenType(type: Type) : IElementType(type.name, MissionLanguage) {
         KEY_OBJECTS,
         KEY_OBJECT,
         KEY_AT,
+        KEY_NOT,
         OPCODE_TEXT,
         OBJECT_NAME
     }
@@ -68,6 +69,7 @@ class MissionTokenType(type: Type) : IElementType(type.name, MissionLanguage) {
         val KEY_MISSION = MissionTokenType(Type.KEY_MISSION)
         val KEY_OBJECTS = MissionTokenType(Type.KEY_OBJECTS)
         val KEY_OBJECT = MissionTokenType(Type.KEY_OBJECT)
+        val KEY_NOT = MissionTokenType(Type.KEY_NOT)
         val OBJECT_NAME = MissionTokenType(Type.OBJECT_NAME)
         val KEY_AT = MissionTokenType(Type.KEY_AT)
         val OPCODE_TEXT = MissionTokenType(Type.OPCODE_TEXT)
@@ -78,12 +80,12 @@ class MissionTokenType(type: Type) : IElementType(type.name, MissionLanguage) {
         val LABEL_TYPES = TokenSet.create(LABEL, LABEL_REF)
 
         val KEYWORD_TYPES = TokenSet.create(
-                KEY_DEFINE, KEY_MISSIONS, KEY_MISSION, KEY_OBJECTS, KEY_OBJECT, KEY_AT
+                KEY_DEFINE, KEY_MISSIONS, KEY_MISSION, KEY_OBJECTS, KEY_OBJECT, KEY_AT, KEY_NOT
         )
 
         val OPCODE_EXPRESSION_TYPES = TokenSet.create(
                 OPCODE_TEXT, STRING_KEY, STRING, MODEL, FLOAT, INT, EQUAL, EQUALS, GLOBAL_VAR, LABEL_REF, LOCAL_VAR,
-                PLUS, MINUS, MULTIPLY, DIVIDE
+                PLUS, MINUS, MULTIPLY, DIVIDE, KEY_NOT
         )
 
         val OPCODE_PARAM_TYPES = TokenSet.create(

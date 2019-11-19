@@ -79,6 +79,7 @@ class MissionLexer : LexerBase() {
             isMatch(KEY_OBJECTS) -> MissionTokenType.KEY_OBJECTS
             isMatch(KEY_OBJECT) -> MissionTokenType.KEY_OBJECT
             isMatch(KEY_MISSION_AT) -> MissionTokenType.KEY_AT
+            isMatch(KEY_NOT) -> MissionTokenType.KEY_NOT
             isMatch(OPCODE_TEXT) -> MissionTokenType.OPCODE_TEXT
             else -> {
                 firstTokenStart = firstTokenEnd
@@ -125,5 +126,6 @@ class MissionLexer : LexerBase() {
         private val KEY_MISSIONS = Pattern.compile("MISSIONS")
         private val KEY_MISSION = Pattern.compile("MISSION")
         private val KEY_MISSION_AT = Pattern.compile("AT")
+        private val KEY_NOT = Pattern.compile("not|NOT")
     }
 }
