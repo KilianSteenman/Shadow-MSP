@@ -91,5 +91,17 @@ class MissionTokenType(type: Type) : IElementType(type.name, MissionLanguage) {
         val OPCODE_PARAM_TYPES = TokenSet.create(
                 FLOAT, INT, MODEL, LOCAL_VAR_DEF, LOCAL_VAR_REF, GLOBAL_VAR_DEF, GLOBAL_VAR_REF, STRING, STRING_KEY, LABEL_REF
         )
+
+        val GLOBAL_VAR_TYPES = TokenSet.create(
+                GLOBAL_VAR, GLOBAL_VAR_DEF, GLOBAL_VAR_REF
+        )
+
+        val LOCAL_TYPES = TokenSet.create(
+                LOCAL_VAR, LOCAL_VAR_DEF, LOCAL_VAR_REF
+        )
+
+        val FIND_USAGES = TokenSet.create(
+                LABEL, LOCAL_VAR_DEF, GLOBAL_VAR_DEF
+        )
     }
 }

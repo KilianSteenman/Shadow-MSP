@@ -8,12 +8,14 @@ import com.intellij.psi.tree.TokenSet
 import com.intellij.lang.cacheBuilder.DefaultWordsScanner
 import nl.shadowlink.mission.plugin.lexer.MissionLexer
 import nl.shadowlink.mission.plugin.lexer.MissionTokenType
+import nl.shadowlink.mission.plugin.psi.label.LabelDefinitionElement
+import nl.shadowlink.mission.plugin.psi.local.LocalVarDefinitionElement
 
-class MissionFindUsagesProvider: FindUsagesProvider {
+class MissionUsagesProvider : FindUsagesProvider {
 
     override fun getWordsScanner(): WordsScanner {
         return DefaultWordsScanner(MissionLexer(),
-                MissionTokenType.LABEL_TYPES,
+                MissionTokenType.FIND_USAGES,
                 MissionTokenType.COMMENT_TYPES,
                 TokenSet.EMPTY
         )
@@ -28,7 +30,11 @@ class MissionFindUsagesProvider: FindUsagesProvider {
     }
 
     override fun getType(element: PsiElement): String {
-        return "Label declaration"
+        return when (element) {
+            is LabelDefinitionElement -> "Label declaration"
+            is LocalVarDefinitionElement -> "Local variable declaration"
+            else -> "Unknown declaration"
+        }
     }
 
     override fun getHelpId(psiElement: PsiElement): String? {

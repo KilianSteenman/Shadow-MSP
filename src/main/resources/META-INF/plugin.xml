@@ -31,7 +31,7 @@
                 implementationClass="nl.shadowlink.mission.plugin.refactoring.MissionRefactoringSupportProvider"/>
         <lang.findUsagesProvider
                 language="MissionScript"
-                implementationClass="nl.shadowlink.mission.plugin.usages.MissionFindUsagesProvider"/>
+                implementationClass="nl.shadowlink.mission.plugin.usages.MissionUsagesProvider"/>
         <lang.commenter
                 language="MissionScript"
                 implementationClass="nl.shadowlink.mission.plugin.commenter.MissionCommenter"/>
