@@ -2,12 +2,12 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 buildscript {
     repositories { mavenCentral() }
-    dependencies { classpath(kotlin("gradle-plugin", "1.2.30")) }
+    dependencies { classpath(kotlin("gradle-plugin", "1.3.72")) }
 }
 
 plugins {
     id("org.jetbrains.intellij") version "0.4.10"
-    kotlin("jvm") version "1.2.30"
+    kotlin("jvm") version "1.3.72"
 }
 
 group = "nl.shadowlink.mission"
