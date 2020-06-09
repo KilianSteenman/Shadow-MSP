@@ -15,12 +15,14 @@ version = "0.1"
 
 repositories {
     mavenCentral()
+    maven(url = "https://jitpack.io")
 }
 
 dependencies {
-    compile("org.ini4j", "ini4j", "0.5.4")
+    implementation("com.github.KilianSteenman:Shadow-MSC:0.1.0")
+    implementation("org.ini4j", "ini4j", "0.5.4")
 
-    testCompile("junit", "junit", "4.12")
+    testImplementation("junit", "junit", "4.12")
 }
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
