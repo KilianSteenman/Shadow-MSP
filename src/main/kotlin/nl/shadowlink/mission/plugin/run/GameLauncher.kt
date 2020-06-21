@@ -11,8 +11,7 @@ class GameLauncher {
         console.println("Launching game...")
 
         GeneralCommandLine()
-                .withExePath("wine")
-                .withParameters(gamePath)
+                .withExePath(gamePath)
                 .also { console.println(it.commandLineString, ConsoleViewContentType.LOG_DEBUG_OUTPUT) }
                 .createProcess()
     }
