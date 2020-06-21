@@ -1,6 +1,7 @@
 package nl.shadowlink.mission.plugin.run
 
 import com.intellij.execution.ExecutionException
+import com.intellij.execution.configurations.RunConfiguration
 import com.intellij.execution.configurations.RunProfile
 import com.intellij.execution.filters.TextConsoleBuilderFactory
 import com.intellij.execution.runners.DefaultProgramRunner
@@ -16,6 +17,7 @@ import com.intellij.psi.search.GlobalSearchScope
 import nl.shadowlink.mission.plugin.MissionFileType
 import nl.shadowlink.mission.plugin.extensions.log
 import nl.shadowlink.mission.plugin.extensions.println
+import java.lang.Exception
 
 class MissionProgramRunner : DefaultProgramRunner() {
 
@@ -25,10 +27,10 @@ class MissionProgramRunner : DefaultProgramRunner() {
 
     override fun execute(environment: ExecutionEnvironment) {
         val runConfiguration = environment.runProfile
-
         if (runConfiguration !is MissionRunConfiguration) {
             throw ExecutionException("Not a valid MissionRunConfiguration")
         }
+        verifyRunConfiguration(runConfiguration)
 
         val console = TextConsoleBuilderFactory.getInstance().createBuilder(environment.project).console
         val manager = ToolWindowManager.getInstance(environment.project)
@@ -47,6 +49,14 @@ class MissionProgramRunner : DefaultProgramRunner() {
         console.println("Compiling...")
 
         compileProject(runConfiguration, console, environment)
+    }
+
+    private fun verifyRunConfiguration(runConfig: RunConfiguration) {
+        try {
+            runConfig.checkConfiguration()
+        } catch (exception: Exception) {
+            throw ExecutionException(exception.message)
+        }
     }
 
     private fun compileProject(runConfig: MissionRunConfiguration, console: ConsoleView, environment: ExecutionEnvironment) {

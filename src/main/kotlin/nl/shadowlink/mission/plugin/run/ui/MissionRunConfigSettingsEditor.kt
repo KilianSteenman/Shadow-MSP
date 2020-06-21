@@ -2,34 +2,27 @@ package nl.shadowlink.mission.plugin.run.ui
 
 import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.options.SettingsEditor
-import com.intellij.openapi.project.Project
-import com.intellij.openapi.project.ProjectManager
 import com.intellij.openapi.ui.TextBrowseFolderListener
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
-import com.intellij.psi.search.FileTypeIndex
-import com.intellij.psi.search.GlobalSearchScope
 import com.intellij.ui.layout.panel
-import com.intellij.util.EnvironmentUtil
-import com.intellij.util.indexing.FileBasedIndex
-import nl.shadowlink.mission.plugin.MissionFileType
-import nl.shadowlink.mission.plugin.extensions.println
 import nl.shadowlink.mission.plugin.game.Game
 import nl.shadowlink.mission.plugin.run.MissionRunConfiguration
-import java.awt.event.ActionEvent
 import javax.swing.DefaultComboBoxModel
 import javax.swing.JCheckBox
 import javax.swing.JComponent
 
 internal class MissionRunConfigSettingsEditor : SettingsEditor<MissionRunConfiguration>() {
 
-    private val gamePathField = createGameInstallBrowseTextField(Game.VC)
+    private val gamePathField = createGameInstallBrowseTextField()
     private val launchGameCheckbox = JCheckBox()
-    private val gameComboBoxModel = DefaultComboBoxModel<String>(arrayOf(Game.III.gameName, Game.VC.gameName, Game.SA.gameName))
-    private var comboBoxTest: String? = null
+    private val gameComboBoxModel = DefaultComboBoxModel<String>(arrayOf(Game.III.gameName, Game.VC.gameName, Game.SA.gameName)).apply {
+        selectedItem = Game.VC.gameName
+    }
+    private var gameComboBoxSelection: String? = null
 
     override fun resetEditorFrom(missionRunConfiguration: MissionRunConfiguration) {
         gamePathField.text = missionRunConfiguration.gamePath
-        gameComboBoxModel.selectedItem = missionRunConfiguration.game
+        gameComboBoxModel.selectedItem = missionRunConfiguration.game.gameName
         launchGameCheckbox.isSelected = missionRunConfiguration.launchGame
     }
 
@@ -37,7 +30,7 @@ internal class MissionRunConfigSettingsEditor : SettingsEditor<MissionRunConfigu
         return panel {
             row {
                 label("Game")
-                comboBox(gameComboBoxModel, ::comboBoxTest)
+                comboBox(gameComboBoxModel, ::gameComboBoxSelection)
             }
             row {
                 label("Game directory")
@@ -53,12 +46,22 @@ internal class MissionRunConfigSettingsEditor : SettingsEditor<MissionRunConfigu
     override fun applyEditorTo(missionRunConfiguration: MissionRunConfiguration) {
         missionRunConfiguration.gamePath = gamePathField.text
         missionRunConfiguration.launchGame = launchGameCheckbox.isSelected
+        missionRunConfiguration.game = gameComboBoxModel.selectedItem.toString().toGame()
     }
 
-    private fun createGameInstallBrowseTextField(game: Game): TextFieldWithBrowseButton {
+    private fun String.toGame(): Game {
+        return when(this) {
+            Game.III.gameName -> Game.III
+            Game.VC.gameName -> Game.VC
+            Game.SA.gameName -> Game.SA
+            else -> Game.VC
+        }
+    }
+
+    private fun createGameInstallBrowseTextField(): TextFieldWithBrowseButton {
         val chooseDirectoryDescriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor().apply {
             isHideIgnored = false
-            title = "Select ${game.gameName} directory"
+            title = "Select game directory"
             isShowFileSystemRoots = true
         }
 
