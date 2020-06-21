@@ -26,7 +26,6 @@ internal class MissionRunConfigSettingsEditor : SettingsEditor<MissionRunConfigu
     private val launchGameCheckbox = JCheckBox()
     private val gameComboBoxModel = DefaultComboBoxModel<String>(arrayOf(Game.III.gameName, Game.VC.gameName, Game.SA.gameName))
     private var comboBoxTest: String? = null
-    private var scriptFile: String? = null
 
     override fun resetEditorFrom(missionRunConfiguration: MissionRunConfiguration) {
         gamePathField.text = missionRunConfiguration.gamePath
@@ -45,42 +44,26 @@ internal class MissionRunConfigSettingsEditor : SettingsEditor<MissionRunConfigu
                 gamePathField(grow)
             }
             row {
-                label("Main script")
-                comboBox(DefaultComboBoxModel<String>(scriptFiles()), ::scriptFile)
-            }
-            row {
                 label("Launch game")
                 launchGameCheckbox(grow)
             }
         }
     }
 
-    private fun scriptFiles(): Array<String> {
-        return FileBasedIndex.getInstance()
-                .getContainingFiles(
-                        FileTypeIndex.NAME,
-                        MissionFileType,
-                        GlobalSearchScope.allScope(ProjectManager.getInstance().openProjects[0])
-                ).map { file -> file.name }
-                .toTypedArray()
-    }
-
     override fun applyEditorTo(missionRunConfiguration: MissionRunConfiguration) {
         missionRunConfiguration.gamePath = gamePathField.text
         missionRunConfiguration.launchGame = launchGameCheckbox.isSelected
-//        missionRunConfiguration.game = gameComboBoxModel.selectedItem as String? ?: ""
     }
 
     private fun createGameInstallBrowseTextField(game: Game): TextFieldWithBrowseButton {
-        val field = TextFieldWithBrowseButton()
-
-        val chooseDirectoryDescriptor = FileChooserDescriptorFactory.createSingleLocalFileDescriptor().apply {
+        val chooseDirectoryDescriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor().apply {
             isHideIgnored = false
-            title = "Select game (${game.exeName})"
-            isShowFileSystemRoots = false
+            title = "Select ${game.gameName} directory"
+            isShowFileSystemRoots = true
         }
 
-        field.addBrowseFolderListener(TextBrowseFolderListener(chooseDirectoryDescriptor))
-        return field
+        return TextFieldWithBrowseButton().apply {
+            addBrowseFolderListener(TextBrowseFolderListener(chooseDirectoryDescriptor))
+        }
     }
 }

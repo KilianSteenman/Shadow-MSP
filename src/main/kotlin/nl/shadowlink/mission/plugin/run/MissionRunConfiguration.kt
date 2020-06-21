@@ -36,13 +36,11 @@ internal class MissionRunConfiguration(project: Project, factory: ConfigurationF
         super.writeExternal(element)
         element.writeString("path", gamePath)
         element.writeBoolean("launch_game", launchGame)
-//        element.writeString("game", game)
     }
 
     override fun readExternal(element: Element) {
         super.readExternal(element)
         gamePath = element.readString("path", "")
         launchGame = element.readBoolean("launch_game", false)
-//        game = element.readString("game", "")
     }
 }
