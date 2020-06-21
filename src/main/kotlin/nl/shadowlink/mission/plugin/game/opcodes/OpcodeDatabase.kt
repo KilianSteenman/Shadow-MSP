@@ -1,6 +1,7 @@
 package nl.shadowlink.mission.plugin.game.opcodes
 
 import nl.shadowlink.mission.plugin.configuration.MissionSettings
+import nl.shadowlink.mission.plugin.extensions.logError
 import nl.shadowlink.mission.plugin.extensions.logWarn
 import org.ini4j.Config
 import org.ini4j.Ini
@@ -18,7 +19,13 @@ class OpcodeDatabase {
     }
 
     private fun loadOpcodes() {
-        val opcodesFilePath = MissionSettings().sannyPath.replace("sanny.exe", "data/vc/VCSCM.INI")
+        val sannyPath = MissionSettings().sannyPath
+        if (sannyPath.isNullOrBlank()) {
+            logWarn("Unable to load opcode data, make sure path to Sanny Builder is configured in Mission Script settings")
+            return
+        }
+
+        val opcodesFilePath = sannyPath.replace("sanny.exe", "data/vc/VCSCM.INI")
         logWarn("Opcodes file $opcodesFilePath")
 
         val ini = Ini().apply {
@@ -38,7 +45,7 @@ class OpcodeDatabase {
     }
 
     private fun placeHolderToParam(paramType: String): OpcodeParam {
-        return when(paramType) {
+        return when (paramType) {
             "s" -> OpcodeParam.STRING
             "g" -> OpcodeParam.GXT_REF
             "o" -> OpcodeParam.MODEL
@@ -53,7 +60,7 @@ class OpcodeDatabase {
         return opcodeMap.containsKey(opcode)
     }
 
-    fun opcode(opcode: String?) : Opcode? {
+    fun opcode(opcode: String?): Opcode? {
         return opcodeMap["0${opcode?.substring(1)}"]
     }
 }

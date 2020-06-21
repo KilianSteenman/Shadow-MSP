@@ -26,11 +26,11 @@ class MissionConfiguration : Configurable {
 
     override fun reset() {
         super.reset()
-        sannyBrowser.text = settings.sannyPath
+        sannyBrowser.text = settings.sannyPath ?: ""
     }
 
     override fun createComponent(): JComponent {
-        sannyBrowser.text = settings.sannyPath
+        sannyBrowser.text = settings.sannyPath ?: ""
 
         return panel {
             row {
