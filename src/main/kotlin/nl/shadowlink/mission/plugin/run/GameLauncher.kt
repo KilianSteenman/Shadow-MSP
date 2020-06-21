@@ -11,7 +11,7 @@ class GameLauncher {
         console.println("Launching game...")
 
         GeneralCommandLine()
-                .withExePath(gamePath)
+                .withExePath("$gamePath/gta-vc.exe")
                 .also { console.println(it.commandLineString, ConsoleViewContentType.LOG_DEBUG_OUTPUT) }
                 .createProcess()
     }

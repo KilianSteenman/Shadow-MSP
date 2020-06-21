@@ -1,21 +1,20 @@
 package nl.shadowlink.mission.plugin.run
 
 import com.intellij.execution.ExecutionException
-import com.intellij.execution.configurations.*
-import com.intellij.execution.runners.ExecutionEnvironment
-import com.intellij.execution.runners.ProgramRunner
-import nl.shadowlink.mission.plugin.extensions.log
+import com.intellij.execution.configurations.RunProfile
 import com.intellij.execution.filters.TextConsoleBuilderFactory
 import com.intellij.execution.runners.DefaultProgramRunner
+import com.intellij.execution.runners.ExecutionEnvironment
+import com.intellij.execution.runners.ProgramRunner
+import com.intellij.execution.ui.ConsoleView
+import com.intellij.execution.ui.ConsoleViewContentType.ERROR_OUTPUT
+import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.wm.ToolWindowAnchor
 import com.intellij.openapi.wm.ToolWindowManager
-import com.intellij.execution.ui.ConsoleView
-import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.search.FileTypeIndex
 import com.intellij.psi.search.GlobalSearchScope
-import com.intellij.util.indexing.FileBasedIndex
 import nl.shadowlink.mission.plugin.MissionFileType
-import nl.shadowlink.mission.plugin.configuration.MissionSettings
+import nl.shadowlink.mission.plugin.extensions.log
 import nl.shadowlink.mission.plugin.extensions.println
 
 class MissionProgramRunner : DefaultProgramRunner() {
@@ -26,13 +25,9 @@ class MissionProgramRunner : DefaultProgramRunner() {
 
     override fun execute(environment: ExecutionEnvironment) {
         val runConfiguration = environment.runProfile
-        var gamePath = ""
-        if (runConfiguration is MissionRunConfiguration) {
-            gamePath = runConfiguration.gamePath
-        }
 
-        if (gamePath.isEmpty()) {
-            throw ExecutionException("GamePath not set")
+        if (runConfiguration !is MissionRunConfiguration) {
+            throw ExecutionException("Not a valid MissionRunConfiguration")
         }
 
         val console = TextConsoleBuilderFactory.getInstance().createBuilder(environment.project).console
@@ -51,36 +46,31 @@ class MissionProgramRunner : DefaultProgramRunner() {
 
         console.println("Compiling...")
 
-        compileFiles(runConfiguration as MissionRunConfiguration, console, environment) {
-            if(runConfiguration.launchGame) {
-                launcher.launchGame(console, gamePath)
+        compileProject(runConfiguration, console, environment)
+    }
+
+    private fun compileProject(runConfig: MissionRunConfiguration, console: ConsoleView, environment: ExecutionEnvironment) {
+        val mainScript = findMainScript(environment)
+
+        if (compile(mainScript, runConfig, console)) {
+            if (runConfig.launchGame && runConfig.gamePath.isNotBlank()) {
+                launcher.launchGame(console, runConfig.gamePath)
             }
         }
     }
 
-    private fun compileFiles(runConfig: MissionRunConfiguration, console: ConsoleView, environment: ExecutionEnvironment, compilationFinished: () -> Unit) {
-        val projectPath = environment.project.basePath!!.replace("/", "\\")
+    private fun compile(main: VirtualFile?, runConfig: MissionRunConfiguration, console: ConsoleView): Boolean {
+        if (main?.canonicalFile?.path == null) {
+            console.println("Main script not found in project", ERROR_OUTPUT)
+            throw ExecutionException("Main script not found")
+        }
 
-        val files = FileBasedIndex.getInstance()
-                .getContainingFiles(
-                        FileTypeIndex.NAME,
-                        MissionFileType,
-                        GlobalSearchScope.allScope(environment.project)
-                ).also {
-                    it.forEach { file -> console.println("File ${file.name}") }
-                }
-
-        compileFile(files.toList(), projectPath, runConfig, 0, console, compilationFinished)
+        return compiler.compileFile(runConfig, main.canonicalFile!!, console)
     }
 
-    private fun compileFile(files: List<VirtualFile>, projectPath: String, runConfig: MissionRunConfiguration, fileIndex: Int, console: ConsoleView, compilationFinished: (() -> Unit)? = null) {
-        val file = files.toList().getOrNull(fileIndex)
-        if (file != null) {
-            compiler.compileFile(MissionSettings(), runConfig, file, projectPath, console) { compileFile(files, projectPath, runConfig, fileIndex + 1, console, compilationFinished) }
-        } else {
-            console.println("All files compiled")
-            compilationFinished?.invoke()
-        }
+    private fun findMainScript(environment: ExecutionEnvironment): VirtualFile? {
+        val scriptFiles = FileTypeIndex.getFiles(MissionFileType, GlobalSearchScope.allScope(environment.project))
+        return scriptFiles.find { file -> file.nameWithoutExtension == "main" }
     }
 
     override fun execute(environment: ExecutionEnvironment, callback: ProgramRunner.Callback?) {
