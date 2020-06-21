@@ -21,7 +21,7 @@ repositories {
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.3.72")
 
-    implementation("com.github.KilianSteenman:Shadow-MSC:0.1.0")
+    implementation("com.github.KilianSteenman:Shadow-MSC:0.2.1-alpha")
     implementation("org.ini4j", "ini4j", "0.5.4")
 
     testImplementation("junit", "junit", "4.12")
