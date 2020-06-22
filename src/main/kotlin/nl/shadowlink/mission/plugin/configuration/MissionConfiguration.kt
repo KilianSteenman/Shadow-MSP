@@ -12,7 +12,7 @@ class MissionConfiguration : Configurable {
 
     private val settings = MissionSettings()
 
-    val sannyBrowser = createSannyBuilderBrowser()
+    private val sannyBrowser = createSannyBuilderBrowser()
 
     override fun isModified(): Boolean {
         return sannyBrowser.text != settings.sannyPath
@@ -41,15 +41,13 @@ class MissionConfiguration : Configurable {
     }
 
     private fun createSannyBuilderBrowser(): TextFieldWithBrowseButton {
-        val field = TextFieldWithBrowseButton()
-
-        val chooseDirectoryDescriptor = FileChooserDescriptorFactory.createSingleLocalFileDescriptor().apply {
+        val chooseDirectoryDescriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor().apply {
             isHideIgnored = false
-            title = "Select sanny.exe"
-            isShowFileSystemRoots = false
+            title = "Select Sanny Builder path"
         }
 
-        field.addBrowseFolderListener(TextBrowseFolderListener(chooseDirectoryDescriptor))
-        return field
+        return TextFieldWithBrowseButton().apply {
+            addBrowseFolderListener(TextBrowseFolderListener(chooseDirectoryDescriptor))
+        }
     }
 }
