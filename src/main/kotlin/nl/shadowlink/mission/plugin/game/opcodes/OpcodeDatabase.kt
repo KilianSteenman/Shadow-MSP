@@ -19,18 +19,17 @@ class OpcodeDatabase {
     }
 
     private fun loadOpcodes() {
-        val sannyPath = MissionSettings().sannyPath
-        if (sannyPath.isNullOrBlank()) {
+        val iniPath = "${MissionSettings().sannyPath}/data/vc/VCSCM.INI"
+        if (!File(iniPath).exists()) {
             logWarn("Unable to load opcode data, make sure path to Sanny Builder is configured in Mission Script settings")
             return
         }
 
-        val opcodesFilePath = sannyPath.replace("sanny.exe", "data/vc/VCSCM.INI")
-        logWarn("Opcodes file $opcodesFilePath")
+        logWarn("Opcodes file $iniPath")
 
         val ini = Ini().apply {
             config = Config().apply { isGlobalSection = true }
-            load(File(opcodesFilePath))
+            load(File(iniPath))
         }
         ini["OPCODES"]?.forEach { opcode, opcodeInfo ->
             val opcodeData = opcodeInfo.split(',')
