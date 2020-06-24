@@ -70,6 +70,9 @@
         <programRunner
                 id="MissionScript"
                 implementation="nl.shadowlink.mission.plugin.run.MissionProgramRunner"/>
+
+        <!-- Project / Module wizard -->
+        <moduleType id="MissionModule" implementationClass="nl.shadowlink.mission.plugin.projectwizard.MissionModuleType"/>
     </extensions>
 
     <actions>
