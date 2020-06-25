@@ -13,6 +13,7 @@ import com.intellij.openapi.vfs.VirtualFile
 import org.jetbrains.jps.model.serialization.PathMacroUtil
 import java.io.File
 
+
 class MissionModuleBuilder : ModuleBuilder() {
 
     init {

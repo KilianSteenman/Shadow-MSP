@@ -3,7 +3,6 @@ package nl.shadowlink.mission.plugin.projectwizard
 import com.intellij.ide.util.projectWizard.ModuleWizardStep
 import com.intellij.ui.components.JBList
 import com.intellij.ui.layout.panel
-import nl.shadowlink.mission.plugin.projectwizard.ModuleType.SCM
 import javax.swing.JComponent
 import javax.swing.ListModel
 import javax.swing.event.ListDataListener
@@ -26,7 +25,7 @@ class ScriptTypeWizardStep : ModuleWizardStep() {
 
     private val projectTypeList = JBList(projectTypeSelectionModel)
 
-    private var projectSelection: ModuleType = SCM
+    private var projectSelection: ModuleType = ModuleType.VC_SCM
 
     override fun updateDataModel() {
         // TODO: Update data model according to selection

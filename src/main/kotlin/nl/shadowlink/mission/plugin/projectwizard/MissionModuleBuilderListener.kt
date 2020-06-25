@@ -1,13 +1,11 @@
 package nl.shadowlink.mission.plugin.projectwizard
 
+import com.intellij.execution.RunManager
 import com.intellij.ide.util.projectWizard.ModuleBuilderListener
 import com.intellij.openapi.module.Module
-import com.intellij.openapi.roots.ContentEntry
-import com.intellij.openapi.roots.ModuleRootManager
-import com.intellij.openapi.roots.ModuleRootModel
-import com.intellij.openapi.vfs.LocalFileSystem
-import com.intellij.openapi.vfs.VfsUtilCore
-import com.intellij.openapi.vfs.VirtualFile
+import nl.shadowlink.mission.plugin.extensions.focusInEditor
+import nl.shadowlink.mission.plugin.run.MissionConfigurationFactory
+import nl.shadowlink.mission.plugin.run.MissionRunConfiguration
 import org.jetbrains.jps.model.serialization.PathMacroUtil
 import java.io.File
 
@@ -15,6 +13,21 @@ import java.io.File
 class MissionModuleBuilderListener : ModuleBuilderListener {
 
     override fun moduleCreated(module: Module) {
-        // TODO: Do we need to do something here?
+        createDefaultRunConfig(module)
+        focusOnMainScript(module)
+    }
+
+    private fun createDefaultRunConfig(module: Module) {
+        val config = MissionRunConfiguration(module.project, MissionConfigurationFactory(), "Compile & Run")
+        with(RunManager.getInstance(module.project)) {
+            val configSettings = createConfiguration(config, MissionConfigurationFactory())
+            addConfiguration(configSettings)
+            selectedConfiguration = configSettings
+        }
+    }
+
+    private fun focusOnMainScript(module: Module) {
+        val mainFile = File(PathMacroUtil.getModuleDir(module.moduleFilePath), "main.dsc")
+        mainFile.focusInEditor(module.project)
     }
 }
