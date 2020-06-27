@@ -15,6 +15,10 @@ internal class MissionCompiler {
         val outputFilePath = "${runConfig.gamePath}/data/main.scm"
 
         console.println("Compiling ${main.path} to $outputFilePath", ConsoleViewContentType.NORMAL_OUTPUT)
+        if (missions.isNotEmpty()) {
+            console.println("With missions:")
+            missions.forEachIndexed { index, mission -> console.println("$index - ${mission.path}") }
+        }
 
         val mainSource = main.readText(console)
         if (mainSource == null) {
@@ -26,6 +30,14 @@ internal class MissionCompiler {
 
         return try {
             val script = Compiler().compile(mainSource, missionSources)
+
+            // Make sure we write this to a clean file TODO: Make this part of the compiler!
+            with(File(outputFilePath)) {
+                if (exists()) {
+                    delete()
+                }
+            }
+
             ScmExporter().export(FileBinaryWriter(outputFilePath), script)
             true
         } catch (e: Exception) {
