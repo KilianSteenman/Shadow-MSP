@@ -61,26 +61,32 @@ class MissionProgramRunner : DefaultProgramRunner() {
 
     private fun compileProject(runConfig: MissionRunConfiguration, console: ConsoleView, environment: ExecutionEnvironment) {
         val mainScript = findMainScript(environment)
+        val missions = findMissionScripts(environment)
 
-        if (compile(mainScript, runConfig, console)) {
+        if (compile(mainScript, missions, runConfig, console)) {
             if (runConfig.launchGame && runConfig.gamePath.isNotBlank()) {
                 launcher.launchGame(console, runConfig.gamePath)
             }
         }
     }
 
-    private fun compile(main: VirtualFile?, runConfig: MissionRunConfiguration, console: ConsoleView): Boolean {
+    private fun compile(main: VirtualFile?, missions: List<VirtualFile>, runConfig: MissionRunConfiguration, console: ConsoleView): Boolean {
         if (main?.canonicalFile?.path == null) {
             console.println("Main script not found in project", ERROR_OUTPUT)
             throw ExecutionException("Main script not found")
         }
 
-        return compiler.compileFile(runConfig, main.canonicalFile!!, console)
+        return compiler.compileFile(runConfig, main, missions, console)
     }
 
     private fun findMainScript(environment: ExecutionEnvironment): VirtualFile? {
         val scriptFiles = FileTypeIndex.getFiles(MissionFileType, GlobalSearchScope.allScope(environment.project))
         return scriptFiles.find { file -> file.nameWithoutExtension == "main" }
+    }
+
+    private fun findMissionScripts(environment: ExecutionEnvironment): List<VirtualFile> {
+        val scriptFiles = FileTypeIndex.getFiles(MissionFileType, GlobalSearchScope.allScope(environment.project))
+        return scriptFiles.filter { file -> file.nameWithoutExtension != "main" }
     }
 
     override fun execute(environment: ExecutionEnvironment, callback: ProgramRunner.Callback?) {

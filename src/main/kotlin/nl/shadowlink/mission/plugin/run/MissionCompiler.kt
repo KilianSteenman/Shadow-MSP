@@ -11,21 +11,38 @@ import java.io.File
 
 internal class MissionCompiler {
 
-    fun compileFile(runConfig: MissionRunConfiguration, file: VirtualFile, console: ConsoleView): Boolean {
+    fun compileFile(runConfig: MissionRunConfiguration, main: VirtualFile, missions: List<VirtualFile>, console: ConsoleView): Boolean {
         val outputFilePath = "${runConfig.gamePath}/data/main.scm"
 
-        console.println("Compiling ${file.path} to $outputFilePath", ConsoleViewContentType.NORMAL_OUTPUT)
+        console.println("Compiling ${main.path} to $outputFilePath", ConsoleViewContentType.NORMAL_OUTPUT)
+
+        val mainSource = main.readText(console)
+        if (mainSource == null) {
+            console.println("Compilation failed, no main source provided", ConsoleViewContentType.ERROR_OUTPUT)
+            return false
+        }
+
+        val missionSources = missions.mapNotNull { mission -> mission.readText(console) }
 
         return try {
-            val script = Compiler().compile(File(file.path).readText())
+            val script = Compiler().compile(mainSource, missionSources)
             ScmExporter().export(FileBinaryWriter(outputFilePath), script)
-
             true
         } catch (e: Exception) {
             console.println("Compilation failed", ConsoleViewContentType.ERROR_OUTPUT)
             console.println(e.toString(), ConsoleViewContentType.ERROR_OUTPUT)
 
             false
+        }
+    }
+
+    private fun VirtualFile.readText(console: ConsoleView): String? {
+        return try {
+            File(this.path).readText()
+        } catch (e: Exception) {
+            console.println("Unable to read ${this.path}", ConsoleViewContentType.ERROR_OUTPUT)
+            console.println(e.toString(), ConsoleViewContentType.ERROR_OUTPUT)
+            null
         }
     }
 }
