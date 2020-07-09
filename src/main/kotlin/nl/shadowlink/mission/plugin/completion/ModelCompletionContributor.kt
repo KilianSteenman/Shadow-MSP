@@ -8,7 +8,7 @@ import nl.shadowlink.mission.plugin.MissionLanguage
 import nl.shadowlink.mission.plugin.game.models.ModelNameProvider
 import nl.shadowlink.mission.plugin.lexer.MissionTokenType
 
-class ModelCompletionProvider : CompletionContributor() {
+class ModelCompletionContributor : CompletionContributor() {
 
     private val modelNameProvider = ModelNameProvider()
 

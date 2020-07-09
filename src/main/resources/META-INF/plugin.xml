@@ -35,7 +35,7 @@
         <completion.contributor language="MissionScript"
             implementationClass="nl.shadowlink.mission.plugin.completion.OpcodeCompletionContributor" />
         <completion.contributor language="MissionScript"
-            implementationClass="nl.shadowlink.mission.plugin.completion.ModelCompletionProvider" />
+            implementationClass="nl.shadowlink.mission.plugin.completion.ModelCompletionContributor" />
         <completion.contributor language="MissionScript"
             implementationClass="nl.shadowlink.mission.plugin.completion.LabelCompletionContributor" />
 
