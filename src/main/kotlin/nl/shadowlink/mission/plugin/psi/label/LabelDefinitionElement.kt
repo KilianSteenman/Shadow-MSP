@@ -8,7 +8,7 @@ import nl.shadowlink.mission.plugin.psi.PsiElementFactory
 
 class LabelDefinitionElement(node: ASTNode): ASTWrapperPsiElement(node), PsiNamedElement {
 
-    override fun getName(): String? {
+    override fun getName(): String {
         return node.text.substring(1)
     }
 

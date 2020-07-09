@@ -36,6 +36,8 @@
             implementationClass="nl.shadowlink.mission.plugin.completion.OpcodeCompletionContributor" />
         <completion.contributor language="MissionScript"
             implementationClass="nl.shadowlink.mission.plugin.completion.ModelCompletionProvider" />
+        <completion.contributor language="MissionScript"
+            implementationClass="nl.shadowlink.mission.plugin.completion.LabelCompletionContributor" />
 
         <!-- Folding -->
         <lang.foldingBuilder language="MissionScript"
