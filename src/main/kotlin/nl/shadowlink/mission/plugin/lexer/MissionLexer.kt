@@ -119,7 +119,7 @@ class MissionLexer : LexerBase() {
         private val MINUS = Pattern.compile("-")
         private val DIVIDE = Pattern.compile("/")
         private val MULTIPLY = Pattern.compile("\\*")
-        private val OPCODE_TEXT = Pattern.compile("[a-zA-Z_=]+")
+        private val OPCODE_TEXT = Pattern.compile("[a-zA-Z_=0-9]+")
         private val KEY_DEFINE = Pattern.compile("DEFINE")
         private val KEY_OBJECTS = Pattern.compile("OBJECTS")
         private val KEY_OBJECT = Pattern.compile("OBJECT")
