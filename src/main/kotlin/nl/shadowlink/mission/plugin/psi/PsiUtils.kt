@@ -8,7 +8,6 @@ import com.intellij.psi.search.GlobalSearchScope
 import com.intellij.psi.util.PsiTreeUtil
 import nl.shadowlink.mission.plugin.MissionFile
 import nl.shadowlink.mission.plugin.MissionFileType
-import nl.shadowlink.mission.plugin.psi.global.GlobalVarDefinitionElement
 import nl.shadowlink.mission.plugin.psi.global.GlobalVarElement
 import nl.shadowlink.mission.plugin.psi.label.LabelDefinitionElement
 
@@ -34,7 +33,7 @@ fun findGlobalDefinitions(project: Project): List<GlobalVarElement> {
 
 fun findGlobalDefinitions(file: PsiFile): List<GlobalVarElement> {
     return if (file is MissionFile) {
-        return PsiTreeUtil.getChildrenOfType(file, GlobalVarDefinitionElement::class.java)?.asList() ?: emptyList()
+        return PsiTreeUtil.getChildrenOfType(file, GlobalVarElement::class.java)?.asList() ?: emptyList()
     } else {
         emptyList()
     }
