@@ -27,7 +27,7 @@ class OpcodeCompletionContributor : CompletionContributor() {
 
     init {
         extend(CompletionType.BASIC,
-                psiElement().withLanguage(MissionLanguage),
+                psiElement(MissionTokenType.OPCODE_TEXT).withLanguage(MissionLanguage),
                 OpcodeCompletionProvider(opcodeDatabase)
         )
     }

@@ -2,6 +2,7 @@ package nl.shadowlink.mission.plugin.game.opcodes.api
 
 data class OpcodeEntry(
         val opcode: String,
+        val command: String,
         val sannyFormat: String,
         val parameters: List<OpcodeParameter>
 )

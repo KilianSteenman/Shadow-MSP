@@ -14,7 +14,7 @@ class ApiOpcodeSource : OpcodeSource {
         return entries.associate { entry ->
             entry.opcode to Opcode(
                     opcode = entry.opcode,
-                    format = entry.sannyFormat,
+                    format = entry.command,
                     paramCount = entry.parameters.size,
                     params = entry.parameters.map { it.type.toParamType() }
             )
