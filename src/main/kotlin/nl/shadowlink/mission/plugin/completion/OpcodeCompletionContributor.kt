@@ -27,10 +27,10 @@ class OpcodeCompletionContributor : CompletionContributor() {
     private val opcodeDatabase = OpcodeDatabaseFactory.getDatabase()
 
     init {
-//        extend(CompletionType.BASIC,
-//                psiElement(MissionTokenType.OPCODE_TEXT).withLanguage(MissionLanguage),
-//                OpcodeCompletionProvider(opcodeDatabase)
-//        )
+        extend(CompletionType.BASIC,
+                psiElement(MissionTokenType.OPCODE_TEXT).withLanguage(MissionLanguage),
+                OpcodeCompletionProvider(opcodeDatabase)
+        )
     }
 }
 
@@ -45,7 +45,7 @@ private class OpcodeCompletionProvider(
     private fun Opcode.toLookupElement(): LookupElement {
         return LookupElementBuilder.create("$opcode: $format ")
                 .withPresentableText(format.trim())
-                .withTailText(" $opcode")
+                .withTypeText("Opcode $opcode")
                 .withIcon(MissionIcons.FILE)
                 .withInsertHandler(OpcodeInsertionHandler)
     }
