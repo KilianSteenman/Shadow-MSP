@@ -14,6 +14,7 @@ import com.intellij.psi.impl.source.tree.PsiWhiteSpaceImpl
 import nl.shadowlink.mission.plugin.MissionFile
 import nl.shadowlink.mission.plugin.MissionIcons
 import nl.shadowlink.mission.plugin.MissionLanguage
+import nl.shadowlink.mission.plugin.extensions.logError
 import nl.shadowlink.mission.plugin.extensions.logWarn
 import nl.shadowlink.mission.plugin.game.models.ModelNameProvider
 import nl.shadowlink.mission.plugin.game.opcodes.Opcode
@@ -26,10 +27,10 @@ class OpcodeCompletionContributor : CompletionContributor() {
     private val opcodeDatabase = OpcodeDatabaseFactory.getDatabase()
 
     init {
-        extend(CompletionType.BASIC,
-                psiElement(MissionTokenType.OPCODE_TEXT).withLanguage(MissionLanguage),
-                OpcodeCompletionProvider(opcodeDatabase)
-        )
+//        extend(CompletionType.BASIC,
+//                psiElement(MissionTokenType.OPCODE_TEXT).withLanguage(MissionLanguage),
+//                OpcodeCompletionProvider(opcodeDatabase)
+//        )
     }
 }
 
@@ -42,12 +43,17 @@ private class OpcodeCompletionProvider(
     }
 
     private fun Opcode.toLookupElement(): LookupElement {
-        return LookupElementBuilder.create("$opcode: $format")
+        return LookupElementBuilder.create("$opcode: $format ")
                 .withPresentableText(format.trim())
                 .withTailText(" $opcode")
                 .withIcon(MissionIcons.FILE)
-                .withInsertHandler { _, item ->
-                    logWarn("Inserting: $item")
-                }
+                .withInsertHandler(OpcodeInsertionHandler)
+    }
+}
+
+object OpcodeInsertionHandler : InsertHandler<LookupElement> {
+
+    override fun handleInsert(context: InsertionContext, item: LookupElement) {
+        logWarn("Inserting: $item")
     }
 }

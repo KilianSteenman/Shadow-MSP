@@ -33,7 +33,7 @@ fun findGlobalDefinitions(project: Project): List<GlobalVarElement> {
 
 fun findGlobalDefinitions(file: PsiFile): List<GlobalVarElement> {
     return if (file is MissionFile) {
-        return PsiTreeUtil.getChildrenOfType(file, GlobalVarElement::class.java)?.asList() ?: emptyList()
+        return PsiTreeUtil.collectElementsOfType(file, GlobalVarElement::class.java).toList()
     } else {
         emptyList()
     }

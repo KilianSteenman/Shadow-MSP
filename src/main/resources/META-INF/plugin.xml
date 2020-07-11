@@ -40,6 +40,8 @@
             implementationClass="nl.shadowlink.mission.plugin.completion.LabelCompletionContributor" />
         <completion.contributor language="MissionScript"
             implementationClass="nl.shadowlink.mission.plugin.completion.GlobalsCompletionContributor" />
+        <completion.contributor language="MissionScript"
+            implementationClass="nl.shadowlink.mission.plugin.completion.ParameterCompletionContributor" />
 
         <!-- Folding -->
         <lang.foldingBuilder language="MissionScript"
