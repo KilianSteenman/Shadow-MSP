@@ -1,15 +1,19 @@
 package nl.shadowlink.mission.plugin.psi.opcode
 
+import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.lang.annotation.AnnotationHolder
 import com.intellij.psi.PsiFile
 import nl.shadowlink.mission.plugin.annotator.Annotatable
+import nl.shadowlink.mission.plugin.completion.helpers.GxtProvider
+import nl.shadowlink.mission.plugin.completion.helpers.LabelProvider.getLabelCompletions
+import nl.shadowlink.mission.plugin.completion.helpers.ModelProvider
+import nl.shadowlink.mission.plugin.completion.helpers.VariableProvider
 import nl.shadowlink.mission.plugin.game.opcodes.Opcode
 import nl.shadowlink.mission.plugin.game.opcodes.OpcodeDatabaseFactory
 import nl.shadowlink.mission.plugin.game.opcodes.OpcodeParam
 import nl.shadowlink.mission.plugin.lexer.MissionTokenType
-import nl.shadowlink.mission.plugin.psi.findLabelDefinitions
 
 class OpcodeExpression(node: ASTNode) : ASTWrapperPsiElement(node), Annotatable {
 
@@ -47,26 +51,22 @@ class OpcodeExpression(node: ASTNode) : ASTWrapperPsiElement(node), Annotatable 
         return node.getChildren(MissionTokenType.OPCODE_PARAM_TYPES).size
     }
 
-    fun getCompletion(file: PsiFile): List<String> {
+    fun getCompletion(file: PsiFile): List<LookupElement> {
         val opcode = getOpcodeInfo() ?: return emptyList()
 
         val paramCount = getCurrentParamCount()
         val paramToComplete = opcode.params.getOrNull(paramCount)
         if (paramToComplete != null) {
             return when (paramToComplete) {
-                OpcodeParam.ANY -> emptyList()//Variable completion"
-                OpcodeParam.STRING -> emptyList()//"String completion?"
-                OpcodeParam.INT -> emptyList()//"Int completion?"
-                OpcodeParam.FLOAT -> emptyList()//"Float completion?"
-                OpcodeParam.GXT_REF -> emptyList()//"Gxt completion?"
+                OpcodeParam.ANY -> emptyList()
+                OpcodeParam.STRING -> emptyList()
+                OpcodeParam.INT -> VariableProvider.provideAll(file)
+                OpcodeParam.FLOAT -> VariableProvider.provideAll(file)
+                OpcodeParam.GXT_REF -> GxtProvider.provide(file)
                 OpcodeParam.LABEL_REF -> getLabelCompletions(file)
-                OpcodeParam.MODEL -> emptyList()//"Model completion!"
+                OpcodeParam.MODEL -> ModelProvider.provide(file)
             }
         }
         return emptyList()
-    }
-
-    private fun getLabelCompletions(file: PsiFile):List<String> {
-        return findLabelDefinitions(file).map { def -> "@${def.name}" }
     }
 }

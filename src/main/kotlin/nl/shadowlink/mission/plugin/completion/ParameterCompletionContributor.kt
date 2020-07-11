@@ -26,9 +26,7 @@ private class ParameterCompletionProvider : CompletionProvider<CompletionParamet
     override fun addCompletions(parameters: CompletionParameters, context: ProcessingContext, result: CompletionResultSet) {
         val element = parameters.position.parent.parent
         if (element is OpcodeExpression) {
-            element.getCompletion(parameters.originalFile).forEach {
-                result.addElement(LookupElementBuilder.create(it))
-            }
+            element.getCompletion(parameters.originalFile).forEach { result.addElement(it) }
         } else {
             result.addElement(LookupElementBuilder.create("OPCODE_NOT_EXPRESSION $element"))
         }
