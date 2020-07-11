@@ -9,6 +9,8 @@ object LabelProvider {
 
     fun getLabelCompletions(file: PsiFile): List<LookupElement> {
         return findLabelDefinitions(file)
-                .map { def -> LookupElementBuilder.create("@${def.name}") }
+                .map { def ->
+                    LookupElementBuilder.create("@${def.name}").withTypeText("Label")
+                }
     }
 }
