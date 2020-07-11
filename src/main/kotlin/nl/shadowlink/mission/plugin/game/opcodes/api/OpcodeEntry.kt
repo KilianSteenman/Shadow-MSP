@@ -4,7 +4,8 @@ data class OpcodeEntry(
         val opcode: String,
         val command: String,
         val sannyFormat: String,
-        val parameters: List<OpcodeParameter>
+        val parameters: List<OpcodeParameter>,
+        val description: String?
 )
 
 data class OpcodeParameter(

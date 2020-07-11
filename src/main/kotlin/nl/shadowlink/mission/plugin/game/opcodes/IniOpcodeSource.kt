@@ -6,7 +6,7 @@ import org.ini4j.Config
 import org.ini4j.Ini
 import java.io.File
 
-internal class IniOpcodeSource: OpcodeSource {
+internal class IniOpcodeSource : OpcodeSource {
 
     override fun loadOpcodes(): Map<String, Opcode> {
         val opcodeMap = mutableMapOf<String, Opcode>()
@@ -31,7 +31,13 @@ internal class IniOpcodeSource: OpcodeSource {
             val params = paramRegex.findAll(opcodeFormat)
                     .map { placeHolderToParam(it.groupValues[1]) }
                     .toList()
-            opcodeMap[opcode.toUpperCase()] = Opcode(opcode.toUpperCase(), opcodeFormat, paramCount, params)
+            opcodeMap[opcode.toUpperCase()] = Opcode(
+                    opcode = opcode.toUpperCase(),
+                    format = opcodeFormat,
+                    paramCount = paramCount,
+                    params = params,
+                    description = null
+            )
         }
         return opcodeMap
     }

@@ -16,7 +16,8 @@ class ApiOpcodeSource : OpcodeSource {
                     opcode = entry.opcode,
                     format = entry.command,
                     paramCount = entry.parameters.size,
-                    params = entry.parameters.map { it.type.toParamType() }
+                    params = entry.parameters.map { it.type.toParamType() },
+                    description = entry.description
             )
         }
     }

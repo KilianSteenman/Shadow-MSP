@@ -4,5 +4,6 @@ data class Opcode(
         val opcode: String,
         val format: String,
         val paramCount: Int,
-        val params: List<OpcodeParam>
+        val params: List<OpcodeParam>,
+        val description: String?
 )
