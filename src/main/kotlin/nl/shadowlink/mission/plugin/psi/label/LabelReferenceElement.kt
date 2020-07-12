@@ -1,6 +1,5 @@
 package nl.shadowlink.mission.plugin.psi.label
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.lang.annotation.AnnotationHolder
 import com.intellij.openapi.util.TextRange
@@ -11,9 +10,10 @@ import com.intellij.psi.PsiReferenceBase
 import com.intellij.psi.util.PsiTreeUtil
 import nl.shadowlink.mission.plugin.annotator.Annotatable
 import nl.shadowlink.mission.plugin.psi.PsiElementFactory
+import nl.shadowlink.mission.plugin.psi.opcode.OpcodeParameterElement
 import nl.shadowlink.mission.plugin.quickfixes.CreateLabelQuickFix
 
-class LabelReferenceElement(node: ASTNode) : ASTWrapperPsiElement(node), Annotatable {
+class LabelReferenceElement(node: ASTNode) : OpcodeParameterElement(node), Annotatable {
 
     override fun getName(): String {
         return node.text.substring(1)

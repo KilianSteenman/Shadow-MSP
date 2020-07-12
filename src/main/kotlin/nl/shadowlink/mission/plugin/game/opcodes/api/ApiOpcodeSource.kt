@@ -5,6 +5,7 @@ import com.google.gson.reflect.TypeToken
 import nl.shadowlink.mission.plugin.game.opcodes.Opcode
 import nl.shadowlink.mission.plugin.game.opcodes.OpcodeParam
 import nl.shadowlink.mission.plugin.game.opcodes.OpcodeSource
+import nl.shadowlink.mission.plugin.game.opcodes.ParamType
 
 class ApiOpcodeSource : OpcodeSource {
 
@@ -16,30 +17,37 @@ class ApiOpcodeSource : OpcodeSource {
                     opcode = entry.opcode,
                     format = entry.command,
                     paramCount = entry.parameters.size,
-                    params = entry.parameters.map { it.type.toParamType() },
+                    params = entry.parameters.map { it.toOpcodeParam() },
                     description = entry.description
             )
         }
     }
 
-    private fun EntryParamType.toParamType(): OpcodeParam {
+    private fun OpcodeParameter.toOpcodeParam(): OpcodeParam {
+        return OpcodeParam(
+                type = this.type.toParamType(),
+                description = this.name
+        )
+    }
+
+    private fun EntryParamType.toParamType(): ParamType {
         return when (this) {
-            EntryParamType.MODEL -> OpcodeParam.MODEL
-            EntryParamType.INT -> OpcodeParam.INT
-            EntryParamType.LOCAL_INT -> OpcodeParam.INT
-            EntryParamType.GLOBAL_INT -> OpcodeParam.INT
-            EntryParamType.ANY_INT -> OpcodeParam.INT
-            EntryParamType.FLOAT -> OpcodeParam.FLOAT
-            EntryParamType.LOCAL_FLOAT -> OpcodeParam.FLOAT
-            EntryParamType.GLOBAL_FLOAT -> OpcodeParam.FLOAT
-            EntryParamType.ANY_FLOAT -> OpcodeParam.FLOAT
-            EntryParamType.LABEL -> OpcodeParam.LABEL_REF
-            EntryParamType.STRING -> OpcodeParam.STRING
-            EntryParamType.TEXT_LABEL -> OpcodeParam.GXT_REF
-            EntryParamType.ANY -> OpcodeParam.ANY
-            EntryParamType.VAR_ARG -> OpcodeParam.ANY
-            EntryParamType.VAR -> OpcodeParam.ANY
-            EntryParamType.LOCAL_VAR -> OpcodeParam.ANY
+            EntryParamType.MODEL -> ParamType.MODEL
+            EntryParamType.INT -> ParamType.INT
+            EntryParamType.LOCAL_INT -> ParamType.INT
+            EntryParamType.GLOBAL_INT -> ParamType.INT
+            EntryParamType.ANY_INT -> ParamType.INT
+            EntryParamType.FLOAT -> ParamType.FLOAT
+            EntryParamType.LOCAL_FLOAT -> ParamType.FLOAT
+            EntryParamType.GLOBAL_FLOAT -> ParamType.FLOAT
+            EntryParamType.ANY_FLOAT -> ParamType.FLOAT
+            EntryParamType.LABEL -> ParamType.LABEL_REF
+            EntryParamType.STRING -> ParamType.STRING
+            EntryParamType.TEXT_LABEL -> ParamType.GXT_REF
+            EntryParamType.ANY -> ParamType.ANY
+            EntryParamType.VAR_ARG -> ParamType.ANY
+            EntryParamType.VAR -> ParamType.ANY
+            EntryParamType.LOCAL_VAR -> ParamType.ANY
         }
     }
 }

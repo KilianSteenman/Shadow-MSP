@@ -6,4 +6,13 @@ data class Opcode(
         val paramCount: Int,
         val params: List<OpcodeParam>,
         val description: String?
-)
+) {
+
+    fun paramInfo(): String {
+        return if (params.isNotEmpty()) {
+            params.joinToString(", ") { param -> "${param.description} (${param.type})" }
+        } else {
+            "No parameters"
+        }
+    }
+}

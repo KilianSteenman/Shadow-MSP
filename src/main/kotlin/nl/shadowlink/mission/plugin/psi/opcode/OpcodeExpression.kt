@@ -13,6 +13,7 @@ import nl.shadowlink.mission.plugin.completion.helpers.VariableProvider
 import nl.shadowlink.mission.plugin.game.opcodes.Opcode
 import nl.shadowlink.mission.plugin.game.opcodes.OpcodeDatabaseFactory
 import nl.shadowlink.mission.plugin.game.opcodes.OpcodeParam
+import nl.shadowlink.mission.plugin.game.opcodes.ParamType
 import nl.shadowlink.mission.plugin.lexer.MissionTokenType
 
 class OpcodeExpression(node: ASTNode) : ASTWrapperPsiElement(node), Annotatable {
@@ -37,7 +38,7 @@ class OpcodeExpression(node: ASTNode) : ASTWrapperPsiElement(node), Annotatable 
         return node.findChildByType(MissionTokenType.OPCODE)?.text?.substring(0, 4) ?: ""
     }
 
-    private fun getOpcodeInfo(): Opcode? {
+    fun getOpcodeInfo(): Opcode? {
         return OpcodeDatabaseFactory.getDatabase().opcode(getOpcode())
     }
 
@@ -59,14 +60,14 @@ class OpcodeExpression(node: ASTNode) : ASTWrapperPsiElement(node), Annotatable 
         val paramCount = getCurrentParamCount()
         val paramToComplete = opcode.params.getOrNull(paramCount)
         if (paramToComplete != null) {
-            return when (paramToComplete) {
-                OpcodeParam.ANY -> emptyList()
-                OpcodeParam.STRING -> emptyList()
-                OpcodeParam.INT -> VariableProvider.provideAll(file)
-                OpcodeParam.FLOAT -> VariableProvider.provideAll(file)
-                OpcodeParam.GXT_REF -> GxtProvider.provide(file)
-                OpcodeParam.LABEL_REF -> getLabelCompletions(file)
-                OpcodeParam.MODEL -> ModelProvider.provide(file)
+            return when (paramToComplete.type) {
+                ParamType.ANY -> emptyList()
+                ParamType.STRING -> emptyList()
+                ParamType.INT -> VariableProvider.provideAll(file)
+                ParamType.FLOAT -> VariableProvider.provideAll(file)
+                ParamType.GXT_REF -> GxtProvider.provide(file)
+                ParamType.LABEL_REF -> getLabelCompletions(file)
+                ParamType.MODEL -> ModelProvider.provide(file)
             }
         }
         return emptyList()

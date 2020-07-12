@@ -43,14 +43,15 @@ internal class IniOpcodeSource : OpcodeSource {
     }
 
     private fun placeHolderToParam(paramType: String): OpcodeParam {
-        return when (paramType) {
-            "s" -> OpcodeParam.STRING
-            "g" -> OpcodeParam.GXT_REF
-            "o" -> OpcodeParam.MODEL
-            "d" -> OpcodeParam.ANY
-            "h" -> OpcodeParam.ANY
-            "p" -> OpcodeParam.LABEL_REF
+        val type = when (paramType) {
+            "s" -> ParamType.STRING
+            "g" -> ParamType.GXT_REF
+            "o" -> ParamType.MODEL
+            "d" -> ParamType.ANY
+            "h" -> ParamType.ANY
+            "p" -> ParamType.LABEL_REF
             else -> throw IllegalArgumentException("Param type not supported ($paramType)")
         }
+        return OpcodeParam(type, null)
     }
 }

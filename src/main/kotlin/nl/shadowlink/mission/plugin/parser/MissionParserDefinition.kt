@@ -26,10 +26,7 @@ import nl.shadowlink.mission.plugin.psi.local.LocalVarDefinitionElement
 import nl.shadowlink.mission.plugin.psi.local.LocalVarReferenceElement
 import nl.shadowlink.mission.plugin.psi.opcode.OpcodeElement
 import nl.shadowlink.mission.plugin.psi.opcode.OpcodeExpression
-import nl.shadowlink.mission.plugin.psi.params.IntElement
-import nl.shadowlink.mission.plugin.psi.params.ModelElement
-import nl.shadowlink.mission.plugin.psi.params.StringElement
-import nl.shadowlink.mission.plugin.psi.params.StringKeyElement
+import nl.shadowlink.mission.plugin.psi.params.*
 
 class MissionParserDefinition : ParserDefinition {
 
@@ -60,6 +57,7 @@ class MissionParserDefinition : ParserDefinition {
             MissionTokenType.OPCODE -> OpcodeElement(node)
             MissionTokenType.STRING -> StringElement(node)
             MissionTokenType.INT -> IntElement(node)
+            MissionTokenType.FLOAT -> FloatElement(node)
             MissionTokenType.OBJECT_NAME -> ObjectNameElement(node)
             else -> DefaultElement(node)
         }

@@ -8,8 +8,9 @@ import com.intellij.psi.PsiReference
 import com.intellij.psi.PsiReferenceBase
 import com.intellij.psi.util.PsiTreeUtil
 import nl.shadowlink.mission.plugin.psi.PsiElementFactory
+import nl.shadowlink.mission.plugin.psi.opcode.OpcodeParameterElement
 
-class LocalVarReferenceElement(node: ASTNode) : LocalVarElement(node) {
+class LocalVarReferenceElement(node: ASTNode) : OpcodeParameterElement(node) {
 
     override fun getReference(): PsiReference? {
         val file = PsiTreeUtil.getParentOfType(this, PsiFile::class.java)
