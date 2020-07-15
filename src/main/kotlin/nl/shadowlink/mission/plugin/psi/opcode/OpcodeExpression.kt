@@ -27,7 +27,7 @@ class OpcodeExpression(node: ASTNode) : ASTWrapperPsiElement(node), Annotatable 
             holder.createErrorAnnotation(this, "Unknown opcode $opcodeText")
         } else {
             if (!isParamCountCorrect(opcode, params.size)) {
-                holder.createErrorAnnotation(this, "Expected ${opcode.paramCount} params")
+                holder.createErrorAnnotation(this, "Expected ${opcode.paramCount} params ${opcode.paramInfo()}")
             } else if (opcode.description?.isNotBlank() == true) {
                 holder.createInfoAnnotation(this, opcode.description)
             }
