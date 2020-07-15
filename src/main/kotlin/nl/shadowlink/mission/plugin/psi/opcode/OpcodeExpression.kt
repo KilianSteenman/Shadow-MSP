@@ -12,7 +12,6 @@ import nl.shadowlink.mission.plugin.completion.helpers.ModelProvider
 import nl.shadowlink.mission.plugin.completion.helpers.VariableProvider
 import nl.shadowlink.mission.plugin.game.opcodes.Opcode
 import nl.shadowlink.mission.plugin.game.opcodes.OpcodeDatabaseFactory
-import nl.shadowlink.mission.plugin.game.opcodes.OpcodeParam
 import nl.shadowlink.mission.plugin.game.opcodes.ParamType
 import nl.shadowlink.mission.plugin.lexer.MissionTokenType
 
