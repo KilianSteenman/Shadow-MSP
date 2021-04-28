@@ -28,7 +28,19 @@ class OpcodeParameterInfoHandler : ParameterInfoHandler<OpcodeExpression, Opcode
     }
 
     override fun findElementForParameterInfo(context: CreateParameterInfoContext): OpcodeExpression? {
-        return context.file.findElementAt(context.offset)?.parentOfType(OpcodeExpression::class)?.also {
+        val element = context.file.findElementAt(context.offset)?.parentOfType(OpcodeExpression::class)
+        val opcodeExpressionElement: OpcodeExpression? = if (element !is OpcodeExpression) {
+            val prevSibling = context.file.findElementAt(context.offset)?.prevSibling
+            if (prevSibling is OpcodeExpression) {
+                prevSibling
+            } else {
+                null
+            }
+        } else {
+            element
+        }
+
+        return opcodeExpressionElement?.also {
             context.itemsToShow = arrayOf(it.getOpcodeInfo())
         }
     }

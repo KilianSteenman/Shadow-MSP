@@ -2,12 +2,12 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 buildscript {
     repositories { mavenCentral() }
-    dependencies { classpath(kotlin("gradle-plugin", "1.3.72")) }
+    dependencies { classpath(kotlin("gradle-plugin", "1.4.32")) }
 }
 
 plugins {
     id("org.jetbrains.intellij") version "0.4.10"
-    kotlin("jvm") version "1.3.72"
+    kotlin("jvm") version "1.4.32"
 }
 
 group = "nl.shadowlink.mission"
@@ -19,9 +19,9 @@ repositories {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-reflect:1.3.72")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.4.32")
 
-    implementation("com.github.KilianSteenman:Shadow-MSC:0.2.1-alpha")
+    implementation("com.github.KilianSteenman:Shadow-MSC:0.3.2-alpha")
     implementation("org.ini4j", "ini4j", "0.5.4")
     implementation("com.google.code.gson", "gson", "2.8.6")
 
