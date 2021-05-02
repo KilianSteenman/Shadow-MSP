@@ -3,11 +3,8 @@ package nl.shadowlink.mission.plugin.tools.opcodedb
 import com.intellij.ui.components.JBList
 import com.intellij.ui.components.JBScrollPane
 import com.intellij.ui.layout.panel
-import nl.shadowlink.mission.plugin.game.opcodes.Opcode
 import nl.shadowlink.mission.plugin.game.opcodes.OpcodeDatabaseFactory
-import nl.shadowlink.mission.plugin.projectwizard.ModuleType
 import javax.swing.JComponent
-import javax.swing.JScrollPane
 import javax.swing.ListModel
 import javax.swing.event.ListDataListener
 

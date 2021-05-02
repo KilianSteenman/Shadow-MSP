@@ -9,8 +9,7 @@ import nl.shadowlink.mission.plugin.run.MissionRunConfiguration
 import org.jetbrains.jps.model.serialization.PathMacroUtil
 import java.io.File
 
-
-class MissionModuleBuilderListener : ModuleBuilderListener {
+internal class MissionModuleBuilderListener : ModuleBuilderListener {
 
     override fun moduleCreated(module: Module) {
         createDefaultRunConfig(module)
