@@ -26,16 +26,29 @@ internal fun ProjectSetupScreen(onModuleTypeSelected: (ScriptModuleType) -> Unit
     Surface(modifier = Modifier.fillMaxSize().padding(16.dp)) {
         val selectedScriptModuleType: MutableState<ScriptModuleType?> = remember { mutableStateOf(null) }
 
-        Row {
-            ScriptModuleType.values().forEach { moduleType ->
-                ProjectTile(
-                    scriptModuleType = moduleType,
-                    isSelected = moduleType == selectedScriptModuleType.value
-                ) {
-                    selectedScriptModuleType.value = moduleType
-                    onModuleTypeSelected(moduleType)
+        Column {
+            Row {
+                ScriptModuleType.values().forEach { moduleType ->
+                    ProjectTile(
+                        scriptModuleType = moduleType,
+                        isSelected = moduleType == selectedScriptModuleType.value
+                    ) {
+                        selectedScriptModuleType.value = moduleType
+                        onModuleTypeSelected(moduleType)
+                    }
+                    Spacer(modifier = Modifier.width(8.dp))
                 }
-                Spacer(modifier = Modifier.width(8.dp))
+            }
+
+            selectedScriptModuleType.value?.let { type ->
+                Spacer(Modifier.height(16.dp))
+                Surface(
+                    modifier = Modifier.fillMaxWidth()
+                        .height(200.dp)
+                        .border(width = 1.dp, color = Color.Gray)
+                ) {
+                    Text(type.description, modifier = Modifier.padding(8.dp))
+                }
             }
         }
     }
