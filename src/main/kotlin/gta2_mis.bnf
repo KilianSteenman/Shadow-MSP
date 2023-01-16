@@ -1,0 +1,50 @@
+{
+  tokens=[
+    SEMI=';'
+    EQ='='
+    LP='('
+    RP=')'
+    COMMA=','
+
+    space='regexp:\s+'
+    number='regexp:\d+(\.\d*)?'
+    id='regexp:[a-z0-9_]+'
+    comment='regexp://.*'
+
+    PLAYER_DEF='PLAYER_PED'
+    CHAR_DEF='CHAR_DATA'
+    COUNTER_DEF = 'COUNTER'
+
+    LEVEL_START='LEVELSTART'
+    LEVEL_END='LEVELEND'
+
+    COMMAND_NAME='regexp:[A-Z_]+'
+    PARAM_ENUM = 'regexp:[A-Z0-9_]+'
+
+    WHILE_EXEC = 'WHILE_EXEC'
+    WHILE = 'WHILE'
+    IF = 'IF'
+
+    op_1='+'
+    op_2='-'
+    op_3='*'
+    op_4='/'
+  ]
+}
+
+missionFile ::= dataBlock? levelBlock
+
+dataBlock ::= definition*
+definition ::= (type id assignment?)
+
+private assignment ::= (EQ number)
+private type ::= PLAYER_DEF | CHAR_DEF | COUNTER_DEF
+
+private vector3 ::= LP number COMMA number COMMA number RP
+
+levelBlock ::= (LEVEL_START expression* LEVEL_END)
+private expression ::= while | ((id EQ)? COMMAND_NAME params* 'END')
+private params ::= vector3 | number | PARAM_ENUM | id | (LP (param ','?)* RP)
+private param ::= number | PARAM_ENUM | id
+
+private while ::= WHILE_EXEC LP expression RP
