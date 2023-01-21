@@ -1,4 +1,17 @@
 {
+    parserClass="nl.shadowlink.mission.plugin.gta2.parser.Gta2MissionParser"
+
+    extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+    psiClassPrefix="Mission"
+    psiImplClassSuffix="Impl"
+    psiPackage="nl.shadowlink.mission.plugin.gta2.psi"
+    psiImplPackage="nl.shadowlink.mission.plugin.gta2.psi.impl"
+
+    elementTypeHolderClass="nl.shadowlink.mission.plugin.gta2.psi.Gta2MissionTypes"
+    elementTypeClass="nl.shadowlink.mission.plugin.gta2.psi.Gta2MissionElementType"
+    tokenTypeClass="nl.shadowlink.mission.plugin.gta2.psi.Gta2MissionTokenType"
+
   tokens=[
     EQ='='
     LP='('

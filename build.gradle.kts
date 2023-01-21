@@ -21,6 +21,15 @@ repositories {
 group = "nl.shadowlink.mission"
 version = "0.1"
 
+// Include the generated files in the source set
+sourceSets {
+    main {
+        java {
+            srcDirs("src/main/gen")
+        }
+    }
+}
+
 dependencies {
     implementation("com.github.KilianSteenman:Shadow-MSC:0.3.2-alpha")
     implementation("org.ini4j", "ini4j", "0.5.4")
