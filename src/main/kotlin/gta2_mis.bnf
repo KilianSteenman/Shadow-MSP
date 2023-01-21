@@ -1,6 +1,5 @@
 {
   tokens=[
-    SEMI=';'
     EQ='='
     LP='('
     RP=')'
@@ -10,41 +9,56 @@
     number='regexp:\d+(\.\d*)?'
     id='regexp:[a-z0-9_]+'
     comment='regexp://.*'
+    method='regexp:[a-z_]+:'
 
-    PLAYER_DEF='PLAYER_PED'
-    CHAR_DEF='CHAR_DATA'
+    // Definitions
+    PLAYER_PED_DEF='PLAYER_PED'
+    CHAR_DATA_DEF='CHAR_DATA'
     COUNTER_DEF = 'COUNTER'
+    FORWARD_DEF = 'FORWARD'
+    TIMER_DATA_DEF = 'TIMER_DATA'
+    THREAD_TRIGGER_DEF = 'THREAD_TRIGGER'
 
+    // Reserved words
     LEVEL_START='LEVELSTART'
     LEVEL_END='LEVELEND'
-
-    COMMAND_NAME='regexp:[A-Z_]+'
-    PARAM_ENUM = 'regexp:[A-Z0-9_]+'
-
     WHILE_EXEC = 'WHILE_EXEC'
     WHILE = 'WHILE'
+    END_WHILE = 'ENDWHILE'
     IF = 'IF'
+    END_IF = 'ENDIF'
+    END = 'END'
+    RETURN = 'RETURN'
+    SET = 'SET'
+
+    ENUM = 'regexp:[A-Z0-9_]+'
 
     op_1='+'
     op_2='-'
     op_3='*'
     op_4='/'
+    op_plus_plus='++'
   ]
 }
 
-missionFile ::= dataBlock? levelBlock
+missionFile ::= (dataBlock? levelBlock?)
 
 dataBlock ::= definition*
-definition ::= (type id assignment?)
-
-private assignment ::= (EQ number)
-private type ::= PLAYER_DEF | CHAR_DEF | COUNTER_DEF
-
-private vector3 ::= LP number COMMA number COMMA number RP
-
 levelBlock ::= (LEVEL_START expression* LEVEL_END)
-private expression ::= while | ((id EQ)? COMMAND_NAME params* 'END')
-private params ::= vector3 | number | PARAM_ENUM | id | (LP (param ','?)* RP)
-private param ::= number | PARAM_ENUM | id
 
-private while ::= WHILE_EXEC LP expression RP
+definition ::= (type id assignment?) | comment | (type method) | method_def
+
+private assignment ::= (EQ params*)
+type ::= PLAYER_PED_DEF | CHAR_DATA_DEF | COUNTER_DEF | FORWARD_DEF | TIMER_DATA_DEF | THREAD_TRIGGER_DEF
+
+vector3 ::= LP number COMMA number COMMA number RP
+
+expression ::= while | if | method_def | statement | comment | set
+statement ::= ((id EQ)? ENUM params* END?) | (id EQ param) | (op_plus_plus id)
+private params ::= vector3 | number | ENUM | id | (LP (param ','?)* RP)
+private param ::= number | ENUM | id | method
+
+private method_def ::= method expression* RETURN
+private if ::= IF LP statement RP expression* END_IF
+private while ::= WHILE_EXEC LP statement RP expression* END_WHILE
+private set ::= (SET id assignment)
