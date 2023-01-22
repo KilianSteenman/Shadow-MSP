@@ -19,18 +19,10 @@
     COMMA=','
 
     space='regexp:\s+'
-    number='regexp:\d+(\.\d*)?'
-    id='regexp:[a-z0-9_]+'
-    comment='regexp://.*'
-    method='regexp:[a-z_]+:'
-
-    // Definitions
-    PLAYER_PED_DEF='PLAYER_PED'
-    CHAR_DATA_DEF='CHAR_DATA'
-    COUNTER_DEF = 'COUNTER'
-    FORWARD_DEF = 'FORWARD'
-    TIMER_DATA_DEF = 'TIMER_DATA'
-    THREAD_TRIGGER_DEF = 'THREAD_TRIGGER'
+    NUMBER='regexp:\d+(\.\d*)?'
+    IDENTIFIER='regexp:[a-z0-9_]+'
+    COMMENT='regexp://.*'
+    SUBROUTINE='regexp:([a-z_]+):'
 
     // Reserved words
     LEVEL_START='LEVELSTART'
@@ -44,34 +36,43 @@
     RETURN = 'RETURN'
     SET = 'SET'
 
+    METHOD = 'regexp:[A-Z_]+'
+
     ENUM = 'regexp:[A-Z0-9_]+'
 
     op_1='+'
     op_2='-'
     op_3='*'
     op_4='/'
-    op_plus_plus='++'
+    OP_PLUS_PLUS='++'
   ]
 }
 
-missionFile ::= (dataBlock? levelBlock?)
+MissionFile ::= (DefinitionBlock? LevelBlock?)
 
-dataBlock ::= definition*
-levelBlock ::= (LEVEL_START expression* LEVEL_END)
+DefinitionBlock ::= Definition*
 
-definition ::= (type id assignment?) | comment | (type method) | method_def
+Definition ::= VariableDefinition | SubroutineDefinition | COMMENT | (Type SUBROUTINE)
 
-private assignment ::= (EQ params*)
-type ::= PLAYER_PED_DEF | CHAR_DATA_DEF | COUNTER_DEF | FORWARD_DEF | TIMER_DATA_DEF | THREAD_TRIGGER_DEF
+VariableDefinition ::= (Type IDENTIFIER Assignment?)
+SubroutineDefinition ::= SUBROUTINE Expression* RETURN
 
-vector3 ::= LP number COMMA number COMMA number RP
+Type ::= PLAYER_PED | CHAR_DATA | COUNTER | FORWARD | TIMER_DATA | THREAD_TRIGGER
 
-expression ::= while | if | method_def | statement | comment | set
-statement ::= ((id EQ)? ENUM params* END?) | (id EQ param) | (op_plus_plus id)
-private params ::= vector3 | number | ENUM | id | (LP (param ','?)* RP)
-private param ::= number | ENUM | id | method
+LevelBlock ::= (LEVEL_START LevelBody? LEVEL_END)
+LevelBody ::= Expression*
 
-private method_def ::= method expression* RETURN
-private if ::= IF LP statement RP expression* END_IF
-private while ::= WHILE_EXEC LP statement RP expression* END_WHILE
-private set ::= (SET id assignment)
+private Assignment ::= EQ Param
+
+Expression ::= COMMENT | VariableAssignment | MethodCall //While | If | SubroutineDefinition | /*Statement |*/ COMMENT | Set | VariableAssignment | MethodCall
+VariableAssignment ::= IDENTIFIER EQ (Param | MethodCall)
+MethodCall ::= METHOD Params? END?
+//Statement ::= ((IDENTIFIER EQ)? ENUM Params* END?) | (IDENTIFIER EQ Param) | (OP_PLUS_PLUS IDENTIFIER)
+Params ::= Param+ | (LP (Param ','?)+ RP)
+Param ::= NUMBER | ENUM | IDENTIFIER | SUBROUTINE | Vector3
+
+Vector3 ::= '(' number COMMA number COMMA number ')'
+
+//private If ::= IF LP Statement RP Expression* END_IF
+//private While ::= WHILE_EXEC LP Statement RP Expression* END_WHILE
+//private Set ::= (SET IDENTIFIER Assignment)
