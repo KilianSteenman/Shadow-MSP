@@ -5,19 +5,19 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface MissionDefinition extends PsiElement {
+public interface MissionParam extends PsiElement {
 
   @Nullable
-  MissionSubroutineDefinition getSubroutineDefinition();
+  MissionEnum getEnum();
 
   @Nullable
-  MissionType getType();
+  MissionVector3 getVector3();
 
   @Nullable
-  MissionVariableDefinition getVariableDefinition();
+  PsiElement getIdentifier();
 
   @Nullable
-  PsiElement getComment();
+  PsiElement getNumber();
 
   @Nullable
   PsiElement getSubroutine();

@@ -11,14 +11,14 @@ import static nl.shadowlink.mission.plugin.gta2.psi.Gta2MissionTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import nl.shadowlink.mission.plugin.gta2.psi.*;
 
-public class MissionDataBlockImpl extends ASTWrapperPsiElement implements MissionDataBlock {
+public class MissionSubroutineDefinitionImpl extends ASTWrapperPsiElement implements MissionSubroutineDefinition {
 
-  public MissionDataBlockImpl(@NotNull ASTNode node) {
+  public MissionSubroutineDefinitionImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull MissionVisitor visitor) {
-    visitor.visitDataBlock(this);
+    visitor.visitSubroutineDefinition(this);
   }
 
   @Override
@@ -29,8 +29,14 @@ public class MissionDataBlockImpl extends ASTWrapperPsiElement implements Missio
 
   @Override
   @NotNull
-  public List<MissionDefinition> getDefinitionList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, MissionDefinition.class);
+  public List<MissionExpression> getExpressionList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, MissionExpression.class);
+  }
+
+  @Override
+  @NotNull
+  public PsiElement getSubroutine() {
+    return findNotNullChildByType(SUBROUTINE);
   }
 
 }

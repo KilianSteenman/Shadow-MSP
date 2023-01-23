@@ -7,19 +7,25 @@ import com.intellij.psi.PsiElement;
 
 public interface MissionExpression extends PsiElement {
 
-  @NotNull
-  List<MissionExpression> getExpressionList();
+  @Nullable
+  MissionIfExpression getIfExpression();
 
   @Nullable
-  MissionStatement getStatement();
+  MissionMethodCall getMethodCall();
 
-  @NotNull
-  List<MissionVector3> getVector3List();
+  @Nullable
+  MissionSetExpression getSetExpression();
+
+  @Nullable
+  MissionSubroutineDefinition getSubroutineDefinition();
+
+  @Nullable
+  MissionVariableAssignment getVariableAssignment();
+
+  @Nullable
+  MissionWhileExpression getWhileExpression();
 
   @Nullable
   PsiElement getComment();
-
-  @Nullable
-  PsiElement getMethod();
 
 }

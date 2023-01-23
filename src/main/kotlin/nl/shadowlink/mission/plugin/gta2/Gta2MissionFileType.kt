@@ -5,11 +5,11 @@ import nl.shadowlink.mission.plugin.MissionIcons
 import nl.shadowlink.mission.plugin.MissionLanguage
 import javax.swing.Icon
 
-object MissionFileType : LanguageFileType(MissionLanguage) {
+object Gta2MissionFileType : LanguageFileType(Gta2MissionLanguage) {
 
     override fun getIcon(): Icon = MissionIcons.FILE
 
-    override fun getName(): String = "Mission Script"
+    override fun getName(): String = "GTA 2 - Mission Script"
 
     override fun getDefaultExtension(): String = "mis"
 

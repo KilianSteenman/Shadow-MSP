@@ -13,12 +13,7 @@
     tokenTypeClass="nl.shadowlink.mission.plugin.gta2.psi.Gta2MissionTokenType"
 
   tokens=[
-    EQ='='
-    LP='('
-    RP=')'
-    COMMA=','
-
-    space='regexp:\s+'
+    SPACE='regexp:\s+'
     NUMBER='regexp:\d+(\.\d*)?'
     IDENTIFIER='regexp:[a-z0-9_]+'
     COMMENT='regexp://.*'
@@ -38,12 +33,6 @@
 
     METHOD = 'regexp:[A-Z_]+'
 
-    ENUM = 'regexp:[A-Z0-9_]+'
-
-    op_1='+'
-    op_2='-'
-    op_3='*'
-    op_4='/'
     OP_PLUS_PLUS='++'
   ]
 }
@@ -62,17 +51,19 @@ Type ::= PLAYER_PED | CHAR_DATA | COUNTER | FORWARD | TIMER_DATA | THREAD_TRIGGE
 LevelBlock ::= (LEVEL_START LevelBody? LEVEL_END)
 LevelBody ::= Expression*
 
-private Assignment ::= EQ Param
+private Assignment ::= '=' Param
 
-Expression ::= COMMENT | VariableAssignment | MethodCall //While | If | SubroutineDefinition | /*Statement |*/ COMMENT | Set | VariableAssignment | MethodCall
-VariableAssignment ::= IDENTIFIER EQ (Param | MethodCall)
+Expression ::= COMMENT | VariableAssignment | MethodCall | WhileExpression | IfExpression | SubroutineDefinition | SetExpression
+VariableAssignment ::= IDENTIFIER '=' (Param | MethodCall)
 MethodCall ::= METHOD Params? END?
-//Statement ::= ((IDENTIFIER EQ)? ENUM Params* END?) | (IDENTIFIER EQ Param) | (OP_PLUS_PLUS IDENTIFIER)
-Params ::= Param+ | (LP (Param ','?)+ RP)
-Param ::= NUMBER | ENUM | IDENTIFIER | SUBROUTINE | Vector3
+Params ::= Param+ | ('(' (Param ','?)+ ')')
+Param ::= NUMBER | Enum | IDENTIFIER | SUBROUTINE | Vector3
 
-Vector3 ::= '(' number COMMA number COMMA number ')'
+Enum ::= MACHINE_GUN | CRIMINAL_TYPE2 | AREA_PLAYER_ONLY | REACT_AS_NORMAL | KILL_CHAR_ON_FOOT
+Vector3 ::= '(' number ',' number ',' number ')'
 
-//private If ::= IF LP Statement RP Expression* END_IF
-//private While ::= WHILE_EXEC LP Statement RP Expression* END_WHILE
-//private Set ::= (SET IDENTIFIER Assignment)
+ConditionalStatement ::= IDENTIFIER '=' Param | MethodCall
+
+IfExpression ::= IF '(' ConditionalStatement ')' Expression* END_IF
+WhileExpression ::= WHILE_EXEC '(' ConditionalStatement ')' Expression* END_WHILE
+SetExpression ::= (SET IDENTIFIER Assignment)

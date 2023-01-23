@@ -5,9 +5,15 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface MissionStatement extends PsiElement {
+public interface MissionVariableAssignment extends PsiElement {
+
+  @Nullable
+  MissionMethodCall getMethodCall();
+
+  @Nullable
+  MissionParam getParam();
 
   @NotNull
-  List<MissionVector3> getVector3List();
+  PsiElement getIdentifier();
 
 }

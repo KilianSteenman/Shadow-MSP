@@ -28,33 +28,45 @@ public class MissionExpressionImpl extends ASTWrapperPsiElement implements Missi
   }
 
   @Override
-  @NotNull
-  public List<MissionExpression> getExpressionList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, MissionExpression.class);
+  @Nullable
+  public MissionIfExpression getIfExpression() {
+    return findChildByClass(MissionIfExpression.class);
   }
 
   @Override
   @Nullable
-  public MissionStatement getStatement() {
-    return findChildByClass(MissionStatement.class);
+  public MissionMethodCall getMethodCall() {
+    return findChildByClass(MissionMethodCall.class);
   }
 
   @Override
-  @NotNull
-  public List<MissionVector3> getVector3List() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, MissionVector3.class);
+  @Nullable
+  public MissionSetExpression getSetExpression() {
+    return findChildByClass(MissionSetExpression.class);
+  }
+
+  @Override
+  @Nullable
+  public MissionSubroutineDefinition getSubroutineDefinition() {
+    return findChildByClass(MissionSubroutineDefinition.class);
+  }
+
+  @Override
+  @Nullable
+  public MissionVariableAssignment getVariableAssignment() {
+    return findChildByClass(MissionVariableAssignment.class);
+  }
+
+  @Override
+  @Nullable
+  public MissionWhileExpression getWhileExpression() {
+    return findChildByClass(MissionWhileExpression.class);
   }
 
   @Override
   @Nullable
   public PsiElement getComment() {
     return findChildByType(COMMENT);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getMethod() {
-    return findChildByType(METHOD);
   }
 
 }

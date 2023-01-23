@@ -28,9 +28,9 @@ public class MissionDefinitionImpl extends ASTWrapperPsiElement implements Missi
   }
 
   @Override
-  @NotNull
-  public List<MissionExpression> getExpressionList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, MissionExpression.class);
+  @Nullable
+  public MissionSubroutineDefinition getSubroutineDefinition() {
+    return findChildByClass(MissionSubroutineDefinition.class);
   }
 
   @Override
@@ -40,15 +40,21 @@ public class MissionDefinitionImpl extends ASTWrapperPsiElement implements Missi
   }
 
   @Override
-  @NotNull
-  public List<MissionVector3> getVector3List() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, MissionVector3.class);
+  @Nullable
+  public MissionVariableDefinition getVariableDefinition() {
+    return findChildByClass(MissionVariableDefinition.class);
   }
 
   @Override
   @Nullable
   public PsiElement getComment() {
     return findChildByType(COMMENT);
+  }
+
+  @Override
+  @Nullable
+  public PsiElement getSubroutine() {
+    return findChildByType(SUBROUTINE);
   }
 
 }

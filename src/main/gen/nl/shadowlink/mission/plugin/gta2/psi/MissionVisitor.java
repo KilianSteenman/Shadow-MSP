@@ -7,7 +7,7 @@ import com.intellij.psi.PsiElement;
 
 public class MissionVisitor extends PsiElementVisitor {
 
-  public void visitDataBlock(@NotNull MissionDataBlock o) {
+  public void visitConditionalStatement(@NotNull MissionConditionalStatement o) {
     visitPsiElement(o);
   }
 
@@ -15,7 +15,19 @@ public class MissionVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitDefinitionBlock(@NotNull MissionDefinitionBlock o) {
+    visitPsiElement(o);
+  }
+
+  public void visitEnum(@NotNull MissionEnum o) {
+    visitPsiElement(o);
+  }
+
   public void visitExpression(@NotNull MissionExpression o) {
+    visitPsiElement(o);
+  }
+
+  public void visitIfExpression(@NotNull MissionIfExpression o) {
     visitPsiElement(o);
   }
 
@@ -23,7 +35,27 @@ public class MissionVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitStatement(@NotNull MissionStatement o) {
+  public void visitLevelBody(@NotNull MissionLevelBody o) {
+    visitPsiElement(o);
+  }
+
+  public void visitMethodCall(@NotNull MissionMethodCall o) {
+    visitPsiElement(o);
+  }
+
+  public void visitParam(@NotNull MissionParam o) {
+    visitPsiElement(o);
+  }
+
+  public void visitParams(@NotNull MissionParams o) {
+    visitPsiElement(o);
+  }
+
+  public void visitSetExpression(@NotNull MissionSetExpression o) {
+    visitPsiElement(o);
+  }
+
+  public void visitSubroutineDefinition(@NotNull MissionSubroutineDefinition o) {
     visitPsiElement(o);
   }
 
@@ -31,7 +63,19 @@ public class MissionVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitVariableAssignment(@NotNull MissionVariableAssignment o) {
+    visitPsiElement(o);
+  }
+
+  public void visitVariableDefinition(@NotNull MissionVariableDefinition o) {
+    visitPsiElement(o);
+  }
+
   public void visitVector3(@NotNull MissionVector3 o) {
+    visitPsiElement(o);
+  }
+
+  public void visitWhileExpression(@NotNull MissionWhileExpression o) {
     visitPsiElement(o);
   }
 

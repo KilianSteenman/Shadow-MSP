@@ -2,43 +2,70 @@ package nl.shadowlink.mission.plugin.gta2;
 
 import com.intellij.lexer.FlexLexer;
 import com.intellij.psi.tree.IElementType;
-import nl.shadowlink.mission.plugin.gta2.psi.Gta2MissionTypes;
-import com.intellij.psi.TokenType;
+
+import static com.intellij.psi.TokenType.BAD_CHARACTER;
+import static com.intellij.psi.TokenType.WHITE_SPACE;
+import static nl.shadowlink.mission.plugin.gta2.psi.Gta2MissionTypes.*;
 
 %%
 
-%class Gta2MissionLexer
+%{
+  public _Gta2MissionLexer() {
+    this((java.io.Reader)null);
+  }
+%}
+
+%public
+%class _Gta2MissionLexer
 %implements FlexLexer
-%unicode
 %function advance
 %type IElementType
-%eof{  return;
-%eof}
+%unicode
 
-CRLF=\R
-WHITE_SPACE=[\ \n\t\f]
-FIRST_VALUE_CHARACTER=[^ \n\f\\] | "\\"{CRLF} | "\\".
-VALUE_CHARACTER=[^\n\f\\] | "\\"{CRLF} | "\\".
-END_OF_LINE_COMMENT=("#"|"!")[^\r\n]*
-SEPARATOR=[:=]
-KEY_CHARACTER=[^:=\ \n\t\f\\] | "\\ "
+EOL=\R
+WHITE_SPACE=\s+
 
-%state WAITING_VALUE
+SPACE=[ \t\n\x0B\f\r]+
+NUMBER=[0-9]+(\.[0-9]*)?
+IDENTIFIER=[a-z0-9_]+
+COMMENT="//".*
+SUBROUTINE=([a-z_]+):
+METHOD=[A-Z_]+
 
 %%
+<YYINITIAL> {
+  {WHITE_SPACE}          { return WHITE_SPACE; }
 
-<YYINITIAL> {END_OF_LINE_COMMENT}                           { yybegin(YYINITIAL); return SimpleTypes.COMMENT; }
+  "LEVELSTART"           { return LEVEL_START; }
+  "LEVELEND"             { return LEVEL_END; }
+  "WHILE_EXEC"           { return WHILE_EXEC; }
+  "WHILE"                { return WHILE; }
+  "ENDWHILE"             { return END_WHILE; }
+  "IF"                   { return IF; }
+  "ENDIF"                { return END_IF; }
+  "END"                  { return END; }
+  "RETURN"               { return RETURN; }
+  "SET"                  { return SET; }
+  "++"                   { return OP_PLUS_PLUS; }
+  "PLAYER_PED"           { return PLAYER_PED; }
+  "CHAR_DATA"            { return CHAR_DATA; }
+  "COUNTER"              { return COUNTER; }
+  "FORWARD"              { return FORWARD; }
+  "TIMER_DATA"           { return TIMER_DATA; }
+  "THREAD_TRIGGER"       { return THREAD_TRIGGER; }
+  "MACHINE_GUN"          { return MACHINE_GUN; }
+  "CRIMINAL_TYPE2"       { return CRIMINAL_TYPE2; }
+  "AREA_PLAYER_ONLY"     { return AREA_PLAYER_ONLY; }
+  "REACT_AS_NORMAL"      { return REACT_AS_NORMAL; }
+  "KILL_CHAR_ON_FOOT"    { return KILL_CHAR_ON_FOOT; }
 
-<YYINITIAL> {KEY_CHARACTER}+                                { yybegin(YYINITIAL); return SimpleTypes.KEY; }
+  {SPACE}                { return SPACE; }
+  {NUMBER}               { return NUMBER; }
+  {IDENTIFIER}           { return IDENTIFIER; }
+  {COMMENT}              { return COMMENT; }
+  {SUBROUTINE}           { return SUBROUTINE; }
+  {METHOD}               { return METHOD; }
 
-<YYINITIAL> {SEPARATOR}                                     { yybegin(WAITING_VALUE); return SimpleTypes.SEPARATOR; }
+}
 
-<WAITING_VALUE> {CRLF}({CRLF}|{WHITE_SPACE})+               { yybegin(YYINITIAL); return TokenType.WHITE_SPACE; }
-
-<WAITING_VALUE> {WHITE_SPACE}+                              { yybegin(WAITING_VALUE); return TokenType.WHITE_SPACE; }
-
-<WAITING_VALUE> {FIRST_VALUE_CHARACTER}{VALUE_CHARACTER}*   { yybegin(YYINITIAL); return SimpleTypes.VALUE; }
-
-({CRLF}|{WHITE_SPACE})+                                     { yybegin(YYINITIAL); return TokenType.WHITE_SPACE; }
-
-[^]                                                         { return TokenType.BAD_CHARACTER; }
+[^] { return BAD_CHARACTER; }

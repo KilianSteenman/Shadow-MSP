@@ -5,9 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface MissionLevelBlock extends PsiElement {
+public interface MissionSubroutineDefinition extends PsiElement {
 
-  @Nullable
-  MissionLevelBody getLevelBody();
+  @NotNull
+  List<MissionExpression> getExpressionList();
+
+  @NotNull
+  PsiElement getSubroutine();
 
 }

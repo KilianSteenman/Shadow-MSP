@@ -4,7 +4,8 @@
     <vendor email="info@shadow-link.nl" url="http://www.shadow-link.nl">Shadow-Link</vendor>
 
     <description><![CDATA[
-    Basic editor (by Sanny Builder) decompiled mission scripts<br>
+    Basic editor for GTA Mission scripts.<br/>
+    Supported games. GTA 2, GTA: III, GTA: VC and GTA: SA.
     ]]></description>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
@@ -14,12 +15,17 @@
     -->
 
     <extensions defaultExtensionNs="com.intellij">
+        <!-- GTA 2 -->
+        <fileType name="GTA 2 - Mission Script file"
+                  implementationClass="nl.shadowlink.mission.plugin.gta2.Gta2MissionFileType"
+                  language="Gta2MissionScript"
+                  extensions="mis" />
+        <lang.parserDefinition language="Gta2MissionScript"
+                               implementationClass="nl.shadowlink.mission.plugin.gta2.Gta2MissionParserDefinition" />
+
+        <!-- RW Era -->
         <fileType name="Mission Script file" implementationClass="nl.shadowlink.mission.plugin.MissionFileType"
-            language="MissionScript" extensions="dsc" />
-
-        <fileType name="GTA 2 - Mission Script file" implementationClass="nl.shadowlink.mission.plugin.gta2.MissionFileType"
-                  language="MissionScript" extensions="mis" />
-
+                  language="MissionScript" extensions="dsc" />
         <lang.parserDefinition language="MissionScript"
             implementationClass="nl.shadowlink.mission.plugin.parser.MissionParserDefinition" />
         <lang.syntaxHighlighterFactory language="MissionScript"

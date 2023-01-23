@@ -11,14 +11,14 @@ import static nl.shadowlink.mission.plugin.gta2.psi.Gta2MissionTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import nl.shadowlink.mission.plugin.gta2.psi.*;
 
-public class MissionLevelBlockImpl extends ASTWrapperPsiElement implements MissionLevelBlock {
+public class MissionMethodCallImpl extends ASTWrapperPsiElement implements MissionMethodCall {
 
-  public MissionLevelBlockImpl(@NotNull ASTNode node) {
+  public MissionMethodCallImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull MissionVisitor visitor) {
-    visitor.visitLevelBlock(this);
+    visitor.visitMethodCall(this);
   }
 
   @Override
@@ -29,8 +29,14 @@ public class MissionLevelBlockImpl extends ASTWrapperPsiElement implements Missi
 
   @Override
   @Nullable
-  public MissionLevelBody getLevelBody() {
-    return findChildByClass(MissionLevelBody.class);
+  public MissionParams getParams() {
+    return findChildByClass(MissionParams.class);
+  }
+
+  @Override
+  @NotNull
+  public PsiElement getMethod() {
+    return findNotNullChildByType(METHOD);
   }
 
 }

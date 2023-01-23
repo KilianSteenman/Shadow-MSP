@@ -32,424 +32,459 @@ public class Gta2MissionParser implements PsiParser, LightPsiParser {
   }
 
   static boolean parse_root_(IElementType t, PsiBuilder b, int l) {
-    return missionFile(b, l + 1);
+    return MissionFile(b, l + 1);
   }
 
   /* ********************************************************** */
-  // EQ params*
-  static boolean assignment(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "assignment")) return false;
-    if (!nextTokenIs(b, EQ)) return false;
+  // '=' Param
+  static boolean Assignment(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "Assignment")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeToken(b, EQ);
-    r = r && assignment_1(b, l + 1);
+    r = consumeToken(b, "=");
+    r = r && Param(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
 
-  // params*
-  private static boolean assignment_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "assignment_1")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!params(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "assignment_1", c)) break;
-    }
-    return true;
+  /* ********************************************************** */
+  // IDENTIFIER '=' Param | MethodCall
+  public static boolean ConditionalStatement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ConditionalStatement")) return false;
+    if (!nextTokenIs(b, "<conditional statement>", IDENTIFIER, METHOD)) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, CONDITIONAL_STATEMENT, "<conditional statement>");
+    r = ConditionalStatement_0(b, l + 1);
+    if (!r) r = MethodCall(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // IDENTIFIER '=' Param
+  private static boolean ConditionalStatement_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ConditionalStatement_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, IDENTIFIER);
+    r = r && consumeToken(b, "=");
+    r = r && Param(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
   }
 
   /* ********************************************************** */
-  // definition*
-  public static boolean dataBlock(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "dataBlock")) return false;
-    Marker m = enter_section_(b, l, _NONE_, DATA_BLOCK, "<data block>");
+  // VariableDefinition | SubroutineDefinition | COMMENT | (Type SUBROUTINE)
+  public static boolean Definition(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "Definition")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, DEFINITION, "<definition>");
+    r = VariableDefinition(b, l + 1);
+    if (!r) r = SubroutineDefinition(b, l + 1);
+    if (!r) r = consumeToken(b, COMMENT);
+    if (!r) r = Definition_3(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // Type SUBROUTINE
+  private static boolean Definition_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "Definition_3")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = Type(b, l + 1);
+    r = r && consumeToken(b, SUBROUTINE);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // Definition*
+  public static boolean DefinitionBlock(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "DefinitionBlock")) return false;
+    Marker m = enter_section_(b, l, _NONE_, DEFINITION_BLOCK, "<definition block>");
     while (true) {
       int c = current_position_(b);
-      if (!definition(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "dataBlock", c)) break;
+      if (!Definition(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "DefinitionBlock", c)) break;
     }
     exit_section_(b, l, m, true, false, null);
     return true;
   }
 
   /* ********************************************************** */
-  // (type id assignment?) | comment | (type method) | method_def
-  public static boolean definition(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "definition")) return false;
+  // MACHINE_GUN | CRIMINAL_TYPE2 | AREA_PLAYER_ONLY | REACT_AS_NORMAL | KILL_CHAR_ON_FOOT
+  public static boolean Enum(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "Enum")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, DEFINITION, "<definition>");
-    r = definition_0(b, l + 1);
-    if (!r) r = consumeToken(b, COMMENT);
-    if (!r) r = definition_2(b, l + 1);
-    if (!r) r = method_def(b, l + 1);
+    Marker m = enter_section_(b, l, _NONE_, ENUM, "<enum>");
+    r = consumeToken(b, MACHINE_GUN);
+    if (!r) r = consumeToken(b, CRIMINAL_TYPE2);
+    if (!r) r = consumeToken(b, AREA_PLAYER_ONLY);
+    if (!r) r = consumeToken(b, REACT_AS_NORMAL);
+    if (!r) r = consumeToken(b, KILL_CHAR_ON_FOOT);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
-  // type id assignment?
-  private static boolean definition_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "definition_0")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = type(b, l + 1);
-    r = r && consumeToken(b, ID);
-    r = r && definition_0_2(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // assignment?
-  private static boolean definition_0_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "definition_0_2")) return false;
-    assignment(b, l + 1);
-    return true;
-  }
-
-  // type method
-  private static boolean definition_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "definition_2")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = type(b, l + 1);
-    r = r && consumeToken(b, METHOD);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
   /* ********************************************************** */
-  // while | if | method_def | statement | comment | set
-  public static boolean expression(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "expression")) return false;
+  // COMMENT | VariableAssignment | MethodCall | WhileExpression | IfExpression | SubroutineDefinition | SetExpression
+  public static boolean Expression(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "Expression")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, EXPRESSION, "<expression>");
-    r = while_$(b, l + 1);
-    if (!r) r = if_$(b, l + 1);
-    if (!r) r = method_def(b, l + 1);
-    if (!r) r = statement(b, l + 1);
-    if (!r) r = consumeToken(b, COMMENT);
-    if (!r) r = set(b, l + 1);
+    r = consumeToken(b, COMMENT);
+    if (!r) r = VariableAssignment(b, l + 1);
+    if (!r) r = MethodCall(b, l + 1);
+    if (!r) r = WhileExpression(b, l + 1);
+    if (!r) r = IfExpression(b, l + 1);
+    if (!r) r = SubroutineDefinition(b, l + 1);
+    if (!r) r = SetExpression(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
   /* ********************************************************** */
-  // IF LP statement RP expression* END_IF
-  static boolean if_$(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "if_$")) return false;
+  // IF '(' ConditionalStatement ')' Expression* END_IF
+  public static boolean IfExpression(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "IfExpression")) return false;
     if (!nextTokenIs(b, IF)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, IF, LP);
-    r = r && statement(b, l + 1);
-    r = r && consumeToken(b, RP);
-    r = r && if_4(b, l + 1);
+    r = consumeToken(b, IF);
+    r = r && consumeToken(b, "(");
+    r = r && ConditionalStatement(b, l + 1);
+    r = r && consumeToken(b, ")");
+    r = r && IfExpression_4(b, l + 1);
     r = r && consumeToken(b, END_IF);
-    exit_section_(b, m, null, r);
+    exit_section_(b, m, IF_EXPRESSION, r);
     return r;
   }
 
-  // expression*
-  private static boolean if_4(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "if_4")) return false;
+  // Expression*
+  private static boolean IfExpression_4(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "IfExpression_4")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!expression(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "if_4", c)) break;
+      if (!Expression(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "IfExpression_4", c)) break;
     }
     return true;
   }
 
   /* ********************************************************** */
-  // LEVEL_START expression* LEVEL_END
-  public static boolean levelBlock(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "levelBlock")) return false;
+  // LEVEL_START LevelBody? LEVEL_END
+  public static boolean LevelBlock(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "LevelBlock")) return false;
     if (!nextTokenIs(b, LEVEL_START)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, LEVEL_START);
-    r = r && levelBlock_1(b, l + 1);
+    r = r && LevelBlock_1(b, l + 1);
     r = r && consumeToken(b, LEVEL_END);
     exit_section_(b, m, LEVEL_BLOCK, r);
     return r;
   }
 
-  // expression*
-  private static boolean levelBlock_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "levelBlock_1")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!expression(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "levelBlock_1", c)) break;
-    }
+  // LevelBody?
+  private static boolean LevelBlock_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "LevelBlock_1")) return false;
+    LevelBody(b, l + 1);
     return true;
   }
 
   /* ********************************************************** */
-  // method expression* RETURN
-  static boolean method_def(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "method_def")) return false;
+  // Expression*
+  public static boolean LevelBody(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "LevelBody")) return false;
+    Marker m = enter_section_(b, l, _NONE_, LEVEL_BODY, "<level body>");
+    while (true) {
+      int c = current_position_(b);
+      if (!Expression(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "LevelBody", c)) break;
+    }
+    exit_section_(b, l, m, true, false, null);
+    return true;
+  }
+
+  /* ********************************************************** */
+  // METHOD Params? END?
+  public static boolean MethodCall(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "MethodCall")) return false;
     if (!nextTokenIs(b, METHOD)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, METHOD);
-    r = r && method_def_1(b, l + 1);
-    r = r && consumeToken(b, RETURN);
-    exit_section_(b, m, null, r);
+    r = r && MethodCall_1(b, l + 1);
+    r = r && MethodCall_2(b, l + 1);
+    exit_section_(b, m, METHOD_CALL, r);
     return r;
   }
 
-  // expression*
-  private static boolean method_def_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "method_def_1")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!expression(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "method_def_1", c)) break;
-    }
+  // Params?
+  private static boolean MethodCall_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "MethodCall_1")) return false;
+    Params(b, l + 1);
+    return true;
+  }
+
+  // END?
+  private static boolean MethodCall_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "MethodCall_2")) return false;
+    consumeToken(b, END);
     return true;
   }
 
   /* ********************************************************** */
-  // dataBlock? levelBlock?
-  static boolean missionFile(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "missionFile")) return false;
+  // DefinitionBlock? LevelBlock?
+  static boolean MissionFile(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "MissionFile")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = missionFile_0(b, l + 1);
-    r = r && missionFile_1(b, l + 1);
+    r = MissionFile_0(b, l + 1);
+    r = r && MissionFile_1(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
 
-  // dataBlock?
-  private static boolean missionFile_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "missionFile_0")) return false;
-    dataBlock(b, l + 1);
+  // DefinitionBlock?
+  private static boolean MissionFile_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "MissionFile_0")) return false;
+    DefinitionBlock(b, l + 1);
     return true;
   }
 
-  // levelBlock?
-  private static boolean missionFile_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "missionFile_1")) return false;
-    levelBlock(b, l + 1);
+  // LevelBlock?
+  private static boolean MissionFile_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "MissionFile_1")) return false;
+    LevelBlock(b, l + 1);
     return true;
   }
 
   /* ********************************************************** */
-  // number | ENUM | id | method
-  static boolean param(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "param")) return false;
+  // NUMBER | Enum | IDENTIFIER | SUBROUTINE | Vector3
+  public static boolean Param(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "Param")) return false;
     boolean r;
+    Marker m = enter_section_(b, l, _NONE_, PARAM, "<param>");
     r = consumeToken(b, NUMBER);
-    if (!r) r = consumeToken(b, ENUM);
-    if (!r) r = consumeToken(b, ID);
-    if (!r) r = consumeToken(b, METHOD);
+    if (!r) r = Enum(b, l + 1);
+    if (!r) r = consumeToken(b, IDENTIFIER);
+    if (!r) r = consumeToken(b, SUBROUTINE);
+    if (!r) r = Vector3(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
   /* ********************************************************** */
-  // vector3 | number | ENUM | id | (LP (param ','?)* RP)
-  static boolean params(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "params")) return false;
+  // Param+ | ('(' (Param ','?)+ ')')
+  public static boolean Params(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "Params")) return false;
     boolean r;
-    Marker m = enter_section_(b);
-    r = vector3(b, l + 1);
-    if (!r) r = consumeToken(b, NUMBER);
-    if (!r) r = consumeToken(b, ENUM);
-    if (!r) r = consumeToken(b, ID);
-    if (!r) r = params_4(b, l + 1);
-    exit_section_(b, m, null, r);
+    Marker m = enter_section_(b, l, _NONE_, PARAMS, "<params>");
+    r = Params_0(b, l + 1);
+    if (!r) r = Params_1(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
-  // LP (param ','?)* RP
-  private static boolean params_4(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "params_4")) return false;
+  // Param+
+  private static boolean Params_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "Params_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeToken(b, LP);
-    r = r && params_4_1(b, l + 1);
-    r = r && consumeToken(b, RP);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // (param ','?)*
-  private static boolean params_4_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "params_4_1")) return false;
-    while (true) {
+    r = Param(b, l + 1);
+    while (r) {
       int c = current_position_(b);
-      if (!params_4_1_0(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "params_4_1", c)) break;
+      if (!Param(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "Params_0", c)) break;
     }
-    return true;
+    exit_section_(b, m, null, r);
+    return r;
   }
 
-  // param ','?
-  private static boolean params_4_1_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "params_4_1_0")) return false;
+  // '(' (Param ','?)+ ')'
+  private static boolean Params_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "Params_1")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = param(b, l + 1);
-    r = r && params_4_1_0_1(b, l + 1);
+    r = consumeToken(b, "(");
+    r = r && Params_1_1(b, l + 1);
+    r = r && consumeToken(b, ")");
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // (Param ','?)+
+  private static boolean Params_1_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "Params_1_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = Params_1_1_0(b, l + 1);
+    while (r) {
+      int c = current_position_(b);
+      if (!Params_1_1_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "Params_1_1", c)) break;
+    }
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // Param ','?
+  private static boolean Params_1_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "Params_1_1_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = Param(b, l + 1);
+    r = r && Params_1_1_0_1(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
 
   // ','?
-  private static boolean params_4_1_0_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "params_4_1_0_1")) return false;
-    consumeToken(b, COMMA);
+  private static boolean Params_1_1_0_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "Params_1_1_0_1")) return false;
+    consumeToken(b, ",");
     return true;
   }
 
   /* ********************************************************** */
-  // SET id assignment
-  static boolean set(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "set")) return false;
+  // SET IDENTIFIER Assignment
+  public static boolean SetExpression(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "SetExpression")) return false;
     if (!nextTokenIs(b, SET)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, SET, ID);
-    r = r && assignment(b, l + 1);
-    exit_section_(b, m, null, r);
+    r = consumeTokens(b, 0, SET, IDENTIFIER);
+    r = r && Assignment(b, l + 1);
+    exit_section_(b, m, SET_EXPRESSION, r);
     return r;
   }
 
   /* ********************************************************** */
-  // ((id EQ)? ENUM params* END?) | (id EQ param) | (op_plus_plus id)
-  public static boolean statement(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "statement")) return false;
-    boolean r;
-    Marker m = enter_section_(b, l, _NONE_, STATEMENT, "<statement>");
-    r = statement_0(b, l + 1);
-    if (!r) r = statement_1(b, l + 1);
-    if (!r) r = statement_2(b, l + 1);
-    exit_section_(b, l, m, r, false, null);
-    return r;
-  }
-
-  // (id EQ)? ENUM params* END?
-  private static boolean statement_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "statement_0")) return false;
+  // SUBROUTINE Expression* RETURN
+  public static boolean SubroutineDefinition(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "SubroutineDefinition")) return false;
+    if (!nextTokenIs(b, SUBROUTINE)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = statement_0_0(b, l + 1);
-    r = r && consumeToken(b, ENUM);
-    r = r && statement_0_2(b, l + 1);
-    r = r && statement_0_3(b, l + 1);
-    exit_section_(b, m, null, r);
+    r = consumeToken(b, SUBROUTINE);
+    r = r && SubroutineDefinition_1(b, l + 1);
+    r = r && consumeToken(b, RETURN);
+    exit_section_(b, m, SUBROUTINE_DEFINITION, r);
     return r;
   }
 
-  // (id EQ)?
-  private static boolean statement_0_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "statement_0_0")) return false;
-    statement_0_0_0(b, l + 1);
-    return true;
-  }
-
-  // id EQ
-  private static boolean statement_0_0_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "statement_0_0_0")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, ID, EQ);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // params*
-  private static boolean statement_0_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "statement_0_2")) return false;
+  // Expression*
+  private static boolean SubroutineDefinition_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "SubroutineDefinition_1")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!params(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "statement_0_2", c)) break;
+      if (!Expression(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "SubroutineDefinition_1", c)) break;
     }
     return true;
   }
 
-  // END?
-  private static boolean statement_0_3(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "statement_0_3")) return false;
-    consumeToken(b, END);
-    return true;
-  }
-
-  // id EQ param
-  private static boolean statement_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "statement_1")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, ID, EQ);
-    r = r && param(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // op_plus_plus id
-  private static boolean statement_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "statement_2")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, OP_PLUS_PLUS, ID);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
   /* ********************************************************** */
-  // PLAYER_PED_DEF | CHAR_DATA_DEF | COUNTER_DEF | FORWARD_DEF | TIMER_DATA_DEF | THREAD_TRIGGER_DEF
-  public static boolean type(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "type")) return false;
+  // PLAYER_PED | CHAR_DATA | COUNTER | FORWARD | TIMER_DATA | THREAD_TRIGGER
+  public static boolean Type(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "Type")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, TYPE, "<type>");
-    r = consumeToken(b, PLAYER_PED_DEF);
-    if (!r) r = consumeToken(b, CHAR_DATA_DEF);
-    if (!r) r = consumeToken(b, COUNTER_DEF);
-    if (!r) r = consumeToken(b, FORWARD_DEF);
-    if (!r) r = consumeToken(b, TIMER_DATA_DEF);
-    if (!r) r = consumeToken(b, THREAD_TRIGGER_DEF);
+    r = consumeToken(b, PLAYER_PED);
+    if (!r) r = consumeToken(b, CHAR_DATA);
+    if (!r) r = consumeToken(b, COUNTER);
+    if (!r) r = consumeToken(b, FORWARD);
+    if (!r) r = consumeToken(b, TIMER_DATA);
+    if (!r) r = consumeToken(b, THREAD_TRIGGER);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
   /* ********************************************************** */
-  // LP number COMMA number COMMA number RP
-  public static boolean vector3(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "vector3")) return false;
-    if (!nextTokenIs(b, LP)) return false;
+  // IDENTIFIER '=' (Param | MethodCall)
+  public static boolean VariableAssignment(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "VariableAssignment")) return false;
+    if (!nextTokenIs(b, IDENTIFIER)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, LP, NUMBER, COMMA, NUMBER, COMMA, NUMBER, RP);
-    exit_section_(b, m, VECTOR_3, r);
+    r = consumeToken(b, IDENTIFIER);
+    r = r && consumeToken(b, "=");
+    r = r && VariableAssignment_2(b, l + 1);
+    exit_section_(b, m, VARIABLE_ASSIGNMENT, r);
+    return r;
+  }
+
+  // Param | MethodCall
+  private static boolean VariableAssignment_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "VariableAssignment_2")) return false;
+    boolean r;
+    r = Param(b, l + 1);
+    if (!r) r = MethodCall(b, l + 1);
     return r;
   }
 
   /* ********************************************************** */
-  // WHILE_EXEC LP statement RP expression* END_WHILE
-  static boolean while_$(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "while_$")) return false;
-    if (!nextTokenIs(b, WHILE_EXEC)) return false;
+  // Type IDENTIFIER Assignment?
+  public static boolean VariableDefinition(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "VariableDefinition")) return false;
     boolean r;
-    Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, WHILE_EXEC, LP);
-    r = r && statement(b, l + 1);
-    r = r && consumeToken(b, RP);
-    r = r && while_4(b, l + 1);
-    r = r && consumeToken(b, END_WHILE);
-    exit_section_(b, m, null, r);
+    Marker m = enter_section_(b, l, _NONE_, VARIABLE_DEFINITION, "<variable definition>");
+    r = Type(b, l + 1);
+    r = r && consumeToken(b, IDENTIFIER);
+    r = r && VariableDefinition_2(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
-  // expression*
-  private static boolean while_4(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "while_4")) return false;
+  // Assignment?
+  private static boolean VariableDefinition_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "VariableDefinition_2")) return false;
+    Assignment(b, l + 1);
+    return true;
+  }
+
+  /* ********************************************************** */
+  // '(' number ',' number ',' number ')'
+  public static boolean Vector3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "Vector3")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, VECTOR_3, "<vector 3>");
+    r = consumeToken(b, "(");
+    r = r && consumeToken(b, NUMBER);
+    r = r && consumeToken(b, ",");
+    r = r && consumeToken(b, NUMBER);
+    r = r && consumeToken(b, ",");
+    r = r && consumeToken(b, NUMBER);
+    r = r && consumeToken(b, ")");
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // WHILE_EXEC '(' ConditionalStatement ')' Expression* END_WHILE
+  public static boolean WhileExpression(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "WhileExpression")) return false;
+    if (!nextTokenIs(b, WHILE_EXEC)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, WHILE_EXEC);
+    r = r && consumeToken(b, "(");
+    r = r && ConditionalStatement(b, l + 1);
+    r = r && consumeToken(b, ")");
+    r = r && WhileExpression_4(b, l + 1);
+    r = r && consumeToken(b, END_WHILE);
+    exit_section_(b, m, WHILE_EXPRESSION, r);
+    return r;
+  }
+
+  // Expression*
+  private static boolean WhileExpression_4(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "WhileExpression_4")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!expression(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "while_4", c)) break;
+      if (!Expression(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "WhileExpression_4", c)) break;
     }
     return true;
   }
