@@ -16,86 +16,127 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- GTA 2 -->
-        <fileType name="GTA 2 - Mission Script file"
-                  implementationClass="nl.shadowlink.mission.plugin.gta2.Gta2MissionFileType"
-                  language="Gta2MissionScript"
-                  extensions="mis" />
-        <lang.parserDefinition language="Gta2MissionScript"
-                               implementationClass="nl.shadowlink.mission.plugin.gta2.Gta2MissionParserDefinition" />
+        <fileType
+                name="GTA 2 - Mission Script file"
+                implementationClass="nl.shadowlink.mission.plugin.gta2.Gta2MissionFileType"
+                language="Gta2MissionScript"
+                extensions="mis"/>
+        <lang.parserDefinition
+                language="Gta2MissionScript"
+                implementationClass="nl.shadowlink.mission.plugin.gta2.Gta2MissionParserDefinition"/>
+        <lang.syntaxHighlighterFactory
+                language="Gta2MissionScript"
+                implementationClass="nl.shadowlink.mission.plugin.gta2.highlighter.Gta2MissionHighlighterFactory"/>
+        <lang.foldingBuilder
+                language="Gta2MissionScript"
+                implementationClass="nl.shadowlink.mission.plugin.gta2.Gta2FoldingBuilder"/>
 
         <!-- RW Era -->
-        <fileType name="Mission Script file" implementationClass="nl.shadowlink.mission.plugin.MissionFileType"
-                  language="MissionScript" extensions="dsc" />
-        <lang.parserDefinition language="MissionScript"
-            implementationClass="nl.shadowlink.mission.plugin.parser.MissionParserDefinition" />
-        <lang.syntaxHighlighterFactory language="MissionScript"
-            implementationClass="nl.shadowlink.mission.plugin.highlighter.MissionHighlighterFactory" />
-        <lang.refactoringSupport language="MissionScript"
-            implementationClass="nl.shadowlink.mission.plugin.refactoring.MissionRefactoringSupportProvider" />
-        <lang.findUsagesProvider language="MissionScript"
-            implementationClass="nl.shadowlink.mission.plugin.usages.MissionUsagesProvider" />
-        <lang.commenter language="MissionScript"
-            implementationClass="nl.shadowlink.mission.plugin.commenter.MissionCommenter" />
+        <fileType
+                name="Mission Script file"
+                implementationClass="nl.shadowlink.mission.plugin.MissionFileType"
+                language="MissionScript"
+                extensions="dsc"/>
+        <lang.parserDefinition
+                language="MissionScript"
+                implementationClass="nl.shadowlink.mission.plugin.parser.MissionParserDefinition"/>
+        <lang.syntaxHighlighterFactory
+                language="MissionScript"
+                implementationClass="nl.shadowlink.mission.plugin.highlighter.MissionHighlighterFactory"/>
+        <lang.refactoringSupport
+                language="MissionScript"
+                implementationClass="nl.shadowlink.mission.plugin.refactoring.MissionRefactoringSupportProvider"/>
+        <lang.findUsagesProvider
+                language="MissionScript"
+                implementationClass="nl.shadowlink.mission.plugin.usages.MissionUsagesProvider"/>
+        <lang.commenter
+                language="MissionScript"
+                implementationClass="nl.shadowlink.mission.plugin.commenter.MissionCommenter"/>
 
-        <annotator language="MissionScript"
-            implementationClass="nl.shadowlink.mission.plugin.annotator.MissionAnnotator" />
+        <annotator
+                language="MissionScript"
+                implementationClass="nl.shadowlink.mission.plugin.annotator.MissionAnnotator"/>
 
         <!-- Completions -->
-        <completion.contributor language="MissionScript"
-            implementationClass="nl.shadowlink.mission.plugin.completion.OpcodeCompletionContributor" />
-        <completion.contributor language="MissionScript"
-            implementationClass="nl.shadowlink.mission.plugin.completion.ModelCompletionContributor" />
-        <completion.contributor language="MissionScript"
-            implementationClass="nl.shadowlink.mission.plugin.completion.LabelCompletionContributor" />
-        <completion.contributor language="MissionScript"
-            implementationClass="nl.shadowlink.mission.plugin.completion.GlobalsCompletionContributor" />
-        <completion.contributor language="MissionScript"
-            implementationClass="nl.shadowlink.mission.plugin.completion.ParameterCompletionContributor" />
+        <completion.contributor
+                language="MissionScript"
+                implementationClass="nl.shadowlink.mission.plugin.completion.OpcodeCompletionContributor"/>
+        <completion.contributor
+                language="MissionScript"
+                implementationClass="nl.shadowlink.mission.plugin.completion.ModelCompletionContributor"/>
+        <completion.contributor
+                language="MissionScript"
+                implementationClass="nl.shadowlink.mission.plugin.completion.LabelCompletionContributor"/>
+        <completion.contributor
+                language="MissionScript"
+                implementationClass="nl.shadowlink.mission.plugin.completion.GlobalsCompletionContributor"/>
+        <completion.contributor
+                language="MissionScript"
+                implementationClass="nl.shadowlink.mission.plugin.completion.ParameterCompletionContributor"/>
         <codeInsight.parameterInfo
-            implementationClass="nl.shadowlink.mission.plugin.completion.OpcodeParameterInfoHandler"
-            language="MissionScript" />
+                implementationClass="nl.shadowlink.mission.plugin.completion.OpcodeParameterInfoHandler"
+                language="MissionScript"/>
 
         <!-- Folding -->
-        <lang.foldingBuilder language="MissionScript"
-            implementationClass="nl.shadowlink.mission.plugin.folding.MissionFolding" />
-        <lang.foldingBuilder language="MissionScript"
-            implementationClass="nl.shadowlink.mission.plugin.folding.OpcodeFolding" />
+        <lang.foldingBuilder
+                language="MissionScript"
+                implementationClass="nl.shadowlink.mission.plugin.folding.MissionFolding"/>
+        <lang.foldingBuilder
+                language="MissionScript"
+                implementationClass="nl.shadowlink.mission.plugin.folding.OpcodeFolding"/>
 
         <!-- Settings -->
-        <colorSettingsPage implementation="nl.shadowlink.mission.plugin.highlighter.MissionColorSettingsPage" />
-        <applicationConfigurable instance="nl.shadowlink.mission.plugin.configuration.MissionConfiguration"
-            groupId="language" id="MissionScript" />
+        <colorSettingsPage
+                implementation="nl.shadowlink.mission.plugin.highlighter.MissionColorSettingsPage"/>
+        <applicationConfigurable
+                instance="nl.shadowlink.mission.plugin.configuration.MissionConfiguration"
+                groupId="language"
+                id="MissionScript"/>
 
         <!-- Run related extensions -->
-        <configurationType implementation="nl.shadowlink.mission.plugin.run.MissionConfigurationType" />
-        <programRunner id="MissionScript" implementation="nl.shadowlink.mission.plugin.run.MissionProgramRunner" />
+        <configurationType
+                implementation="nl.shadowlink.mission.plugin.run.MissionConfigurationType"/>
+        <programRunner
+                id="MissionScript"
+                implementation="nl.shadowlink.mission.plugin.run.MissionProgramRunner"/>
 
         <!-- Project / Module wizard -->
-        <moduleType id="MissionModule"
-            implementationClass="nl.shadowlink.mission.plugin.projectwizard.MissionModuleType" />
-        <moduleBuilder builderClass="nl.shadowlink.mission.plugin.projectwizard.MissionModuleBuilder" />
+<!--        <moduleType-->
+<!--                id="MissionModule"-->
+<!--                implementationClass="nl.shadowlink.mission.plugin.projectwizard.MissionModuleType"/>-->
+<!--        <moduleBuilder-->
+<!--                builderClass="nl.shadowlink.mission.plugin.projectwizard.MissionModuleBuilder"/>-->
 
         <!-- Tool windows -->
-        <toolWindow id="OpcodeDbViewer" anchor="right"
-            factoryClass="nl.shadowlink.mission.plugin.tools.opcodedb.OpcodeDbViewerToolWindowFactory" />
+        <toolWindow
+                id="OpcodeDbViewer"
+                anchor="right"
+                factoryClass="nl.shadowlink.mission.plugin.tools.opcodedb.OpcodeDbViewerToolWindowFactory"/>
     </extensions>
 
     <actions>
 
-        <action id="nl.shadowlink.mission.plugin.actions.OpenInSannyBuilderAction"
-            class="nl.shadowlink.mission.plugin.actions.OpenInSannyBuilderAction" text="Open in Sanny Builder"
-            description="Open file in Sanny Builder">
-            <add-to-group group-id="RevealGroup" anchor="last" />
+        <action
+                id="nl.shadowlink.mission.plugin.actions.OpenInSannyBuilderAction"
+                class="nl.shadowlink.mission.plugin.actions.OpenInSannyBuilderAction"
+                text="Open in Sanny Builder"
+                description="Open file in Sanny Builder">
+            <add-to-group group-id="RevealGroup" anchor="last"/>
         </action>
 
-        <group id="nl.shadowlink.mission.plugin.MissionActions" text="Mission Script" popup="true">
-            <add-to-group group-id="ToolsMenu" anchor="last" />
+        <group
+                id="nl.shadowlink.mission.plugin.MissionActions"
+                text="Mission Script"
+                popup="true">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
         </group>
 
-        <action id="nl.shadowlink.mission.plugin.tools.opcodedb.OpenOpcodeDbAction"
-            class="nl.shadowlink.mission.plugin.tools.opcodedb.OpenOpcodeDbAction" text="Open Opcode Database"
-            description="Browse a list of all available opcodes">
-            <add-to-group group-id="nl.shadowlink.mission.plugin.MissionActions" anchor="last" />
+        <action
+                id="nl.shadowlink.mission.plugin.tools.opcodedb.OpenOpcodeDbAction"
+                class="nl.shadowlink.mission.plugin.tools.opcodedb.OpenOpcodeDbAction"
+                text="Open Opcode Database"
+                description="Browse a list of all available opcodes">
+            <add-to-group group-id="nl.shadowlink.mission.plugin.MissionActions" anchor="last"/>
         </action>
 
     </actions>

@@ -12,6 +12,9 @@ import com.intellij.psi.tree.IFileElementType
 import com.intellij.psi.tree.TokenSet
 import nl.shadowlink.mission.plugin.MissionIcons.FILE
 import nl.shadowlink.mission.plugin.gta2.parser.Gta2MissionParser
+import nl.shadowlink.mission.plugin.gta2.psi.Gta2MissionElementType
+import nl.shadowlink.mission.plugin.gta2.psi.Gta2MissionTypes
+import nl.shadowlink.mission.plugin.gta2.psi.impl.MissionLevelBlockImpl
 import nl.shadowlink.mission.plugin.psi.DefaultElement
 
 class Gta2MissionParserDefinition : ParserDefinition {
@@ -30,8 +33,11 @@ class Gta2MissionParserDefinition : ParserDefinition {
     override fun getStringLiteralElements(): TokenSet = TokenSet.EMPTY
 
     override fun createElement(node: ASTNode): PsiElement {
-        // TODO: Implement this
-        return DefaultElement(node)
+        return MissionLevelBlockImpl(node)
+//        return when (node.elementType) {
+//            Gta2MissionTypes.LEVEL_BLOCK -> MissionLevelBlockImpl(node)
+//            else -> MissionVariableDefinitionImpl(node)
+//        }
     }
 
     override fun createFile(viewProvider: FileViewProvider): PsiFile = Gta2MissionFile(viewProvider)

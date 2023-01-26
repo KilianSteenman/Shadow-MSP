@@ -15,7 +15,7 @@ import static nl.shadowlink.mission.plugin.gta2.psi.Gta2MissionTypes.*;
  * <a href="http://www.jflex.de/">JFlex</a> 1.7.0
  * from the specification file <tt>gta2_mis.flex</tt>
  */
-public class _Gta2MissionLexer implements FlexLexer {
+public class Gta2MissionLexer implements FlexLexer {
 
   /** This character denotes the end of file */
   public static final int YYEOF = -1;
@@ -411,7 +411,7 @@ public class _Gta2MissionLexer implements FlexLexer {
   private boolean zzEOFDone;
 
   /* user code: */
-  public _Gta2MissionLexer() {
+  public Gta2MissionLexer() {
     this((java.io.Reader)null);
   }
 
@@ -421,7 +421,7 @@ public class _Gta2MissionLexer implements FlexLexer {
    *
    * @param   in  the java.io.Reader to read input from.
    */
-  public _Gta2MissionLexer(java.io.Reader in) {
+  public Gta2MissionLexer(java.io.Reader in) {
     this.zzReader = in;
   }
 

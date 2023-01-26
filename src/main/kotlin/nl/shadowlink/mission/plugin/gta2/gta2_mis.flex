@@ -10,13 +10,13 @@ import static nl.shadowlink.mission.plugin.gta2.psi.Gta2MissionTypes.*;
 %%
 
 %{
-  public _Gta2MissionLexer() {
+  public Gta2MissionLexer() {
     this((java.io.Reader)null);
   }
 %}
 
 %public
-%class _Gta2MissionLexer
+%class Gta2MissionLexer
 %implements FlexLexer
 %function advance
 %type IElementType
