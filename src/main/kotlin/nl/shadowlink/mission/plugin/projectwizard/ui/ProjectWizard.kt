@@ -14,12 +14,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
-import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.res.loadImageBitmap
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import nl.shadowlink.mission.plugin.projectwizard.ScriptModuleType
-import org.jetbrains.skija.Image.makeFromEncoded
 
 @Composable
 internal fun ProjectSetupScreen(onModuleTypeSelected: (ScriptModuleType) -> Unit) {
@@ -96,5 +95,5 @@ internal fun ProjectTile(scriptModuleType: ScriptModuleType, isSelected: Boolean
 }
 
 fun imageFromBundledResource(javaClass: Class<Any>, path: String): ImageBitmap {
-    return makeFromEncoded(javaClass.getResourceAsStream(path).readBytes()).asImageBitmap()
+    return loadImageBitmap(javaClass.getResourceAsStream(path))
 }

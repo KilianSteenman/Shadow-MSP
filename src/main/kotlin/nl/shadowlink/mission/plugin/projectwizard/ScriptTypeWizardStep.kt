@@ -1,6 +1,6 @@
 package nl.shadowlink.mission.plugin.projectwizard
 
-import androidx.compose.desktop.ComposePanel
+import androidx.compose.ui.awt.ComposePanel
 import com.intellij.ide.util.projectWizard.ModuleWizardStep
 import com.intellij.openapi.options.ConfigurationException
 import nl.shadowlink.mission.plugin.projectwizard.ui.ProjectSetupScreen

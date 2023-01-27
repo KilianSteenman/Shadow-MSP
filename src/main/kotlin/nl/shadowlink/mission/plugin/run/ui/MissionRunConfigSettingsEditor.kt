@@ -30,7 +30,7 @@ internal class MissionRunConfigSettingsEditor : SettingsEditor<MissionRunConfigu
         return panel {
             row {
                 label("Game")
-                comboBox(gameComboBoxModel, ::gameComboBoxSelection)
+//                comboBox(gameComboBoxModel, ::gameComboBoxSelection)
             }
             row {
                 label("Game directory")
