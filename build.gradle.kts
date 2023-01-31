@@ -3,13 +3,13 @@ import org.jetbrains.compose.compose
 
 buildscript {
     repositories { mavenCentral() }
-    dependencies { classpath(kotlin("gradle-plugin", "1.7.20")) }
+    dependencies { classpath(kotlin("gradle-plugin", "1.8.0")) }
 }
 
 plugins {
-    id("org.jetbrains.intellij") version "1.10.2"
-    id("org.jetbrains.kotlin.jvm") version "1.7.20"
-    id("org.jetbrains.compose") version "1.2.1"
+    id("org.jetbrains.intellij") version "1.12.0"
+    id("org.jetbrains.kotlin.jvm") version "1.8.0"
+    id("org.jetbrains.compose") version "1.3.0"
 }
 
 repositories {
