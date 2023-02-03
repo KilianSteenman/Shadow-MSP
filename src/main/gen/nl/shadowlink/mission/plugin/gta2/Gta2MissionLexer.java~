@@ -7,7 +7,7 @@ import com.intellij.psi.tree.IElementType;
 
 import static com.intellij.psi.TokenType.BAD_CHARACTER;
 import static com.intellij.psi.TokenType.WHITE_SPACE;
-import static nl.shadowlink.mission.plugin.gta2.psi.Gta2MissionTypes.*;
+import nl.shadowlink.mission.plugin.gta2.psi.Gta2MissionTypes;
 
 
 /**
@@ -661,7 +661,7 @@ public class Gta2MissionLexer implements FlexLexer {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1: 
-            { return BAD_CHARACTER;
+            { return Gta2MissionTypes.LEVEL_START;
             } 
             // fall through
           case 30: break;
@@ -671,137 +671,137 @@ public class Gta2MissionLexer implements FlexLexer {
             // fall through
           case 31: break;
           case 3: 
-            { return NUMBER;
+            { return Gta2MissionTypes.NUMBER;
             } 
             // fall through
           case 32: break;
           case 4: 
-            { return IDENTIFIER;
+            { return Gta2MissionTypes.IDENTIFIER;
             } 
             // fall through
           case 33: break;
           case 5: 
-            { return METHOD;
+            { return Gta2MissionTypes.METHOD;
             } 
             // fall through
           case 34: break;
           case 6: 
-            { return SUBROUTINE;
+            { return Gta2MissionTypes.SUBROUTINE;
             } 
             // fall through
           case 35: break;
           case 7: 
-            { return COMMENT;
+            { return Gta2MissionTypes.COMMENT;
             } 
             // fall through
           case 36: break;
           case 8: 
-            { return IF;
+            { return Gta2MissionTypes.IF;
             } 
             // fall through
           case 37: break;
           case 9: 
-            { return OP_PLUS_PLUS;
+            { return Gta2MissionTypes.OP_PLUS_PLUS;
             } 
             // fall through
           case 38: break;
           case 10: 
-            { return END;
+            { return Gta2MissionTypes.END;
             } 
             // fall through
           case 39: break;
           case 11: 
-            { return SET;
+            { return Gta2MissionTypes.SET;
             } 
             // fall through
           case 40: break;
           case 12: 
-            { return END_IF;
+            { return Gta2MissionTypes.END_IF;
             } 
             // fall through
           case 41: break;
           case 13: 
-            { return WHILE;
+            { return Gta2MissionTypes.WHILE;
             } 
             // fall through
           case 42: break;
           case 14: 
-            { return RETURN;
+            { return Gta2MissionTypes.RETURN;
             } 
             // fall through
           case 43: break;
           case 15: 
-            { return COUNTER;
+            { return Gta2MissionTypes.COUNTER;
             } 
             // fall through
           case 44: break;
           case 16: 
-            { return FORWARD;
+            { return Gta2MissionTypes.FORWARD;
             } 
             // fall through
           case 45: break;
           case 17: 
-            { return LEVEL_END;
+            { return Gta2MissionTypes.LEVEL_END;
             } 
             // fall through
           case 46: break;
           case 18: 
-            { return END_WHILE;
+            { return Gta2MissionTypes.END_WHILE;
             } 
             // fall through
           case 47: break;
           case 19: 
-            { return CHAR_DATA;
+            { return Gta2MissionTypes.CHAR_DATA;
             } 
             // fall through
           case 48: break;
           case 20: 
-            { return LEVEL_START;
+            { return Gta2MissionTypes.LEVEL_BLOCK;
             } 
             // fall through
           case 49: break;
           case 21: 
-            { return TIMER_DATA;
+            { return Gta2MissionTypes.TIMER_DATA;
             } 
             // fall through
           case 50: break;
           case 22: 
-            { return WHILE_EXEC;
+            { return Gta2MissionTypes.WHILE_EXEC;
             } 
             // fall through
           case 51: break;
           case 23: 
-            { return PLAYER_PED;
+            { return Gta2MissionTypes.PLAYER_PED;
             } 
             // fall through
           case 52: break;
           case 24: 
-            { return MACHINE_GUN;
+            { return Gta2MissionTypes.MACHINE_GUN;
             } 
             // fall through
           case 53: break;
           case 25: 
-            { return THREAD_TRIGGER;
+            { return Gta2MissionTypes.THREAD_TRIGGER;
             } 
             // fall through
           case 54: break;
           case 26: 
-            { return CRIMINAL_TYPE2;
+            { return Gta2MissionTypes.CRIMINAL_TYPE2;
             } 
             // fall through
           case 55: break;
           case 27: 
-            { return REACT_AS_NORMAL;
+            { return Gta2MissionTypes.REACT_AS_NORMAL;
             } 
             // fall through
           case 56: break;
           case 28: 
-            { return AREA_PLAYER_ONLY;
+            { return Gta2MissionTypes.AREA_PLAYER_ONLY;
             } 
             // fall through
           case 57: break;
           case 29: 
-            { return KILL_CHAR_ON_FOOT;
+            { return Gta2MissionTypes.KILL_CHAR_ON_FOOT;
             } 
             // fall through
           case 58: break;

@@ -33,7 +33,8 @@ class Gta2MissionParserDefinition : ParserDefinition {
     override fun getStringLiteralElements(): TokenSet = TokenSet.EMPTY
 
     override fun createElement(node: ASTNode): PsiElement {
-        return MissionLevelBlockImpl(node)
+        return Gta2MissionTypes.Factory.createElement(node)
+//        return MissionLevelBlockImpl(node)
 //        return when (node.elementType) {
 //            Gta2MissionTypes.LEVEL_BLOCK -> MissionLevelBlockImpl(node)
 //            else -> MissionVariableDefinitionImpl(node)
