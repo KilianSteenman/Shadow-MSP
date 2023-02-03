@@ -17,7 +17,7 @@
     <extensions defaultExtensionNs="com.intellij">
         <!-- GTA 2 -->
         <fileType
-                name="GTA 2 - Mission Script file"
+                name="GTA 2 - Mission Script"
                 implementationClass="nl.shadowlink.mission.plugin.gta2.Gta2MissionFileType"
                 language="Gta2MissionScript"
                 extensions="mis"/>
@@ -33,7 +33,7 @@
 
         <!-- RW Era -->
         <fileType
-                name="Mission Script file"
+                name="Mission Script"
                 implementationClass="nl.shadowlink.mission.plugin.MissionFileType"
                 language="MissionScript"
                 extensions="dsc"/>

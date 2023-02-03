@@ -7,9 +7,20 @@ import com.intellij.openapi.diagnostic.Logger
 import com.intellij.openapi.editor.Document
 import com.intellij.openapi.editor.FoldingGroup
 import com.intellij.openapi.project.DumbAware
+import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import com.intellij.psi.util.PsiTreeUtil
+import com.intellij.psi.util.childrenOfType
+import com.intellij.refactoring.suggested.endOffset
+import com.intellij.refactoring.suggested.startOffset
+import nl.shadowlink.mission.plugin.gta2.psi.Gta2MissionElementType
+import nl.shadowlink.mission.plugin.gta2.psi.Gta2MissionTypes
+import nl.shadowlink.mission.plugin.gta2.psi.MissionWhileExpression
+import nl.shadowlink.mission.plugin.gta2.psi.impl.MissionConditionalStatementImpl
 import nl.shadowlink.mission.plugin.gta2.psi.impl.MissionDefinitionBlockImpl
+import nl.shadowlink.mission.plugin.gta2.psi.impl.MissionIfExpressionImpl
+import nl.shadowlink.mission.plugin.gta2.psi.impl.MissionLevelBlockImpl
+import nl.shadowlink.mission.plugin.gta2.psi.impl.MissionWhileExpressionImpl
 
 public class Gta2FoldingBuilder : FoldingBuilderEx(), DumbAware {
     private val LOG: Logger = Logger.getInstance(this::class.java)
@@ -18,38 +29,43 @@ public class Gta2FoldingBuilder : FoldingBuilderEx(), DumbAware {
         printPsi(root)
 
         // Initialize the group of folding regions that will expand/collapse together.
-        val group = FoldingGroup.newGroup("debug name")//SimpleAnnotator.SIMPLE_PREFIX_STR)
-        // Initialize the list of folding regions
-        val descriptors: MutableList<FoldingDescriptor> = ArrayList()
-        // Get a collection of the literal expressions in the document below root
-        val literalExpressions = PsiTreeUtil.findChildrenOfType(root, MissionDefinitionBlockImpl::class.java)
+        val group = FoldingGroup.newGroup("debug name")
 
-        // Evaluate the collection
-//        for (literalExpression in literalExpressions) {
-//            val value = if (literalExpression.getValue() is String) literalExpression.getValue() else null
-//            if (value != null && value.startsWith(SimpleAnnotator.SIMPLE_PREFIX_STR + SimpleAnnotator.SIMPLE_SEPARATOR_STR)) {
-//                val project: Project = literalExpression.getProject()
-//                val key: String = value.substring(
-//                    SimpleAnnotator.SIMPLE_PREFIX_STR.length() + SimpleAnnotator.SIMPLE_SEPARATOR_STR.length()
-//                )
-//                // Get a list of all properties for a given key in the project
-//                val properties: List<SimpleProperty> = SimpleUtil.findProperties(project, key)
-//                if (properties.size == 1) {
-//                    // Add a folding descriptor for the literal expression at this node.
-//                    descriptors.add(
-//                        FoldingDescriptor(
-//                            literalExpression.getNode(),
-//                            TextRange(
-//                                literalExpression.getTextRange().getStartOffset() + 1,
-//                                literalExpression.getTextRange().getEndOffset() - 1
-//                            ),
-//                            group
-//                        )
-//                    )
-//                }
-//            }
-//        }
-        return descriptors.toTypedArray()
+        return codeBlockElementTypes
+            .flatMap { type -> PsiTreeUtil.findChildrenOfType(root, type) }
+            .map { literalExpression -> literalExpression.toFoldingDescriptor() }
+            .toTypedArray()
+    }
+
+    private fun PsiElement.toFoldingDescriptor(): FoldingDescriptor {
+        return when (this) {
+            is MissionWhileExpressionImpl -> this.toConditionalFoldingDescriptor()
+            is MissionIfExpressionImpl -> this.toConditionalFoldingDescriptor()
+            else -> {
+                FoldingDescriptor(
+                    this.node,
+                    TextRange(
+                        this.firstChild.endOffset,
+                        this.lastChild.startOffset,
+                    ),
+                    FoldingGroup.newGroup("debug name")
+                )
+            }
+        }
+    }
+
+    private fun PsiElement.toConditionalFoldingDescriptor(): FoldingDescriptor {
+        val startOffset = childrenOfType<MissionConditionalStatementImpl>().firstOrNull()?.endOffset?.plus(1)
+            ?: this.firstChild.endOffset
+
+        return FoldingDescriptor(
+            this.node,
+            TextRange(
+                startOffset,
+                this.lastChild.startOffset,
+            ),
+            FoldingGroup.newGroup("debug name")
+        )
     }
 
     private fun printPsi(element: PsiElement) {
@@ -59,7 +75,23 @@ public class Gta2FoldingBuilder : FoldingBuilderEx(), DumbAware {
         }
     }
 
-    override fun getPlaceholderText(node: ASTNode): String = "Placeholder"
+    override fun getPlaceholderText(node: ASTNode): String {
+        return when (node.psi) {
+            is MissionLevelBlockImpl -> "..."
+            is MissionWhileExpressionImpl -> "..."
+            is MissionIfExpressionImpl -> "..."
+            else -> error("Placeholder not defined for node $node")
+        }
+    }
 
     override fun isCollapsedByDefault(node: ASTNode): Boolean = false
+
+    companion object {
+
+        private val codeBlockElementTypes = listOf(
+            MissionLevelBlockImpl::class.java,
+            MissionWhileExpressionImpl::class.java,
+            MissionIfExpressionImpl::class.java
+        )
+    }
 }
