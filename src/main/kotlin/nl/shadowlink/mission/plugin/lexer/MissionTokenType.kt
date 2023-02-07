@@ -1,8 +1,8 @@
 package nl.shadowlink.mission.plugin.lexer
 
 import com.intellij.psi.tree.IElementType
-import nl.shadowlink.mission.plugin.MissionLanguage
 import com.intellij.psi.tree.TokenSet
+import nl.shadowlink.mission.plugin.MissionLanguage
 
 class MissionTokenType(type: Type) : IElementType(type.name, MissionLanguage) {
 
@@ -16,8 +16,6 @@ class MissionTokenType(type: Type) : IElementType(type.name, MissionLanguage) {
         MODEL,
         ERROR,
         GLOBAL_VAR,
-        GLOBAL_VAR_DEF,
-        GLOBAL_VAR_REF,
         LOCAL_VAR,
         LOCAL_VAR_REF,
         LOCAL_VAR_DEF,
@@ -51,8 +49,6 @@ class MissionTokenType(type: Type) : IElementType(type.name, MissionLanguage) {
         val MODEL = MissionTokenType(Type.MODEL)
         val ERROR = MissionTokenType(Type.ERROR)
         val GLOBAL_VAR = MissionTokenType(Type.GLOBAL_VAR)
-        val GLOBAL_VAR_DEF = MissionTokenType(Type.GLOBAL_VAR_DEF)
-        val GLOBAL_VAR_REF = MissionTokenType(Type.GLOBAL_VAR_REF)
         val LOCAL_VAR = MissionTokenType(Type.LOCAL_VAR)
         val LOCAL_VAR_REF = MissionTokenType(Type.LOCAL_VAR_REF)
         val LOCAL_VAR_DEF = MissionTokenType(Type.LOCAL_VAR_DEF)
@@ -80,28 +76,36 @@ class MissionTokenType(type: Type) : IElementType(type.name, MissionLanguage) {
         val LABEL_TYPES = TokenSet.create(LABEL, LABEL_REF)
 
         val KEYWORD_TYPES = TokenSet.create(
-                KEY_DEFINE, KEY_MISSIONS, KEY_MISSION, KEY_OBJECTS, KEY_OBJECT, KEY_AT, KEY_NOT
+            KEY_DEFINE, KEY_MISSIONS, KEY_MISSION, KEY_OBJECTS, KEY_OBJECT, KEY_AT, KEY_NOT
         )
 
         val OPCODE_EXPRESSION_TYPES = TokenSet.create(
-                OPCODE_TEXT, STRING_KEY, STRING, MODEL, FLOAT, INT, EQUAL, EQUALS, GLOBAL_VAR, LABEL_REF, LOCAL_VAR,
-                PLUS, MINUS, MULTIPLY, DIVIDE, KEY_NOT
+            OPCODE_TEXT, STRING_KEY, STRING, MODEL, FLOAT, INT, EQUAL, EQUALS, GLOBAL_VAR, LABEL_REF, LOCAL_VAR,
+            PLUS, MINUS, MULTIPLY, DIVIDE, KEY_NOT
         )
 
         val OPCODE_PARAM_TYPES = TokenSet.create(
-                FLOAT, INT, MODEL, LOCAL_VAR_DEF, LOCAL_VAR_REF, GLOBAL_VAR_DEF, GLOBAL_VAR_REF, STRING, STRING_KEY, LABEL_REF
+            FLOAT,
+            INT,
+            MODEL,
+            LOCAL_VAR_DEF,
+            LOCAL_VAR_REF,
+            GLOBAL_VAR,
+            STRING,
+            STRING_KEY,
+            LABEL_REF
         )
 
         val GLOBAL_VAR_TYPES = TokenSet.create(
-                GLOBAL_VAR, GLOBAL_VAR_DEF, GLOBAL_VAR_REF
+            GLOBAL_VAR
         )
 
         val LOCAL_TYPES = TokenSet.create(
-                LOCAL_VAR, LOCAL_VAR_DEF, LOCAL_VAR_REF
+            LOCAL_VAR, LOCAL_VAR_DEF, LOCAL_VAR_REF
         )
 
         val FIND_USAGES = TokenSet.create(
-                LABEL, LOCAL_VAR_DEF, GLOBAL_VAR_DEF
+            LABEL, LOCAL_VAR_DEF, GLOBAL_VAR
         )
     }
 }

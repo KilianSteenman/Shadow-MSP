@@ -4,7 +4,6 @@ import com.intellij.lang.ASTNode
 import com.intellij.lang.PsiBuilder
 import com.intellij.lang.PsiParser
 import com.intellij.psi.tree.IElementType
-import nl.shadowlink.mission.plugin.extensions.logWarn
 import nl.shadowlink.mission.plugin.lexer.MissionExpressionType
 import nl.shadowlink.mission.plugin.lexer.MissionTokenType
 import nl.shadowlink.mission.plugin.lexer.MissionTokenType.Companion.OPCODE_EXPRESSION_TYPES
@@ -95,7 +94,11 @@ class MissionPsiParser : PsiParser {
         defineMarker.done(MissionExpressionType.DEFINE_OBJECT)
     }
 
-    private fun parseDefineMission(defineType: PsiBuilder.Marker, defineMarker: PsiBuilder.Marker, builder: PsiBuilder) {
+    private fun parseDefineMission(
+        defineType: PsiBuilder.Marker,
+        defineMarker: PsiBuilder.Marker,
+        builder: PsiBuilder
+    ) {
         builder.advanceLexer()
         defineType.done(MissionTokenType.KEY_MISSION)
 
@@ -144,12 +147,6 @@ class MissionPsiParser : PsiParser {
                     when (builder.lookAhead(1)) {
                         MissionTokenType.EQUAL -> MissionTokenType.LOCAL_VAR_DEF
                         else -> MissionTokenType.LOCAL_VAR_REF
-                    }
-                }
-                MissionTokenType.GLOBAL_VAR -> {
-                    when (builder.lookAhead(1)) {
-                        MissionTokenType.EQUAL -> MissionTokenType.GLOBAL_VAR_DEF
-                        else -> MissionTokenType.GLOBAL_VAR_REF
                     }
                 }
                 else -> paramType

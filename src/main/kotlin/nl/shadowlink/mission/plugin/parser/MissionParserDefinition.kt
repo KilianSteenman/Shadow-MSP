@@ -9,17 +9,16 @@ import com.intellij.openapi.project.Project
 import com.intellij.psi.FileViewProvider
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
-import com.intellij.psi.tree.TokenSet
 import com.intellij.psi.tree.IFileElementType
+import com.intellij.psi.tree.TokenSet
 import nl.shadowlink.mission.plugin.MissionFile
-import nl.shadowlink.mission.plugin.lexer.MissionLexer
 import nl.shadowlink.mission.plugin.MissionLanguage
 import nl.shadowlink.mission.plugin.lexer.MissionExpressionType
+import nl.shadowlink.mission.plugin.lexer.MissionLexer
 import nl.shadowlink.mission.plugin.lexer.MissionTokenType
-import nl.shadowlink.mission.plugin.psi.*
+import nl.shadowlink.mission.plugin.psi.DefaultElement
 import nl.shadowlink.mission.plugin.psi.defines.*
-import nl.shadowlink.mission.plugin.psi.global.GlobalVarDefinitionElement
-import nl.shadowlink.mission.plugin.psi.global.GlobalVarReferenceElement
+import nl.shadowlink.mission.plugin.psi.global.GlobalVarElement
 import nl.shadowlink.mission.plugin.psi.label.LabelDefinitionElement
 import nl.shadowlink.mission.plugin.psi.label.LabelReferenceElement
 import nl.shadowlink.mission.plugin.psi.local.LocalVarDefinitionElement
@@ -35,12 +34,12 @@ class MissionParserDefinition : ParserDefinition {
     override fun createFile(viewProvider: FileViewProvider): PsiFile = MissionFile(viewProvider)
 
     override fun getFileNodeType(): IFileElementType =
-            IFileElementType(Language.findInstance(MissionLanguage::class.java))
+        IFileElementType(Language.findInstance(MissionLanguage::class.java))
 
     override fun createLexer(project: Project): Lexer = MissionLexer()
 
     override fun createElement(node: ASTNode): PsiElement {
-        return when(node.elementType) {
+        return when (node.elementType) {
             MissionExpressionType.DEFINE_MISSION_COUNT -> DefineMissionCountElement(node)
             MissionExpressionType.DEFINE_MISSION -> DefineMissionElement(node)
             MissionExpressionType.DEFINE_OBJECT_COUNT -> DefineObjectCountElement(node)
@@ -51,8 +50,7 @@ class MissionParserDefinition : ParserDefinition {
             MissionTokenType.STRING_KEY -> StringKeyElement(node)
             MissionTokenType.LOCAL_VAR_DEF -> LocalVarDefinitionElement(node)
             MissionTokenType.LOCAL_VAR_REF -> LocalVarReferenceElement(node)
-            MissionTokenType.GLOBAL_VAR_DEF -> GlobalVarDefinitionElement(node)
-            MissionTokenType.GLOBAL_VAR_REF -> GlobalVarReferenceElement(node)
+            MissionTokenType.GLOBAL_VAR -> GlobalVarElement(node)
             MissionTokenType.MODEL -> ModelElement(node)
             MissionTokenType.OPCODE -> OpcodeElement(node)
             MissionTokenType.STRING -> StringElement(node)

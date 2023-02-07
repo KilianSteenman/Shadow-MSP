@@ -7,22 +7,26 @@ import com.intellij.util.ProcessingContext
 import nl.shadowlink.mission.plugin.MissionLanguage
 import nl.shadowlink.mission.plugin.lexer.MissionTokenType
 import nl.shadowlink.mission.plugin.psi.findGlobalDefinitions
-import nl.shadowlink.mission.plugin.psi.findLabelDefinitions
 
 class GlobalsCompletionContributor : CompletionContributor() {
 
     init {
-        extend(CompletionType.BASIC, PlatformPatterns.psiElement(MissionTokenType.GLOBAL_VAR)
-                .andOr(PlatformPatterns.psiElement(MissionTokenType.GLOBAL_VAR_DEF))
+        extend(
+            CompletionType.BASIC, PlatformPatterns.psiElement(MissionTokenType.GLOBAL_VAR)
+                .andOr(PlatformPatterns.psiElement(MissionTokenType.GLOBAL_VAR))
                 .withLanguage(MissionLanguage),
-                GlobalsCompletionProvider()
+            GlobalsCompletionProvider()
         )
     }
 }
 
 private class GlobalsCompletionProvider : CompletionProvider<CompletionParameters>() {
 
-    override fun addCompletions(parameters: CompletionParameters, context: ProcessingContext, result: CompletionResultSet) {
+    override fun addCompletions(
+        parameters: CompletionParameters,
+        context: ProcessingContext,
+        result: CompletionResultSet
+    ) {
         findGlobalDefinitions(parameters.originalFile.project).forEach { global ->
             result.addElement(LookupElementBuilder.create(global.name))
         }
