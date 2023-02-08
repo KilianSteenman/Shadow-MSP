@@ -22,15 +22,10 @@ import nl.shadowlink.mission.plugin.gta2.psi.impl.MissionIfExpressionImpl
 import nl.shadowlink.mission.plugin.gta2.psi.impl.MissionLevelBlockImpl
 import nl.shadowlink.mission.plugin.gta2.psi.impl.MissionWhileExpressionImpl
 
-public class Gta2FoldingBuilder : FoldingBuilderEx(), DumbAware {
+internal class Gta2FoldingBuilder : FoldingBuilderEx(), DumbAware {
     private val LOG: Logger = Logger.getInstance(this::class.java)
 
     override fun buildFoldRegions(root: PsiElement, document: Document, quick: Boolean): Array<FoldingDescriptor> {
-        printPsi(root)
-
-        // Initialize the group of folding regions that will expand/collapse together.
-        val group = FoldingGroup.newGroup("debug name")
-
         return codeBlockElementTypes
             .flatMap { type -> PsiTreeUtil.findChildrenOfType(root, type) }
             .map { literalExpression -> literalExpression.toFoldingDescriptor() }
@@ -66,13 +61,6 @@ public class Gta2FoldingBuilder : FoldingBuilderEx(), DumbAware {
             ),
             FoldingGroup.newGroup("debug name")
         )
-    }
-
-    private fun printPsi(element: PsiElement) {
-        element.children.forEach {
-            LOG.warn("Element $it")
-            printPsi(it)
-        }
     }
 
     override fun getPlaceholderText(node: ASTNode): String {
