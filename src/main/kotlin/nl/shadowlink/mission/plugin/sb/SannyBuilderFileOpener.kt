@@ -4,6 +4,7 @@ import com.intellij.execution.configurations.GeneralCommandLine
 import com.intellij.execution.process.OSProcessHandler
 import com.intellij.openapi.vfs.VirtualFile
 import nl.shadowlink.mission.plugin.configuration.MissionSettings
+import nl.shadowlink.mission.plugin.gta2.configuration.Gta2Settings
 import nl.shadowlink.mission.plugin.extensions.logError
 import nl.shadowlink.mission.plugin.extensions.logInfo
 import java.io.File

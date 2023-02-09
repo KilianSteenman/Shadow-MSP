@@ -39,9 +39,12 @@ internal class Gta2RunConfiguration(
     }
 
     override fun checkConfiguration() {
-        if (!File("$gamePath/gta2.exe").exists()) {
-            throw RuntimeConfigurationException("'$gamePath' is not a valid GTA-2 directory, make sure you select the directory that contains gta2.exe.")
+        when {
+            gamePath.isEmpty() ->
+                throw RuntimeConfigurationException("GTA-2 directory not set, make sure you select the directory that contains gta2.exe.")
+            !File("$gamePath/gta2.exe").exists() ->
+                throw RuntimeConfigurationException("'$gamePath' is not a valid GTA-2 directory. Select the directory that contains gta2.exe.")
+            else -> super.checkConfiguration()
         }
-        super.checkConfiguration()
     }
 }

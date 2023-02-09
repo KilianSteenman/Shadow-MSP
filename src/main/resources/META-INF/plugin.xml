@@ -40,6 +40,12 @@
                 id="Gta2MissionScript"
                 implementation="nl.shadowlink.mission.plugin.gta2.run.Gta2ProgramRunner"/>
 
+        <!-- Gta 2 settings -->
+        <applicationConfigurable
+                instance="nl.shadowlink.mission.plugin.gta2.configuration.Gta2Configuration"
+                groupId="language"
+                id="Gta2MissionScript"/>
+
         <!-- RW Era -->
         <fileType
                 name="Mission Script"

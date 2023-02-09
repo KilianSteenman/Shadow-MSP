@@ -1,6 +1,7 @@
 package nl.shadowlink.mission.plugin.game.opcodes
 
 import nl.shadowlink.mission.plugin.configuration.MissionSettings
+import nl.shadowlink.mission.plugin.gta2.configuration.Gta2Settings
 import nl.shadowlink.mission.plugin.extensions.logWarn
 import org.ini4j.Config
 import org.ini4j.Ini
