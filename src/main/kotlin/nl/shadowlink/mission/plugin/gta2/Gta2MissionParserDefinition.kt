@@ -2,7 +2,6 @@ package nl.shadowlink.mission.plugin.gta2
 
 import com.intellij.lang.ASTNode
 import com.intellij.lang.ParserDefinition
-import com.intellij.lang.PsiParser
 import com.intellij.lexer.Lexer
 import com.intellij.openapi.project.Project
 import com.intellij.psi.FileViewProvider
@@ -10,13 +9,9 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.psi.tree.IFileElementType
 import com.intellij.psi.tree.TokenSet
-import nl.shadowlink.mission.plugin.MissionIcons.FILE
 import nl.shadowlink.mission.plugin.gta2.parser.Gta2MissionParser
-import nl.shadowlink.mission.plugin.gta2.psi.Gta2MissionElementType
 import nl.shadowlink.mission.plugin.gta2.psi.Gta2MissionTokenSets
 import nl.shadowlink.mission.plugin.gta2.psi.Gta2MissionTypes
-import nl.shadowlink.mission.plugin.gta2.psi.impl.MissionLevelBlockImpl
-import nl.shadowlink.mission.plugin.psi.DefaultElement
 
 class Gta2MissionParserDefinition : ParserDefinition {
 

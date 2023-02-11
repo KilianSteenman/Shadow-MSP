@@ -6,7 +6,6 @@ import com.intellij.openapi.options.colors.AttributesDescriptor
 import com.intellij.openapi.options.colors.ColorDescriptor
 import com.intellij.openapi.options.colors.ColorSettingsPage
 import nl.shadowlink.mission.plugin.MissionIcons
-import nl.shadowlink.mission.plugin.MissionLanguage
 import nl.shadowlink.mission.plugin.gta2.Gta2MissionLanguage
 import javax.swing.Icon
 

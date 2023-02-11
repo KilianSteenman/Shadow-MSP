@@ -2,7 +2,6 @@ package nl.shadowlink.mission.plugin.gta2
 
 import com.intellij.openapi.fileTypes.LanguageFileType
 import nl.shadowlink.mission.plugin.MissionIcons
-import nl.shadowlink.mission.plugin.MissionLanguage
 import javax.swing.Icon
 
 object Gta2MissionFileType : LanguageFileType(Gta2MissionLanguage) {
