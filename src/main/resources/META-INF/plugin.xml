@@ -15,7 +15,7 @@
     -->
 
     <extensions defaultExtensionNs="com.intellij">
-        <!-- GTA 2 -->
+        <!-- GTA 2 - Language -->
         <fileType
                 name="GTA 2 - Mission Script"
                 implementationClass="nl.shadowlink.mission.plugin.gta2.Gta2MissionFileType"
@@ -33,12 +33,18 @@
         <colorSettingsPage
                 implementation="nl.shadowlink.mission.plugin.gta2.highlighter.Gta2MissionColorSettingsPage"/>
 
-        <!-- Gta 2 run -->
+        <!-- GTA 2 - run -->
         <configurationType
                 implementation="nl.shadowlink.mission.plugin.gta2.run.Gta2ConfigurationType"/>
         <programRunner
                 id="Gta2MissionScript"
                 implementation="nl.shadowlink.mission.plugin.gta2.run.Gta2ProgramRunner"/>
+
+        <!-- GTA 2 - Settings -->
+        <applicationConfigurable
+                instance="nl.shadowlink.mission.plugin.gta2.configuration.Gta2SettingsEditor"
+                groupId="language"
+                id="Gta2MissionScript"/>
 
         <!-- RW Era -->
         <fileType

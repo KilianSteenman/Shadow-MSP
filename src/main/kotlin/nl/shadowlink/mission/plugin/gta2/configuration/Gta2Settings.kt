@@ -7,7 +7,7 @@ internal class Gta2Settings {
     private val component: PropertiesComponent by lazy { PropertiesComponent.getInstance() }
 
     var compilerPath
-        get() = component.getValue(COMPILER_PATH)
+        get() = component.getValue(COMPILER_PATH) ?: ""
         set(value) = component.setValue(COMPILER_PATH, value)
 
     companion object {
