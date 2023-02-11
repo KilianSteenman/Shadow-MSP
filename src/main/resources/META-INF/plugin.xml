@@ -30,6 +30,21 @@
         <lang.foldingBuilder
                 language="Gta2MissionScript"
                 implementationClass="nl.shadowlink.mission.plugin.gta2.Gta2FoldingBuilder"/>
+        <colorSettingsPage
+                implementation="nl.shadowlink.mission.plugin.gta2.highlighter.Gta2MissionColorSettingsPage"/>
+
+        <!-- Gta 2 run -->
+        <configurationType
+                implementation="nl.shadowlink.mission.plugin.gta2.run.Gta2ConfigurationType"/>
+        <programRunner
+                id="Gta2MissionScript"
+                implementation="nl.shadowlink.mission.plugin.gta2.run.Gta2ProgramRunner"/>
+
+        <!-- Gta 2 settings -->
+        <applicationConfigurable
+                instance="nl.shadowlink.mission.plugin.gta2.configuration.Gta2Configuration"
+                groupId="language"
+                id="Gta2MissionScript"/>
 
         <!-- RW Era -->
         <fileType
@@ -101,11 +116,11 @@
                 implementation="nl.shadowlink.mission.plugin.run.MissionProgramRunner"/>
 
         <!-- Project / Module wizard -->
-<!--        <moduleType-->
-<!--                id="MissionModule"-->
-<!--                implementationClass="nl.shadowlink.mission.plugin.projectwizard.MissionModuleType"/>-->
-<!--        <moduleBuilder-->
-<!--                builderClass="nl.shadowlink.mission.plugin.projectwizard.MissionModuleBuilder"/>-->
+        <!--        <moduleType-->
+        <!--                id="MissionModule"-->
+        <!--                implementationClass="nl.shadowlink.mission.plugin.projectwizard.MissionModuleType"/>-->
+        <!--        <moduleBuilder-->
+        <!--                builderClass="nl.shadowlink.mission.plugin.projectwizard.MissionModuleBuilder"/>-->
 
         <!-- Tool windows -->
         <toolWindow

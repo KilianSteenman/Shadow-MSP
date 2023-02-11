@@ -13,6 +13,7 @@ import com.intellij.psi.tree.TokenSet
 import nl.shadowlink.mission.plugin.MissionIcons.FILE
 import nl.shadowlink.mission.plugin.gta2.parser.Gta2MissionParser
 import nl.shadowlink.mission.plugin.gta2.psi.Gta2MissionElementType
+import nl.shadowlink.mission.plugin.gta2.psi.Gta2MissionTokenSets
 import nl.shadowlink.mission.plugin.gta2.psi.Gta2MissionTypes
 import nl.shadowlink.mission.plugin.gta2.psi.impl.MissionLevelBlockImpl
 import nl.shadowlink.mission.plugin.psi.DefaultElement
@@ -21,25 +22,15 @@ class Gta2MissionParserDefinition : ParserDefinition {
 
     override fun createLexer(project: Project?): Lexer = Gta2LexerAdapter()
 
-    override fun createParser(project: Project?): PsiParser = Gta2MissionParser()
+    override fun createParser(project: Project?) = Gta2MissionParser()
 
-    override fun getFileNodeType(): IFileElementType = FILE
+    override fun getFileNodeType() = FILE
 
-    override fun getCommentTokens(): TokenSet {
-        // TODO: Implement comment token
-        return TokenSet.EMPTY
-    }
+    override fun getCommentTokens() = Gta2MissionTokenSets.COMMENTS
 
     override fun getStringLiteralElements(): TokenSet = TokenSet.EMPTY
 
-    override fun createElement(node: ASTNode): PsiElement {
-        return Gta2MissionTypes.Factory.createElement(node)
-//        return MissionLevelBlockImpl(node)
-//        return when (node.elementType) {
-//            Gta2MissionTypes.LEVEL_BLOCK -> MissionLevelBlockImpl(node)
-//            else -> MissionVariableDefinitionImpl(node)
-//        }
-    }
+    override fun createElement(node: ASTNode): PsiElement = Gta2MissionTypes.Factory.createElement(node)
 
     override fun createFile(viewProvider: FileViewProvider): PsiFile = Gta2MissionFile(viewProvider)
 

@@ -6,6 +6,7 @@ import com.intellij.openapi.ui.TextBrowseFolderListener
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.ui.layout.panel
 import nl.shadowlink.mission.plugin.MissionLanguage
+import nl.shadowlink.mission.plugin.gta2.configuration.Gta2Settings
 import javax.swing.JComponent
 
 class MissionConfiguration : Configurable {

@@ -7,9 +7,10 @@ import com.intellij.openapi.options.colors.ColorDescriptor
 import com.intellij.openapi.options.colors.ColorSettingsPage
 import nl.shadowlink.mission.plugin.MissionIcons
 import nl.shadowlink.mission.plugin.MissionLanguage
+import nl.shadowlink.mission.plugin.gta2.Gta2MissionLanguage
 import javax.swing.Icon
 
-class Gta2MissionColorSettingsPage : ColorSettingsPage {
+internal class Gta2MissionColorSettingsPage : ColorSettingsPage {
 
     override fun getHighlighter(): SyntaxHighlighter = Gta2MissionHighlighter()
 
@@ -29,46 +30,79 @@ class Gta2MissionColorSettingsPage : ColorSettingsPage {
         return emptyArray()
     }
 
-    override fun getDisplayName(): String = MissionLanguage.displayName
+    override fun getDisplayName(): String = Gta2MissionLanguage.displayName
 
     override fun getDemoText(): String {
-        return "// This file was decompiled using VCSCM.ini published by GTAMods.com on 2017-07-29\n" +
-                "DEFINE OBJECTS 1\n" +
-                "DEFINE OBJECT SANNY BUILDER 3.3.1\n" +
+        return "CHAR_DATA p1_killer\n" +
+                "CHAR_DATA p2_killer\n" +
+                "CHAR_DATA p3_killer\n" +
+                "CHAR_DATA p4_killer\n" +
                 "\n" +
-                "DEFINE MISSIONS 0\n" +
+                "COUNTER regenerating_characters = 1\n" +
                 "\n" +
-                "//-------------MAIN---------------\n" +
-                "03A4: name_thread 'MAIN'\n" +
-                "016A: fade 0 0 ms\n" +
-                "01F0: set_max_wanted_level_to 6\n" +
-                "0111: set_wasted_busted_check_to 0\n" +
-                "00C0: set_current_time 12 0\n" +
-                "04E4: request_collision_at 468.7745 -1298.623\n" +
-                "03CB: load_scene 468.7745 -1298.623 11.0712\n" +
-                "0053: \$PLAYER_CHAR = create_player #NULL at 468.7745 -1298.623 11.0712\n" +
-                "01F5: \$PLAYER_ACTOR = create_emulated_actor_from_player \$PLAYER_CHAR\n" +
-                "01B6: set_weather 0\n" +
-                "0001: wait 0 ms\n" +
-                "0180: set_on_mission_flag_to \$ONMISSION\n" +
-                "00D6: if\n" +
-                "8118:   not actor \$PLAYER_ACTOR dead\n" +
-                "004D: jump_if_false @MAIN_138\n" +
-                "0352: set_actor \$PLAYER_ACTOR skin_to 'PLAYER'\n" +
-                "038B: load_requested_models\n" +
-                "0353: refresh_actor \$PLAYER_ACTOR\n" +
+                "LEVELSTART\n" +
                 "\n" +
-                ":MAIN_138\n" +
-                "016A: fade 1 1000 ms\n" +
-                "00D6: if\n" +
-                "0256:   player \$PLAYER_CHAR defined\n" +
-                "004D: jump_if_false @MAIN_174\n" +
-                "04BB: select_interiour 0 // select render area\n" +
-                "01B4: set_player \$PLAYER_CHAR can_move 1\n" +
-                "01B7: release_weather\n" +
+                "// Create the killers:\n" +
+                "p1_killer = CREATE_CHAR (6.5,7.5,255.0) 0 315 CRIMINAL_TYPE2 END\n" +
+                "p2_killer = CREATE_CHAR (7.5,7.5,255.0) 0 045 CRIMINAL_TYPE2 END\n" +
+                "p3_killer = CREATE_CHAR (6.5,6.5,255.0) 0 225 CRIMINAL_TYPE2 END\n" +
+                "p4_killer = CREATE_CHAR (7.5,6.5,255.0) 0 135 CRIMINAL_TYPE2 END\n" +
                 "\n" +
-                ":MAIN_174\n" +
-                "0001: wait 250 ms\n" +
-                "0002: jump @MAIN_174\n"
+                "// Arm the killers:\n" +
+                "GIVE_WEAPON (p1_killer, MACHINE_GUN)\n" +
+                "GIVE_WEAPON (p2_killer, MACHINE_GUN)\n" +
+                "GIVE_WEAPON (p3_killer, MACHINE_GUN)\n" +
+                "GIVE_WEAPON (p4_killer, MACHINE_GUN)\n" +
+                "\n" +
+                "// Make the killers attack any nearby player:\n" +
+                "SET_CHAR_THREAT_SEARCH (p1_killer, AREA_PLAYER_ONLY)\n" +
+                "SET_CHAR_THREAT_SEARCH (p2_killer, AREA_PLAYER_ONLY)\n" +
+                "SET_CHAR_THREAT_SEARCH (p3_killer, AREA_PLAYER_ONLY)\n" +
+                "SET_CHAR_THREAT_SEARCH (p4_killer, AREA_PLAYER_ONLY)\n" +
+                "SET_CHAR_THREAT_REACTION (p1_killer, REACT_AS_NORMAL)\n" +
+                "SET_CHAR_THREAT_REACTION (p2_killer, REACT_AS_NORMAL)\n" +
+                "SET_CHAR_THREAT_REACTION (p3_killer, REACT_AS_NORMAL)\n" +
+                "SET_CHAR_THREAT_REACTION (p4_killer, REACT_AS_NORMAL)\n" +
+                "SET_CHAR_OBJECTIVE (p1_killer, KILL_CHAR_ON_FOOT, p1)\n" +
+                "SET_CHAR_OBJECTIVE (p2_killer, KILL_CHAR_ON_FOOT, p2)\n" +
+                "SET_CHAR_OBJECTIVE (p3_killer, KILL_CHAR_ON_FOOT, p3)\n" +
+                "SET_CHAR_OBJECTIVE (p4_killer, KILL_CHAR_ON_FOOT, p4)\n" +
+                "\n" +
+                "// Respawn each killer if they die:\n" +
+                "WHILE_EXEC (regenerating_characters = 1)\n" +
+                " IF (HAS_CHARACTER_DIED(p1_killer))\n" +
+                "  p1_killer = CREATE_CHAR (6.5,7.5,6.0) 0 0 CRIMINAL_TYPE2 END\n" +
+                "  GIVE_WEAPON (p1_killer, MACHINE_GUN)\n" +
+                "  SET_CHAR_THREAT_SEARCH (p1_killer, AREA_PLAYER_ONLY)\n" +
+                "  SET_CHAR_THREAT_REACTION (p1_killer, REACT_AS_NORMAL)\n" +
+                "  SET_CHAR_OBJECTIVE (p1_killer, KILL_CHAR_ON_FOOT, p1)\n" +
+                " ENDIF\n" +
+                "\n" +
+                " IF (HAS_CHARACTER_DIED(p2_killer))\n" +
+                "  p2_killer = CREATE_CHAR (7.5,7.5,6.0) 0 45 CRIMINAL_TYPE2 END\n" +
+                "  GIVE_WEAPON (p2_killer, MACHINE_GUN)\n" +
+                "  SET_CHAR_THREAT_SEARCH (p2_killer, AREA_PLAYER_ONLY)\n" +
+                "  SET_CHAR_THREAT_REACTION (p2_killer, REACT_AS_NORMAL)\n" +
+                "  SET_CHAR_OBJECTIVE (p2_killer, KILL_CHAR_ON_FOOT, p2)\n" +
+                " ENDIF\n" +
+                "\n" +
+                " IF (HAS_CHARACTER_DIED(p3_killer))\n" +
+                "  p3_killer = CREATE_CHAR (6.5,6.5,6.0) 0 225 CRIMINAL_TYPE2 END\n" +
+                "  GIVE_WEAPON (p3_killer, MACHINE_GUN)\n" +
+                "  SET_CHAR_THREAT_SEARCH (p3_killer, AREA_PLAYER_ONLY)\n" +
+                "  SET_CHAR_THREAT_REACTION (p3_killer, REACT_AS_NORMAL)\n" +
+                "  SET_CHAR_OBJECTIVE (p3_killer, KILL_CHAR_ON_FOOT, p3)\n" +
+                " ENDIF\n" +
+                "\n" +
+                " IF (HAS_CHARACTER_DIED(p4_killer))\n" +
+                "  p4_killer = CREATE_CHAR (7.5,6.5,6.0) 0 135 CRIMINAL_TYPE2 END\n" +
+                "  GIVE_WEAPON (p4_killer, MACHINE_GUN)\n" +
+                "  SET_CHAR_THREAT_SEARCH (p4_killer, AREA_PLAYER_ONLY)\n" +
+                "  SET_CHAR_THREAT_REACTION (p4_killer, REACT_AS_NORMAL)\n" +
+                "  SET_CHAR_OBJECTIVE (p4_killer, KILL_CHAR_ON_FOOT, p4)\n" +
+                " ENDIF\n" +
+                "ENDWHILE\n" +
+                "\n" +
+                "LEVELEND"
     }
 }
