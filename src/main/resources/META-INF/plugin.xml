@@ -1,10 +1,10 @@
 <idea-plugin>
     <id>nl.shadowlink.mission.plugin</id>
-    <name>Shadow-Mission</name>
-    <vendor email="info@shadow-link.nl" url="http://www.shadow-link.nl">Shadow-Link</vendor>
+    <name>Shadow-MSP</name>
+    <vendor email="info@shadow-link.nl" url="https://www.shadow-link.nl">Shadow-Link</vendor>
 
     <description><![CDATA[
-    Basic editor for GTA Mission scripts.<br/>
+    Language support for GTA Mission scripts.<br/>
     Supported games. GTA 2, GTA: III, GTA: VC and GTA: SA.
     ]]></description>
 
