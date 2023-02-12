@@ -47,7 +47,7 @@ internal class Gta2SettingsEditor : Configurable {
             title = "Select Delfi's GTA-2 Compiler"
 
             withFileFilter { file ->
-                file.name == DELFI_COMPILER_NAME && file.getCRC32Checksum() == DELFI_COMPILER_CHECKSUM
+                file.name == DELFI_COMPILER_NAME/* TODO: && file.getCRC32Checksum() == DELFI_COMPILER_CHECKSUM */
             }
         }
 
@@ -57,7 +57,7 @@ internal class Gta2SettingsEditor : Configurable {
     }
 
     companion object {
-        private const val DELFI_COMPILER_NAME = "compiler.exe"
+        private const val DELFI_COMPILER_NAME = "miscomp.exe"//"compiler.exe"
         private const val DELFI_COMPILER_CHECKSUM = 1182121558L
     }
 }

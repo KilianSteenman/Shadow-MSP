@@ -8,6 +8,9 @@ import com.intellij.execution.process.ProcessTerminatedListener
 import com.intellij.execution.runners.ExecutionEnvironment
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.psi.search.PsiSearchHelper
+import nl.shadowlink.mission.plugin.gta2.configuration.Gta2Settings
 import java.io.File
 
 
@@ -32,12 +35,35 @@ internal class Gta2RunConfiguration(
     override fun getState(executor: Executor, environment: ExecutionEnvironment): RunProfileState {
         return object : CommandLineState(environment) {
             override fun startProcess(): ProcessHandler {
-                val commandLine = GeneralCommandLine("${options.gamePath}/gta2.exe")
-                val processHandler = ProcessHandlerFactory.getInstance().createColoredProcessHandler(commandLine)
-                ProcessTerminatedListener.attach(processHandler)
-                return processHandler
+
+                // Launch GTA-2
+//                val commandLine = GeneralCommandLine()
+//                    .withExePath("${options.gamePath}\\gta2.exe")
+//                    .withWorkDirectory(options.gamePath)
+
+                val levelScript = findLevelScript(environment) ?: throw IllegalStateException("Level script not found")
+
+                // TODO: Clean this all up
+                val commandLine = GeneralCommandLine()
+                    .withExePath(Gta2Settings().compilerPath)
+                    .withWorkDirectory(File(Gta2Settings().compilerPath).parent)
+                    .withParameters(levelScript.path.replace("/", "\\"))
+
+                return ProcessHandlerFactory.getInstance()
+                    .createColoredProcessHandler(commandLine).apply {
+                        ProcessTerminatedListener.attach(this)
+                    }
             }
         }
+    }
+
+    private fun findLevelScript(environment: ExecutionEnvironment): VirtualFile? {
+        // TODO: Support multiple / clean this up?
+        return PsiSearchHelper.getInstance(environment.project).findFilesWithPlainTextWords("LEVELSTART")
+            .firstOrNull()
+            ?.virtualFile
+//        val scriptFiles = FileTypeIndex.getFiles(Gta2MissionFileType, GlobalSearchScope.allScope(environment.project))
+//        return scriptFiles.firstOrNull()
     }
 
     override fun checkConfiguration() {

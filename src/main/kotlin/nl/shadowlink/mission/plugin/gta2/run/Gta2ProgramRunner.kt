@@ -1,28 +1,29 @@
 package nl.shadowlink.mission.plugin.gta2.run
 
 import com.intellij.execution.ExecutionException
-import com.intellij.execution.configurations.GeneralCommandLine
-import com.intellij.execution.configurations.RunConfiguration
-import com.intellij.execution.configurations.RunProfile
-import com.intellij.execution.configurations.RunnerSettings
+import com.intellij.execution.ExecutionManager
+import com.intellij.execution.configurations.*
 import com.intellij.execution.executors.DefaultRunExecutor
-import com.intellij.execution.process.ScriptRunnerUtil
 import com.intellij.execution.runners.ExecutionEnvironment
 import com.intellij.execution.runners.ProgramRunner
-import java.io.File
+import com.intellij.execution.runners.executeState
+import com.intellij.execution.ui.RunContentDescriptor
+import org.jetbrains.concurrency.resolvedPromise
 
-class Gta2ProgramRunner : ProgramRunner<RunnerSettings> {
+
+internal class Gta2ProgramRunner : ProgramRunner<RunnerSettings> {
 
     override fun execute(environment: ExecutionEnvironment) {
-        val runConfiguration = environment.runProfile
-        if (runConfiguration !is Gta2RunConfiguration) {
-            throw ExecutionException("Not a valid Gta2RunConfiguration")
-        }
-        verifyRunConfiguration(runConfiguration)
+        val state = environment.state ?: return
 
-        val generalCommandLine = GeneralCommandLine("${runConfiguration.gamePath}\\gta2.exe")
-        generalCommandLine.workDirectory = File(runConfiguration.gamePath + "\\")
-        ScriptRunnerUtil.getProcessOutput(generalCommandLine)
+        @Suppress("UnstableApiUsage")
+        ExecutionManager.getInstance(environment.project).startRunProfile(environment) {
+            resolvedPromise(doExecute(state, environment))
+        }
+    }
+
+    private fun doExecute(state: RunProfileState, environment: ExecutionEnvironment): RunContentDescriptor? {
+        return executeState(state, environment, this)
     }
 
     private fun verifyRunConfiguration(runConfig: RunConfiguration) {
