@@ -7,13 +7,13 @@ import com.intellij.psi.PsiElement;
 
 public interface MissionVariableAssignment extends PsiElement {
 
-  @Nullable
-  MissionMethodCall getMethodCall();
-
-  @Nullable
-  MissionParam getParam();
+  @NotNull
+  MissionParams getParams();
 
   @NotNull
   PsiElement getIdentifier();
+
+  @Nullable
+  PsiElement getMethod();
 
 }

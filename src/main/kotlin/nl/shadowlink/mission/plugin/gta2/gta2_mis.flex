@@ -30,6 +30,7 @@ NUMBER=[0-9]+(\.[0-9]*)?
 IDENTIFIER=[a-z0-9_]+
 COMMENT="//".*
 SUBROUTINE=([a-z_]+):
+COMMENT_BLOCK="/*" !([^]* "*/" [^]*) ("*/")?
 METHOD=[A-Z_]+
 
 %%
@@ -38,16 +39,23 @@ METHOD=[A-Z_]+
 
   "LEVELSTART"           { return LEVEL_START; }
   "LEVELEND"             { return LEVEL_END; }
+  "MISSIONSTART"         { return MISSION_START; }
+  "MISSIONEND"           { return MISSION_END; }
   "WHILE_EXEC"           { return WHILE_EXEC; }
+  "END_WHILE_EXEC"       { return END_WHILE_EXEC; }
   "WHILE"                { return WHILE; }
   "ENDWHILE"             { return END_WHILE; }
   "IF"                   { return IF; }
   "ENDIF"                { return END_IF; }
+  "ELSE"                 { return ELSE; }
   "END"                  { return END; }
   "RETURN"               { return RETURN; }
   "SET"                  { return SET; }
   "NOT"                  { return NOT; }
   "AND"                  { return AND; }
+  "ON"                   { return ON; }
+  "OFF"                  { return OFF; }
+  "GOSUB"                { return GOSUB; }
   "++"                   { return OP_PLUS_PLUS; }
   "PLAYER_PED"           { return PLAYER_PED; }
   "CHAR_DATA"            { return CHAR_DATA; }
@@ -67,6 +75,7 @@ METHOD=[A-Z_]+
   {IDENTIFIER}           { return IDENTIFIER; }
   {COMMENT}              { return COMMENT; }
   {SUBROUTINE}           { return SUBROUTINE; }
+  {COMMENT_BLOCK}        { return COMMENT_BLOCK; }
   {METHOD}               { return METHOD; }
 
 }

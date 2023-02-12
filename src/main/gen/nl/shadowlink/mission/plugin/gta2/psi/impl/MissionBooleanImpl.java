@@ -11,32 +11,20 @@ import static nl.shadowlink.mission.plugin.gta2.psi.Gta2MissionTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import nl.shadowlink.mission.plugin.gta2.psi.*;
 
-public class MissionMethodCallImpl extends ASTWrapperPsiElement implements MissionMethodCall {
+public class MissionBooleanImpl extends ASTWrapperPsiElement implements MissionBoolean {
 
-  public MissionMethodCallImpl(@NotNull ASTNode node) {
+  public MissionBooleanImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull MissionVisitor visitor) {
-    visitor.visitMethodCall(this);
+    visitor.visitBoolean(this);
   }
 
   @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof MissionVisitor) accept((MissionVisitor)visitor);
     else super.accept(visitor);
-  }
-
-  @Override
-  @NotNull
-  public MissionParams getParams() {
-    return findNotNullChildByClass(MissionParams.class);
-  }
-
-  @Override
-  @NotNull
-  public PsiElement getMethod() {
-    return findNotNullChildByType(METHOD);
   }
 
 }

@@ -11,14 +11,14 @@ import static nl.shadowlink.mission.plugin.gta2.psi.Gta2MissionTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import nl.shadowlink.mission.plugin.gta2.psi.*;
 
-public class MissionParamImpl extends ASTWrapperPsiElement implements MissionParam {
+public class MissionSubRoutineCallImpl extends ASTWrapperPsiElement implements MissionSubRoutineCall {
 
-  public MissionParamImpl(@NotNull ASTNode node) {
+  public MissionSubRoutineCallImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull MissionVisitor visitor) {
-    visitor.visitParam(this);
+    visitor.visitSubRoutineCall(this);
   }
 
   @Override
@@ -28,39 +28,9 @@ public class MissionParamImpl extends ASTWrapperPsiElement implements MissionPar
   }
 
   @Override
-  @Nullable
-  public MissionBoolean getBoolean() {
-    return findChildByClass(MissionBoolean.class);
-  }
-
-  @Override
-  @Nullable
-  public MissionEnum getEnum() {
-    return findChildByClass(MissionEnum.class);
-  }
-
-  @Override
-  @Nullable
-  public MissionVector3 getVector3() {
-    return findChildByClass(MissionVector3.class);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getIdentifier() {
-    return findChildByType(IDENTIFIER);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getNumber() {
-    return findChildByType(NUMBER);
-  }
-
-  @Override
-  @Nullable
+  @NotNull
   public PsiElement getSubroutine() {
-    return findChildByType(SUBROUTINE);
+    return findNotNullChildByType(SUBROUTINE);
   }
 
 }

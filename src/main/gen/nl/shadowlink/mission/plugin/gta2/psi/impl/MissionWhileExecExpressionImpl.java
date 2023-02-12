@@ -11,14 +11,14 @@ import static nl.shadowlink.mission.plugin.gta2.psi.Gta2MissionTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import nl.shadowlink.mission.plugin.gta2.psi.*;
 
-public class MissionParamImpl extends ASTWrapperPsiElement implements MissionParam {
+public class MissionWhileExecExpressionImpl extends ASTWrapperPsiElement implements MissionWhileExecExpression {
 
-  public MissionParamImpl(@NotNull ASTNode node) {
+  public MissionWhileExecExpressionImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull MissionVisitor visitor) {
-    visitor.visitParam(this);
+    visitor.visitWhileExecExpression(this);
   }
 
   @Override
@@ -28,39 +28,15 @@ public class MissionParamImpl extends ASTWrapperPsiElement implements MissionPar
   }
 
   @Override
-  @Nullable
-  public MissionBoolean getBoolean() {
-    return findChildByClass(MissionBoolean.class);
+  @NotNull
+  public MissionConditionalStatement getConditionalStatement() {
+    return findNotNullChildByClass(MissionConditionalStatement.class);
   }
 
   @Override
-  @Nullable
-  public MissionEnum getEnum() {
-    return findChildByClass(MissionEnum.class);
-  }
-
-  @Override
-  @Nullable
-  public MissionVector3 getVector3() {
-    return findChildByClass(MissionVector3.class);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getIdentifier() {
-    return findChildByType(IDENTIFIER);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getNumber() {
-    return findChildByType(NUMBER);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getSubroutine() {
-    return findChildByType(SUBROUTINE);
+  @NotNull
+  public List<MissionExpression> getExpressionList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, MissionExpression.class);
   }
 
 }

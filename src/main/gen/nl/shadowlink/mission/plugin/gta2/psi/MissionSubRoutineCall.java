@@ -5,12 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface MissionMethodCall extends PsiElement {
+public interface MissionSubRoutineCall extends PsiElement {
 
   @NotNull
-  MissionParams getParams();
-
-  @NotNull
-  PsiElement getMethod();
+  PsiElement getSubroutine();
 
 }

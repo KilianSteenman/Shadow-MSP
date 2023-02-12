@@ -53,6 +53,12 @@ public class MissionExpressionImpl extends ASTWrapperPsiElement implements Missi
 
   @Override
   @Nullable
+  public MissionSubRoutineCall getSubRoutineCall() {
+    return findChildByClass(MissionSubRoutineCall.class);
+  }
+
+  @Override
+  @Nullable
   public MissionSubroutineDefinition getSubroutineDefinition() {
     return findChildByClass(MissionSubroutineDefinition.class);
   }
@@ -65,6 +71,12 @@ public class MissionExpressionImpl extends ASTWrapperPsiElement implements Missi
 
   @Override
   @Nullable
+  public MissionWhileExecExpression getWhileExecExpression() {
+    return findChildByClass(MissionWhileExecExpression.class);
+  }
+
+  @Override
+  @Nullable
   public MissionWhileExpression getWhileExpression() {
     return findChildByClass(MissionWhileExpression.class);
   }
@@ -73,6 +85,12 @@ public class MissionExpressionImpl extends ASTWrapperPsiElement implements Missi
   @Nullable
   public PsiElement getComment() {
     return findChildByType(COMMENT);
+  }
+
+  @Override
+  @Nullable
+  public PsiElement getCommentBlock() {
+    return findChildByType(COMMENT_BLOCK);
   }
 
 }

@@ -9,6 +9,7 @@ import nl.shadowlink.mission.plugin.gta2.psi.impl.*;
 public interface Gta2MissionTypes {
 
   IElementType AND_STATEMENT = new Gta2MissionElementType("AND_STATEMENT");
+  IElementType BOOLEAN = new Gta2MissionElementType("BOOLEAN");
   IElementType CONDITIONAL_STATEMENT = new Gta2MissionElementType("CONDITIONAL_STATEMENT");
   IElementType DEFINITION = new Gta2MissionElementType("DEFINITION");
   IElementType DEFINITION_BLOCK = new Gta2MissionElementType("DEFINITION_BLOCK");
@@ -19,14 +20,17 @@ public interface Gta2MissionTypes {
   IElementType LEVEL_BODY = new Gta2MissionElementType("LEVEL_BODY");
   IElementType MATH_ASSIGNMENT = new Gta2MissionElementType("MATH_ASSIGNMENT");
   IElementType METHOD_CALL = new Gta2MissionElementType("METHOD_CALL");
+  IElementType MISSION_BLOCK = new Gta2MissionElementType("MISSION_BLOCK");
   IElementType PARAM = new Gta2MissionElementType("PARAM");
   IElementType PARAMS = new Gta2MissionElementType("PARAMS");
   IElementType SET_EXPRESSION = new Gta2MissionElementType("SET_EXPRESSION");
   IElementType SUBROUTINE_DEFINITION = new Gta2MissionElementType("SUBROUTINE_DEFINITION");
+  IElementType SUB_ROUTINE_CALL = new Gta2MissionElementType("SUB_ROUTINE_CALL");
   IElementType TYPE = new Gta2MissionElementType("TYPE");
   IElementType VARIABLE_ASSIGNMENT = new Gta2MissionElementType("VARIABLE_ASSIGNMENT");
   IElementType VARIABLE_DEFINITION = new Gta2MissionElementType("VARIABLE_DEFINITION");
   IElementType VECTOR_3 = new Gta2MissionElementType("VECTOR_3");
+  IElementType WHILE_EXEC_EXPRESSION = new Gta2MissionElementType("WHILE_EXEC_EXPRESSION");
   IElementType WHILE_EXPRESSION = new Gta2MissionElementType("WHILE_EXPRESSION");
 
   IElementType AND = new Gta2MissionTokenType("AND");
@@ -34,12 +38,16 @@ public interface Gta2MissionTypes {
   IElementType CAR_DATA = new Gta2MissionTokenType("CAR_DATA");
   IElementType CHAR_DATA = new Gta2MissionTokenType("CHAR_DATA");
   IElementType COMMENT = new Gta2MissionTokenType("COMMENT");
+  IElementType COMMENT_BLOCK = new Gta2MissionTokenType("COMMENT_BLOCK");
   IElementType COUNTER = new Gta2MissionTokenType("COUNTER");
   IElementType CRIMINAL_TYPE2 = new Gta2MissionTokenType("CRIMINAL_TYPE2");
+  IElementType ELSE = new Gta2MissionTokenType("ELSE");
   IElementType END = new Gta2MissionTokenType("END");
   IElementType END_IF = new Gta2MissionTokenType("ENDIF");
   IElementType END_WHILE = new Gta2MissionTokenType("ENDWHILE");
+  IElementType END_WHILE_EXEC = new Gta2MissionTokenType("END_WHILE_EXEC");
   IElementType FORWARD = new Gta2MissionTokenType("FORWARD");
+  IElementType GOSUB = new Gta2MissionTokenType("GOSUB");
   IElementType IDENTIFIER = new Gta2MissionTokenType("IDENTIFIER");
   IElementType IF = new Gta2MissionTokenType("IF");
   IElementType KILL_CHAR_ON_FOOT = new Gta2MissionTokenType("KILL_CHAR_ON_FOOT");
@@ -47,8 +55,12 @@ public interface Gta2MissionTypes {
   IElementType LEVEL_START = new Gta2MissionTokenType("LEVELSTART");
   IElementType MACHINE_GUN = new Gta2MissionTokenType("MACHINE_GUN");
   IElementType METHOD = new Gta2MissionTokenType("METHOD");
+  IElementType MISSION_END = new Gta2MissionTokenType("MISSIONEND");
+  IElementType MISSION_START = new Gta2MissionTokenType("MISSIONSTART");
   IElementType NOT = new Gta2MissionTokenType("NOT");
   IElementType NUMBER = new Gta2MissionTokenType("number");
+  IElementType OFF = new Gta2MissionTokenType("OFF");
+  IElementType ON = new Gta2MissionTokenType("ON");
   IElementType OP_PLUS_PLUS = new Gta2MissionTokenType("++");
   IElementType PLAYER_PED = new Gta2MissionTokenType("PLAYER_PED");
   IElementType REACT_AS_NORMAL = new Gta2MissionTokenType("REACT_AS_NORMAL");
@@ -65,6 +77,9 @@ public interface Gta2MissionTypes {
       IElementType type = node.getElementType();
       if (type == AND_STATEMENT) {
         return new MissionAndStatementImpl(node);
+      }
+      else if (type == BOOLEAN) {
+        return new MissionBooleanImpl(node);
       }
       else if (type == CONDITIONAL_STATEMENT) {
         return new MissionConditionalStatementImpl(node);
@@ -96,6 +111,9 @@ public interface Gta2MissionTypes {
       else if (type == METHOD_CALL) {
         return new MissionMethodCallImpl(node);
       }
+      else if (type == MISSION_BLOCK) {
+        return new MissionMissionBlockImpl(node);
+      }
       else if (type == PARAM) {
         return new MissionParamImpl(node);
       }
@@ -108,6 +126,9 @@ public interface Gta2MissionTypes {
       else if (type == SUBROUTINE_DEFINITION) {
         return new MissionSubroutineDefinitionImpl(node);
       }
+      else if (type == SUB_ROUTINE_CALL) {
+        return new MissionSubRoutineCallImpl(node);
+      }
       else if (type == TYPE) {
         return new MissionTypeImpl(node);
       }
@@ -119,6 +140,9 @@ public interface Gta2MissionTypes {
       }
       else if (type == VECTOR_3) {
         return new MissionVector3Impl(node);
+      }
+      else if (type == WHILE_EXEC_EXPRESSION) {
+        return new MissionWhileExecExpressionImpl(node);
       }
       else if (type == WHILE_EXPRESSION) {
         return new MissionWhileExpressionImpl(node);

@@ -18,20 +18,28 @@
     IDENTIFIER='regexp:[a-z0-9_]+'
     COMMENT='regexp://.*'
     SUBROUTINE='regexp:([a-z_]+):'
+    COMMENT_BLOCK='regexp:\/\*(\*(?!\/)|[^*])*\*\/'
 
     // Reserved words
     LEVEL_START='LEVELSTART'
     LEVEL_END='LEVELEND'
+    MISSION_START='MISSIONSTART'
+    MISSION_END='MISSIONEND'
     WHILE_EXEC = 'WHILE_EXEC'
+    END_WHILE_EXEC = 'END_WHILE_EXEC'
     WHILE = 'WHILE'
     END_WHILE = 'ENDWHILE'
     IF = 'IF'
     END_IF = 'ENDIF'
+    ELSE = 'ELSE'
     AND = 'AND'
     END = 'END'
     RETURN = 'RETURN'
     SET = 'SET'
     NOT = 'NOT'
+    ON = 'ON'
+    OFF = 'OFF'
+    GOSUB = 'GOSUB'
 
     METHOD = 'regexp:[A-Z_]+'
 
@@ -39,7 +47,7 @@
   ]
 }
 
-MissionFile ::= (DefinitionBlock? LevelBlock?)
+MissionFile ::= (DefinitionBlock? (LevelBlock | MissionBlock)?)
 
 DefinitionBlock ::= Definition*
 
@@ -51,23 +59,27 @@ SubroutineDefinition ::= SUBROUTINE Expression* RETURN
 Type ::= PLAYER_PED | CHAR_DATA | COUNTER | FORWARD | TIMER_DATA | THREAD_TRIGGER | CAR_DATA
 
 LevelBlock ::= (LEVEL_START LevelBody? LEVEL_END)
+MissionBlock ::= (MISSION_START LevelBody? MISSION_END)
 LevelBody ::= Expression*
 
 private Assignment ::= '=' Param
 
-Expression ::= COMMENT | VariableAssignment | MethodCall | WhileExpression | IfExpression | SubroutineDefinition | SetExpression | MathAssignment
-VariableAssignment ::= IDENTIFIER '=' (Param | MethodCall)
-MethodCall ::= METHOD Params? END?
+Expression ::= COMMENT | VariableAssignment | MethodCall | WhileExecExpression | WhileExpression | IfExpression | SubroutineDefinition | SetExpression | MathAssignment | COMMENT_BLOCK | SubRoutineCall
+VariableAssignment ::= IDENTIFIER '=' METHOD? Params
+MethodCall ::= METHOD '(' Params ')' END?
+SubRoutineCall ::= GOSUB SUBROUTINE
 MathAssignment ::= OP_PLUS_PLUS IDENTIFIER | IDENTIFIER OP_PLUS_PLUS
-Params ::= Param+ | ('(' (Param ','?)+ ')')
-Param ::= NUMBER | Enum | IDENTIFIER | SUBROUTINE | Vector3
+Params ::= (Param ','?)* ','?
+Param ::= NUMBER | Enum | IDENTIFIER | SUBROUTINE | Vector3 | END | Boolean
 
 Enum ::= MACHINE_GUN | CRIMINAL_TYPE2 | AREA_PLAYER_ONLY | REACT_AS_NORMAL | KILL_CHAR_ON_FOOT
 Vector3 ::= '(' number ',' number ',' number ')'
+Boolean ::= ON | OFF
 
 ConditionalStatement ::= IDENTIFIER '=' Param | MethodCall | NOT? '(' ConditionalStatement ')' AndStatement*
 AndStatement ::= AND '(' ConditionalStatement ')'
 
-IfExpression ::= IF '(' ConditionalStatement ')' Expression* END_IF
-WhileExpression ::= WHILE_EXEC '(' ConditionalStatement ')' Expression* END_WHILE
+IfExpression ::= IF '(' ConditionalStatement ')' Expression* (ELSE Expression*)? END_IF
+WhileExecExpression ::= WHILE_EXEC '(' ConditionalStatement ')' Expression* (END_WHILE_EXEC | END_WHILE)
+WhileExpression ::= WHILE '(' ConditionalStatement ')' Expression* END_WHILE
 SetExpression ::= (SET IDENTIFIER Assignment)

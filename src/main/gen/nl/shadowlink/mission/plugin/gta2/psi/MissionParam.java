@@ -8,6 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface MissionParam extends PsiElement {
 
   @Nullable
+  MissionBoolean getBoolean();
+
+  @Nullable
   MissionEnum getEnum();
 
   @Nullable

@@ -5,12 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface MissionMethodCall extends PsiElement {
+public interface MissionWhileExecExpression extends PsiElement {
 
   @NotNull
-  MissionParams getParams();
+  MissionConditionalStatement getConditionalStatement();
 
   @NotNull
-  PsiElement getMethod();
+  List<MissionExpression> getExpressionList();
 
 }
