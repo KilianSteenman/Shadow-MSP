@@ -27,9 +27,11 @@
     END_WHILE = 'ENDWHILE'
     IF = 'IF'
     END_IF = 'ENDIF'
+    AND = 'AND'
     END = 'END'
     RETURN = 'RETURN'
     SET = 'SET'
+    NOT = 'NOT'
 
     METHOD = 'regexp:[A-Z_]+'
 
@@ -46,23 +48,25 @@ Definition ::= VariableDefinition | SubroutineDefinition | COMMENT | (Type SUBRO
 VariableDefinition ::= (Type IDENTIFIER Assignment?)
 SubroutineDefinition ::= SUBROUTINE Expression* RETURN
 
-Type ::= PLAYER_PED | CHAR_DATA | COUNTER | FORWARD | TIMER_DATA | THREAD_TRIGGER
+Type ::= PLAYER_PED | CHAR_DATA | COUNTER | FORWARD | TIMER_DATA | THREAD_TRIGGER | CAR_DATA
 
 LevelBlock ::= (LEVEL_START LevelBody? LEVEL_END)
 LevelBody ::= Expression*
 
 private Assignment ::= '=' Param
 
-Expression ::= COMMENT | VariableAssignment | MethodCall | WhileExpression | IfExpression | SubroutineDefinition | SetExpression
+Expression ::= COMMENT | VariableAssignment | MethodCall | WhileExpression | IfExpression | SubroutineDefinition | SetExpression | MathAssignment
 VariableAssignment ::= IDENTIFIER '=' (Param | MethodCall)
 MethodCall ::= METHOD Params? END?
+MathAssignment ::= OP_PLUS_PLUS IDENTIFIER | IDENTIFIER OP_PLUS_PLUS
 Params ::= Param+ | ('(' (Param ','?)+ ')')
 Param ::= NUMBER | Enum | IDENTIFIER | SUBROUTINE | Vector3
 
 Enum ::= MACHINE_GUN | CRIMINAL_TYPE2 | AREA_PLAYER_ONLY | REACT_AS_NORMAL | KILL_CHAR_ON_FOOT
 Vector3 ::= '(' number ',' number ',' number ')'
 
-ConditionalStatement ::= IDENTIFIER '=' Param | MethodCall
+ConditionalStatement ::= IDENTIFIER '=' Param | MethodCall | NOT? '(' ConditionalStatement ')' AndStatement*
+AndStatement ::= AND '(' ConditionalStatement ')'
 
 IfExpression ::= IF '(' ConditionalStatement ')' Expression* END_IF
 WhileExpression ::= WHILE_EXEC '(' ConditionalStatement ')' Expression* END_WHILE

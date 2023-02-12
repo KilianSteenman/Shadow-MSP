@@ -35,6 +35,12 @@ public class MissionExpressionImpl extends ASTWrapperPsiElement implements Missi
 
   @Override
   @Nullable
+  public MissionMathAssignment getMathAssignment() {
+    return findChildByClass(MissionMathAssignment.class);
+  }
+
+  @Override
+  @Nullable
   public MissionMethodCall getMethodCall() {
     return findChildByClass(MissionMethodCall.class);
   }

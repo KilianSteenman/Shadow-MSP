@@ -8,6 +8,7 @@ import nl.shadowlink.mission.plugin.gta2.psi.impl.*;
 
 public interface Gta2MissionTypes {
 
+  IElementType AND_STATEMENT = new Gta2MissionElementType("AND_STATEMENT");
   IElementType CONDITIONAL_STATEMENT = new Gta2MissionElementType("CONDITIONAL_STATEMENT");
   IElementType DEFINITION = new Gta2MissionElementType("DEFINITION");
   IElementType DEFINITION_BLOCK = new Gta2MissionElementType("DEFINITION_BLOCK");
@@ -16,6 +17,7 @@ public interface Gta2MissionTypes {
   IElementType IF_EXPRESSION = new Gta2MissionElementType("IF_EXPRESSION");
   IElementType LEVEL_BLOCK = new Gta2MissionElementType("LEVEL_BLOCK");
   IElementType LEVEL_BODY = new Gta2MissionElementType("LEVEL_BODY");
+  IElementType MATH_ASSIGNMENT = new Gta2MissionElementType("MATH_ASSIGNMENT");
   IElementType METHOD_CALL = new Gta2MissionElementType("METHOD_CALL");
   IElementType PARAM = new Gta2MissionElementType("PARAM");
   IElementType PARAMS = new Gta2MissionElementType("PARAMS");
@@ -27,7 +29,9 @@ public interface Gta2MissionTypes {
   IElementType VECTOR_3 = new Gta2MissionElementType("VECTOR_3");
   IElementType WHILE_EXPRESSION = new Gta2MissionElementType("WHILE_EXPRESSION");
 
+  IElementType AND = new Gta2MissionTokenType("AND");
   IElementType AREA_PLAYER_ONLY = new Gta2MissionTokenType("AREA_PLAYER_ONLY");
+  IElementType CAR_DATA = new Gta2MissionTokenType("CAR_DATA");
   IElementType CHAR_DATA = new Gta2MissionTokenType("CHAR_DATA");
   IElementType COMMENT = new Gta2MissionTokenType("COMMENT");
   IElementType COUNTER = new Gta2MissionTokenType("COUNTER");
@@ -43,6 +47,7 @@ public interface Gta2MissionTypes {
   IElementType LEVEL_START = new Gta2MissionTokenType("LEVELSTART");
   IElementType MACHINE_GUN = new Gta2MissionTokenType("MACHINE_GUN");
   IElementType METHOD = new Gta2MissionTokenType("METHOD");
+  IElementType NOT = new Gta2MissionTokenType("NOT");
   IElementType NUMBER = new Gta2MissionTokenType("number");
   IElementType OP_PLUS_PLUS = new Gta2MissionTokenType("++");
   IElementType PLAYER_PED = new Gta2MissionTokenType("PLAYER_PED");
@@ -58,7 +63,10 @@ public interface Gta2MissionTypes {
   class Factory {
     public static PsiElement createElement(ASTNode node) {
       IElementType type = node.getElementType();
-      if (type == CONDITIONAL_STATEMENT) {
+      if (type == AND_STATEMENT) {
+        return new MissionAndStatementImpl(node);
+      }
+      else if (type == CONDITIONAL_STATEMENT) {
         return new MissionConditionalStatementImpl(node);
       }
       else if (type == DEFINITION) {
@@ -81,6 +89,9 @@ public interface Gta2MissionTypes {
       }
       else if (type == LEVEL_BODY) {
         return new MissionLevelBodyImpl(node);
+      }
+      else if (type == MATH_ASSIGNMENT) {
+        return new MissionMathAssignmentImpl(node);
       }
       else if (type == METHOD_CALL) {
         return new MissionMethodCallImpl(node);

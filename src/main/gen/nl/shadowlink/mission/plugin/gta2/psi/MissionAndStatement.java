@@ -5,21 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface MissionConditionalStatement extends PsiElement {
+public interface MissionAndStatement extends PsiElement {
 
   @NotNull
-  List<MissionAndStatement> getAndStatementList();
-
-  @Nullable
   MissionConditionalStatement getConditionalStatement();
-
-  @Nullable
-  MissionMethodCall getMethodCall();
-
-  @Nullable
-  MissionParam getParam();
-
-  @Nullable
-  PsiElement getIdentifier();
 
 }

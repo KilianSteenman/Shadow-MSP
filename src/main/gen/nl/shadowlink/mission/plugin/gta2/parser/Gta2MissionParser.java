@@ -36,6 +36,21 @@ public class Gta2MissionParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // AND '(' ConditionalStatement ')'
+  public static boolean AndStatement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "AndStatement")) return false;
+    if (!nextTokenIs(b, AND)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, AND);
+    r = r && consumeToken(b, "(");
+    r = r && ConditionalStatement(b, l + 1);
+    r = r && consumeToken(b, ")");
+    exit_section_(b, m, AND_STATEMENT, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // '=' Param
   static boolean Assignment(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "Assignment")) return false;
@@ -48,14 +63,14 @@ public class Gta2MissionParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // IDENTIFIER '=' Param | MethodCall
+  // IDENTIFIER '=' Param | MethodCall | NOT? '(' ConditionalStatement ')' AndStatement*
   public static boolean ConditionalStatement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ConditionalStatement")) return false;
-    if (!nextTokenIs(b, "<conditional statement>", IDENTIFIER, METHOD)) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, CONDITIONAL_STATEMENT, "<conditional statement>");
     r = ConditionalStatement_0(b, l + 1);
     if (!r) r = MethodCall(b, l + 1);
+    if (!r) r = ConditionalStatement_2(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -70,6 +85,38 @@ public class Gta2MissionParser implements PsiParser, LightPsiParser {
     r = r && Param(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
+  }
+
+  // NOT? '(' ConditionalStatement ')' AndStatement*
+  private static boolean ConditionalStatement_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ConditionalStatement_2")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = ConditionalStatement_2_0(b, l + 1);
+    r = r && consumeToken(b, "(");
+    r = r && ConditionalStatement(b, l + 1);
+    r = r && consumeToken(b, ")");
+    r = r && ConditionalStatement_2_4(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // NOT?
+  private static boolean ConditionalStatement_2_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ConditionalStatement_2_0")) return false;
+    consumeToken(b, NOT);
+    return true;
+  }
+
+  // AndStatement*
+  private static boolean ConditionalStatement_2_4(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ConditionalStatement_2_4")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!AndStatement(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "ConditionalStatement_2_4", c)) break;
+    }
+    return true;
   }
 
   /* ********************************************************** */
@@ -127,7 +174,7 @@ public class Gta2MissionParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // COMMENT | VariableAssignment | MethodCall | WhileExpression | IfExpression | SubroutineDefinition | SetExpression
+  // COMMENT | VariableAssignment | MethodCall | WhileExpression | IfExpression | SubroutineDefinition | SetExpression | MathAssignment
   public static boolean Expression(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "Expression")) return false;
     boolean r;
@@ -139,6 +186,7 @@ public class Gta2MissionParser implements PsiParser, LightPsiParser {
     if (!r) r = IfExpression(b, l + 1);
     if (!r) r = SubroutineDefinition(b, l + 1);
     if (!r) r = SetExpression(b, l + 1);
+    if (!r) r = MathAssignment(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -204,6 +252,19 @@ public class Gta2MissionParser implements PsiParser, LightPsiParser {
     }
     exit_section_(b, l, m, true, false, null);
     return true;
+  }
+
+  /* ********************************************************** */
+  // OP_PLUS_PLUS IDENTIFIER | IDENTIFIER OP_PLUS_PLUS
+  public static boolean MathAssignment(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "MathAssignment")) return false;
+    if (!nextTokenIs(b, "<math assignment>", IDENTIFIER, OP_PLUS_PLUS)) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, MATH_ASSIGNMENT, "<math assignment>");
+    r = parseTokens(b, 0, OP_PLUS_PLUS, IDENTIFIER);
+    if (!r) r = parseTokens(b, 0, IDENTIFIER, OP_PLUS_PLUS);
+    exit_section_(b, l, m, r, false, null);
+    return r;
   }
 
   /* ********************************************************** */
@@ -386,7 +447,7 @@ public class Gta2MissionParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // PLAYER_PED | CHAR_DATA | COUNTER | FORWARD | TIMER_DATA | THREAD_TRIGGER
+  // PLAYER_PED | CHAR_DATA | COUNTER | FORWARD | TIMER_DATA | THREAD_TRIGGER | CAR_DATA
   public static boolean Type(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "Type")) return false;
     boolean r;
@@ -397,6 +458,7 @@ public class Gta2MissionParser implements PsiParser, LightPsiParser {
     if (!r) r = consumeToken(b, FORWARD);
     if (!r) r = consumeToken(b, TIMER_DATA);
     if (!r) r = consumeToken(b, THREAD_TRIGGER);
+    if (!r) r = consumeToken(b, CAR_DATA);
     exit_section_(b, l, m, r, false, null);
     return r;
   }

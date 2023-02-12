@@ -11,14 +11,14 @@ import static nl.shadowlink.mission.plugin.gta2.psi.Gta2MissionTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import nl.shadowlink.mission.plugin.gta2.psi.*;
 
-public class MissionConditionalStatementImpl extends ASTWrapperPsiElement implements MissionConditionalStatement {
+public class MissionAndStatementImpl extends ASTWrapperPsiElement implements MissionAndStatement {
 
-  public MissionConditionalStatementImpl(@NotNull ASTNode node) {
+  public MissionAndStatementImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull MissionVisitor visitor) {
-    visitor.visitConditionalStatement(this);
+    visitor.visitAndStatement(this);
   }
 
   @Override
@@ -29,32 +29,8 @@ public class MissionConditionalStatementImpl extends ASTWrapperPsiElement implem
 
   @Override
   @NotNull
-  public List<MissionAndStatement> getAndStatementList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, MissionAndStatement.class);
-  }
-
-  @Override
-  @Nullable
   public MissionConditionalStatement getConditionalStatement() {
-    return findChildByClass(MissionConditionalStatement.class);
-  }
-
-  @Override
-  @Nullable
-  public MissionMethodCall getMethodCall() {
-    return findChildByClass(MissionMethodCall.class);
-  }
-
-  @Override
-  @Nullable
-  public MissionParam getParam() {
-    return findChildByClass(MissionParam.class);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getIdentifier() {
-    return findChildByType(IDENTIFIER);
+    return findNotNullChildByClass(MissionConditionalStatement.class);
   }
 
 }

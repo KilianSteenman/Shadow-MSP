@@ -11,6 +11,9 @@ public interface MissionExpression extends PsiElement {
   MissionIfExpression getIfExpression();
 
   @Nullable
+  MissionMathAssignment getMathAssignment();
+
+  @Nullable
   MissionMethodCall getMethodCall();
 
   @Nullable

@@ -46,9 +46,12 @@ METHOD=[A-Z_]+
   "END"                  { return END; }
   "RETURN"               { return RETURN; }
   "SET"                  { return SET; }
+  "NOT"                  { return NOT; }
+  "AND"                  { return AND; }
   "++"                   { return OP_PLUS_PLUS; }
   "PLAYER_PED"           { return PLAYER_PED; }
   "CHAR_DATA"            { return CHAR_DATA; }
+  "CAR_DATA"             { return CAR_DATA; }
   "COUNTER"              { return COUNTER; }
   "FORWARD"              { return FORWARD; }
   "TIMER_DATA"           { return TIMER_DATA; }

@@ -7,6 +7,10 @@ import com.intellij.psi.PsiElement;
 
 public class MissionVisitor extends PsiElementVisitor {
 
+  public void visitAndStatement(@NotNull MissionAndStatement o) {
+    visitPsiElement(o);
+  }
+
   public void visitConditionalStatement(@NotNull MissionConditionalStatement o) {
     visitPsiElement(o);
   }
@@ -36,6 +40,10 @@ public class MissionVisitor extends PsiElementVisitor {
   }
 
   public void visitLevelBody(@NotNull MissionLevelBody o) {
+    visitPsiElement(o);
+  }
+
+  public void visitMathAssignment(@NotNull MissionMathAssignment o) {
     visitPsiElement(o);
   }
 
