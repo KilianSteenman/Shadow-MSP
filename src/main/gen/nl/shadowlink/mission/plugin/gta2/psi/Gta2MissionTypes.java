@@ -36,6 +36,7 @@ public interface Gta2MissionTypes {
 
   IElementType AND = new Gta2MissionTokenType("AND");
   IElementType AREA_PLAYER_ONLY = new Gta2MissionTokenType("AREA_PLAYER_ONLY");
+  IElementType BONUS = new Gta2MissionTokenType("BONUS");
   IElementType CAR_DATA = new Gta2MissionTokenType("CAR_DATA");
   IElementType CHAR_DATA = new Gta2MissionTokenType("CHAR_DATA");
   IElementType COMMENT = new Gta2MissionTokenType("COMMENT");
@@ -62,6 +63,7 @@ public interface Gta2MissionTypes {
   IElementType NUMBER = new Gta2MissionTokenType("number");
   IElementType OFF = new Gta2MissionTokenType("OFF");
   IElementType ON = new Gta2MissionTokenType("ON");
+  IElementType ONSCREEN_COUNTER = new Gta2MissionTokenType("ONSCREEN_COUNTER");
   IElementType OP_PLUS_PLUS = new Gta2MissionTokenType("++");
   IElementType PLAYER_PED = new Gta2MissionTokenType("PLAYER_PED");
   IElementType REACT_AS_NORMAL = new Gta2MissionTokenType("REACT_AS_NORMAL");

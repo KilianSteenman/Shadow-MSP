@@ -17,7 +17,7 @@
     NUMBER='regexp:\d+(\.\d*)?'
     IDENTIFIER='regexp:[a-z0-9_]+'
     COMMENT='regexp://.*'
-    SUBROUTINE='regexp:([a-z_]+):'
+    SUBROUTINE='regexp:([a-z--9_]+):'
     COMMENTBLOCK='regexp:\/\*(\*(?!\/)|[^*])*\*\/'
 
     // Reserved words
@@ -56,7 +56,7 @@ Definition ::= VariableDefinition | SubroutineDefinition | COMMENT | (Type SUBRO
 VariableDefinition ::= (Type IDENTIFIER Assignment?)
 SubroutineDefinition ::= SUBROUTINE Expression* RETURN
 
-Type ::= PLAYER_PED | CHAR_DATA | COUNTER | FORWARD | TIMER_DATA | THREAD_TRIGGER | CAR_DATA
+Type ::= PLAYER_PED | CHAR_DATA | COUNTER | ONSCREEN_COUNTER | FORWARD | TIMER_DATA | THREAD_TRIGGER | CAR_DATA | BONUS
 
 LevelBlock ::= (LEVEL_START LevelBody? LEVEL_END)
 MissionBlock ::= (MISSION_START LevelBody? MISSION_END)

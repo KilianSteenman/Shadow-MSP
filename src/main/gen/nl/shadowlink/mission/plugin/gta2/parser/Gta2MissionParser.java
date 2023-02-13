@@ -520,7 +520,7 @@ public class Gta2MissionParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // PLAYER_PED | CHAR_DATA | COUNTER | FORWARD | TIMER_DATA | THREAD_TRIGGER | CAR_DATA
+  // PLAYER_PED | CHAR_DATA | COUNTER | ONSCREEN_COUNTER | FORWARD | TIMER_DATA | THREAD_TRIGGER | CAR_DATA | BONUS
   public static boolean Type(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "Type")) return false;
     boolean r;
@@ -528,10 +528,12 @@ public class Gta2MissionParser implements PsiParser, LightPsiParser {
     r = consumeToken(b, PLAYER_PED);
     if (!r) r = consumeToken(b, CHAR_DATA);
     if (!r) r = consumeToken(b, COUNTER);
+    if (!r) r = consumeToken(b, ONSCREEN_COUNTER);
     if (!r) r = consumeToken(b, FORWARD);
     if (!r) r = consumeToken(b, TIMER_DATA);
     if (!r) r = consumeToken(b, THREAD_TRIGGER);
     if (!r) r = consumeToken(b, CAR_DATA);
+    if (!r) r = consumeToken(b, BONUS);
     exit_section_(b, l, m, r, false, null);
     return r;
   }

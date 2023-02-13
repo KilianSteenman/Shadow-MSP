@@ -29,7 +29,7 @@ SPACE=[ \t\n\x0B\f\r]+
 NUMBER=[0-9]+(\.[0-9]*)?
 IDENTIFIER=[a-z0-9_]+
 COMMENT="//".*
-SUBROUTINE=([a-z_]+):
+SUBROUTINE=([a-z0-9_]+):
 COMMENT_BLOCK="/*" !([^]* "*/" [^]*) ("*/")?
 METHOD=[A-Z_]+
 
@@ -58,9 +58,11 @@ METHOD=[A-Z_]+
   "GOSUB"                { return GOSUB; }
   "++"                   { return OP_PLUS_PLUS; }
   "PLAYER_PED"           { return PLAYER_PED; }
+  "BONUS"                { return BONUS; }
   "CHAR_DATA"            { return CHAR_DATA; }
   "CAR_DATA"             { return CAR_DATA; }
   "COUNTER"              { return COUNTER; }
+  "ONSCREEN_COUNTER"     { return ONSCREEN_COUNTER; }
   "FORWARD"              { return FORWARD; }
   "TIMER_DATA"           { return TIMER_DATA; }
   "THREAD_TRIGGER"       { return THREAD_TRIGGER; }
