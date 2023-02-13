@@ -6,6 +6,7 @@ import com.intellij.openapi.editor.DefaultLanguageHighlighterColors as Default
 
 enum class Gta2MissionColor(humanName: String, val attributesKey: TextAttributesKey) {
     LINE_COMMENT("Comments//Line comment", Default.LINE_COMMENT),
+    BLOCK_COMMENT("Comments//Block comment", Default.BLOCK_COMMENT),
 
     NUMBER("Literals//Number", Default.NUMBER),
     STRING("Literals//String", Default.STRING),
