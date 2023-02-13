@@ -14,8 +14,7 @@
 
   tokens=[
     SPACE='regexp:\s+'
-    NUMBER='regexp:\d+(\.\d*)?'
-    IDENTIFIER='regexp:[a-z0-9_]+'
+    NUMBER='regexp:-?\d+(\.\d*)?'
     COMMENT='regexp://.*'
     SUBROUTINE='regexp:([a-z--9_]+):'
     COMMENTBLOCK='regexp:\/\*(\*(?!\/)|[^*])*\*\/'
@@ -29,6 +28,8 @@
     END_WHILE_EXEC = 'END_WHILE_EXEC'
     WHILE = 'WHILE'
     END_WHILE = 'ENDWHILE'
+    EXEC = 'EXEC'
+    END_EXEC = 'ENDEXEC'
     IF = 'IF'
     END_IF = 'ENDIF'
     ELSE = 'ELSE'
@@ -40,47 +41,69 @@
     ON = 'ON'
     OFF = 'OFF'
     GOSUB = 'GOSUB'
+    PREPROCESS_IFDEF = '#ifdef'
+    PREPROCESS_ENDIF = '#endif'
+    DEF_PC = 'PC'
+    DEF_PSX = 'PSX'
+    DO_NOWT = 'DO_NOWT'
 
     METHOD = 'regexp:[A-Z_]+'
+    IDENTIFIER='regexp:[a-zA-Z0-9_]+'
 
     OP_PLUS_PLUS='++'
+    OP_PLUS='+'
+    OP_MINUS_MINUS='--'
+    OP_MINUS='-'
+    OP_TIMES='*'
+    OP_DIVISION='/'
+    OP_LESS_THAN='<'
+    OP_GREATER_THAN='>'
+    EQUALS='='
   ]
 }
 
 MissionFile ::= (DefinitionBlock? (LevelBlock | MissionBlock)?)
 
-DefinitionBlock ::= Definition*
+DefinitionBlock ::= Expression*
 
-Definition ::= VariableDefinition | SubroutineDefinition | COMMENT | (Type SUBROUTINE)
+Definition ::= VariableDefinition | SubroutineDefinition | COMMENT | (Type SUBROUTINE) | PreprocessBlock
 
 VariableDefinition ::= (Type IDENTIFIER Assignment?)
+private Assignment ::= EQUALS ((Vector+ (Param+)?) | Param) END?
+
 SubroutineDefinition ::= SUBROUTINE Expression* RETURN
 
-Type ::= PLAYER_PED | CHAR_DATA | COUNTER | ONSCREEN_COUNTER | FORWARD | TIMER_DATA | THREAD_TRIGGER | CAR_DATA | BONUS
+Type ::= PLAYER_PED | CHAR_DATA | COUNTER | ONSCREEN_COUNTER | FORWARD | TIMER_DATA | THREAD_TRIGGER | CAR_DATA | BONUS | ARROW_DATA | MAP_ZONE | OBJ_DATA | SAVED_COUNTER | CONVEYOR | GENERATOR | DESTRUCTOR | CRANE_DATA | CRUSHER | SOUND | LIGHT
 
 LevelBlock ::= (LEVEL_START LevelBody? LEVEL_END)
 MissionBlock ::= (MISSION_START LevelBody? MISSION_END)
 LevelBody ::= Expression*
 
-private Assignment ::= '=' Param
-
-Expression ::= COMMENT | VariableAssignment | MethodCall | WhileExecExpression | WhileExpression | IfExpression | SubroutineDefinition | SetExpression | MathAssignment | CommentBlock | SubroutineCall
-VariableAssignment ::= IDENTIFIER '=' METHOD? Params
+Expression ::= COMMENT | VariableAssignment | MethodCall | WhileExecExpression | WhileExpression | IfExpression | SubroutineDefinition | SetExpression | MathAssignment | CommentBlock | SubroutineCall | PreprocessBlock | Definition | DO_NOWT | ExecExpression
+VariableAssignment ::= IDENTIFIER EQUALS MethodCall? Params END?
 MethodCall ::= METHOD '(' Params ')' END?
 SubroutineCall ::= GOSUB SUBROUTINE
 MathAssignment ::= OP_PLUS_PLUS IDENTIFIER | IDENTIFIER OP_PLUS_PLUS
 CommentBlock ::= COMMENTBLOCK
 Params ::= (Param ','?)* ','?
-Param ::= NUMBER | Enum | IDENTIFIER | SUBROUTINE | Vector3 | END | Boolean
+Param ::= NUMBER | Enum | IDENTIFIER | SUBROUTINE | Vector3 | Boolean
 
 Enum ::= MACHINE_GUN | CRIMINAL_TYPE2 | AREA_PLAYER_ONLY | REACT_AS_NORMAL | KILL_CHAR_ON_FOOT
 Vector3 ::= '(' number ',' number ',' number ')'
+Vector ::= '(' ( NUMBER ','?)+ ')'
 Boolean ::= ON | OFF
 
-ConditionalStatement ::= IDENTIFIER '=' Param | MethodCall | NOT? '(' ConditionalStatement ')' AndStatement*
+ConditionalStatement ::= IDENTIFIER (EQUALS | OP_GREATER_THAN | OP_LESS_THAN) Param | MethodCall | NOT? '(' ConditionalStatement ')' AndStatement*
 AndStatement ::= AND '(' ConditionalStatement ')'
 
 IfExpression ::= IF '(' ConditionalStatement ')' Expression* (ELSE Expression*)? END_IF
 WhileExecExpression ::= WHILE_EXEC '(' ConditionalStatement ')' Expression* (END_WHILE_EXEC | END_WHILE)
 WhileExpression ::= WHILE '(' ConditionalStatement ')' Expression* END_WHILE
-SetExpression ::= (SET IDENTIFIER Assignment)
+ExecExpression ::= EXEC Expression* END_EXEC
+SetExpression ::= SET IDENTIFIER EQUALS (Param | MathOperation)
+
+PreprocessBlock ::= (PREPROCESS_IFDEF PreprocessType Expression* PREPROCESS_ENDIF)
+PreprocessType ::= DEF_PC | DEF_PSX
+
+MathOperation ::= '(' (NUMBER | IDENTIFIER) MathOperator (NUMBER | IDENTIFIER) ')'
+MathOperator ::= OP_PLUS | OP_MINUS | OP_TIMES | OP_DIVISION

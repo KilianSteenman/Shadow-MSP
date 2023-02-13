@@ -35,6 +35,10 @@ public class MissionVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitExecExpression(@NotNull MissionExecExpression o) {
+    visitPsiElement(o);
+  }
+
   public void visitExpression(@NotNull MissionExpression o) {
     visitPsiElement(o);
   }
@@ -55,6 +59,14 @@ public class MissionVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitMathOperation(@NotNull MissionMathOperation o) {
+    visitPsiElement(o);
+  }
+
+  public void visitMathOperator(@NotNull MissionMathOperator o) {
+    visitPsiElement(o);
+  }
+
   public void visitMethodCall(@NotNull MissionMethodCall o) {
     visitPsiElement(o);
   }
@@ -68,6 +80,14 @@ public class MissionVisitor extends PsiElementVisitor {
   }
 
   public void visitParams(@NotNull MissionParams o) {
+    visitPsiElement(o);
+  }
+
+  public void visitPreprocessBlock(@NotNull MissionPreprocessBlock o) {
+    visitPsiElement(o);
+  }
+
+  public void visitPreprocessType(@NotNull MissionPreprocessType o) {
     visitPsiElement(o);
   }
 
@@ -92,6 +112,10 @@ public class MissionVisitor extends PsiElementVisitor {
   }
 
   public void visitVariableDefinition(@NotNull MissionVariableDefinition o) {
+    visitPsiElement(o);
+  }
+
+  public void visitVector(@NotNull MissionVector o) {
     visitPsiElement(o);
   }
 

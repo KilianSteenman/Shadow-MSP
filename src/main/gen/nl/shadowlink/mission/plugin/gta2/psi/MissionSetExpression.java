@@ -7,7 +7,10 @@ import com.intellij.psi.PsiElement;
 
 public interface MissionSetExpression extends PsiElement {
 
-  @NotNull
+  @Nullable
+  MissionMathOperation getMathOperation();
+
+  @Nullable
   MissionParam getParam();
 
   @NotNull

@@ -5,15 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface MissionVariableAssignment extends PsiElement {
-
-  @Nullable
-  MissionMethodCall getMethodCall();
+public interface MissionMathOperation extends PsiElement {
 
   @NotNull
-  MissionParams getParams();
-
-  @NotNull
-  PsiElement getIdentifier();
+  MissionMathOperator getMathOperator();
 
 }

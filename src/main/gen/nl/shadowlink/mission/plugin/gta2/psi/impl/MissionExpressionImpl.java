@@ -35,6 +35,18 @@ public class MissionExpressionImpl extends ASTWrapperPsiElement implements Missi
 
   @Override
   @Nullable
+  public MissionDefinition getDefinition() {
+    return findChildByClass(MissionDefinition.class);
+  }
+
+  @Override
+  @Nullable
+  public MissionExecExpression getExecExpression() {
+    return findChildByClass(MissionExecExpression.class);
+  }
+
+  @Override
+  @Nullable
   public MissionIfExpression getIfExpression() {
     return findChildByClass(MissionIfExpression.class);
   }
@@ -49,6 +61,12 @@ public class MissionExpressionImpl extends ASTWrapperPsiElement implements Missi
   @Nullable
   public MissionMethodCall getMethodCall() {
     return findChildByClass(MissionMethodCall.class);
+  }
+
+  @Override
+  @Nullable
+  public MissionPreprocessBlock getPreprocessBlock() {
+    return findChildByClass(MissionPreprocessBlock.class);
   }
 
   @Override

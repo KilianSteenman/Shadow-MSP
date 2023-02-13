@@ -8,6 +8,6 @@ import com.intellij.psi.PsiElement;
 public interface MissionDefinitionBlock extends PsiElement {
 
   @NotNull
-  List<MissionDefinition> getDefinitionList();
+  List<MissionExpression> getExpressionList();
 
 }

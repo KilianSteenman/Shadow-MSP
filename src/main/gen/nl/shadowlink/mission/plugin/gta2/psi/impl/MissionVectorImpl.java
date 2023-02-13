@@ -11,44 +11,20 @@ import static nl.shadowlink.mission.plugin.gta2.psi.Gta2MissionTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import nl.shadowlink.mission.plugin.gta2.psi.*;
 
-public class MissionVariableDefinitionImpl extends ASTWrapperPsiElement implements MissionVariableDefinition {
+public class MissionVectorImpl extends ASTWrapperPsiElement implements MissionVector {
 
-  public MissionVariableDefinitionImpl(@NotNull ASTNode node) {
+  public MissionVectorImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull MissionVisitor visitor) {
-    visitor.visitVariableDefinition(this);
+    visitor.visitVector(this);
   }
 
   @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof MissionVisitor) accept((MissionVisitor)visitor);
     else super.accept(visitor);
-  }
-
-  @Override
-  @NotNull
-  public List<MissionParam> getParamList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, MissionParam.class);
-  }
-
-  @Override
-  @NotNull
-  public MissionType getType() {
-    return findNotNullChildByClass(MissionType.class);
-  }
-
-  @Override
-  @NotNull
-  public List<MissionVector> getVectorList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, MissionVector.class);
-  }
-
-  @Override
-  @NotNull
-  public PsiElement getIdentifier() {
-    return findNotNullChildByType(IDENTIFIER);
   }
 
 }

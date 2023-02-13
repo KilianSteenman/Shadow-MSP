@@ -29,8 +29,8 @@ public class MissionDefinitionBlockImpl extends ASTWrapperPsiElement implements 
 
   @Override
   @NotNull
-  public List<MissionDefinition> getDefinitionList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, MissionDefinition.class);
+  public List<MissionExpression> getExpressionList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, MissionExpression.class);
   }
 
 }

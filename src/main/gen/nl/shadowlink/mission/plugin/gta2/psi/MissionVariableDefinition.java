@@ -7,11 +7,14 @@ import com.intellij.psi.PsiElement;
 
 public interface MissionVariableDefinition extends PsiElement {
 
-  @Nullable
-  MissionParam getParam();
+  @NotNull
+  List<MissionParam> getParamList();
 
   @NotNull
   MissionType getType();
+
+  @NotNull
+  List<MissionVector> getVectorList();
 
   @NotNull
   PsiElement getIdentifier();

@@ -28,9 +28,15 @@ public class MissionSetExpressionImpl extends ASTWrapperPsiElement implements Mi
   }
 
   @Override
-  @NotNull
+  @Nullable
+  public MissionMathOperation getMathOperation() {
+    return findChildByClass(MissionMathOperation.class);
+  }
+
+  @Override
+  @Nullable
   public MissionParam getParam() {
-    return findNotNullChildByClass(MissionParam.class);
+    return findChildByClass(MissionParam.class);
   }
 
   @Override

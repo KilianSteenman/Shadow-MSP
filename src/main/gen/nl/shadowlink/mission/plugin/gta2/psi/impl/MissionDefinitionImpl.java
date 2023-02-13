@@ -29,6 +29,12 @@ public class MissionDefinitionImpl extends ASTWrapperPsiElement implements Missi
 
   @Override
   @Nullable
+  public MissionPreprocessBlock getPreprocessBlock() {
+    return findChildByClass(MissionPreprocessBlock.class);
+  }
+
+  @Override
+  @Nullable
   public MissionSubroutineDefinition getSubroutineDefinition() {
     return findChildByClass(MissionSubroutineDefinition.class);
   }

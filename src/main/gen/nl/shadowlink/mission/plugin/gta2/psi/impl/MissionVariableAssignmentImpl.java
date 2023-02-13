@@ -28,6 +28,12 @@ public class MissionVariableAssignmentImpl extends ASTWrapperPsiElement implemen
   }
 
   @Override
+  @Nullable
+  public MissionMethodCall getMethodCall() {
+    return findChildByClass(MissionMethodCall.class);
+  }
+
+  @Override
   @NotNull
   public MissionParams getParams() {
     return findNotNullChildByClass(MissionParams.class);
@@ -37,12 +43,6 @@ public class MissionVariableAssignmentImpl extends ASTWrapperPsiElement implemen
   @NotNull
   public PsiElement getIdentifier() {
     return findNotNullChildByType(IDENTIFIER);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getMethod() {
-    return findChildByType(METHOD);
   }
 
 }

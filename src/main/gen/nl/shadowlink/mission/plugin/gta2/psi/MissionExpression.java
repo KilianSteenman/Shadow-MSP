@@ -11,6 +11,12 @@ public interface MissionExpression extends PsiElement {
   MissionCommentBlock getCommentBlock();
 
   @Nullable
+  MissionDefinition getDefinition();
+
+  @Nullable
+  MissionExecExpression getExecExpression();
+
+  @Nullable
   MissionIfExpression getIfExpression();
 
   @Nullable
@@ -18,6 +24,9 @@ public interface MissionExpression extends PsiElement {
 
   @Nullable
   MissionMethodCall getMethodCall();
+
+  @Nullable
+  MissionPreprocessBlock getPreprocessBlock();
 
   @Nullable
   MissionSetExpression getSetExpression();

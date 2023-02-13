@@ -68,6 +68,7 @@ internal class Gta2FoldingBuilder : FoldingBuilderEx(), DumbAware {
             is MissionIfExpressionImpl -> "..."
             is MissionCommentBlockImpl -> "comment"
             is MissionSubroutineDefinitionImpl -> "..."
+            is MissionPreprocessBlockImpl -> "..."
             else -> error("Placeholder not defined for node $node")
         }
     }
@@ -84,6 +85,8 @@ internal class Gta2FoldingBuilder : FoldingBuilderEx(), DumbAware {
             MissionIfExpressionImpl::class.java,
             MissionCommentBlockImpl::class.java,
             MissionSubroutineDefinitionImpl::class.java,
+            MissionPreprocessBlockImpl::class.java,
+            MissionExecExpressionImpl::class.java,
         )
     }
 }

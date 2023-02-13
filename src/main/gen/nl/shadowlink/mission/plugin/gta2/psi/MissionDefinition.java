@@ -8,6 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface MissionDefinition extends PsiElement {
 
   @Nullable
+  MissionPreprocessBlock getPreprocessBlock();
+
+  @Nullable
   MissionSubroutineDefinition getSubroutineDefinition();
 
   @Nullable

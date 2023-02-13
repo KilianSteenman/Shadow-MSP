@@ -16,6 +16,8 @@ object Gta2MissionTokenSets {
         Gta2MissionTypes.WHILE_EXEC,
         Gta2MissionTypes.END_WHILE,
         Gta2MissionTypes.END_WHILE_EXEC,
+        Gta2MissionTypes.EXEC,
+        Gta2MissionTypes.END_EXEC,
         Gta2MissionTypes.LEVEL_START,
         Gta2MissionTypes.LEVEL_END,
         Gta2MissionTypes.MISSION_START,
