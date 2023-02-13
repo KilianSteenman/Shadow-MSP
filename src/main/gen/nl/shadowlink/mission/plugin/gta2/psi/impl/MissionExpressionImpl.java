@@ -59,8 +59,8 @@ public class MissionExpressionImpl extends ASTWrapperPsiElement implements Missi
 
   @Override
   @Nullable
-  public MissionSubRoutineCall getSubRoutineCall() {
-    return findChildByClass(MissionSubRoutineCall.class);
+  public MissionSubroutineCall getSubroutineCall() {
+    return findChildByClass(MissionSubroutineCall.class);
   }
 
   @Override

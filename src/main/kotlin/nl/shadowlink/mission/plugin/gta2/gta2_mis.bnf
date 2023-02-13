@@ -64,10 +64,10 @@ LevelBody ::= Expression*
 
 private Assignment ::= '=' Param
 
-Expression ::= COMMENT | VariableAssignment | MethodCall | WhileExecExpression | WhileExpression | IfExpression | SubroutineDefinition | SetExpression | MathAssignment | CommentBlock | SubRoutineCall
+Expression ::= COMMENT | VariableAssignment | MethodCall | WhileExecExpression | WhileExpression | IfExpression | SubroutineDefinition | SetExpression | MathAssignment | CommentBlock | SubroutineCall
 VariableAssignment ::= IDENTIFIER '=' METHOD? Params
 MethodCall ::= METHOD '(' Params ')' END?
-SubRoutineCall ::= GOSUB SUBROUTINE
+SubroutineCall ::= GOSUB SUBROUTINE
 MathAssignment ::= OP_PLUS_PLUS IDENTIFIER | IDENTIFIER OP_PLUS_PLUS
 CommentBlock ::= COMMENTBLOCK
 Params ::= (Param ','?)* ','?

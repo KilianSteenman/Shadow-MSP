@@ -75,7 +75,7 @@ public class MissionVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitSubRoutineCall(@NotNull MissionSubRoutineCall o) {
+  public void visitSubroutineCall(@NotNull MissionSubroutineCall o) {
     visitPsiElement(o);
   }
 

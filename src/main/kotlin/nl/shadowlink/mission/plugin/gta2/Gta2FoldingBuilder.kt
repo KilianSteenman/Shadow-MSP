@@ -13,11 +13,7 @@ import com.intellij.psi.util.PsiTreeUtil
 import com.intellij.psi.util.childrenOfType
 import com.intellij.refactoring.suggested.endOffset
 import com.intellij.refactoring.suggested.startOffset
-import nl.shadowlink.mission.plugin.gta2.psi.impl.MissionCommentBlockImpl
-import nl.shadowlink.mission.plugin.gta2.psi.impl.MissionConditionalStatementImpl
-import nl.shadowlink.mission.plugin.gta2.psi.impl.MissionIfExpressionImpl
-import nl.shadowlink.mission.plugin.gta2.psi.impl.MissionLevelBlockImpl
-import nl.shadowlink.mission.plugin.gta2.psi.impl.MissionWhileExpressionImpl
+import nl.shadowlink.mission.plugin.gta2.psi.impl.*
 
 internal class Gta2FoldingBuilder : FoldingBuilderEx(), DumbAware {
     private val LOG: Logger = Logger.getInstance(this::class.java)
@@ -32,6 +28,7 @@ internal class Gta2FoldingBuilder : FoldingBuilderEx(), DumbAware {
     private fun PsiElement.toFoldingDescriptor(): FoldingDescriptor {
         return when (this) {
             is MissionWhileExpressionImpl -> this.toConditionalFoldingDescriptor()
+            is MissionWhileExecExpressionImpl -> this.toConditionalFoldingDescriptor()
             is MissionIfExpressionImpl -> this.toConditionalFoldingDescriptor()
             else -> this.toDefaultFoldingDescriptor()
         }
@@ -65,9 +62,12 @@ internal class Gta2FoldingBuilder : FoldingBuilderEx(), DumbAware {
     override fun getPlaceholderText(node: ASTNode): String {
         return when (node.psi) {
             is MissionLevelBlockImpl -> "..."
+            is MissionMissionBlockImpl -> "..."
             is MissionWhileExpressionImpl -> "..."
+            is MissionWhileExecExpressionImpl -> "..."
             is MissionIfExpressionImpl -> "..."
             is MissionCommentBlockImpl -> "comment"
+            is MissionSubroutineDefinitionImpl -> "..."
             else -> error("Placeholder not defined for node $node")
         }
     }
@@ -78,9 +78,12 @@ internal class Gta2FoldingBuilder : FoldingBuilderEx(), DumbAware {
 
         private val foldableElementTypes = listOf(
             MissionLevelBlockImpl::class.java,
+            MissionMissionBlockImpl::class.java,
             MissionWhileExpressionImpl::class.java,
+            MissionWhileExecExpressionImpl::class.java,
             MissionIfExpressionImpl::class.java,
-            MissionCommentBlockImpl::class.java
+            MissionCommentBlockImpl::class.java,
+            MissionSubroutineDefinitionImpl::class.java,
         )
     }
 }

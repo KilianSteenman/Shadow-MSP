@@ -23,7 +23,7 @@ public interface MissionExpression extends PsiElement {
   MissionSetExpression getSetExpression();
 
   @Nullable
-  MissionSubRoutineCall getSubRoutineCall();
+  MissionSubroutineCall getSubroutineCall();
 
   @Nullable
   MissionSubroutineDefinition getSubroutineDefinition();

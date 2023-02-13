@@ -25,8 +25,8 @@ public interface Gta2MissionTypes {
   IElementType PARAM = new Gta2MissionElementType("PARAM");
   IElementType PARAMS = new Gta2MissionElementType("PARAMS");
   IElementType SET_EXPRESSION = new Gta2MissionElementType("SET_EXPRESSION");
+  IElementType SUBROUTINE_CALL = new Gta2MissionElementType("SUBROUTINE_CALL");
   IElementType SUBROUTINE_DEFINITION = new Gta2MissionElementType("SUBROUTINE_DEFINITION");
-  IElementType SUB_ROUTINE_CALL = new Gta2MissionElementType("SUB_ROUTINE_CALL");
   IElementType TYPE = new Gta2MissionElementType("TYPE");
   IElementType VARIABLE_ASSIGNMENT = new Gta2MissionElementType("VARIABLE_ASSIGNMENT");
   IElementType VARIABLE_DEFINITION = new Gta2MissionElementType("VARIABLE_DEFINITION");
@@ -127,11 +127,11 @@ public interface Gta2MissionTypes {
       else if (type == SET_EXPRESSION) {
         return new MissionSetExpressionImpl(node);
       }
+      else if (type == SUBROUTINE_CALL) {
+        return new MissionSubroutineCallImpl(node);
+      }
       else if (type == SUBROUTINE_DEFINITION) {
         return new MissionSubroutineDefinitionImpl(node);
-      }
-      else if (type == SUB_ROUTINE_CALL) {
-        return new MissionSubRoutineCallImpl(node);
       }
       else if (type == TYPE) {
         return new MissionTypeImpl(node);

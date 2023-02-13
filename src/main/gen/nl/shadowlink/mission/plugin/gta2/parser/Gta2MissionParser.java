@@ -199,7 +199,7 @@ public class Gta2MissionParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // COMMENT | VariableAssignment | MethodCall | WhileExecExpression | WhileExpression | IfExpression | SubroutineDefinition | SetExpression | MathAssignment | CommentBlock | SubRoutineCall
+  // COMMENT | VariableAssignment | MethodCall | WhileExecExpression | WhileExpression | IfExpression | SubroutineDefinition | SetExpression | MathAssignment | CommentBlock | SubroutineCall
   public static boolean Expression(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "Expression")) return false;
     boolean r;
@@ -214,7 +214,7 @@ public class Gta2MissionParser implements PsiParser, LightPsiParser {
     if (!r) r = SetExpression(b, l + 1);
     if (!r) r = MathAssignment(b, l + 1);
     if (!r) r = CommentBlock(b, l + 1);
-    if (!r) r = SubRoutineCall(b, l + 1);
+    if (!r) r = SubroutineCall(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -484,13 +484,13 @@ public class Gta2MissionParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // GOSUB SUBROUTINE
-  public static boolean SubRoutineCall(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "SubRoutineCall")) return false;
+  public static boolean SubroutineCall(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "SubroutineCall")) return false;
     if (!nextTokenIs(b, GOSUB)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeTokens(b, 0, GOSUB, SUBROUTINE);
-    exit_section_(b, m, SUB_ROUTINE_CALL, r);
+    exit_section_(b, m, SUBROUTINE_CALL, r);
     return r;
   }
 
