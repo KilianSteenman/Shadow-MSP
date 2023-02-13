@@ -29,6 +29,12 @@ public class MissionExpressionImpl extends ASTWrapperPsiElement implements Missi
 
   @Override
   @Nullable
+  public MissionCommentBlock getCommentBlock() {
+    return findChildByClass(MissionCommentBlock.class);
+  }
+
+  @Override
+  @Nullable
   public MissionIfExpression getIfExpression() {
     return findChildByClass(MissionIfExpression.class);
   }
@@ -85,12 +91,6 @@ public class MissionExpressionImpl extends ASTWrapperPsiElement implements Missi
   @Nullable
   public PsiElement getComment() {
     return findChildByType(COMMENT);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getCommentBlock() {
-    return findChildByType(COMMENT_BLOCK);
   }
 
 }

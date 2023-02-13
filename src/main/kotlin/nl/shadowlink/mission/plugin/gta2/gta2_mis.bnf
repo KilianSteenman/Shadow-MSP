@@ -18,7 +18,7 @@
     IDENTIFIER='regexp:[a-z0-9_]+'
     COMMENT='regexp://.*'
     SUBROUTINE='regexp:([a-z_]+):'
-    COMMENT_BLOCK='regexp:\/\*(\*(?!\/)|[^*])*\*\/'
+    COMMENTBLOCK='regexp:\/\*(\*(?!\/)|[^*])*\*\/'
 
     // Reserved words
     LEVEL_START='LEVELSTART'
@@ -64,11 +64,12 @@ LevelBody ::= Expression*
 
 private Assignment ::= '=' Param
 
-Expression ::= COMMENT | VariableAssignment | MethodCall | WhileExecExpression | WhileExpression | IfExpression | SubroutineDefinition | SetExpression | MathAssignment | COMMENT_BLOCK | SubRoutineCall
+Expression ::= COMMENT | VariableAssignment | MethodCall | WhileExecExpression | WhileExpression | IfExpression | SubroutineDefinition | SetExpression | MathAssignment | CommentBlock | SubRoutineCall
 VariableAssignment ::= IDENTIFIER '=' METHOD? Params
 MethodCall ::= METHOD '(' Params ')' END?
 SubRoutineCall ::= GOSUB SUBROUTINE
 MathAssignment ::= OP_PLUS_PLUS IDENTIFIER | IDENTIFIER OP_PLUS_PLUS
+CommentBlock ::= COMMENTBLOCK
 Params ::= (Param ','?)* ','?
 Param ::= NUMBER | Enum | IDENTIFIER | SUBROUTINE | Vector3 | END | Boolean
 

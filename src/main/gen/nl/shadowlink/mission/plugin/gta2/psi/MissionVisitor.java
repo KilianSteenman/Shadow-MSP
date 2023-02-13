@@ -15,6 +15,10 @@ public class MissionVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitCommentBlock(@NotNull MissionCommentBlock o) {
+    visitPsiElement(o);
+  }
+
   public void visitConditionalStatement(@NotNull MissionConditionalStatement o) {
     visitPsiElement(o);
   }

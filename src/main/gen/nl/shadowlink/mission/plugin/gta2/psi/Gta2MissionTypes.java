@@ -10,6 +10,7 @@ public interface Gta2MissionTypes {
 
   IElementType AND_STATEMENT = new Gta2MissionElementType("AND_STATEMENT");
   IElementType BOOLEAN = new Gta2MissionElementType("BOOLEAN");
+  IElementType COMMENT_BLOCK = new Gta2MissionElementType("COMMENT_BLOCK");
   IElementType CONDITIONAL_STATEMENT = new Gta2MissionElementType("CONDITIONAL_STATEMENT");
   IElementType DEFINITION = new Gta2MissionElementType("DEFINITION");
   IElementType DEFINITION_BLOCK = new Gta2MissionElementType("DEFINITION_BLOCK");
@@ -38,7 +39,7 @@ public interface Gta2MissionTypes {
   IElementType CAR_DATA = new Gta2MissionTokenType("CAR_DATA");
   IElementType CHAR_DATA = new Gta2MissionTokenType("CHAR_DATA");
   IElementType COMMENT = new Gta2MissionTokenType("COMMENT");
-  IElementType COMMENT_BLOCK = new Gta2MissionTokenType("COMMENT_BLOCK");
+  IElementType COMMENTBLOCK = new Gta2MissionTokenType("COMMENTBLOCK");
   IElementType COUNTER = new Gta2MissionTokenType("COUNTER");
   IElementType CRIMINAL_TYPE2 = new Gta2MissionTokenType("CRIMINAL_TYPE2");
   IElementType ELSE = new Gta2MissionTokenType("ELSE");
@@ -80,6 +81,9 @@ public interface Gta2MissionTypes {
       }
       else if (type == BOOLEAN) {
         return new MissionBooleanImpl(node);
+      }
+      else if (type == COMMENT_BLOCK) {
+        return new MissionCommentBlockImpl(node);
       }
       else if (type == CONDITIONAL_STATEMENT) {
         return new MissionConditionalStatementImpl(node);

@@ -5,5 +5,5 @@ import com.intellij.psi.tree.TokenSet
 object Gta2MissionTokenSets {
 
     val IDENTIFIERS: TokenSet = TokenSet.create(Gta2MissionTypes.IDENTIFIER)
-    val COMMENTS: TokenSet = TokenSet.create(Gta2MissionTypes.COMMENT)
+    val COMMENTS: TokenSet = TokenSet.create(Gta2MissionTypes.COMMENT, Gta2MissionTypes.COMMENT_BLOCK)
 }

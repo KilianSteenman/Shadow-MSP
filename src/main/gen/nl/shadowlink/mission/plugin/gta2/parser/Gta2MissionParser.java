@@ -76,6 +76,18 @@ public class Gta2MissionParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // COMMENTBLOCK
+  public static boolean CommentBlock(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "CommentBlock")) return false;
+    if (!nextTokenIs(b, COMMENTBLOCK)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, COMMENTBLOCK);
+    exit_section_(b, m, COMMENT_BLOCK, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // IDENTIFIER '=' Param | MethodCall | NOT? '(' ConditionalStatement ')' AndStatement*
   public static boolean ConditionalStatement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ConditionalStatement")) return false;
@@ -187,7 +199,7 @@ public class Gta2MissionParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // COMMENT | VariableAssignment | MethodCall | WhileExecExpression | WhileExpression | IfExpression | SubroutineDefinition | SetExpression | MathAssignment | COMMENT_BLOCK | SubRoutineCall
+  // COMMENT | VariableAssignment | MethodCall | WhileExecExpression | WhileExpression | IfExpression | SubroutineDefinition | SetExpression | MathAssignment | CommentBlock | SubRoutineCall
   public static boolean Expression(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "Expression")) return false;
     boolean r;
@@ -201,7 +213,7 @@ public class Gta2MissionParser implements PsiParser, LightPsiParser {
     if (!r) r = SubroutineDefinition(b, l + 1);
     if (!r) r = SetExpression(b, l + 1);
     if (!r) r = MathAssignment(b, l + 1);
-    if (!r) r = consumeToken(b, COMMENT_BLOCK);
+    if (!r) r = CommentBlock(b, l + 1);
     if (!r) r = SubRoutineCall(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;

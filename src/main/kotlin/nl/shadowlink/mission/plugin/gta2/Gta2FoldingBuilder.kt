@@ -13,11 +13,8 @@ import com.intellij.psi.util.PsiTreeUtil
 import com.intellij.psi.util.childrenOfType
 import com.intellij.refactoring.suggested.endOffset
 import com.intellij.refactoring.suggested.startOffset
-import nl.shadowlink.mission.plugin.gta2.psi.Gta2MissionElementType
-import nl.shadowlink.mission.plugin.gta2.psi.Gta2MissionTypes
-import nl.shadowlink.mission.plugin.gta2.psi.MissionWhileExpression
+import nl.shadowlink.mission.plugin.gta2.psi.impl.MissionCommentBlockImpl
 import nl.shadowlink.mission.plugin.gta2.psi.impl.MissionConditionalStatementImpl
-import nl.shadowlink.mission.plugin.gta2.psi.impl.MissionDefinitionBlockImpl
 import nl.shadowlink.mission.plugin.gta2.psi.impl.MissionIfExpressionImpl
 import nl.shadowlink.mission.plugin.gta2.psi.impl.MissionLevelBlockImpl
 import nl.shadowlink.mission.plugin.gta2.psi.impl.MissionWhileExpressionImpl
@@ -26,7 +23,7 @@ internal class Gta2FoldingBuilder : FoldingBuilderEx(), DumbAware {
     private val LOG: Logger = Logger.getInstance(this::class.java)
 
     override fun buildFoldRegions(root: PsiElement, document: Document, quick: Boolean): Array<FoldingDescriptor> {
-        return codeBlockElementTypes
+        return foldableElementTypes
             .flatMap { type -> PsiTreeUtil.findChildrenOfType(root, type) }
             .map { literalExpression -> literalExpression.toFoldingDescriptor() }
             .toTypedArray()
@@ -36,17 +33,19 @@ internal class Gta2FoldingBuilder : FoldingBuilderEx(), DumbAware {
         return when (this) {
             is MissionWhileExpressionImpl -> this.toConditionalFoldingDescriptor()
             is MissionIfExpressionImpl -> this.toConditionalFoldingDescriptor()
-            else -> {
-                FoldingDescriptor(
-                    this.node,
-                    TextRange(
-                        this.firstChild.endOffset,
-                        this.lastChild.startOffset,
-                    ),
-                    FoldingGroup.newGroup("debug name")
-                )
-            }
+            else -> this.toDefaultFoldingDescriptor()
         }
+    }
+
+    private fun PsiElement.toDefaultFoldingDescriptor(): FoldingDescriptor {
+        return FoldingDescriptor(
+            this.node,
+            TextRange(
+                this.firstChild.endOffset,
+                this.lastChild.startOffset,
+            ),
+            FoldingGroup.newGroup("debug name")
+        )
     }
 
     private fun PsiElement.toConditionalFoldingDescriptor(): FoldingDescriptor {
@@ -59,7 +58,7 @@ internal class Gta2FoldingBuilder : FoldingBuilderEx(), DumbAware {
                 startOffset,
                 this.lastChild.startOffset,
             ),
-            FoldingGroup.newGroup("debug name")
+            FoldingGroup.newGroup("Conditional")
         )
     }
 
@@ -68,6 +67,7 @@ internal class Gta2FoldingBuilder : FoldingBuilderEx(), DumbAware {
             is MissionLevelBlockImpl -> "..."
             is MissionWhileExpressionImpl -> "..."
             is MissionIfExpressionImpl -> "..."
+            is MissionCommentBlockImpl -> "comment"
             else -> error("Placeholder not defined for node $node")
         }
     }
@@ -76,10 +76,11 @@ internal class Gta2FoldingBuilder : FoldingBuilderEx(), DumbAware {
 
     companion object {
 
-        private val codeBlockElementTypes = listOf(
+        private val foldableElementTypes = listOf(
             MissionLevelBlockImpl::class.java,
             MissionWhileExpressionImpl::class.java,
-            MissionIfExpressionImpl::class.java
+            MissionIfExpressionImpl::class.java,
+            MissionCommentBlockImpl::class.java
         )
     }
 }

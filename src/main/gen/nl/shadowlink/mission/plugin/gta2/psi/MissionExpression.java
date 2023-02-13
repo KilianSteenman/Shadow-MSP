@@ -8,6 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface MissionExpression extends PsiElement {
 
   @Nullable
+  MissionCommentBlock getCommentBlock();
+
+  @Nullable
   MissionIfExpression getIfExpression();
 
   @Nullable
@@ -36,8 +39,5 @@ public interface MissionExpression extends PsiElement {
 
   @Nullable
   PsiElement getComment();
-
-  @Nullable
-  PsiElement getCommentBlock();
 
 }
