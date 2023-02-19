@@ -43,6 +43,10 @@ public class MissionVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitGosubCall(@NotNull MissionGosubCall o) {
+    visitPsiElement(o);
+  }
+
   public void visitIfExpression(@NotNull MissionIfExpression o) {
     visitPsiElement(o);
   }
@@ -95,11 +99,11 @@ public class MissionVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitSubroutineCall(@NotNull MissionSubroutineCall o) {
-    visitPsiElement(o);
+  public void visitSubroutineDefinition(@NotNull MissionSubroutineDefinition o) {
+    visitGta2MissionNamedElement(o);
   }
 
-  public void visitSubroutineDefinition(@NotNull MissionSubroutineDefinition o) {
+  public void visitSubroutineReference(@NotNull MissionSubroutineReference o) {
     visitPsiElement(o);
   }
 
@@ -129,6 +133,10 @@ public class MissionVisitor extends PsiElementVisitor {
 
   public void visitWhileExpression(@NotNull MissionWhileExpression o) {
     visitPsiElement(o);
+  }
+
+  public void visitGta2MissionNamedElement(@NotNull Gta2MissionNamedElement o) {
+    visitElement(o);
   }
 
   public void visitPsiElement(@NotNull PsiElement o) {

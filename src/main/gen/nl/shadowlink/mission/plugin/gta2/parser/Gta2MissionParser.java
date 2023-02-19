@@ -303,7 +303,7 @@ public class Gta2MissionParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // COMMENT | VariableAssignment | MethodCall | WhileExecExpression | WhileExpression | IfExpression | SubroutineDefinition | SetExpression | MathAssignment | CommentBlock | SubroutineCall | PreprocessBlock | Definition | DO_NOWT | ExecExpression
+  // COMMENT | VariableAssignment | MethodCall | WhileExecExpression | WhileExpression | IfExpression | SubroutineDefinition | SetExpression | MathAssignment | CommentBlock | GosubCall | PreprocessBlock | Definition | DO_NOWT | ExecExpression
   public static boolean Expression(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "Expression")) return false;
     boolean r;
@@ -318,12 +318,25 @@ public class Gta2MissionParser implements PsiParser, LightPsiParser {
     if (!r) r = SetExpression(b, l + 1);
     if (!r) r = MathAssignment(b, l + 1);
     if (!r) r = CommentBlock(b, l + 1);
-    if (!r) r = SubroutineCall(b, l + 1);
+    if (!r) r = GosubCall(b, l + 1);
     if (!r) r = PreprocessBlock(b, l + 1);
     if (!r) r = Definition(b, l + 1);
     if (!r) r = consumeToken(b, DO_NOWT);
     if (!r) r = ExecExpression(b, l + 1);
     exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // GOSUB SubroutineReference
+  public static boolean GosubCall(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "GosubCall")) return false;
+    if (!nextTokenIs(b, GOSUB)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, GOSUB);
+    r = r && SubroutineReference(b, l + 1);
+    exit_section_(b, m, GOSUB_CALL, r);
     return r;
   }
 
@@ -685,18 +698,6 @@ public class Gta2MissionParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // GOSUB SUBROUTINE
-  public static boolean SubroutineCall(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "SubroutineCall")) return false;
-    if (!nextTokenIs(b, GOSUB)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, GOSUB, SUBROUTINE);
-    exit_section_(b, m, SUBROUTINE_CALL, r);
-    return r;
-  }
-
-  /* ********************************************************** */
   // SUBROUTINE Expression* RETURN
   public static boolean SubroutineDefinition(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "SubroutineDefinition")) return false;
@@ -719,6 +720,18 @@ public class Gta2MissionParser implements PsiParser, LightPsiParser {
       if (!empty_element_parsed_guard_(b, "SubroutineDefinition_1", c)) break;
     }
     return true;
+  }
+
+  /* ********************************************************** */
+  // SUBROUTINE
+  public static boolean SubroutineReference(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "SubroutineReference")) return false;
+    if (!nextTokenIs(b, SUBROUTINE)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, SUBROUTINE);
+    exit_section_(b, m, SUBROUTINE_REFERENCE, r);
+    return r;
   }
 
   /* ********************************************************** */

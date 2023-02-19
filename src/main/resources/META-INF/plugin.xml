@@ -30,6 +30,9 @@
         <lang.foldingBuilder
                 language="Gta2MissionScript"
                 implementationClass="nl.shadowlink.mission.plugin.gta2.Gta2FoldingBuilder"/>
+        <lang.findUsagesProvider
+                language="Gta2MissionScript"
+                implementationClass="nl.shadowlink.mission.plugin.gta2.psi.Gta2UsagesProvider"/>
         <colorSettingsPage
                 implementation="nl.shadowlink.mission.plugin.gta2.highlighter.Gta2MissionColorSettingsPage"/>
 

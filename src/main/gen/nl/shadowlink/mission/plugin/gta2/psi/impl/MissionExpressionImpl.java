@@ -47,6 +47,12 @@ public class MissionExpressionImpl extends ASTWrapperPsiElement implements Missi
 
   @Override
   @Nullable
+  public MissionGosubCall getGosubCall() {
+    return findChildByClass(MissionGosubCall.class);
+  }
+
+  @Override
+  @Nullable
   public MissionIfExpression getIfExpression() {
     return findChildByClass(MissionIfExpression.class);
   }
@@ -73,12 +79,6 @@ public class MissionExpressionImpl extends ASTWrapperPsiElement implements Missi
   @Nullable
   public MissionSetExpression getSetExpression() {
     return findChildByClass(MissionSetExpression.class);
-  }
-
-  @Override
-  @Nullable
-  public MissionSubroutineCall getSubroutineCall() {
-    return findChildByClass(MissionSubroutineCall.class);
   }
 
   @Override

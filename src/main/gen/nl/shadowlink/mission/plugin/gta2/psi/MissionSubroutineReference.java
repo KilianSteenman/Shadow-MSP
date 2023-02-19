@@ -4,22 +4,14 @@ package nl.shadowlink.mission.plugin.gta2.psi;
 import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiReference;
 
-public interface MissionSubroutineDefinition extends Gta2MissionNamedElement {
-
-  @NotNull
-  List<MissionExpression> getExpressionList();
+public interface MissionSubroutineReference extends PsiElement {
 
   @NotNull
   PsiElement getSubroutine();
 
   @Nullable
-  PsiElement getNameIdentifier();
-
-  @Nullable
-  PsiElement setName(@NotNull String name);
-
-  @NotNull
-  String getName();
+  PsiReference getReference();
 
 }

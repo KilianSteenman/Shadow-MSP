@@ -17,6 +17,9 @@ public interface MissionExpression extends PsiElement {
   MissionExecExpression getExecExpression();
 
   @Nullable
+  MissionGosubCall getGosubCall();
+
+  @Nullable
   MissionIfExpression getIfExpression();
 
   @Nullable
@@ -30,9 +33,6 @@ public interface MissionExpression extends PsiElement {
 
   @Nullable
   MissionSetExpression getSetExpression();
-
-  @Nullable
-  MissionSubroutineCall getSubroutineCall();
 
   @Nullable
   MissionSubroutineDefinition getSubroutineDefinition();

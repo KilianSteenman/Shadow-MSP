@@ -12,6 +12,8 @@
     elementTypeClass="nl.shadowlink.mission.plugin.gta2.psi.Gta2MissionElementType"
     tokenTypeClass="nl.shadowlink.mission.plugin.gta2.psi.Gta2MissionTokenType"
 
+    psiImplUtilClass="nl.shadowlink.mission.plugin.gta2.psi.Gta2Utils"
+
   tokens=[
     SPACE='regexp:\s+'
     NUMBER='regexp:-?\d+(\.\d*)?'
@@ -71,7 +73,11 @@ Definition ::= VariableDefinition | SubroutineDefinition | COMMENT | (Type SUBRO
 VariableDefinition ::= (Type IDENTIFIER Assignment?)
 private Assignment ::= EQUALS ((Vector+ (Param+)?) | Param) END?
 
-SubroutineDefinition ::= SUBROUTINE Expression* RETURN
+SubroutineDefinition ::= SUBROUTINE Expression* RETURN {
+    mixin="nl.shadowlink.mission.plugin.gta2.psi.Gta2MissionNamedElementImpl"
+    implements="nl.shadowlink.mission.plugin.gta2.psi.Gta2MissionNamedElement"
+    methods=[getNameIdentifier setName getName]
+}
 
 Type ::= PLAYER_PED | CHAR_DATA | COUNTER | ONSCREEN_COUNTER | FORWARD | TIMER_DATA | THREAD_TRIGGER | CAR_DATA | BONUS | ARROW_DATA | MAP_ZONE | OBJ_DATA | SAVED_COUNTER | CONVEYOR | GENERATOR | DESTRUCTOR | CRANE_DATA | CRUSHER | SOUND | LIGHT
 
@@ -79,10 +85,13 @@ LevelBlock ::= (LEVEL_START LevelBody? LEVEL_END)
 MissionBlock ::= (MISSION_START LevelBody? MISSION_END)
 LevelBody ::= Expression*
 
-Expression ::= COMMENT | VariableAssignment | MethodCall | WhileExecExpression | WhileExpression | IfExpression | SubroutineDefinition | SetExpression | MathAssignment | CommentBlock | SubroutineCall | PreprocessBlock | Definition | DO_NOWT | ExecExpression
+Expression ::= COMMENT | VariableAssignment | MethodCall | WhileExecExpression | WhileExpression | IfExpression | SubroutineDefinition | SetExpression | MathAssignment | CommentBlock | GosubCall | PreprocessBlock | Definition | DO_NOWT | ExecExpression
 VariableAssignment ::= IDENTIFIER EQUALS MethodCall? Params END?
 MethodCall ::= METHOD '(' Params ')' END?
-SubroutineCall ::= GOSUB SUBROUTINE
+GosubCall ::= GOSUB SubroutineReference
+SubroutineReference ::= SUBROUTINE {
+    methods=[getReference]
+}
 MathAssignment ::= OP_PLUS_PLUS IDENTIFIER | IDENTIFIER OP_PLUS_PLUS
 CommentBlock ::= COMMENTBLOCK
 Params ::= (Param ','?)* ','?

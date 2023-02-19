@@ -17,6 +17,7 @@ public interface Gta2MissionTypes {
   IElementType ENUM = new Gta2MissionElementType("ENUM");
   IElementType EXEC_EXPRESSION = new Gta2MissionElementType("EXEC_EXPRESSION");
   IElementType EXPRESSION = new Gta2MissionElementType("EXPRESSION");
+  IElementType GOSUB_CALL = new Gta2MissionElementType("GOSUB_CALL");
   IElementType IF_EXPRESSION = new Gta2MissionElementType("IF_EXPRESSION");
   IElementType LEVEL_BLOCK = new Gta2MissionElementType("LEVEL_BLOCK");
   IElementType LEVEL_BODY = new Gta2MissionElementType("LEVEL_BODY");
@@ -30,8 +31,8 @@ public interface Gta2MissionTypes {
   IElementType PREPROCESS_BLOCK = new Gta2MissionElementType("PREPROCESS_BLOCK");
   IElementType PREPROCESS_TYPE = new Gta2MissionElementType("PREPROCESS_TYPE");
   IElementType SET_EXPRESSION = new Gta2MissionElementType("SET_EXPRESSION");
-  IElementType SUBROUTINE_CALL = new Gta2MissionElementType("SUBROUTINE_CALL");
   IElementType SUBROUTINE_DEFINITION = new Gta2MissionElementType("SUBROUTINE_DEFINITION");
+  IElementType SUBROUTINE_REFERENCE = new Gta2MissionElementType("SUBROUTINE_REFERENCE");
   IElementType TYPE = new Gta2MissionElementType("TYPE");
   IElementType VARIABLE_ASSIGNMENT = new Gta2MissionElementType("VARIABLE_ASSIGNMENT");
   IElementType VARIABLE_DEFINITION = new Gta2MissionElementType("VARIABLE_DEFINITION");
@@ -137,6 +138,9 @@ public interface Gta2MissionTypes {
       else if (type == EXPRESSION) {
         return new MissionExpressionImpl(node);
       }
+      else if (type == GOSUB_CALL) {
+        return new MissionGosubCallImpl(node);
+      }
       else if (type == IF_EXPRESSION) {
         return new MissionIfExpressionImpl(node);
       }
@@ -176,11 +180,11 @@ public interface Gta2MissionTypes {
       else if (type == SET_EXPRESSION) {
         return new MissionSetExpressionImpl(node);
       }
-      else if (type == SUBROUTINE_CALL) {
-        return new MissionSubroutineCallImpl(node);
-      }
       else if (type == SUBROUTINE_DEFINITION) {
         return new MissionSubroutineDefinitionImpl(node);
+      }
+      else if (type == SUBROUTINE_REFERENCE) {
+        return new MissionSubroutineReferenceImpl(node);
       }
       else if (type == TYPE) {
         return new MissionTypeImpl(node);

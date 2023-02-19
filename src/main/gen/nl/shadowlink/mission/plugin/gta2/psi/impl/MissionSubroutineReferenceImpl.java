@@ -10,15 +10,16 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static nl.shadowlink.mission.plugin.gta2.psi.Gta2MissionTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import nl.shadowlink.mission.plugin.gta2.psi.*;
+import com.intellij.psi.PsiReference;
 
-public class MissionSubroutineCallImpl extends ASTWrapperPsiElement implements MissionSubroutineCall {
+public class MissionSubroutineReferenceImpl extends ASTWrapperPsiElement implements MissionSubroutineReference {
 
-  public MissionSubroutineCallImpl(@NotNull ASTNode node) {
+  public MissionSubroutineReferenceImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull MissionVisitor visitor) {
-    visitor.visitSubroutineCall(this);
+    visitor.visitSubroutineReference(this);
   }
 
   @Override
@@ -31,6 +32,12 @@ public class MissionSubroutineCallImpl extends ASTWrapperPsiElement implements M
   @NotNull
   public PsiElement getSubroutine() {
     return findNotNullChildByType(SUBROUTINE);
+  }
+
+  @Override
+  @Nullable
+  public PsiReference getReference() {
+    return Gta2Utils.getReference(this);
   }
 
 }
