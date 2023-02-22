@@ -15,3 +15,10 @@ fun Project.findSubroutineDefinition(name: String): MissionSubroutineDefinition?
         .flatMap { file -> file.findChildrenOfType<MissionSubroutineDefinitionImpl>() }
         .firstOrNull { definition -> definition.name == name }
 }
+
+fun Project.findVariableDefinition(name: String): MissionVariableDefinition? {
+    return FileTypeIndex.getFiles(Gta2MissionFileType, GlobalSearchScope.allScope(this))
+        .mapNotNull { virtualFile -> PsiManager.getInstance(this).findFile(virtualFile) as? Gta2MissionFile }
+        .flatMap { file -> file.findChildrenOfType<MissionVariableDefinition>() }
+        .firstOrNull { definition -> definition.identifier.text == name }
+}

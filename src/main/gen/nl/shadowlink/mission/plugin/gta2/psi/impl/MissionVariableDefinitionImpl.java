@@ -8,10 +8,10 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static nl.shadowlink.mission.plugin.gta2.psi.Gta2MissionTypes.*;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
+import nl.shadowlink.mission.plugin.gta2.psi.Gta2MissionNamedElementImpl;
 import nl.shadowlink.mission.plugin.gta2.psi.*;
 
-public class MissionVariableDefinitionImpl extends ASTWrapperPsiElement implements MissionVariableDefinition {
+public class MissionVariableDefinitionImpl extends Gta2MissionNamedElementImpl implements MissionVariableDefinition {
 
   public MissionVariableDefinitionImpl(@NotNull ASTNode node) {
     super(node);
@@ -49,6 +49,24 @@ public class MissionVariableDefinitionImpl extends ASTWrapperPsiElement implemen
   @NotNull
   public PsiElement getIdentifier() {
     return findNotNullChildByType(IDENTIFIER);
+  }
+
+  @Override
+  @Nullable
+  public PsiElement getNameIdentifier() {
+    return Gta2Utils.getNameIdentifier(this);
+  }
+
+  @Override
+  @Nullable
+  public PsiElement setName(@NotNull String name) {
+    return Gta2Utils.setName(this, name);
+  }
+
+  @Override
+  @NotNull
+  public String getName() {
+    return Gta2Utils.getName(this);
   }
 
 }

@@ -10,15 +10,16 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static nl.shadowlink.mission.plugin.gta2.psi.Gta2MissionTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import nl.shadowlink.mission.plugin.gta2.psi.*;
+import com.intellij.psi.PsiReference;
 
-public class MissionSetExpressionImpl extends ASTWrapperPsiElement implements MissionSetExpression {
+public class MissionVariableReferenceImpl extends ASTWrapperPsiElement implements MissionVariableReference {
 
-  public MissionSetExpressionImpl(@NotNull ASTNode node) {
+  public MissionVariableReferenceImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull MissionVisitor visitor) {
-    visitor.visitSetExpression(this);
+    visitor.visitVariableReference(this);
   }
 
   @Override
@@ -28,21 +29,15 @@ public class MissionSetExpressionImpl extends ASTWrapperPsiElement implements Mi
   }
 
   @Override
-  @Nullable
-  public MissionMathOperation getMathOperation() {
-    return findChildByClass(MissionMathOperation.class);
-  }
-
-  @Override
-  @Nullable
-  public MissionParam getParam() {
-    return findChildByClass(MissionParam.class);
-  }
-
-  @Override
   @NotNull
-  public MissionVariableReference getVariableReference() {
-    return findNotNullChildByClass(MissionVariableReference.class);
+  public PsiElement getIdentifier() {
+    return findNotNullChildByType(IDENTIFIER);
+  }
+
+  @Override
+  @Nullable
+  public PsiReference getReference() {
+    return Gta2Utils.getReference(this);
   }
 
 }

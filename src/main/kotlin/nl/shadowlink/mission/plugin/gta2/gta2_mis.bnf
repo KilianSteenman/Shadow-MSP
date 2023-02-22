@@ -70,7 +70,11 @@ DefinitionBlock ::= Expression*
 
 Definition ::= VariableDefinition | SubroutineDefinition | COMMENT | (Type SUBROUTINE) | PreprocessBlock
 
-VariableDefinition ::= (Type IDENTIFIER Assignment?)
+VariableDefinition ::= (Type IDENTIFIER Assignment?) {
+    mixin="nl.shadowlink.mission.plugin.gta2.psi.Gta2MissionNamedElementImpl"
+    implements="nl.shadowlink.mission.plugin.gta2.psi.Gta2MissionNamedElement"
+    methods=[getNameIdentifier setName getName]
+}
 private Assignment ::= EQUALS ((Vector+ (Param+)?) | Param) END?
 
 SubroutineDefinition ::= SUBROUTINE Expression* RETURN {
@@ -86,30 +90,33 @@ MissionBlock ::= (MISSION_START LevelBody? MISSION_END)
 LevelBody ::= Expression*
 
 Expression ::= COMMENT | VariableAssignment | MethodCall | WhileExecExpression | WhileExpression | IfExpression | SubroutineDefinition | SetExpression | MathAssignment | CommentBlock | GosubCall | PreprocessBlock | Definition | DO_NOWT | ExecExpression
-VariableAssignment ::= IDENTIFIER EQUALS MethodCall? Params END?
+VariableAssignment ::= VariableReference EQUALS MethodCall? Params END?
 MethodCall ::= METHOD '(' Params ')' END?
 GosubCall ::= GOSUB SubroutineReference
 SubroutineReference ::= SUBROUTINE {
     methods=[getReference]
 }
-MathAssignment ::= OP_PLUS_PLUS IDENTIFIER | IDENTIFIER OP_PLUS_PLUS
+VariableReference ::= IDENTIFIER {
+    methods=[getReference]
+}
+MathAssignment ::= OP_PLUS_PLUS VariableReference | VariableReference OP_PLUS_PLUS
 CommentBlock ::= COMMENTBLOCK
 Params ::= (Param ','?)* ','?
-Param ::= NUMBER | Enum | IDENTIFIER | SUBROUTINE | Vector3 | Boolean
+Param ::= NUMBER | Enum | VariableReference | SUBROUTINE | Vector3 | Boolean
 
 Enum ::= MACHINE_GUN | CRIMINAL_TYPE2 | AREA_PLAYER_ONLY | REACT_AS_NORMAL | KILL_CHAR_ON_FOOT
 Vector3 ::= '(' number ',' number ',' number ')'
 Vector ::= '(' ( NUMBER ','?)+ ')'
 Boolean ::= ON | OFF
 
-ConditionalStatement ::= IDENTIFIER (EQUALS | OP_GREATER_THAN | OP_LESS_THAN) Param | MethodCall | NOT? '(' ConditionalStatement ')' AndStatement*
+ConditionalStatement ::= VariableReference (EQUALS | OP_GREATER_THAN | OP_LESS_THAN) Param | MethodCall | NOT? '(' ConditionalStatement ')' AndStatement*
 AndStatement ::= AND '(' ConditionalStatement ')'
 
 IfExpression ::= IF '(' ConditionalStatement ')' Expression* (ELSE Expression*)? END_IF
 WhileExecExpression ::= WHILE_EXEC '(' ConditionalStatement ')' Expression* (END_WHILE_EXEC | END_WHILE)
 WhileExpression ::= WHILE '(' ConditionalStatement ')' Expression* END_WHILE
 ExecExpression ::= EXEC Expression* END_EXEC
-SetExpression ::= SET IDENTIFIER EQUALS (Param | MathOperation)
+SetExpression ::= SET VariableReference EQUALS (Param | MathOperation)
 
 PreprocessBlock ::= (PREPROCESS_IFDEF PreprocessType Expression* PREPROCESS_ENDIF)
 PreprocessType ::= DEF_PC | DEF_PSX

@@ -53,8 +53,8 @@ public class MissionConditionalStatementImpl extends ASTWrapperPsiElement implem
 
   @Override
   @Nullable
-  public PsiElement getIdentifier() {
-    return findChildByType(IDENTIFIER);
+  public MissionVariableReference getVariableReference() {
+    return findChildByClass(MissionVariableReference.class);
   }
 
 }

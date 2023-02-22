@@ -41,14 +41,14 @@ public class MissionParamImpl extends ASTWrapperPsiElement implements MissionPar
 
   @Override
   @Nullable
-  public MissionVector3 getVector3() {
-    return findChildByClass(MissionVector3.class);
+  public MissionVariableReference getVariableReference() {
+    return findChildByClass(MissionVariableReference.class);
   }
 
   @Override
   @Nullable
-  public PsiElement getIdentifier() {
-    return findChildByType(IDENTIFIER);
+  public MissionVector3 getVector3() {
+    return findChildByClass(MissionVector3.class);
   }
 
   @Override

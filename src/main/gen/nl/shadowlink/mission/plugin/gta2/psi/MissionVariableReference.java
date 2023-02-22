@@ -4,16 +4,14 @@ package nl.shadowlink.mission.plugin.gta2.psi;
 import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiReference;
 
-public interface MissionSetExpression extends PsiElement {
-
-  @Nullable
-  MissionMathOperation getMathOperation();
-
-  @Nullable
-  MissionParam getParam();
+public interface MissionVariableReference extends PsiElement {
 
   @NotNull
-  MissionVariableReference getVariableReference();
+  PsiElement getIdentifier();
+
+  @Nullable
+  PsiReference getReference();
 
 }

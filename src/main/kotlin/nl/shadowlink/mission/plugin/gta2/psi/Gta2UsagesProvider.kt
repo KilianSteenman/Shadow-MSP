@@ -6,7 +6,8 @@ import com.intellij.psi.PsiElement
 internal class Gta2UsagesProvider : FindUsagesProvider {
 
     override fun canFindUsagesFor(psiElement: PsiElement): Boolean {
-        return psiElement is MissionSubroutineDefinition
+        return psiElement is MissionSubroutineDefinition ||
+                psiElement is MissionVariableDefinition
     }
 
     override fun getHelpId(psiElement: PsiElement): String? {
@@ -16,6 +17,7 @@ internal class Gta2UsagesProvider : FindUsagesProvider {
     override fun getType(element: PsiElement): String {
         return when (element) {
             is MissionSubroutineDefinition -> "Subroutine"
+            is MissionVariableDefinition -> "Variable"
             else -> throw IllegalStateException("Unknown element type $element")
         }
     }
@@ -27,6 +29,7 @@ internal class Gta2UsagesProvider : FindUsagesProvider {
     override fun getNodeText(element: PsiElement, useFullName: Boolean): String {
         return when (element) {
             is MissionSubroutineDefinition -> element.subroutine.text
+            is MissionVariableDefinition -> element.identifier.text
             else -> throw IllegalStateException("Unable to get text for node $element")
         }
     }

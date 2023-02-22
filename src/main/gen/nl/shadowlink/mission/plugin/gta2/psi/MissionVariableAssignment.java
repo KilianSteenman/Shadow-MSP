@@ -14,6 +14,6 @@ public interface MissionVariableAssignment extends PsiElement {
   MissionParams getParams();
 
   @NotNull
-  PsiElement getIdentifier();
+  MissionVariableReference getVariableReference();
 
 }

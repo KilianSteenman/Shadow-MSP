@@ -5,7 +5,7 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface MissionVariableDefinition extends PsiElement {
+public interface MissionVariableDefinition extends Gta2MissionNamedElement {
 
   @NotNull
   List<MissionParam> getParamList();
@@ -18,5 +18,14 @@ public interface MissionVariableDefinition extends PsiElement {
 
   @NotNull
   PsiElement getIdentifier();
+
+  @Nullable
+  PsiElement getNameIdentifier();
+
+  @Nullable
+  PsiElement setName(@NotNull String name);
+
+  @NotNull
+  String getName();
 
 }

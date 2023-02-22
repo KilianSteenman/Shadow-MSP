@@ -36,6 +36,7 @@ public interface Gta2MissionTypes {
   IElementType TYPE = new Gta2MissionElementType("TYPE");
   IElementType VARIABLE_ASSIGNMENT = new Gta2MissionElementType("VARIABLE_ASSIGNMENT");
   IElementType VARIABLE_DEFINITION = new Gta2MissionElementType("VARIABLE_DEFINITION");
+  IElementType VARIABLE_REFERENCE = new Gta2MissionElementType("VARIABLE_REFERENCE");
   IElementType VECTOR = new Gta2MissionElementType("VECTOR");
   IElementType VECTOR_3 = new Gta2MissionElementType("VECTOR_3");
   IElementType WHILE_EXEC_EXPRESSION = new Gta2MissionElementType("WHILE_EXEC_EXPRESSION");
@@ -194,6 +195,9 @@ public interface Gta2MissionTypes {
       }
       else if (type == VARIABLE_DEFINITION) {
         return new MissionVariableDefinitionImpl(node);
+      }
+      else if (type == VARIABLE_REFERENCE) {
+        return new MissionVariableReferenceImpl(node);
       }
       else if (type == VECTOR) {
         return new MissionVectorImpl(node);

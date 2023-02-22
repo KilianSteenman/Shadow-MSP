@@ -20,6 +20,6 @@ public interface MissionConditionalStatement extends PsiElement {
   MissionParam getParam();
 
   @Nullable
-  PsiElement getIdentifier();
+  MissionVariableReference getVariableReference();
 
 }

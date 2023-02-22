@@ -29,8 +29,8 @@ public class MissionMathAssignmentImpl extends ASTWrapperPsiElement implements M
 
   @Override
   @NotNull
-  public PsiElement getIdentifier() {
-    return findNotNullChildByType(IDENTIFIER);
+  public MissionVariableReference getVariableReference() {
+    return findNotNullChildByClass(MissionVariableReference.class);
   }
 
 }

@@ -14,10 +14,10 @@ public interface MissionParam extends PsiElement {
   MissionEnum getEnum();
 
   @Nullable
-  MissionVector3 getVector3();
+  MissionVariableReference getVariableReference();
 
   @Nullable
-  PsiElement getIdentifier();
+  MissionVector3 getVector3();
 
   @Nullable
   PsiElement getNumber();

@@ -41,8 +41,8 @@ public class MissionVariableAssignmentImpl extends ASTWrapperPsiElement implemen
 
   @Override
   @NotNull
-  public PsiElement getIdentifier() {
-    return findNotNullChildByType(IDENTIFIER);
+  public MissionVariableReference getVariableReference() {
+    return findNotNullChildByClass(MissionVariableReference.class);
   }
 
 }

@@ -116,6 +116,10 @@ public class MissionVisitor extends PsiElementVisitor {
   }
 
   public void visitVariableDefinition(@NotNull MissionVariableDefinition o) {
+    visitGta2MissionNamedElement(o);
+  }
+
+  public void visitVariableReference(@NotNull MissionVariableReference o) {
     visitPsiElement(o);
   }
 
