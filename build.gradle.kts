@@ -8,7 +8,7 @@ buildscript {
 
 plugins {
     id("org.jetbrains.intellij") version "1.13.3"
-    id("org.jetbrains.kotlin.jvm") version "1.8.0"
+    id("org.jetbrains.kotlin.jvm") version "1.8.20"
     id("org.jetbrains.compose") version "1.4.0"
 }
 
