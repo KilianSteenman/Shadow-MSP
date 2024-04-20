@@ -49,6 +49,27 @@
                 groupId="language"
                 id="Gta2MissionScript"/>
 
+        <!-- GTA 3 - Script -->
+        <fileType
+                name="GTA 3 - Script"
+                implementationClass="nl.shadowlink.mission.plugin.gta3script.Gta3ScriptFileType"
+                language="Gta3Script"
+                extensions="sc"/>
+        <lang.parserDefinition
+                language="Gta3Script"
+                implementationClass="nl.shadowlink.mission.plugin.gta3script.Gta3ScriptParserDefinition"/>
+        <lang.syntaxHighlighterFactory
+                language="Gta3Script"
+                implementationClass="nl.shadowlink.mission.plugin.gta3script.highlighter.Gta3ScriptHighlighterFactory"/>
+        <lang.foldingBuilder
+                language="Gta3Script"
+                implementationClass="nl.shadowlink.mission.plugin.gta3script.Gta3ScriptFoldingBuilder"/>
+<!--        <lang.findUsagesProvider-->
+<!--                language="Gta3Script"-->
+<!--                implementationClass="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptUsagesProvider"/>-->
+        <colorSettingsPage
+                implementation="nl.shadowlink.mission.plugin.gta3script.highlighter.Gta3ScriptColorSettingsPage"/>
+
         <!-- RW Era -->
         <fileType
                 name="Mission Script"
