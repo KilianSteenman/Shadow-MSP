@@ -95,12 +95,6 @@ public class Gta3ScriptExpressionImpl extends ASTWrapperPsiElement implements Gt
 
   @Override
   @Nullable
-  public Gta3ScriptWhileExecExpression getWhileExecExpression() {
-    return findChildByClass(Gta3ScriptWhileExecExpression.class);
-  }
-
-  @Override
-  @Nullable
   public Gta3ScriptWhileExpression getWhileExpression() {
     return findChildByClass(Gta3ScriptWhileExpression.class);
   }

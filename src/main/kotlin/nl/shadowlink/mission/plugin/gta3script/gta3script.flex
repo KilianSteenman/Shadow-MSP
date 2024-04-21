@@ -70,26 +70,8 @@ METHOD=[A-Z_]+
   "<"                    { return OP_LESS_THAN; }
   ">"                    { return OP_GREATER_THAN; }
 
-  "PLAYER_PED"           { return PLAYER_PED; }
-  "BONUS"                { return BONUS; }
-  "CHAR_DATA"            { return CHAR_DATA; }
-  "CAR_DATA"             { return CAR_DATA; }
-  "COUNTER"              { return COUNTER; }
-  "ONSCREEN_COUNTER"     { return ONSCREEN_COUNTER; }
-  "FORWARD"              { return FORWARD; }
-  "TIMER_DATA"           { return TIMER_DATA; }
-  "ARROW_DATA"           { return ARROW_DATA; }
-  "MAP_ZONE"             { return MAP_ZONE; }
-  "THREAD_TRIGGER"       { return THREAD_TRIGGER; }
-  "OBJ_DATA"             { return OBJ_DATA; }
-  "SAVED_COUNTER"        { return SAVED_COUNTER; }
-  "CONVEYOR"             { return CONVEYOR; }
-  "GENERATOR"            { return GENERATOR; }
-  "DESTRUCTOR"           { return DESTRUCTOR; }
-  "CRANE_DATA"           { return CRANE_DATA; }
-  "CRUSHER"              { return CRUSHER; }
-  "SOUND"                { return SOUND; }
-  "LIGHT"                { return LIGHT; }
+  "VAR_INT"              { return VAR_INT; }
+  "VAR_FLOAT"            { return VAR_FLOAT; }
 
   "MACHINE_GUN"          { return MACHINE_GUN; }
   "CRIMINAL_TYPE2"       { return CRIMINAL_TYPE2; }

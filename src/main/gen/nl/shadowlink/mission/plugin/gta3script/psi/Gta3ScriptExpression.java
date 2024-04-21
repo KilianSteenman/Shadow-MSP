@@ -41,9 +41,6 @@ public interface Gta3ScriptExpression extends PsiElement {
   Gta3ScriptVariableAssignment getVariableAssignment();
 
   @Nullable
-  Gta3ScriptWhileExecExpression getWhileExecExpression();
-
-  @Nullable
   Gta3ScriptWhileExpression getWhileExpression();
 
   @Nullable

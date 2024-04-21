@@ -11,14 +11,14 @@ import static nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import nl.shadowlink.mission.plugin.gta3script.psi.*;
 
-public class Gta3ScriptLevelBodyImpl extends ASTWrapperPsiElement implements Gta3ScriptLevelBody {
+public class Gta3ScriptMissionBodyImpl extends ASTWrapperPsiElement implements Gta3ScriptMissionBody {
 
-  public Gta3ScriptLevelBodyImpl(@NotNull ASTNode node) {
+  public Gta3ScriptMissionBodyImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull Gta3ScriptVisitor visitor) {
-    visitor.visitLevelBody(this);
+    visitor.visitMissionBody(this);
   }
 
   @Override

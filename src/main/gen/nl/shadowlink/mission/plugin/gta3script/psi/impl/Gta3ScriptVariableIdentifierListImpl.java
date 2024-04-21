@@ -11,26 +11,20 @@ import static nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import nl.shadowlink.mission.plugin.gta3script.psi.*;
 
-public class Gta3ScriptLevelBlockImpl extends ASTWrapperPsiElement implements Gta3ScriptLevelBlock {
+public class Gta3ScriptVariableIdentifierListImpl extends ASTWrapperPsiElement implements Gta3ScriptVariableIdentifierList {
 
-  public Gta3ScriptLevelBlockImpl(@NotNull ASTNode node) {
+  public Gta3ScriptVariableIdentifierListImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull Gta3ScriptVisitor visitor) {
-    visitor.visitLevelBlock(this);
+    visitor.visitVariableIdentifierList(this);
   }
 
   @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof Gta3ScriptVisitor) accept((Gta3ScriptVisitor)visitor);
     else super.accept(visitor);
-  }
-
-  @Override
-  @Nullable
-  public Gta3ScriptLevelBody getLevelBody() {
-    return findChildByClass(Gta3ScriptLevelBody.class);
   }
 
 }

@@ -59,8 +59,8 @@ public class Gta3ScriptDefinitionImpl extends ASTWrapperPsiElement implements Gt
 
   @Override
   @Nullable
-  public PsiElement getSubroutine() {
-    return findChildByType(SUBROUTINE);
+  public PsiElement getIdentifier() {
+    return findChildByType(IDENTIFIER);
   }
 
 }

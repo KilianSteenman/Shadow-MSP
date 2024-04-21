@@ -20,5 +20,5 @@ fun Project.findVariableDefinition(name: String): Gta3ScriptVariableDefinition? 
     return FileTypeIndex.getFiles(Gta3ScriptFileType, GlobalSearchScope.allScope(this))
         .mapNotNull { virtualFile -> PsiManager.getInstance(this).findFile(virtualFile) as? Gta3ScriptFile }
         .flatMap { file -> file.findChildrenOfType<Gta3ScriptVariableDefinition>() }
-        .firstOrNull { definition -> definition.identifier.text == name }
+        .firstOrNull { definition -> definition.text == name }
 }

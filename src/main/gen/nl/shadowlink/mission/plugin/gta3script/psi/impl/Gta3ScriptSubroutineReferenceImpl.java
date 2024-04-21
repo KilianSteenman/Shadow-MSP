@@ -29,8 +29,8 @@ public class Gta3ScriptSubroutineReferenceImpl extends ASTWrapperPsiElement impl
 
   @Override
   @NotNull
-  public PsiElement getSubroutine() {
-    return findNotNullChildByType(SUBROUTINE);
+  public PsiElement getIdentifier() {
+    return findNotNullChildByType(IDENTIFIER);
   }
 
 }

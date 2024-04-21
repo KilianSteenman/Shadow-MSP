@@ -51,14 +51,6 @@ public class Gta3ScriptVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitLevelBlock(@NotNull Gta3ScriptLevelBlock o) {
-    visitPsiElement(o);
-  }
-
-  public void visitLevelBody(@NotNull Gta3ScriptLevelBody o) {
-    visitPsiElement(o);
-  }
-
   public void visitMathAssignment(@NotNull Gta3ScriptMathAssignment o) {
     visitPsiElement(o);
   }
@@ -76,6 +68,10 @@ public class Gta3ScriptVisitor extends PsiElementVisitor {
   }
 
   public void visitMissionBlock(@NotNull Gta3ScriptMissionBlock o) {
+    visitPsiElement(o);
+  }
+
+  public void visitMissionBody(@NotNull Gta3ScriptMissionBody o) {
     visitPsiElement(o);
   }
 
@@ -119,6 +115,10 @@ public class Gta3ScriptVisitor extends PsiElementVisitor {
     visitNamedElement(o);
   }
 
+  public void visitVariableIdentifierList(@NotNull Gta3ScriptVariableIdentifierList o) {
+    visitPsiElement(o);
+  }
+
   public void visitVariableReference(@NotNull Gta3ScriptVariableReference o) {
     visitPsiElement(o);
   }
@@ -128,10 +128,6 @@ public class Gta3ScriptVisitor extends PsiElementVisitor {
   }
 
   public void visitVector3(@NotNull Gta3ScriptVector3 o) {
-    visitPsiElement(o);
-  }
-
-  public void visitWhileExecExpression(@NotNull Gta3ScriptWhileExecExpression o) {
     visitPsiElement(o);
   }
 

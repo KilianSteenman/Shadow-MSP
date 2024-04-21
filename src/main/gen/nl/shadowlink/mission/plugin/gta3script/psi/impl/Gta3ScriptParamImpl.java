@@ -57,10 +57,4 @@ public class Gta3ScriptParamImpl extends ASTWrapperPsiElement implements Gta3Scr
     return findChildByType(NUMBER);
   }
 
-  @Override
-  @Nullable
-  public PsiElement getSubroutine() {
-    return findChildByType(SUBROUTINE);
-  }
-
 }

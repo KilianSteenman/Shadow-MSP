@@ -23,6 +23,6 @@ public interface Gta3ScriptDefinition extends PsiElement {
   PsiElement getComment();
 
   @Nullable
-  PsiElement getSubroutine();
+  PsiElement getIdentifier();
 
 }

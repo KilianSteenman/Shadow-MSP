@@ -8,7 +8,7 @@ import com.intellij.psi.PsiElement;
 public interface Gta3ScriptSubroutineReference extends PsiElement {
 
   @NotNull
-  PsiElement getSubroutine();
+  PsiElement getIdentifier();
 
   //WARNING: getReference(...) is skipped
   //matching getReference(Gta3ScriptSubroutineReference, ...)

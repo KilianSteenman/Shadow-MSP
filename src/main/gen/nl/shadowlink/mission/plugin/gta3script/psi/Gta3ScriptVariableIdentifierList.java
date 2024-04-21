@@ -5,9 +5,6 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface Gta3ScriptMissionBlock extends PsiElement {
-
-  @Nullable
-  Gta3ScriptMissionBody getMissionBody();
+public interface Gta3ScriptVariableIdentifierList extends PsiElement {
 
 }

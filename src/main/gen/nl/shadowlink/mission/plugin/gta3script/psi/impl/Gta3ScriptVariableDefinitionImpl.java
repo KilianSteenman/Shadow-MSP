@@ -29,26 +29,14 @@ public class Gta3ScriptVariableDefinitionImpl extends Gta3ScriptNamedElementImpl
 
   @Override
   @NotNull
-  public List<Gta3ScriptParam> getParamList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, Gta3ScriptParam.class);
-  }
-
-  @Override
-  @NotNull
   public Gta3ScriptType getType() {
     return findNotNullChildByClass(Gta3ScriptType.class);
   }
 
   @Override
   @NotNull
-  public List<Gta3ScriptVector> getVectorList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, Gta3ScriptVector.class);
-  }
-
-  @Override
-  @NotNull
-  public PsiElement getIdentifier() {
-    return findNotNullChildByType(IDENTIFIER);
+  public Gta3ScriptVariableIdentifierList getVariableIdentifierList() {
+    return findNotNullChildByClass(Gta3ScriptVariableIdentifierList.class);
   }
 
   @Override

@@ -17,11 +17,9 @@ import nl.shadowlink.mission.plugin.gta3script.psi.impl.Gta3ScriptCommentBlockIm
 import nl.shadowlink.mission.plugin.gta3script.psi.impl.Gta3ScriptConditionalStatementImpl
 import nl.shadowlink.mission.plugin.gta3script.psi.impl.Gta3ScriptExecExpressionImpl
 import nl.shadowlink.mission.plugin.gta3script.psi.impl.Gta3ScriptIfExpressionImpl
-import nl.shadowlink.mission.plugin.gta3script.psi.impl.Gta3ScriptLevelBlockImpl
 import nl.shadowlink.mission.plugin.gta3script.psi.impl.Gta3ScriptMissionBlockImpl
 import nl.shadowlink.mission.plugin.gta3script.psi.impl.Gta3ScriptPreprocessBlockImpl
 import nl.shadowlink.mission.plugin.gta3script.psi.impl.Gta3ScriptSubroutineDefinitionImpl
-import nl.shadowlink.mission.plugin.gta3script.psi.impl.Gta3ScriptWhileExecExpressionImpl
 import nl.shadowlink.mission.plugin.gta3script.psi.impl.Gta3ScriptWhileExpressionImpl
 
 internal class Gta3ScriptFoldingBuilder : FoldingBuilderEx(), DumbAware {
@@ -37,7 +35,6 @@ internal class Gta3ScriptFoldingBuilder : FoldingBuilderEx(), DumbAware {
     private fun PsiElement.toFoldingDescriptor(): FoldingDescriptor {
         return when (this) {
             is Gta3ScriptWhileExpressionImpl -> this.toConditionalFoldingDescriptor()
-            is Gta3ScriptWhileExecExpressionImpl -> this.toConditionalFoldingDescriptor()
             is Gta3ScriptIfExpressionImpl -> this.toConditionalFoldingDescriptor()
             else -> this.toDefaultFoldingDescriptor()
         }
@@ -70,10 +67,8 @@ internal class Gta3ScriptFoldingBuilder : FoldingBuilderEx(), DumbAware {
 
     override fun getPlaceholderText(node: ASTNode): String {
         return when (node.psi) {
-            is Gta3ScriptLevelBlockImpl -> "..."
             is Gta3ScriptMissionBlockImpl -> "..."
             is Gta3ScriptWhileExpressionImpl -> "..."
-            is Gta3ScriptWhileExecExpressionImpl -> "..."
             is Gta3ScriptIfExpressionImpl -> "..."
             is Gta3ScriptCommentBlockImpl -> "comment"
             is Gta3ScriptSubroutineDefinitionImpl -> "..."
@@ -87,10 +82,8 @@ internal class Gta3ScriptFoldingBuilder : FoldingBuilderEx(), DumbAware {
     companion object {
 
         private val foldableElementTypes = listOf(
-            Gta3ScriptLevelBlockImpl::class.java,
             Gta3ScriptMissionBlockImpl::class.java,
             Gta3ScriptWhileExpressionImpl::class.java,
-            Gta3ScriptWhileExecExpressionImpl::class.java,
             Gta3ScriptIfExpressionImpl::class.java,
             Gta3ScriptCommentBlockImpl::class.java,
             Gta3ScriptSubroutineDefinitionImpl::class.java,

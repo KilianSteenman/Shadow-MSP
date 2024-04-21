@@ -22,7 +22,4 @@ public interface Gta3ScriptParam extends PsiElement {
   @Nullable
   PsiElement getNumber();
 
-  @Nullable
-  PsiElement getSubroutine();
-
 }

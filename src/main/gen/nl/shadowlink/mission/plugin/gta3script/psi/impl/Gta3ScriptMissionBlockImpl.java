@@ -29,8 +29,8 @@ public class Gta3ScriptMissionBlockImpl extends ASTWrapperPsiElement implements 
 
   @Override
   @Nullable
-  public Gta3ScriptLevelBody getLevelBody() {
-    return findChildByClass(Gta3ScriptLevelBody.class);
+  public Gta3ScriptMissionBody getMissionBody() {
+    return findChildByClass(Gta3ScriptMissionBody.class);
   }
 
 }

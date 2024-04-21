@@ -8,16 +8,10 @@ import com.intellij.psi.PsiElement;
 public interface Gta3ScriptVariableDefinition extends Gta3ScriptNamedElement {
 
   @NotNull
-  List<Gta3ScriptParam> getParamList();
-
-  @NotNull
   Gta3ScriptType getType();
 
   @NotNull
-  List<Gta3ScriptVector> getVectorList();
-
-  @NotNull
-  PsiElement getIdentifier();
+  Gta3ScriptVariableIdentifierList getVariableIdentifierList();
 
   @Nullable
   PsiElement getNameIdentifier();
