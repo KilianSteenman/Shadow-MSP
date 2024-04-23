@@ -18,7 +18,6 @@ import nl.shadowlink.mission.plugin.gta3script.psi.impl.Gta3ScriptConditionalSta
 import nl.shadowlink.mission.plugin.gta3script.psi.impl.Gta3ScriptExecExpressionImpl
 import nl.shadowlink.mission.plugin.gta3script.psi.impl.Gta3ScriptIfExpressionImpl
 import nl.shadowlink.mission.plugin.gta3script.psi.impl.Gta3ScriptMissionBlockImpl
-import nl.shadowlink.mission.plugin.gta3script.psi.impl.Gta3ScriptPreprocessBlockImpl
 import nl.shadowlink.mission.plugin.gta3script.psi.impl.Gta3ScriptSubroutineDefinitionImpl
 import nl.shadowlink.mission.plugin.gta3script.psi.impl.Gta3ScriptWhileExpressionImpl
 
@@ -72,7 +71,6 @@ internal class Gta3ScriptFoldingBuilder : FoldingBuilderEx(), DumbAware {
             is Gta3ScriptIfExpressionImpl -> "..."
             is Gta3ScriptCommentBlockImpl -> "comment"
             is Gta3ScriptSubroutineDefinitionImpl -> "..."
-            is Gta3ScriptPreprocessBlockImpl -> "..."
             else -> error("Placeholder not defined for node $node")
         }
     }
@@ -87,7 +85,6 @@ internal class Gta3ScriptFoldingBuilder : FoldingBuilderEx(), DumbAware {
             Gta3ScriptIfExpressionImpl::class.java,
             Gta3ScriptCommentBlockImpl::class.java,
             Gta3ScriptSubroutineDefinitionImpl::class.java,
-            Gta3ScriptPreprocessBlockImpl::class.java,
             Gta3ScriptExecExpressionImpl::class.java,
         )
     }

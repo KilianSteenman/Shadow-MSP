@@ -31,10 +31,6 @@ public class Gta3ScriptVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitEnum(@NotNull Gta3ScriptEnum o) {
-    visitPsiElement(o);
-  }
-
   public void visitExecExpression(@NotNull Gta3ScriptExecExpression o) {
     visitPsiElement(o);
   }
@@ -83,14 +79,6 @@ public class Gta3ScriptVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitPreprocessBlock(@NotNull Gta3ScriptPreprocessBlock o) {
-    visitPsiElement(o);
-  }
-
-  public void visitPreprocessType(@NotNull Gta3ScriptPreprocessType o) {
-    visitPsiElement(o);
-  }
-
   public void visitSetExpression(@NotNull Gta3ScriptSetExpression o) {
     visitPsiElement(o);
   }
@@ -120,14 +108,6 @@ public class Gta3ScriptVisitor extends PsiElementVisitor {
   }
 
   public void visitVariableReference(@NotNull Gta3ScriptVariableReference o) {
-    visitPsiElement(o);
-  }
-
-  public void visitVector(@NotNull Gta3ScriptVector o) {
-    visitPsiElement(o);
-  }
-
-  public void visitVector3(@NotNull Gta3ScriptVector3 o) {
     visitPsiElement(o);
   }
 

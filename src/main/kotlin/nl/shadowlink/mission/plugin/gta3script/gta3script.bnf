@@ -24,8 +24,8 @@
     // Reserved words
     LEVEL_START='LEVELSTART'
     LEVEL_END='LEVELEND'
-    MISSION_START='MISSIONSTART'
-    MISSION_END='MISSIONEND'
+    MISSION_START='MISSION_START'
+    MISSION_END='MISSION_END'
     WHILE_EXEC = 'WHILE_EXEC'
     END_WHILE_EXEC = 'END_WHILE_EXEC'
     WHILE = 'WHILE'
@@ -43,14 +43,9 @@
     ON = 'ON'
     OFF = 'OFF'
     GOSUB = 'GOSUB'
-    PREPROCESS_IFDEF = '#ifdef'
-    PREPROCESS_ENDIF = '#endif'
-    DEF_PC = 'PC'
-    DEF_PSX = 'PSX'
-    DO_NOWT = 'DO_NOWT'
 
     METHOD = 'regexp:[A-Z_]+'
-    IDENTIFIER='regexp:[a-zA-Z0-9_]+'
+    IDENTIFIER='regexp:\$?[a-zA-Z0-9_\.]+'
 
     OP_PLUS_PLUS='++'
     OP_PLUS='+'
@@ -64,11 +59,14 @@
   ]
 }
 
-ScriptFile ::= (DefinitionBlock? MissionBlock?)
+ScriptFile ::= (MissionBlock? DefinitionBlock?)
+
+MissionBlock ::= ('MISSION_START' MissionBody? 'MISSION_END')
+MissionBody ::= Expression*
 
 DefinitionBlock ::= Expression*
 
-Definition ::= VariableDefinition | SubroutineDefinition | COMMENT | (Type IDENTIFIER) | PreprocessBlock
+Definition ::= VariableDefinition | SubroutineDefinition | COMMENT | (Type IDENTIFIER)
 
 VariableDefinition ::= (Type VariableIdentifierList) {
     mixin="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptNamedElementImpl"
@@ -78,8 +76,6 @@ VariableDefinition ::= (Type VariableIdentifierList) {
 
 VariableIdentifierList ::= (IDENTIFIER ','?)*
 
-private Assignment ::= EQUALS ((Vector+ (Param+)?) | Param) END?
-
 SubroutineDefinition ::= IDENTIFIER ':' Expression* RETURN {
     mixin="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptNamedElementImpl"
     implements="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptNamedElement"
@@ -88,12 +84,10 @@ SubroutineDefinition ::= IDENTIFIER ':' Expression* RETURN {
 
 Type ::= VAR_INT | VAR_FLOAT
 
-MissionBlock ::= (MISSION_START MissionBody? MISSION_END)
-MissionBody ::= Expression*
-
-Expression ::= COMMENT | VariableAssignment | MethodCall | WhileExpression | IfExpression | SubroutineDefinition | SetExpression | MathAssignment | CommentBlock | GosubCall | PreprocessBlock | Definition | DO_NOWT | ExecExpression
-VariableAssignment ::= VariableReference EQUALS MethodCall? Params END?
-MethodCall ::= METHOD Params END?
+Expression ::= COMMENT | VariableAssignment | MethodCall | WhileExpression | IfExpression | SubroutineDefinition | SetExpression | MathAssignment | CommentBlock | GosubCall | Definition | ExecExpression | LocalScope
+LocalScope ::= '{' Expression* '}'
+VariableAssignment ::= VariableReference EQUALS Param ((MathOperator Param)+)?
+MethodCall ::= METHOD Params
 GosubCall ::= GOSUB SubroutineReference
 SubroutineReference ::= IDENTIFIER {
     methods=[getReference]
@@ -104,23 +98,16 @@ VariableReference ::= IDENTIFIER {
 MathAssignment ::= OP_PLUS_PLUS VariableReference | VariableReference OP_PLUS_PLUS
 CommentBlock ::= COMMENTBLOCK
 Params ::= (Param ','?)* ','?
-Param ::= NUMBER | Enum | VariableReference | SUBROUTINE | Vector3 | Boolean
+Param ::= NUMBER | VariableReference | SUBROUTINE | Boolean
 
-Enum ::= MACHINE_GUN | CRIMINAL_TYPE2 | AREA_PLAYER_ONLY | REACT_AS_NORMAL | KILL_CHAR_ON_FOOT
-Vector3 ::= '(' number ',' number ',' number ')'
-Vector ::= '(' ( NUMBER ','?)+ ')'
 Boolean ::= ON | OFF
 
-ConditionalStatement ::= VariableReference (EQUALS | OP_GREATER_THAN | OP_LESS_THAN) Param | MethodCall | NOT? '(' ConditionalStatement ')' AndStatement*
-AndStatement ::= AND '(' ConditionalStatement ')'
+ConditionalStatement ::= NOT? MethodCall
 
-IfExpression ::= IF ConditionalStatement Expression* (ELSE Expression*)? END_IF
-WhileExpression ::= WHILE ConditionalStatement Expression* END_WHILE
+IfExpression ::= IF ConditionalStatement Expression* END_IF
+WhileExpression ::= WHILE NOT? ConditionalStatement ((OR | AND) NOT? Expression)* Expression* END_WHILE
 ExecExpression ::= EXEC Expression* END_EXEC
 SetExpression ::= SET VariableReference EQUALS (Param | MathOperation)
-
-PreprocessBlock ::= (PREPROCESS_IFDEF PreprocessType Expression* PREPROCESS_ENDIF)
-PreprocessType ::= DEF_PC | DEF_PSX
 
 MathOperation ::= '(' (NUMBER | IDENTIFIER) MathOperator (NUMBER | IDENTIFIER) ')'
 MathOperator ::= OP_PLUS | OP_MINUS | OP_TIMES | OP_DIVISION

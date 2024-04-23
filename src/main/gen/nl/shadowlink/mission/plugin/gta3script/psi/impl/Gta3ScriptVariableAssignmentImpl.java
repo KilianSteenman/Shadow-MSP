@@ -28,15 +28,9 @@ public class Gta3ScriptVariableAssignmentImpl extends ASTWrapperPsiElement imple
   }
 
   @Override
-  @Nullable
-  public Gta3ScriptMethodCall getMethodCall() {
-    return findChildByClass(Gta3ScriptMethodCall.class);
-  }
-
-  @Override
   @NotNull
-  public Gta3ScriptParams getParams() {
-    return findNotNullChildByClass(Gta3ScriptParams.class);
+  public Gta3ScriptParam getParam() {
+    return findNotNullChildByClass(Gta3ScriptParam.class);
   }
 
   @Override

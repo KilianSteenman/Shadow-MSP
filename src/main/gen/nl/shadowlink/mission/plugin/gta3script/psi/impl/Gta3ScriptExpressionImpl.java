@@ -71,12 +71,6 @@ public class Gta3ScriptExpressionImpl extends ASTWrapperPsiElement implements Gt
 
   @Override
   @Nullable
-  public Gta3ScriptPreprocessBlock getPreprocessBlock() {
-    return findChildByClass(Gta3ScriptPreprocessBlock.class);
-  }
-
-  @Override
-  @Nullable
   public Gta3ScriptSetExpression getSetExpression() {
     return findChildByClass(Gta3ScriptSetExpression.class);
   }

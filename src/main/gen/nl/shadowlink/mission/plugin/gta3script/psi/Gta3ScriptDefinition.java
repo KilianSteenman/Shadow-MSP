@@ -8,9 +8,6 @@ import com.intellij.psi.PsiElement;
 public interface Gta3ScriptDefinition extends PsiElement {
 
   @Nullable
-  Gta3ScriptPreprocessBlock getPreprocessBlock();
-
-  @Nullable
   Gta3ScriptSubroutineDefinition getSubroutineDefinition();
 
   @Nullable

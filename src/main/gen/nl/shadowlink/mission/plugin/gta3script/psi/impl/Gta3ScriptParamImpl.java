@@ -35,20 +35,8 @@ public class Gta3ScriptParamImpl extends ASTWrapperPsiElement implements Gta3Scr
 
   @Override
   @Nullable
-  public Gta3ScriptEnum getEnum() {
-    return findChildByClass(Gta3ScriptEnum.class);
-  }
-
-  @Override
-  @Nullable
   public Gta3ScriptVariableReference getVariableReference() {
     return findChildByClass(Gta3ScriptVariableReference.class);
-  }
-
-  @Override
-  @Nullable
-  public Gta3ScriptVector3 getVector3() {
-    return findChildByClass(Gta3ScriptVector3.class);
   }
 
   @Override

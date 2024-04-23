@@ -58,7 +58,6 @@ METHOD=[A-Z_]+
   "ON"                   { return ON; }
   "OFF"                  { return OFF; }
   "GOSUB"                { return GOSUB; }
-  "DO_NOWT"              { return DO_NOWT; }
 
   "++"                   { return OP_PLUS_PLUS; }
   "+"                    { return OP_PLUS; }
@@ -72,16 +71,6 @@ METHOD=[A-Z_]+
 
   "VAR_INT"              { return VAR_INT; }
   "VAR_FLOAT"            { return VAR_FLOAT; }
-
-  "MACHINE_GUN"          { return MACHINE_GUN; }
-  "CRIMINAL_TYPE2"       { return CRIMINAL_TYPE2; }
-  "AREA_PLAYER_ONLY"     { return AREA_PLAYER_ONLY; }
-  "REACT_AS_NORMAL"      { return REACT_AS_NORMAL; }
-  "KILL_CHAR_ON_FOOT"    { return KILL_CHAR_ON_FOOT; }
-  "#ifdef"               { return PREPROCESS_IFDEF; }
-  "#endif"               { return PREPROCESS_ENDIF; }
-  "PC"                   { return DEF_PC; }
-  "PSX"                  { return DEF_PSX; }
 
   {SPACE}                { return SPACE; }
   {NUMBER}               { return NUMBER; }

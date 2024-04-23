@@ -11,13 +11,7 @@ public interface Gta3ScriptParam extends PsiElement {
   Gta3ScriptBoolean getBoolean();
 
   @Nullable
-  Gta3ScriptEnum getEnum();
-
-  @Nullable
   Gta3ScriptVariableReference getVariableReference();
-
-  @Nullable
-  Gta3ScriptVector3 getVector3();
 
   @Nullable
   PsiElement getNumber();

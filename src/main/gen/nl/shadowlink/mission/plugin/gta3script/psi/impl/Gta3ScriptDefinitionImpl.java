@@ -29,12 +29,6 @@ public class Gta3ScriptDefinitionImpl extends ASTWrapperPsiElement implements Gt
 
   @Override
   @Nullable
-  public Gta3ScriptPreprocessBlock getPreprocessBlock() {
-    return findChildByClass(Gta3ScriptPreprocessBlock.class);
-  }
-
-  @Override
-  @Nullable
   public Gta3ScriptSubroutineDefinition getSubroutineDefinition() {
     return findChildByClass(Gta3ScriptSubroutineDefinition.class);
   }

@@ -29,9 +29,6 @@ public interface Gta3ScriptExpression extends PsiElement {
   Gta3ScriptMethodCall getMethodCall();
 
   @Nullable
-  Gta3ScriptPreprocessBlock getPreprocessBlock();
-
-  @Nullable
   Gta3ScriptSetExpression getSetExpression();
 
   @Nullable

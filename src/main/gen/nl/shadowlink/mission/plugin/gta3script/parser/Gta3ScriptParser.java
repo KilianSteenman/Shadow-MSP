@@ -51,86 +51,6 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // EQUALS ((Vector+ (Param+)?) | Param) END?
-  static boolean Assignment(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "Assignment")) return false;
-    if (!nextTokenIs(b, EQUALS)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, EQUALS);
-    r = r && Assignment_1(b, l + 1);
-    r = r && Assignment_2(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // (Vector+ (Param+)?) | Param
-  private static boolean Assignment_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "Assignment_1")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = Assignment_1_0(b, l + 1);
-    if (!r) r = Param(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // Vector+ (Param+)?
-  private static boolean Assignment_1_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "Assignment_1_0")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = Assignment_1_0_0(b, l + 1);
-    r = r && Assignment_1_0_1(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // Vector+
-  private static boolean Assignment_1_0_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "Assignment_1_0_0")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = Vector(b, l + 1);
-    while (r) {
-      int c = current_position_(b);
-      if (!Vector(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "Assignment_1_0_0", c)) break;
-    }
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // (Param+)?
-  private static boolean Assignment_1_0_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "Assignment_1_0_1")) return false;
-    Assignment_1_0_1_0(b, l + 1);
-    return true;
-  }
-
-  // Param+
-  private static boolean Assignment_1_0_1_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "Assignment_1_0_1_0")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = Param(b, l + 1);
-    while (r) {
-      int c = current_position_(b);
-      if (!Param(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "Assignment_1_0_1_0", c)) break;
-    }
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // END?
-  private static boolean Assignment_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "Assignment_2")) return false;
-    consumeToken(b, END);
-    return true;
-  }
-
-  /* ********************************************************** */
   // ON | OFF
   public static boolean Boolean(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "Boolean")) return false;
@@ -223,7 +143,7 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // VariableDefinition | SubroutineDefinition | COMMENT | (Type IDENTIFIER) | PreprocessBlock
+  // VariableDefinition | SubroutineDefinition | COMMENT | (Type IDENTIFIER)
   public static boolean Definition(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "Definition")) return false;
     boolean r;
@@ -232,7 +152,6 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
     if (!r) r = SubroutineDefinition(b, l + 1);
     if (!r) r = consumeToken(b, COMMENT);
     if (!r) r = Definition_3(b, l + 1);
-    if (!r) r = PreprocessBlock(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -263,21 +182,6 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // MACHINE_GUN | CRIMINAL_TYPE2 | AREA_PLAYER_ONLY | REACT_AS_NORMAL | KILL_CHAR_ON_FOOT
-  public static boolean Enum(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "Enum")) return false;
-    boolean r;
-    Marker m = enter_section_(b, l, _NONE_, ENUM, "<enum>");
-    r = consumeToken(b, MACHINE_GUN);
-    if (!r) r = consumeToken(b, CRIMINAL_TYPE2);
-    if (!r) r = consumeToken(b, AREA_PLAYER_ONLY);
-    if (!r) r = consumeToken(b, REACT_AS_NORMAL);
-    if (!r) r = consumeToken(b, KILL_CHAR_ON_FOOT);
-    exit_section_(b, l, m, r, false, null);
-    return r;
-  }
-
-  /* ********************************************************** */
   // EXEC Expression* END_EXEC
   public static boolean ExecExpression(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ExecExpression")) return false;
@@ -303,7 +207,7 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // COMMENT | VariableAssignment | MethodCall | WhileExpression | IfExpression | SubroutineDefinition | SetExpression | MathAssignment | CommentBlock | GosubCall | PreprocessBlock | Definition | DO_NOWT | ExecExpression
+  // COMMENT | VariableAssignment | MethodCall | WhileExpression | IfExpression | SubroutineDefinition | SetExpression | MathAssignment | CommentBlock | GosubCall | Definition | ExecExpression
   public static boolean Expression(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "Expression")) return false;
     boolean r;
@@ -318,9 +222,7 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
     if (!r) r = MathAssignment(b, l + 1);
     if (!r) r = CommentBlock(b, l + 1);
     if (!r) r = GosubCall(b, l + 1);
-    if (!r) r = PreprocessBlock(b, l + 1);
     if (!r) r = Definition(b, l + 1);
-    if (!r) r = consumeToken(b, DO_NOWT);
     if (!r) r = ExecExpression(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
@@ -499,7 +401,7 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // MISSION_START MissionBody? MISSION_END
+  // 'MISSION_START' MissionBody? 'MISSION_END'
   public static boolean MissionBlock(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "MissionBlock")) return false;
     if (!nextTokenIs(b, MISSION_START)) return false;
@@ -534,16 +436,14 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // NUMBER | Enum | VariableReference | SUBROUTINE | Vector3 | Boolean
+  // NUMBER | VariableReference | SUBROUTINE | Boolean
   public static boolean Param(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "Param")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, PARAM, "<param>");
     r = consumeToken(b, NUMBER);
-    if (!r) r = Enum(b, l + 1);
     if (!r) r = VariableReference(b, l + 1);
     if (!r) r = consumeToken(b, SUBROUTINE);
-    if (!r) r = Vector3(b, l + 1);
     if (!r) r = Boolean(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
@@ -598,46 +498,7 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // PREPROCESS_IFDEF PreprocessType Expression* PREPROCESS_ENDIF
-  public static boolean PreprocessBlock(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "PreprocessBlock")) return false;
-    if (!nextTokenIs(b, PREPROCESS_IFDEF)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, PREPROCESS_IFDEF);
-    r = r && PreprocessType(b, l + 1);
-    r = r && PreprocessBlock_2(b, l + 1);
-    r = r && consumeToken(b, PREPROCESS_ENDIF);
-    exit_section_(b, m, PREPROCESS_BLOCK, r);
-    return r;
-  }
-
-  // Expression*
-  private static boolean PreprocessBlock_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "PreprocessBlock_2")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!Expression(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "PreprocessBlock_2", c)) break;
-    }
-    return true;
-  }
-
-  /* ********************************************************** */
-  // DEF_PC | DEF_PSX
-  public static boolean PreprocessType(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "PreprocessType")) return false;
-    if (!nextTokenIs(b, "<preprocess type>", DEF_PC, DEF_PSX)) return false;
-    boolean r;
-    Marker m = enter_section_(b, l, _NONE_, PREPROCESS_TYPE, "<preprocess type>");
-    r = consumeToken(b, DEF_PC);
-    if (!r) r = consumeToken(b, DEF_PSX);
-    exit_section_(b, l, m, r, false, null);
-    return r;
-  }
-
-  /* ********************************************************** */
-  // DefinitionBlock? MissionBlock?
+  // MissionBlock? DefinitionBlock?
   static boolean ScriptFile(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ScriptFile")) return false;
     boolean r;
@@ -648,17 +509,17 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // DefinitionBlock?
+  // MissionBlock?
   private static boolean ScriptFile_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ScriptFile_0")) return false;
-    DefinitionBlock(b, l + 1);
+    MissionBlock(b, l + 1);
     return true;
   }
 
-  // MissionBlock?
+  // DefinitionBlock?
   private static boolean ScriptFile_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ScriptFile_1")) return false;
-    MissionBlock(b, l + 1);
+    DefinitionBlock(b, l + 1);
     return true;
   }
 
@@ -738,7 +599,7 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // VariableReference EQUALS MethodCall? Params END?
+  // VariableReference EQUALS Param
   public static boolean VariableAssignment(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "VariableAssignment")) return false;
     if (!nextTokenIs(b, IDENTIFIER)) return false;
@@ -746,25 +607,9 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = VariableReference(b, l + 1);
     r = r && consumeToken(b, EQUALS);
-    r = r && VariableAssignment_2(b, l + 1);
-    r = r && Params(b, l + 1);
-    r = r && VariableAssignment_4(b, l + 1);
+    r = r && Param(b, l + 1);
     exit_section_(b, m, VARIABLE_ASSIGNMENT, r);
     return r;
-  }
-
-  // MethodCall?
-  private static boolean VariableAssignment_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "VariableAssignment_2")) return false;
-    MethodCall(b, l + 1);
-    return true;
-  }
-
-  // END?
-  private static boolean VariableAssignment_4(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "VariableAssignment_4")) return false;
-    consumeToken(b, END);
-    return true;
   }
 
   /* ********************************************************** */
@@ -821,69 +666,6 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = consumeToken(b, IDENTIFIER);
     exit_section_(b, m, VARIABLE_REFERENCE, r);
-    return r;
-  }
-
-  /* ********************************************************** */
-  // '(' ( NUMBER ','?)+ ')'
-  public static boolean Vector(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "Vector")) return false;
-    boolean r;
-    Marker m = enter_section_(b, l, _NONE_, VECTOR, "<vector>");
-    r = consumeToken(b, "(");
-    r = r && Vector_1(b, l + 1);
-    r = r && consumeToken(b, ")");
-    exit_section_(b, l, m, r, false, null);
-    return r;
-  }
-
-  // ( NUMBER ','?)+
-  private static boolean Vector_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "Vector_1")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = Vector_1_0(b, l + 1);
-    while (r) {
-      int c = current_position_(b);
-      if (!Vector_1_0(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "Vector_1", c)) break;
-    }
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // NUMBER ','?
-  private static boolean Vector_1_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "Vector_1_0")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, NUMBER);
-    r = r && Vector_1_0_1(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // ','?
-  private static boolean Vector_1_0_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "Vector_1_0_1")) return false;
-    consumeToken(b, ",");
-    return true;
-  }
-
-  /* ********************************************************** */
-  // '(' number ',' number ',' number ')'
-  public static boolean Vector3(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "Vector3")) return false;
-    boolean r;
-    Marker m = enter_section_(b, l, _NONE_, VECTOR_3, "<vector 3>");
-    r = consumeToken(b, "(");
-    r = r && consumeToken(b, NUMBER);
-    r = r && consumeToken(b, ",");
-    r = r && consumeToken(b, NUMBER);
-    r = r && consumeToken(b, ",");
-    r = r && consumeToken(b, NUMBER);
-    r = r && consumeToken(b, ")");
-    exit_section_(b, l, m, r, false, null);
     return r;
   }
 

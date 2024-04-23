@@ -14,7 +14,6 @@ public interface Gta3ScriptTypes {
   IElementType CONDITIONAL_STATEMENT = new Gta3ScriptElementType("CONDITIONAL_STATEMENT");
   IElementType DEFINITION = new Gta3ScriptElementType("DEFINITION");
   IElementType DEFINITION_BLOCK = new Gta3ScriptElementType("DEFINITION_BLOCK");
-  IElementType ENUM = new Gta3ScriptElementType("ENUM");
   IElementType EXEC_EXPRESSION = new Gta3ScriptElementType("EXEC_EXPRESSION");
   IElementType EXPRESSION = new Gta3ScriptElementType("EXPRESSION");
   IElementType GOSUB_CALL = new Gta3ScriptElementType("GOSUB_CALL");
@@ -27,8 +26,6 @@ public interface Gta3ScriptTypes {
   IElementType MISSION_BODY = new Gta3ScriptElementType("MISSION_BODY");
   IElementType PARAM = new Gta3ScriptElementType("PARAM");
   IElementType PARAMS = new Gta3ScriptElementType("PARAMS");
-  IElementType PREPROCESS_BLOCK = new Gta3ScriptElementType("PREPROCESS_BLOCK");
-  IElementType PREPROCESS_TYPE = new Gta3ScriptElementType("PREPROCESS_TYPE");
   IElementType SET_EXPRESSION = new Gta3ScriptElementType("SET_EXPRESSION");
   IElementType SUBROUTINE_DEFINITION = new Gta3ScriptElementType("SUBROUTINE_DEFINITION");
   IElementType SUBROUTINE_REFERENCE = new Gta3ScriptElementType("SUBROUTINE_REFERENCE");
@@ -37,18 +34,11 @@ public interface Gta3ScriptTypes {
   IElementType VARIABLE_DEFINITION = new Gta3ScriptElementType("VARIABLE_DEFINITION");
   IElementType VARIABLE_IDENTIFIER_LIST = new Gta3ScriptElementType("VARIABLE_IDENTIFIER_LIST");
   IElementType VARIABLE_REFERENCE = new Gta3ScriptElementType("VARIABLE_REFERENCE");
-  IElementType VECTOR = new Gta3ScriptElementType("VECTOR");
-  IElementType VECTOR_3 = new Gta3ScriptElementType("VECTOR_3");
   IElementType WHILE_EXPRESSION = new Gta3ScriptElementType("WHILE_EXPRESSION");
 
   IElementType AND = new Gta3ScriptTokenType("AND");
-  IElementType AREA_PLAYER_ONLY = new Gta3ScriptTokenType("AREA_PLAYER_ONLY");
   IElementType COMMENT = new Gta3ScriptTokenType("COMMENT");
   IElementType COMMENTBLOCK = new Gta3ScriptTokenType("COMMENTBLOCK");
-  IElementType CRIMINAL_TYPE2 = new Gta3ScriptTokenType("CRIMINAL_TYPE2");
-  IElementType DEF_PC = new Gta3ScriptTokenType("PC");
-  IElementType DEF_PSX = new Gta3ScriptTokenType("PSX");
-  IElementType DO_NOWT = new Gta3ScriptTokenType("DO_NOWT");
   IElementType ELSE = new Gta3ScriptTokenType("ELSE");
   IElementType END = new Gta3ScriptTokenType("END");
   IElementType END_EXEC = new Gta3ScriptTokenType("ENDEXEC");
@@ -60,15 +50,13 @@ public interface Gta3ScriptTypes {
   IElementType GOSUB = new Gta3ScriptTokenType("GOSUB");
   IElementType IDENTIFIER = new Gta3ScriptTokenType("IDENTIFIER");
   IElementType IF = new Gta3ScriptTokenType("IF");
-  IElementType KILL_CHAR_ON_FOOT = new Gta3ScriptTokenType("KILL_CHAR_ON_FOOT");
   IElementType LEVEL_END = new Gta3ScriptTokenType("LEVELEND");
   IElementType LEVEL_START = new Gta3ScriptTokenType("LEVELSTART");
-  IElementType MACHINE_GUN = new Gta3ScriptTokenType("MACHINE_GUN");
   IElementType METHOD = new Gta3ScriptTokenType("METHOD");
-  IElementType MISSION_END = new Gta3ScriptTokenType("MISSIONEND");
-  IElementType MISSION_START = new Gta3ScriptTokenType("MISSIONSTART");
+  IElementType MISSION_END = new Gta3ScriptTokenType("MISSION_END");
+  IElementType MISSION_START = new Gta3ScriptTokenType("MISSION_START");
   IElementType NOT = new Gta3ScriptTokenType("NOT");
-  IElementType NUMBER = new Gta3ScriptTokenType("number");
+  IElementType NUMBER = new Gta3ScriptTokenType("NUMBER");
   IElementType OFF = new Gta3ScriptTokenType("OFF");
   IElementType ON = new Gta3ScriptTokenType("ON");
   IElementType OP_DIVISION = new Gta3ScriptTokenType("/");
@@ -79,9 +67,6 @@ public interface Gta3ScriptTypes {
   IElementType OP_PLUS = new Gta3ScriptTokenType("+");
   IElementType OP_PLUS_PLUS = new Gta3ScriptTokenType("++");
   IElementType OP_TIMES = new Gta3ScriptTokenType("*");
-  IElementType PREPROCESS_ENDIF = new Gta3ScriptTokenType("#endif");
-  IElementType PREPROCESS_IFDEF = new Gta3ScriptTokenType("#ifdef");
-  IElementType REACT_AS_NORMAL = new Gta3ScriptTokenType("REACT_AS_NORMAL");
   IElementType RETURN = new Gta3ScriptTokenType("RETURN");
   IElementType SET = new Gta3ScriptTokenType("SET");
   IElementType SUBROUTINE = new Gta3ScriptTokenType("SUBROUTINE");
@@ -110,9 +95,6 @@ public interface Gta3ScriptTypes {
       }
       else if (type == DEFINITION_BLOCK) {
         return new Gta3ScriptDefinitionBlockImpl(node);
-      }
-      else if (type == ENUM) {
-        return new Gta3ScriptEnumImpl(node);
       }
       else if (type == EXEC_EXPRESSION) {
         return new Gta3ScriptExecExpressionImpl(node);
@@ -150,12 +132,6 @@ public interface Gta3ScriptTypes {
       else if (type == PARAMS) {
         return new Gta3ScriptParamsImpl(node);
       }
-      else if (type == PREPROCESS_BLOCK) {
-        return new Gta3ScriptPreprocessBlockImpl(node);
-      }
-      else if (type == PREPROCESS_TYPE) {
-        return new Gta3ScriptPreprocessTypeImpl(node);
-      }
       else if (type == SET_EXPRESSION) {
         return new Gta3ScriptSetExpressionImpl(node);
       }
@@ -179,12 +155,6 @@ public interface Gta3ScriptTypes {
       }
       else if (type == VARIABLE_REFERENCE) {
         return new Gta3ScriptVariableReferenceImpl(node);
-      }
-      else if (type == VECTOR) {
-        return new Gta3ScriptVectorImpl(node);
-      }
-      else if (type == VECTOR_3) {
-        return new Gta3ScriptVector3Impl(node);
       }
       else if (type == WHILE_EXPRESSION) {
         return new Gta3ScriptWhileExpressionImpl(node);
