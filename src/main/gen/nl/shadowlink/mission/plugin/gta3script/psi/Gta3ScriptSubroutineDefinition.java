@@ -11,7 +11,7 @@ public interface Gta3ScriptSubroutineDefinition extends Gta3ScriptNamedElement {
   List<Gta3ScriptExpression> getExpressionList();
 
   @NotNull
-  PsiElement getIdentifier();
+  Gta3ScriptSubroutineLabel getSubroutineLabel();
 
   @Nullable
   PsiElement getNameIdentifier();

@@ -22,7 +22,7 @@ object Gta3ScriptUtils {
 
     @JvmStatic
     fun getName(element: Gta3ScriptSubroutineDefinition): String {
-        val text = element.identifier.text
+        val text = element.text
         return text.substring(0, text.length - 1)
     }
 

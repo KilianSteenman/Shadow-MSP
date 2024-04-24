@@ -11,14 +11,14 @@ import static nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import nl.shadowlink.mission.plugin.gta3script.psi.*;
 
-public class Gta3ScriptExecExpressionImpl extends ASTWrapperPsiElement implements Gta3ScriptExecExpression {
+public class Gta3ScriptMethodParamImpl extends ASTWrapperPsiElement implements Gta3ScriptMethodParam {
 
-  public Gta3ScriptExecExpressionImpl(@NotNull ASTNode node) {
+  public Gta3ScriptMethodParamImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull Gta3ScriptVisitor visitor) {
-    visitor.visitExecExpression(this);
+    visitor.visitMethodParam(this);
   }
 
   @Override
@@ -29,8 +29,8 @@ public class Gta3ScriptExecExpressionImpl extends ASTWrapperPsiElement implement
 
   @Override
   @NotNull
-  public List<Gta3ScriptExpression> getExpressionList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, Gta3ScriptExpression.class);
+  public Gta3ScriptParam getParam() {
+    return findNotNullChildByClass(Gta3ScriptParam.class);
   }
 
 }

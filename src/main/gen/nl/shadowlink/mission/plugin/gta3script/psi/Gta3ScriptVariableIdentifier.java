@@ -5,12 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface Gta3ScriptWhileExecExpression extends PsiElement {
+public interface Gta3ScriptVariableIdentifier extends PsiElement {
 
   @NotNull
-  Gta3ScriptConditionalStatement getConditionalStatement();
-
-  @NotNull
-  List<Gta3ScriptExpression> getExpressionList();
+  PsiElement getIdentifier();
 
 }

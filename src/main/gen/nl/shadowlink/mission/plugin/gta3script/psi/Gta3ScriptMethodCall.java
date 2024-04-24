@@ -7,10 +7,10 @@ import com.intellij.psi.PsiElement;
 
 public interface Gta3ScriptMethodCall extends PsiElement {
 
-  @NotNull
-  Gta3ScriptParams getParams();
+  @Nullable
+  Gta3ScriptMethodParamList getMethodParamList();
 
   @NotNull
-  PsiElement getMethod();
+  PsiElement getIdentifier();
 
 }

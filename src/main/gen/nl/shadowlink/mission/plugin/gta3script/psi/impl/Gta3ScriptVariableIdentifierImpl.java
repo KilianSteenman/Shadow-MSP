@@ -11,14 +11,14 @@ import static nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import nl.shadowlink.mission.plugin.gta3script.psi.*;
 
-public class Gta3ScriptDefinitionImpl extends ASTWrapperPsiElement implements Gta3ScriptDefinition {
+public class Gta3ScriptVariableIdentifierImpl extends ASTWrapperPsiElement implements Gta3ScriptVariableIdentifier {
 
-  public Gta3ScriptDefinitionImpl(@NotNull ASTNode node) {
+  public Gta3ScriptVariableIdentifierImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull Gta3ScriptVisitor visitor) {
-    visitor.visitDefinition(this);
+    visitor.visitVariableIdentifier(this);
   }
 
   @Override
@@ -28,33 +28,9 @@ public class Gta3ScriptDefinitionImpl extends ASTWrapperPsiElement implements Gt
   }
 
   @Override
-  @Nullable
-  public Gta3ScriptSubroutineDefinition getSubroutineDefinition() {
-    return findChildByClass(Gta3ScriptSubroutineDefinition.class);
-  }
-
-  @Override
-  @Nullable
-  public Gta3ScriptType getType() {
-    return findChildByClass(Gta3ScriptType.class);
-  }
-
-  @Override
-  @Nullable
-  public Gta3ScriptVariableDefinition getVariableDefinition() {
-    return findChildByClass(Gta3ScriptVariableDefinition.class);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getComment() {
-    return findChildByType(COMMENT);
-  }
-
-  @Override
-  @Nullable
+  @NotNull
   public PsiElement getIdentifier() {
-    return findChildByType(IDENTIFIER);
+    return findNotNullChildByType(IDENTIFIER);
   }
 
 }

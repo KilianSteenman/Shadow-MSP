@@ -37,26 +37,20 @@ METHOD=[A-Z_]+
 <YYINITIAL> {
   {WHITE_SPACE}          { return WHITE_SPACE; }
 
-  "LEVELSTART"           { return LEVEL_START; }
-  "LEVELEND"             { return LEVEL_END; }
-  "MISSIONSTART"         { return MISSION_START; }
-  "MISSIONEND"           { return MISSION_END; }
-  "WHILE_EXEC"           { return WHILE_EXEC; }
-  "END_WHILE_EXEC"       { return END_WHILE_EXEC; }
+  "MISSION_START"         { return MISSION_START; }
+  "MISSION_END"           { return MISSION_END; }
   "WHILE"                { return WHILE; }
   "ENDWHILE"             { return END_WHILE; }
-  "EXEC"                 { return EXEC; }
-  "ENDEXEC"              { return END_EXEC; }
   "IF"                   { return IF; }
   "ENDIF"                { return END_IF; }
   "ELSE"                 { return ELSE; }
-  "END"                  { return END; }
   "RETURN"               { return RETURN; }
-  "SET"                  { return SET; }
   "NOT"                  { return NOT; }
   "AND"                  { return AND; }
   "ON"                   { return ON; }
   "OFF"                  { return OFF; }
+  "TRUE"                 { return TRUE; }
+  "FALSE"                { return FALSE; }
   "GOSUB"                { return GOSUB; }
 
   "++"                   { return OP_PLUS_PLUS; }
@@ -76,8 +70,6 @@ METHOD=[A-Z_]+
   {NUMBER}               { return NUMBER; }
   {COMMENT}              { return COMMENT; }
   {SUBROUTINE}           { return SUBROUTINE; }
-  {COMMENT_BLOCK}        { return COMMENT_BLOCK; }
-  {METHOD}               { return METHOD; }
   {IDENTIFIER}           { return IDENTIFIER; }
 }
 

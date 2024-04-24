@@ -7,4 +7,10 @@ import com.intellij.psi.PsiElement;
 
 public interface Gta3ScriptVariableIdentifierList extends PsiElement {
 
+  @NotNull
+  Gta3ScriptVariableIdentifier getVariableIdentifier();
+
+  @Nullable
+  Gta3ScriptVariableIdentifierList getVariableIdentifierList();
+
 }

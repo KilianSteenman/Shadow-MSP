@@ -5,6 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface Gta3ScriptEnum extends PsiElement {
+public interface Gta3ScriptMethodParam extends PsiElement {
+
+  @NotNull
+  Gta3ScriptParam getParam();
 
 }

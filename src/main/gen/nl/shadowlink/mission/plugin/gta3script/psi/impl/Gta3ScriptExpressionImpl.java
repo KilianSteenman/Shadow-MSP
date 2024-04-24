@@ -29,38 +29,20 @@ public class Gta3ScriptExpressionImpl extends ASTWrapperPsiElement implements Gt
 
   @Override
   @Nullable
-  public Gta3ScriptCommentBlock getCommentBlock() {
-    return findChildByClass(Gta3ScriptCommentBlock.class);
-  }
-
-  @Override
-  @Nullable
-  public Gta3ScriptDefinition getDefinition() {
-    return findChildByClass(Gta3ScriptDefinition.class);
-  }
-
-  @Override
-  @Nullable
-  public Gta3ScriptExecExpression getExecExpression() {
-    return findChildByClass(Gta3ScriptExecExpression.class);
-  }
-
-  @Override
-  @Nullable
-  public Gta3ScriptGosubCall getGosubCall() {
-    return findChildByClass(Gta3ScriptGosubCall.class);
-  }
-
-  @Override
-  @Nullable
   public Gta3ScriptIfExpression getIfExpression() {
     return findChildByClass(Gta3ScriptIfExpression.class);
   }
 
   @Override
   @Nullable
-  public Gta3ScriptMathAssignment getMathAssignment() {
-    return findChildByClass(Gta3ScriptMathAssignment.class);
+  public Gta3ScriptLocalScope getLocalScope() {
+    return findChildByClass(Gta3ScriptLocalScope.class);
+  }
+
+  @Override
+  @Nullable
+  public Gta3ScriptMathOperation getMathOperation() {
+    return findChildByClass(Gta3ScriptMathOperation.class);
   }
 
   @Override
@@ -71,8 +53,8 @@ public class Gta3ScriptExpressionImpl extends ASTWrapperPsiElement implements Gt
 
   @Override
   @Nullable
-  public Gta3ScriptSetExpression getSetExpression() {
-    return findChildByClass(Gta3ScriptSetExpression.class);
+  public Gta3ScriptSubroutineCall getSubroutineCall() {
+    return findChildByClass(Gta3ScriptSubroutineCall.class);
   }
 
   @Override
@@ -89,14 +71,14 @@ public class Gta3ScriptExpressionImpl extends ASTWrapperPsiElement implements Gt
 
   @Override
   @Nullable
-  public Gta3ScriptWhileExpression getWhileExpression() {
-    return findChildByClass(Gta3ScriptWhileExpression.class);
+  public Gta3ScriptVariableDefinition getVariableDefinition() {
+    return findChildByClass(Gta3ScriptVariableDefinition.class);
   }
 
   @Override
   @Nullable
-  public PsiElement getComment() {
-    return findChildByType(COMMENT);
+  public Gta3ScriptWhileExpression getWhileExpression() {
+    return findChildByClass(Gta3ScriptWhileExpression.class);
   }
 
 }

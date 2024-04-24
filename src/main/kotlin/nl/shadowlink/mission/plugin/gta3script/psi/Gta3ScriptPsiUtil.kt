@@ -5,8 +5,8 @@ import com.intellij.psi.PsiManager
 import com.intellij.psi.search.FileTypeIndex
 import com.intellij.psi.search.GlobalSearchScope
 import nl.shadowlink.mission.plugin.gta3script.Gta3ScriptFile
-import nl.shadowlink.mission.plugin.gta3script.psi.impl.Gta3ScriptSubroutineDefinitionImpl
 import nl.shadowlink.mission.plugin.gta3script.Gta3ScriptFileType
+import nl.shadowlink.mission.plugin.gta3script.psi.impl.Gta3ScriptSubroutineDefinitionImpl
 import nl.shadowlink.mission.plugin.utils.findChildrenOfType
 
 fun Project.findSubroutineDefinition(name: String): Gta3ScriptSubroutineDefinition? {

@@ -28,33 +28,15 @@ public class Gta3ScriptConditionalStatementImpl extends ASTWrapperPsiElement imp
   }
 
   @Override
-  @NotNull
-  public List<Gta3ScriptAndStatement> getAndStatementList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, Gta3ScriptAndStatement.class);
-  }
-
-  @Override
   @Nullable
-  public Gta3ScriptConditionalStatement getConditionalStatement() {
-    return findChildByClass(Gta3ScriptConditionalStatement.class);
+  public Gta3ScriptComparison getComparison() {
+    return findChildByClass(Gta3ScriptComparison.class);
   }
 
   @Override
   @Nullable
   public Gta3ScriptMethodCall getMethodCall() {
     return findChildByClass(Gta3ScriptMethodCall.class);
-  }
-
-  @Override
-  @Nullable
-  public Gta3ScriptParam getParam() {
-    return findChildByClass(Gta3ScriptParam.class);
-  }
-
-  @Override
-  @Nullable
-  public Gta3ScriptVariableReference getVariableReference() {
-    return findChildByClass(Gta3ScriptVariableReference.class);
   }
 
 }

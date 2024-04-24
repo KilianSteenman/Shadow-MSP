@@ -11,14 +11,14 @@ import static nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import nl.shadowlink.mission.plugin.gta3script.psi.*;
 
-public class Gta3ScriptGosubCallImpl extends ASTWrapperPsiElement implements Gta3ScriptGosubCall {
+public class Gta3ScriptGxtReferenceImpl extends ASTWrapperPsiElement implements Gta3ScriptGxtReference {
 
-  public Gta3ScriptGosubCallImpl(@NotNull ASTNode node) {
+  public Gta3ScriptGxtReferenceImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull Gta3ScriptVisitor visitor) {
-    visitor.visitGosubCall(this);
+    visitor.visitGxtReference(this);
   }
 
   @Override
@@ -29,8 +29,8 @@ public class Gta3ScriptGosubCallImpl extends ASTWrapperPsiElement implements Gta
 
   @Override
   @NotNull
-  public Gta3ScriptSubroutineReference getSubroutineReference() {
-    return findNotNullChildByClass(Gta3ScriptSubroutineReference.class);
+  public PsiElement getIdentifier() {
+    return findNotNullChildByType(IDENTIFIER);
   }
 
 }

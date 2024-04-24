@@ -7,19 +7,10 @@ import com.intellij.psi.PsiElement;
 
 public interface Gta3ScriptConditionalStatement extends PsiElement {
 
-  @NotNull
-  List<Gta3ScriptAndStatement> getAndStatementList();
-
   @Nullable
-  Gta3ScriptConditionalStatement getConditionalStatement();
+  Gta3ScriptComparison getComparison();
 
   @Nullable
   Gta3ScriptMethodCall getMethodCall();
-
-  @Nullable
-  Gta3ScriptParam getParam();
-
-  @Nullable
-  Gta3ScriptVariableReference getVariableReference();
 
 }

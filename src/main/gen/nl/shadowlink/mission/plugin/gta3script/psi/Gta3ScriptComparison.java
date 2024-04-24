@@ -5,9 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface Gta3ScriptMathAssignment extends PsiElement {
+public interface Gta3ScriptComparison extends PsiElement {
 
   @NotNull
-  Gta3ScriptVariableReference getVariableReference();
+  Gta3ScriptComparisonOperator getComparisonOperator();
+
+  @NotNull
+  List<Gta3ScriptParam> getParamList();
 
 }

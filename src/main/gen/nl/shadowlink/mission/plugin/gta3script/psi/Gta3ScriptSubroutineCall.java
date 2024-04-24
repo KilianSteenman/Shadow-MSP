@@ -5,12 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface Gta3ScriptPreprocessBlock extends PsiElement {
+public interface Gta3ScriptSubroutineCall extends PsiElement {
 
   @NotNull
-  List<Gta3ScriptExpression> getExpressionList();
-
-  @NotNull
-  Gta3ScriptPreprocessType getPreprocessType();
+  Gta3ScriptSubroutineReference getSubroutineReference();
 
 }

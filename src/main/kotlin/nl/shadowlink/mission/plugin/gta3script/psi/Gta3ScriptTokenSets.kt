@@ -5,7 +5,7 @@ import com.intellij.psi.tree.TokenSet
 object Gta3ScriptTokenSets {
 
     val IDENTIFIERS: TokenSet = TokenSet.create(Gta3ScriptTypes.IDENTIFIER)
-    val COMMENTS: TokenSet = TokenSet.create(Gta3ScriptTypes.COMMENT, Gta3ScriptTypes.COMMENT_BLOCK)
+    val COMMENTS: TokenSet = TokenSet.create(Gta3ScriptTypes.COMMENT)
 
     val KEYWORDS: TokenSet = TokenSet.create(
         Gta3ScriptTypes.IF,

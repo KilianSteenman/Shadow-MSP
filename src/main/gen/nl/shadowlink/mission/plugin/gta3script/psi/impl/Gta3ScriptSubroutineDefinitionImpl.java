@@ -35,8 +35,8 @@ public class Gta3ScriptSubroutineDefinitionImpl extends Gta3ScriptNamedElementIm
 
   @Override
   @NotNull
-  public PsiElement getIdentifier() {
-    return findNotNullChildByType(IDENTIFIER);
+  public Gta3ScriptSubroutineLabel getSubroutineLabel() {
+    return findNotNullChildByClass(Gta3ScriptSubroutineLabel.class);
   }
 
   @Override

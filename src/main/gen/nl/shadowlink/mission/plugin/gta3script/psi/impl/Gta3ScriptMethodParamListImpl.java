@@ -11,14 +11,14 @@ import static nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import nl.shadowlink.mission.plugin.gta3script.psi.*;
 
-public class Gta3ScriptCommentBlockImpl extends ASTWrapperPsiElement implements Gta3ScriptCommentBlock {
+public class Gta3ScriptMethodParamListImpl extends ASTWrapperPsiElement implements Gta3ScriptMethodParamList {
 
-  public Gta3ScriptCommentBlockImpl(@NotNull ASTNode node) {
+  public Gta3ScriptMethodParamListImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull Gta3ScriptVisitor visitor) {
-    visitor.visitCommentBlock(this);
+    visitor.visitMethodParamList(this);
   }
 
   @Override
@@ -29,8 +29,14 @@ public class Gta3ScriptCommentBlockImpl extends ASTWrapperPsiElement implements 
 
   @Override
   @NotNull
-  public PsiElement getCommentblock() {
-    return findNotNullChildByType(COMMENTBLOCK);
+  public Gta3ScriptMethodParam getMethodParam() {
+    return findNotNullChildByClass(Gta3ScriptMethodParam.class);
+  }
+
+  @Override
+  @Nullable
+  public Gta3ScriptMethodParamList getMethodParamList() {
+    return findChildByClass(Gta3ScriptMethodParamList.class);
   }
 
 }

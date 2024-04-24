@@ -7,15 +7,15 @@ import com.intellij.psi.PsiElement;
 
 public class Gta3ScriptVisitor extends PsiElementVisitor {
 
-  public void visitAndStatement(@NotNull Gta3ScriptAndStatement o) {
-    visitPsiElement(o);
-  }
-
   public void visitBoolean(@NotNull Gta3ScriptBoolean o) {
     visitPsiElement(o);
   }
 
-  public void visitCommentBlock(@NotNull Gta3ScriptCommentBlock o) {
+  public void visitComparison(@NotNull Gta3ScriptComparison o) {
+    visitPsiElement(o);
+  }
+
+  public void visitComparisonOperator(@NotNull Gta3ScriptComparisonOperator o) {
     visitPsiElement(o);
   }
 
@@ -23,23 +23,11 @@ public class Gta3ScriptVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitDefinition(@NotNull Gta3ScriptDefinition o) {
-    visitPsiElement(o);
-  }
-
-  public void visitDefinitionBlock(@NotNull Gta3ScriptDefinitionBlock o) {
-    visitPsiElement(o);
-  }
-
-  public void visitExecExpression(@NotNull Gta3ScriptExecExpression o) {
-    visitPsiElement(o);
-  }
-
   public void visitExpression(@NotNull Gta3ScriptExpression o) {
     visitPsiElement(o);
   }
 
-  public void visitGosubCall(@NotNull Gta3ScriptGosubCall o) {
+  public void visitGxtReference(@NotNull Gta3ScriptGxtReference o) {
     visitPsiElement(o);
   }
 
@@ -47,7 +35,7 @@ public class Gta3ScriptVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitMathAssignment(@NotNull Gta3ScriptMathAssignment o) {
+  public void visitLocalScope(@NotNull Gta3ScriptLocalScope o) {
     visitPsiElement(o);
   }
 
@@ -63,11 +51,15 @@ public class Gta3ScriptVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitMissionBlock(@NotNull Gta3ScriptMissionBlock o) {
+  public void visitMethodParam(@NotNull Gta3ScriptMethodParam o) {
     visitPsiElement(o);
   }
 
-  public void visitMissionBody(@NotNull Gta3ScriptMissionBody o) {
+  public void visitMethodParamList(@NotNull Gta3ScriptMethodParamList o) {
+    visitPsiElement(o);
+  }
+
+  public void visitMissionBlock(@NotNull Gta3ScriptMissionBlock o) {
     visitPsiElement(o);
   }
 
@@ -75,16 +67,16 @@ public class Gta3ScriptVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitParams(@NotNull Gta3ScriptParams o) {
-    visitPsiElement(o);
-  }
-
-  public void visitSetExpression(@NotNull Gta3ScriptSetExpression o) {
+  public void visitSubroutineCall(@NotNull Gta3ScriptSubroutineCall o) {
     visitPsiElement(o);
   }
 
   public void visitSubroutineDefinition(@NotNull Gta3ScriptSubroutineDefinition o) {
     visitNamedElement(o);
+  }
+
+  public void visitSubroutineLabel(@NotNull Gta3ScriptSubroutineLabel o) {
+    visitPsiElement(o);
   }
 
   public void visitSubroutineReference(@NotNull Gta3ScriptSubroutineReference o) {
@@ -100,7 +92,11 @@ public class Gta3ScriptVisitor extends PsiElementVisitor {
   }
 
   public void visitVariableDefinition(@NotNull Gta3ScriptVariableDefinition o) {
-    visitNamedElement(o);
+    visitPsiElement(o);
+  }
+
+  public void visitVariableIdentifier(@NotNull Gta3ScriptVariableIdentifier o) {
+    visitPsiElement(o);
   }
 
   public void visitVariableIdentifierList(@NotNull Gta3ScriptVariableIdentifierList o) {

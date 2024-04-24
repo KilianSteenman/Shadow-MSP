@@ -5,9 +5,6 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface Gta3ScriptCommentBlock extends PsiElement {
-
-  @NotNull
-  PsiElement getCommentblock();
+public interface Gta3ScriptComparisonOperator extends PsiElement {
 
 }

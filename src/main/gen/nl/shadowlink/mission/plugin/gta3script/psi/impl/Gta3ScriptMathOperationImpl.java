@@ -33,4 +33,16 @@ public class Gta3ScriptMathOperationImpl extends ASTWrapperPsiElement implements
     return findNotNullChildByClass(Gta3ScriptMathOperator.class);
   }
 
+  @Override
+  @NotNull
+  public Gta3ScriptParam getParam() {
+    return findNotNullChildByClass(Gta3ScriptParam.class);
+  }
+
+  @Override
+  @NotNull
+  public Gta3ScriptVariableReference getVariableReference() {
+    return findNotNullChildByClass(Gta3ScriptVariableReference.class);
+  }
+
 }

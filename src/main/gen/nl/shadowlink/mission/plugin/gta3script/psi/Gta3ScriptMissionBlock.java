@@ -7,7 +7,7 @@ import com.intellij.psi.PsiElement;
 
 public interface Gta3ScriptMissionBlock extends PsiElement {
 
-  @Nullable
-  Gta3ScriptMissionBody getMissionBody();
+  @NotNull
+  List<Gta3ScriptExpression> getExpressionList();
 
 }

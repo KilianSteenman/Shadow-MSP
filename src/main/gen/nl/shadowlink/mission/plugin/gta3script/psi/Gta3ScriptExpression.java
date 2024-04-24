@@ -8,28 +8,19 @@ import com.intellij.psi.PsiElement;
 public interface Gta3ScriptExpression extends PsiElement {
 
   @Nullable
-  Gta3ScriptCommentBlock getCommentBlock();
-
-  @Nullable
-  Gta3ScriptDefinition getDefinition();
-
-  @Nullable
-  Gta3ScriptExecExpression getExecExpression();
-
-  @Nullable
-  Gta3ScriptGosubCall getGosubCall();
-
-  @Nullable
   Gta3ScriptIfExpression getIfExpression();
 
   @Nullable
-  Gta3ScriptMathAssignment getMathAssignment();
+  Gta3ScriptLocalScope getLocalScope();
+
+  @Nullable
+  Gta3ScriptMathOperation getMathOperation();
 
   @Nullable
   Gta3ScriptMethodCall getMethodCall();
 
   @Nullable
-  Gta3ScriptSetExpression getSetExpression();
+  Gta3ScriptSubroutineCall getSubroutineCall();
 
   @Nullable
   Gta3ScriptSubroutineDefinition getSubroutineDefinition();
@@ -38,9 +29,9 @@ public interface Gta3ScriptExpression extends PsiElement {
   Gta3ScriptVariableAssignment getVariableAssignment();
 
   @Nullable
-  Gta3ScriptWhileExpression getWhileExpression();
+  Gta3ScriptVariableDefinition getVariableDefinition();
 
   @Nullable
-  PsiElement getComment();
+  Gta3ScriptWhileExpression getWhileExpression();
 
 }

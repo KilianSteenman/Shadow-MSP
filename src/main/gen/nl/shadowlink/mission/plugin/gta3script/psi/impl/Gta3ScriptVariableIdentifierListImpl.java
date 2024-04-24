@@ -27,4 +27,16 @@ public class Gta3ScriptVariableIdentifierListImpl extends ASTWrapperPsiElement i
     else super.accept(visitor);
   }
 
+  @Override
+  @NotNull
+  public Gta3ScriptVariableIdentifier getVariableIdentifier() {
+    return findNotNullChildByClass(Gta3ScriptVariableIdentifier.class);
+  }
+
+  @Override
+  @Nullable
+  public Gta3ScriptVariableIdentifierList getVariableIdentifierList() {
+    return findChildByClass(Gta3ScriptVariableIdentifierList.class);
+  }
+
 }

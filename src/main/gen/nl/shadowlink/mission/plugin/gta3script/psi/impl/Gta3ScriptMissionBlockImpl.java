@@ -28,9 +28,9 @@ public class Gta3ScriptMissionBlockImpl extends ASTWrapperPsiElement implements 
   }
 
   @Override
-  @Nullable
-  public Gta3ScriptMissionBody getMissionBody() {
-    return findChildByClass(Gta3ScriptMissionBody.class);
+  @NotNull
+  public List<Gta3ScriptExpression> getExpressionList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, Gta3ScriptExpression.class);
   }
 
 }

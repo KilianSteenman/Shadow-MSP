@@ -5,9 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface Gta3ScriptAndStatement extends PsiElement {
+public interface Gta3ScriptSubroutineLabel extends PsiElement {
 
   @NotNull
-  Gta3ScriptConditionalStatement getConditionalStatement();
+  PsiElement getIdentifier();
 
 }

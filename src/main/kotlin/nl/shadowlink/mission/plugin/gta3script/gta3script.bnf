@@ -42,10 +42,11 @@
     NOT = 'NOT'
     ON = 'ON'
     OFF = 'OFF'
+    TRUE = 'TRUE'
+    FALSE = 'FALSE'
     GOSUB = 'GOSUB'
 
-    METHOD = 'regexp:[A-Z_]+'
-    IDENTIFIER='regexp:\$?[a-zA-Z0-9_\.]+'
+    IDENTIFIER='regexp:\$?[a-zA-Z0-9_.]+'
 
     OP_PLUS_PLUS='++'
     OP_PLUS='+'
@@ -59,55 +60,51 @@
   ]
 }
 
-ScriptFile ::= (MissionBlock? DefinitionBlock?)
+ScriptFile ::= Expression* MissionBlock? Expression*
 
-MissionBlock ::= ('MISSION_START' MissionBody? 'MISSION_END')
-MissionBody ::= Expression*
+MissionBlock ::= MISSION_START Expression* MISSION_END
 
-DefinitionBlock ::= Expression*
+Expression ::= SubroutineDefinition | VariableDefinition | VariableAssignment | MethodCall | LocalScope | IfExpression | WhileExpression | MathOperation | SubroutineCall
 
-Definition ::= VariableDefinition | SubroutineDefinition | COMMENT | (Type IDENTIFIER)
+VariableDefinition ::= Type VariableIdentifierList
+VariableIdentifierList ::= VariableIdentifier VariableIdentifierList | VariableIdentifier ',' VariableIdentifierList | VariableIdentifier
+VariableIdentifier ::= IDENTIFIER
 
-VariableDefinition ::= (Type VariableIdentifierList) {
+SubroutineDefinition ::= SubroutineLabel ':' Expression* RETURN {
     mixin="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptNamedElementImpl"
     implements="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptNamedElement"
     methods=[getNameIdentifier setName getName]
 }
-
-VariableIdentifierList ::= (IDENTIFIER ','?)*
-
-SubroutineDefinition ::= IDENTIFIER ':' Expression* RETURN {
-    mixin="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptNamedElementImpl"
-    implements="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptNamedElement"
-    methods=[getNameIdentifier setName getName]
-}
+SubroutineLabel ::= IDENTIFIER
 
 Type ::= VAR_INT | VAR_FLOAT
 
-Expression ::= COMMENT | VariableAssignment | MethodCall | WhileExpression | IfExpression | SubroutineDefinition | SetExpression | MathAssignment | CommentBlock | GosubCall | Definition | ExecExpression | LocalScope
 LocalScope ::= '{' Expression* '}'
-VariableAssignment ::= VariableReference EQUALS Param ((MathOperator Param)+)?
-MethodCall ::= METHOD Params
-GosubCall ::= GOSUB SubroutineReference
+
+VariableAssignment ::= VariableReference EQUALS Param
+MathOperation ::= VariableReference MathOperator EQUALS Param
+
+MethodCall ::= IDENTIFIER MethodParamList | IDENTIFIER
+MethodParamList ::= MethodParam MethodParamList | MethodParam
+MethodParam ::= Param
+
+SubroutineCall ::= GOSUB SubroutineReference
 SubroutineReference ::= IDENTIFIER {
     methods=[getReference]
 }
 VariableReference ::= IDENTIFIER {
     methods=[getReference]
 }
-MathAssignment ::= OP_PLUS_PLUS VariableReference | VariableReference OP_PLUS_PLUS
-CommentBlock ::= COMMENTBLOCK
-Params ::= (Param ','?)* ','?
-Param ::= NUMBER | VariableReference | SUBROUTINE | Boolean
 
-Boolean ::= ON | OFF
+Param ::= NUMBER | VariableReference | SUBROUTINE | Boolean | GxtReference
 
-ConditionalStatement ::= NOT? MethodCall
-
-IfExpression ::= IF ConditionalStatement Expression* END_IF
-WhileExpression ::= WHILE NOT? ConditionalStatement ((OR | AND) NOT? Expression)* Expression* END_WHILE
-ExecExpression ::= EXEC Expression* END_EXEC
-SetExpression ::= SET VariableReference EQUALS (Param | MathOperation)
-
-MathOperation ::= '(' (NUMBER | IDENTIFIER) MathOperator (NUMBER | IDENTIFIER) ')'
+GxtReference ::= '(' IDENTIFIER ')'
+Boolean ::= TRUE | FALSE | ON | OFF
 MathOperator ::= OP_PLUS | OP_MINUS | OP_TIMES | OP_DIVISION
+ComparisonOperator ::= '<' | '>' | '>=' | '<=' | '='
+
+ConditionalStatement ::= NOT? (MethodCall | Comparison)
+Comparison ::= Param ComparisonOperator Param
+
+IfExpression ::= IF ConditionalStatement Expression* (ELSE Expression*)? END_IF
+WhileExpression ::= WHILE ConditionalStatement Expression* END_WHILE

@@ -11,26 +11,20 @@ import static nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import nl.shadowlink.mission.plugin.gta3script.psi.*;
 
-public class Gta3ScriptDefinitionBlockImpl extends ASTWrapperPsiElement implements Gta3ScriptDefinitionBlock {
+public class Gta3ScriptComparisonOperatorImpl extends ASTWrapperPsiElement implements Gta3ScriptComparisonOperator {
 
-  public Gta3ScriptDefinitionBlockImpl(@NotNull ASTNode node) {
+  public Gta3ScriptComparisonOperatorImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull Gta3ScriptVisitor visitor) {
-    visitor.visitDefinitionBlock(this);
+    visitor.visitComparisonOperator(this);
   }
 
   @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof Gta3ScriptVisitor) accept((Gta3ScriptVisitor)visitor);
     else super.accept(visitor);
-  }
-
-  @Override
-  @NotNull
-  public List<Gta3ScriptExpression> getExpressionList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, Gta3ScriptExpression.class);
   }
 
 }

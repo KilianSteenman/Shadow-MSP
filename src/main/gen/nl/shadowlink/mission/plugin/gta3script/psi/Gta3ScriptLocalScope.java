@@ -5,15 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface Gta3ScriptSetExpression extends PsiElement {
-
-  @Nullable
-  Gta3ScriptMathOperation getMathOperation();
-
-  @Nullable
-  Gta3ScriptParam getParam();
+public interface Gta3ScriptLocalScope extends PsiElement {
 
   @NotNull
-  Gta3ScriptVariableReference getVariableReference();
+  List<Gta3ScriptExpression> getExpressionList();
 
 }
