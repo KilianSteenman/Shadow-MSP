@@ -8,9 +8,12 @@ import com.intellij.psi.PsiElement;
 public interface Gta3ScriptVariableAssignment extends PsiElement {
 
   @NotNull
-  Gta3ScriptParam getParam();
+  Gta3ScriptLineBreak getLineBreak();
 
   @NotNull
-  Gta3ScriptVariableReference getVariableReference();
+  Gta3ScriptVariable getVariable();
+
+  @NotNull
+  PsiElement getNumber();
 
 }

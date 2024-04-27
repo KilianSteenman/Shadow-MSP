@@ -13,4 +13,7 @@ public interface Gta3ScriptComparison extends PsiElement {
   @NotNull
   List<Gta3ScriptParam> getParamList();
 
+  @NotNull
+  Gta3ScriptLineBreak getLineBreak();
+
 }

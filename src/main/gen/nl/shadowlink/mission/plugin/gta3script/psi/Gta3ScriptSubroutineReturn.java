@@ -5,9 +5,6 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface Gta3ScriptMethodParamList extends PsiElement {
-
-  @NotNull
-  List<Gta3ScriptParam> getParamList();
+public interface Gta3ScriptSubroutineReturn extends PsiElement {
 
 }

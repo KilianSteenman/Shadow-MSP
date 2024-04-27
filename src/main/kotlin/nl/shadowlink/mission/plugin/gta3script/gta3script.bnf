@@ -16,22 +16,17 @@
     psiImplUtilClass="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptUtils"
 
   tokens=[
-    SPACE='regexp:\s+'
+    NEW_LINE="regexp:\\n"
+    WHITE_SPACE='regexp:\\s+'
     NUMBER='regexp:-?\d+(\.\d*)?'
     COMMENT='regexp://.*'
     COMMENTBLOCK='regexp:\/\*(\*(?!\/)|[^*])*\*\/'
 
     // Reserved words
-    LEVEL_START='LEVELSTART'
-    LEVEL_END='LEVELEND'
     MISSION_START='MISSION_START'
     MISSION_END='MISSION_END'
-    WHILE_EXEC = 'WHILE_EXEC'
-    END_WHILE_EXEC = 'END_WHILE_EXEC'
     WHILE = 'WHILE'
     END_WHILE = 'ENDWHILE'
-    EXEC = 'EXEC'
-    END_EXEC = 'ENDEXEC'
     IF = 'IF'
     END_IF = 'ENDIF'
     ELSE = 'ELSE'
@@ -46,6 +41,8 @@
     FALSE = 'FALSE'
     GOSUB = 'GOSUB'
 
+    OPCODE='regexp:[A-Z_]+'
+    GOSUB_IDENTIFIER='regexp:[a-z_0-9]+:'
     IDENTIFIER='regexp:\$?[a-zA-Z0-9_.]+'
 
     OP_PLUS_PLUS='++'
@@ -59,6 +56,34 @@
     EQUALS='='
   ]
 }
+
+root ::= expression*
+expression ::= (line_break | variable_definition | variable_assignment | subroutine_definition | subroutine_call | method_call | mission_block | if_expression | while_expression)
+
+mission_block ::= MISSION_START expression* MISSION_END
+
+subroutine_call ::= GOSUB subroutine_reference line_break
+subroutine_reference ::= IDENTIFIER
+
+subroutine_definition ::= subroutine_label expression* subroutine_return
+subroutine_label ::= GOSUB_IDENTIFIER line_break
+subroutine_return ::= RETURN
+
+variable_assignment ::= variable '=' NUMBER line_break
+
+method_call ::= method_name MethodParamList line_break
+method_name ::= IDENTIFIER
+
+variable_definition ::= Type variable (','? variable)* line_break
+variable_list ::= variable linebreak | variable variable_list
+variable ::= IDENTIFIER
+line_break ::= NEW_LINE
+
+if_expression ::= IF condition and_condition* expression* END_IF line_break
+while_expression ::= WHILE condition and_condition* expression* END_WHILE line_break
+and_condition ::= AND condition
+condition ::= NOT? (method_call | comparison)
+comparison ::= Param ComparisonOperator Param line_break
 
 ScriptFile ::= Expression* MissionBlock? Expression*
 
@@ -84,8 +109,7 @@ LocalScope ::= '{' Expression* '}'
 VariableAssignment ::= VariableReference EQUALS Param
 MathOperation ::= VariableReference MathOperator EQUALS Param
 
-MethodCall ::= IDENTIFIER MethodParamList | IDENTIFIER
-MethodParamList ::= MethodParam MethodParamList | MethodParam
+MethodParamList ::= Param*
 MethodParam ::= Param
 
 SubroutineCall ::= GOSUB SubroutineReference
@@ -103,7 +127,7 @@ Boolean ::= TRUE | FALSE | ON | OFF
 MathOperator ::= OP_PLUS | OP_MINUS | OP_TIMES | OP_DIVISION
 ComparisonOperator ::= '<' | '>' | '>=' | '<=' | '='
 
-ConditionalStatement ::= NOT? (MethodCall | Comparison)
+ConditionalStatement ::= NOT? (method_call | Comparison)
 Comparison ::= Param ComparisonOperator Param
 
 IfExpression ::= IF ConditionalStatement Expression* (ELSE Expression*)? END_IF

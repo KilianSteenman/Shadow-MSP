@@ -39,4 +39,10 @@ public class Gta3ScriptComparisonImpl extends ASTWrapperPsiElement implements Gt
     return PsiTreeUtil.getChildrenOfTypeAsList(this, Gta3ScriptParam.class);
   }
 
+  @Override
+  @NotNull
+  public Gta3ScriptLineBreak getLineBreak() {
+    return findNotNullChildByClass(Gta3ScriptLineBreak.class);
+  }
+
 }

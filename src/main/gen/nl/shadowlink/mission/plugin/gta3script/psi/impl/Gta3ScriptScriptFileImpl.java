@@ -11,14 +11,14 @@ import static nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import nl.shadowlink.mission.plugin.gta3script.psi.*;
 
-public class Gta3ScriptVariableAssignmentImpl extends ASTWrapperPsiElement implements Gta3ScriptVariableAssignment {
+public class Gta3ScriptScriptFileImpl extends ASTWrapperPsiElement implements Gta3ScriptScriptFile {
 
-  public Gta3ScriptVariableAssignmentImpl(@NotNull ASTNode node) {
+  public Gta3ScriptScriptFileImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull Gta3ScriptVisitor visitor) {
-    visitor.visitVariableAssignment(this);
+    visitor.visitScriptFile(this);
   }
 
   @Override
@@ -29,20 +29,14 @@ public class Gta3ScriptVariableAssignmentImpl extends ASTWrapperPsiElement imple
 
   @Override
   @NotNull
-  public Gta3ScriptLineBreak getLineBreak() {
-    return findNotNullChildByClass(Gta3ScriptLineBreak.class);
+  public List<Gta3ScriptExpression> getExpressionList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, Gta3ScriptExpression.class);
   }
 
   @Override
-  @NotNull
-  public Gta3ScriptVariable getVariable() {
-    return findNotNullChildByClass(Gta3ScriptVariable.class);
-  }
-
-  @Override
-  @NotNull
-  public PsiElement getNumber() {
-    return findNotNullChildByType(NUMBER);
+  @Nullable
+  public Gta3ScriptMissionBlock getMissionBlock() {
+    return findChildByClass(Gta3ScriptMissionBlock.class);
   }
 
 }

@@ -11,6 +11,9 @@ public interface Gta3ScriptVariableDefinition extends PsiElement {
   Gta3ScriptType getType();
 
   @NotNull
-  Gta3ScriptVariableIdentifierList getVariableIdentifierList();
+  Gta3ScriptLineBreak getLineBreak();
+
+  @NotNull
+  List<Gta3ScriptVariable> getVariableList();
 
 }

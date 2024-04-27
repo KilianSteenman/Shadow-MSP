@@ -29,6 +29,12 @@ public class Gta3ScriptSubroutineCallImpl extends ASTWrapperPsiElement implement
 
   @Override
   @NotNull
+  public Gta3ScriptLineBreak getLineBreak() {
+    return findNotNullChildByClass(Gta3ScriptLineBreak.class);
+  }
+
+  @Override
+  @NotNull
   public Gta3ScriptSubroutineReference getSubroutineReference() {
     return findNotNullChildByClass(Gta3ScriptSubroutineReference.class);
   }

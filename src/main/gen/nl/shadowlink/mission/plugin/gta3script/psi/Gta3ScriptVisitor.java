@@ -11,10 +11,6 @@ public class Gta3ScriptVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitComparison(@NotNull Gta3ScriptComparison o) {
-    visitPsiElement(o);
-  }
-
   public void visitComparisonOperator(@NotNull Gta3ScriptComparisonOperator o) {
     visitPsiElement(o);
   }
@@ -23,15 +19,7 @@ public class Gta3ScriptVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitExpression(@NotNull Gta3ScriptExpression o) {
-    visitPsiElement(o);
-  }
-
   public void visitGxtReference(@NotNull Gta3ScriptGxtReference o) {
-    visitPsiElement(o);
-  }
-
-  public void visitIfExpression(@NotNull Gta3ScriptIfExpression o) {
     visitPsiElement(o);
   }
 
@@ -47,10 +35,6 @@ public class Gta3ScriptVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitMethodCall(@NotNull Gta3ScriptMethodCall o) {
-    visitPsiElement(o);
-  }
-
   public void visitMethodParam(@NotNull Gta3ScriptMethodParam o) {
     visitPsiElement(o);
   }
@@ -59,39 +43,15 @@ public class Gta3ScriptVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitMissionBlock(@NotNull Gta3ScriptMissionBlock o) {
-    visitPsiElement(o);
-  }
-
   public void visitParam(@NotNull Gta3ScriptParam o) {
     visitPsiElement(o);
   }
 
-  public void visitSubroutineCall(@NotNull Gta3ScriptSubroutineCall o) {
-    visitPsiElement(o);
-  }
-
-  public void visitSubroutineDefinition(@NotNull Gta3ScriptSubroutineDefinition o) {
-    visitNamedElement(o);
-  }
-
-  public void visitSubroutineLabel(@NotNull Gta3ScriptSubroutineLabel o) {
-    visitPsiElement(o);
-  }
-
-  public void visitSubroutineReference(@NotNull Gta3ScriptSubroutineReference o) {
+  public void visitScriptFile(@NotNull Gta3ScriptScriptFile o) {
     visitPsiElement(o);
   }
 
   public void visitType(@NotNull Gta3ScriptType o) {
-    visitPsiElement(o);
-  }
-
-  public void visitVariableAssignment(@NotNull Gta3ScriptVariableAssignment o) {
-    visitPsiElement(o);
-  }
-
-  public void visitVariableDefinition(@NotNull Gta3ScriptVariableDefinition o) {
     visitPsiElement(o);
   }
 
@@ -107,11 +67,79 @@ public class Gta3ScriptVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitWhileExpression(@NotNull Gta3ScriptWhileExpression o) {
+  public void visitAndCondition(@NotNull Gta3ScriptAndCondition o) {
     visitPsiElement(o);
   }
 
-  public void visitNamedElement(@NotNull Gta3ScriptNamedElement o) {
+  public void visitComparison(@NotNull Gta3ScriptComparison o) {
+    visitPsiElement(o);
+  }
+
+  public void visitCondition(@NotNull Gta3ScriptCondition o) {
+    visitPsiElement(o);
+  }
+
+  public void visitExpression(@NotNull Gta3ScriptExpression o) {
+    visitPsiElement(o);
+  }
+
+  public void visitIfExpression(@NotNull Gta3ScriptIfExpression o) {
+    visitPsiElement(o);
+  }
+
+  public void visitLineBreak(@NotNull Gta3ScriptLineBreak o) {
+    visitPsiElement(o);
+  }
+
+  public void visitMethodCall(@NotNull Gta3ScriptMethodCall o) {
+    visitPsiElement(o);
+  }
+
+  public void visitMethodName(@NotNull Gta3ScriptMethodName o) {
+    visitPsiElement(o);
+  }
+
+  public void visitMissionBlock(@NotNull Gta3ScriptMissionBlock o) {
+    visitPsiElement(o);
+  }
+
+  public void visitSubroutineCall(@NotNull Gta3ScriptSubroutineCall o) {
+    visitPsiElement(o);
+  }
+
+  public void visitSubroutineDefinition(@NotNull Gta3ScriptSubroutineDefinition o) {
+    visitPsiElement(o);
+  }
+
+  public void visitSubroutineLabel(@NotNull Gta3ScriptSubroutineLabel o) {
+    visitPsiElement(o);
+  }
+
+  public void visitSubroutineReference(@NotNull Gta3ScriptSubroutineReference o) {
+    visitPsiElement(o);
+  }
+
+  public void visitSubroutineReturn(@NotNull Gta3ScriptSubroutineReturn o) {
+    visitPsiElement(o);
+  }
+
+  public void visitVariable(@NotNull Gta3ScriptVariable o) {
+    visitPsiElement(o);
+  }
+
+  public void visitVariableAssignment(@NotNull Gta3ScriptVariableAssignment o) {
+    visitPsiElement(o);
+  }
+
+  public void visitVariableDefinition(@NotNull Gta3ScriptVariableDefinition o) {
+    visitPsiElement(o);
+  }
+
+  public void visitVariableList(@NotNull Gta3ScriptVariableList o) {
+    visitPsiElement(o);
+  }
+
+  public void visitWhileExpression(@NotNull Gta3ScriptWhileExpression o) {
     visitPsiElement(o);
   }
 

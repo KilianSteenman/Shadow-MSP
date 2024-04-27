@@ -28,15 +28,21 @@ public class Gta3ScriptMethodCallImpl extends ASTWrapperPsiElement implements Gt
   }
 
   @Override
-  @Nullable
+  @NotNull
   public Gta3ScriptMethodParamList getMethodParamList() {
-    return findChildByClass(Gta3ScriptMethodParamList.class);
+    return findNotNullChildByClass(Gta3ScriptMethodParamList.class);
   }
 
   @Override
   @NotNull
-  public PsiElement getIdentifier() {
-    return findNotNullChildByType(IDENTIFIER);
+  public Gta3ScriptLineBreak getLineBreak() {
+    return findNotNullChildByClass(Gta3ScriptLineBreak.class);
+  }
+
+  @Override
+  @NotNull
+  public Gta3ScriptMethodName getMethodName() {
+    return findNotNullChildByClass(Gta3ScriptMethodName.class);
   }
 
 }

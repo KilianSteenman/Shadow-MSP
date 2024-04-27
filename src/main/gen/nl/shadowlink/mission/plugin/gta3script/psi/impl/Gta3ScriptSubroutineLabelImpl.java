@@ -29,8 +29,14 @@ public class Gta3ScriptSubroutineLabelImpl extends ASTWrapperPsiElement implemen
 
   @Override
   @NotNull
-  public PsiElement getIdentifier() {
-    return findNotNullChildByType(IDENTIFIER);
+  public Gta3ScriptLineBreak getLineBreak() {
+    return findNotNullChildByClass(Gta3ScriptLineBreak.class);
+  }
+
+  @Override
+  @NotNull
+  public PsiElement getGosubIdentifier() {
+    return findNotNullChildByType(GOSUB_IDENTIFIER);
   }
 
 }

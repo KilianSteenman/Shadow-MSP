@@ -11,13 +11,13 @@ public interface Gta3ScriptExpression extends PsiElement {
   Gta3ScriptIfExpression getIfExpression();
 
   @Nullable
-  Gta3ScriptLocalScope getLocalScope();
-
-  @Nullable
-  Gta3ScriptMathOperation getMathOperation();
+  Gta3ScriptLineBreak getLineBreak();
 
   @Nullable
   Gta3ScriptMethodCall getMethodCall();
+
+  @Nullable
+  Gta3ScriptMissionBlock getMissionBlock();
 
   @Nullable
   Gta3ScriptSubroutineCall getSubroutineCall();

@@ -35,20 +35,20 @@ public class Gta3ScriptExpressionImpl extends ASTWrapperPsiElement implements Gt
 
   @Override
   @Nullable
-  public Gta3ScriptLocalScope getLocalScope() {
-    return findChildByClass(Gta3ScriptLocalScope.class);
-  }
-
-  @Override
-  @Nullable
-  public Gta3ScriptMathOperation getMathOperation() {
-    return findChildByClass(Gta3ScriptMathOperation.class);
+  public Gta3ScriptLineBreak getLineBreak() {
+    return findChildByClass(Gta3ScriptLineBreak.class);
   }
 
   @Override
   @Nullable
   public Gta3ScriptMethodCall getMethodCall() {
     return findChildByClass(Gta3ScriptMethodCall.class);
+  }
+
+  @Override
+  @Nullable
+  public Gta3ScriptMissionBlock getMissionBlock() {
+    return findChildByClass(Gta3ScriptMissionBlock.class);
   }
 
   @Override

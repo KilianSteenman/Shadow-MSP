@@ -8,9 +8,15 @@ import com.intellij.psi.PsiElement;
 public interface Gta3ScriptIfExpression extends PsiElement {
 
   @NotNull
-  Gta3ScriptConditionalStatement getConditionalStatement();
+  List<Gta3ScriptAndCondition> getAndConditionList();
+
+  @NotNull
+  Gta3ScriptCondition getCondition();
 
   @NotNull
   List<Gta3ScriptExpression> getExpressionList();
+
+  @NotNull
+  Gta3ScriptLineBreak getLineBreak();
 
 }

@@ -10,27 +10,27 @@ import static nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptTypes.*;
 %%
 
 %{
-  public Gta3ScriptLexer() {
+  public _Gta3ScriptLexer() {
     this((java.io.Reader)null);
   }
 %}
 
 %public
-%class Gta3ScriptLexer
+%class _Gta3ScriptLexer
 %implements FlexLexer
 %function advance
 %type IElementType
 %unicode
 
-WHITE_SPACE=[ \t]+
+EOL=\R
+WHITE_SPACE=\s+
 
-NEW_LINE=[\n\r|\n|\r]+
+NEW_LINE=\\n
+SPACE=\[ \t\n\x0B\f\r]
 NUMBER=-?[0-9]+(\.[0-9]*)?
 COMMENT="//".*
-OPCODE=[A-Z_]+:
-GOSUB_IDENTIFIER=[a-z0-9_]+:
+GOSUB_IDENTIFIER=[a-z]+:
 IDENTIFIER=\$?[a-zA-Z0-9_.]+
-COMMENT_BLOCK="/*" !([^]* "*/" [^]*) ("*/")?
 
 %%
 <YYINITIAL> {
@@ -63,14 +63,14 @@ COMMENT_BLOCK="/*" !([^]* "*/" [^]*) ("*/")?
   ">"                      { return OP_GREATER_THAN; }
   "="                      { return EQUALS; }
   "VAR_INT"                { return VAR_INT; }
+  "linebreak"              { return LINEBREAK; }
   "VAR_FLOAT"              { return VAR_FLOAT; }
   "SUBROUTINE"             { return SUBROUTINE; }
 
   {NEW_LINE}               { return NEW_LINE; }
+  {SPACE}                  { return SPACE; }
   {NUMBER}                 { return NUMBER; }
   {COMMENT}                { return COMMENT; }
-  {COMMENT_BLOCK}          { return COMMENT; }
-  {OPCODE}                 { return OPCODE; }
   {GOSUB_IDENTIFIER}       { return GOSUB_IDENTIFIER; }
   {IDENTIFIER}             { return IDENTIFIER; }
 

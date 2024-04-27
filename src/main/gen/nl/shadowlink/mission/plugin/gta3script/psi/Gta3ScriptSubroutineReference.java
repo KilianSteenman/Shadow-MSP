@@ -10,8 +10,4 @@ public interface Gta3ScriptSubroutineReference extends PsiElement {
   @NotNull
   PsiElement getIdentifier();
 
-  //WARNING: getReference(...) is skipped
-  //matching getReference(Gta3ScriptSubroutineReference, ...)
-  //methods are not found in Gta3ScriptUtils
-
 }

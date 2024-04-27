@@ -8,6 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface Gta3ScriptSubroutineCall extends PsiElement {
 
   @NotNull
+  Gta3ScriptLineBreak getLineBreak();
+
+  @NotNull
   Gta3ScriptSubroutineReference getSubroutineReference();
 
 }

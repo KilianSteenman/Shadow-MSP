@@ -29,14 +29,8 @@ public class Gta3ScriptMethodParamListImpl extends ASTWrapperPsiElement implemen
 
   @Override
   @NotNull
-  public Gta3ScriptMethodParam getMethodParam() {
-    return findNotNullChildByClass(Gta3ScriptMethodParam.class);
-  }
-
-  @Override
-  @Nullable
-  public Gta3ScriptMethodParamList getMethodParamList() {
-    return findChildByClass(Gta3ScriptMethodParamList.class);
+  public List<Gta3ScriptParam> getParamList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, Gta3ScriptParam.class);
   }
 
 }

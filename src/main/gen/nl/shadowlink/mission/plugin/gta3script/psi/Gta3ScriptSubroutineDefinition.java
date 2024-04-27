@@ -5,7 +5,7 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface Gta3ScriptSubroutineDefinition extends Gta3ScriptNamedElement {
+public interface Gta3ScriptSubroutineDefinition extends PsiElement {
 
   @NotNull
   List<Gta3ScriptExpression> getExpressionList();
@@ -13,13 +13,7 @@ public interface Gta3ScriptSubroutineDefinition extends Gta3ScriptNamedElement {
   @NotNull
   Gta3ScriptSubroutineLabel getSubroutineLabel();
 
-  @Nullable
-  PsiElement getNameIdentifier();
-
-  @Nullable
-  PsiElement setName(@NotNull String name);
-
   @NotNull
-  String getName();
+  Gta3ScriptSubroutineReturn getSubroutineReturn();
 
 }

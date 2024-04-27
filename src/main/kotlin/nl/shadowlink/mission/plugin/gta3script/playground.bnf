@@ -1,0 +1,67 @@
+{
+    parserClass="nl.shadowlink.mission.plugin.gta3script.parser.Gta3ScriptParser"
+    parserUtilClass="nl.shadowlink.mission.plugin.gta3script.parser.Gta3ScriptParserUtil"
+
+    extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+    psiClassPrefix="Gta3Script"
+    psiImplClassSuffix="Impl"
+    psiPackage="nl.shadowlink.mission.plugin.gta3script.psi"
+    psiImplPackage="nl.shadowlink.mission.plugin.gta3script.psi.impl"
+
+    elementTypeHolderClass="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptTypes"
+    elementTypeClass="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptElementType"
+    tokenTypeClass="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptTokenType"
+
+    psiImplUtilClass="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptUtils"
+
+  tokens=[
+    NEW_LINE="regexp:\n+"
+    SPACE='regexp:\s+'
+    NUMBER='regexp:-?\d+(\.\d*)?'
+    COMMENT='regexp://.*'
+    COMMENTBLOCK='regexp:\/\*(\*(?!\/)|[^*])*\*\/'
+
+    // Reserved words
+    MISSION_START='MISSION_START'
+    MISSION_END='MISSION_END'
+    WHILE = 'WHILE'
+    END_WHILE = 'ENDWHILE'
+    IF = 'IF'
+    END_IF = 'ENDIF'
+    ELSE = 'ELSE'
+    AND = 'AND'
+    END = 'END'
+    RETURN = 'RETURN'
+    SET = 'SET'
+    NOT = 'NOT'
+    ON = 'ON'
+    OFF = 'OFF'
+    TRUE = 'TRUE'
+    FALSE = 'FALSE'
+    GOSUB = 'GOSUB'
+
+    GOSUB_IDENTIFIER='regexp:[a-z]+:'
+    IDENTIFIER='regexp:\$?[a-zA-Z0-9_.]+'
+
+    OP_PLUS_PLUS='++'
+    OP_PLUS='+'
+    OP_MINUS_MINUS='--'
+    OP_MINUS='-'
+    OP_TIMES='*'
+    OP_DIVISION='/'
+    OP_LESS_THAN='<'
+    OP_GREATER_THAN='>'
+    EQUALS='='
+  ]
+}
+
+root ::= expression*
+expression ::= (variable_assignment | label_definition | variable_definition | method_call)
+label_definition ::= GOSUB_IDENTIFIER line_break expression* line_break RETURN
+variable_assignment ::= variable '=' NUMBER line_break
+method_call ::= method
+variable_definition ::= VAR_INT variable+ line_break
+variable ::= IDENTIFIER
+method ::= IDENTIFIER
+line_break ::= NEW_LINE

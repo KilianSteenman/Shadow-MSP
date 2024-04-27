@@ -8,10 +8,10 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptTypes.*;
-import nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptNamedElementImpl;
+import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import nl.shadowlink.mission.plugin.gta3script.psi.*;
 
-public class Gta3ScriptSubroutineDefinitionImpl extends Gta3ScriptNamedElementImpl implements Gta3ScriptSubroutineDefinition {
+public class Gta3ScriptSubroutineDefinitionImpl extends ASTWrapperPsiElement implements Gta3ScriptSubroutineDefinition {
 
   public Gta3ScriptSubroutineDefinitionImpl(@NotNull ASTNode node) {
     super(node);
@@ -40,21 +40,9 @@ public class Gta3ScriptSubroutineDefinitionImpl extends Gta3ScriptNamedElementIm
   }
 
   @Override
-  @Nullable
-  public PsiElement getNameIdentifier() {
-    return Gta3ScriptUtils.getNameIdentifier(this);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement setName(@NotNull String name) {
-    return Gta3ScriptUtils.setName(this, name);
-  }
-
-  @Override
   @NotNull
-  public String getName() {
-    return Gta3ScriptUtils.getName(this);
+  public Gta3ScriptSubroutineReturn getSubroutineReturn() {
+    return findNotNullChildByClass(Gta3ScriptSubroutineReturn.class);
   }
 
 }
