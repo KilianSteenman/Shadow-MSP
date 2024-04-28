@@ -95,6 +95,10 @@ public class Gta3ScriptVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitLocalScopeBody(@NotNull Gta3ScriptLocalScopeBody o) {
+    visitPsiElement(o);
+  }
+
   public void visitMathOperation(@NotNull Gta3ScriptMathOperation o) {
     visitPsiElement(o);
   }

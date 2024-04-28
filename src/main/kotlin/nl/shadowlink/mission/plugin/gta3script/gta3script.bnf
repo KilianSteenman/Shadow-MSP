@@ -69,7 +69,8 @@ subroutine_reference ::= IDENTIFIER
 label_identifier ::= GOSUB_IDENTIFIER line_break
 label_return ::= RETURN
 
-local_scope ::= '{' expression* '}'
+local_scope ::= '{' local_scope_body '}'
+local_scope_body ::= expression*
 
 variable_assignment ::= variable '=' (IDENTIFIER | NUMBER | Boolean) line_break
 math_operation ::= (increment_pre_operation | increment_post_operation | math_operation_assignment | math_operation_self_assignment)

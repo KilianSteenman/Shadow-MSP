@@ -15,6 +15,7 @@ import com.intellij.refactoring.suggested.endOffset
 import com.intellij.refactoring.suggested.startOffset
 import nl.shadowlink.mission.plugin.gta3script.psi.impl.Gta3ScriptConditionBodyImpl
 import nl.shadowlink.mission.plugin.gta3script.psi.impl.Gta3ScriptIfExpressionImpl
+import nl.shadowlink.mission.plugin.gta3script.psi.impl.Gta3ScriptLocalScopeImpl
 import nl.shadowlink.mission.plugin.gta3script.psi.impl.Gta3ScriptMissionBlockImpl
 import nl.shadowlink.mission.plugin.gta3script.psi.impl.Gta3ScriptWhileExpressionImpl
 
@@ -25,6 +26,7 @@ internal class Gta3ScriptFoldingBuilder : FoldingBuilderEx(), DumbAware {
         Gta3ScriptMissionBlockImpl::class.java,
         Gta3ScriptWhileExpressionImpl::class.java,
         Gta3ScriptIfExpressionImpl::class.java,
+        Gta3ScriptLocalScopeImpl::class.java,
     )
 
     override fun buildFoldRegions(root: PsiElement, document: Document, quick: Boolean): Array<FoldingDescriptor> {
@@ -74,7 +76,7 @@ internal class Gta3ScriptFoldingBuilder : FoldingBuilderEx(), DumbAware {
             is Gta3ScriptWhileExpressionImpl -> "..."
             is Gta3ScriptIfExpressionImpl -> "..."
             is Gta3ScriptConditionBodyImpl -> "..."
-            else -> error("Placeholder not defined for node $node")
+            else -> "...".also { println("Placeholder not defined for node $node") }
         }
     }
 

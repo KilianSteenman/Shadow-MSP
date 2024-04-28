@@ -11,14 +11,14 @@ import static nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import nl.shadowlink.mission.plugin.gta3script.psi.*;
 
-public class Gta3ScriptLocalScopeImpl extends ASTWrapperPsiElement implements Gta3ScriptLocalScope {
+public class Gta3ScriptLocalScopeBodyImpl extends ASTWrapperPsiElement implements Gta3ScriptLocalScopeBody {
 
-  public Gta3ScriptLocalScopeImpl(@NotNull ASTNode node) {
+  public Gta3ScriptLocalScopeBodyImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull Gta3ScriptVisitor visitor) {
-    visitor.visitLocalScope(this);
+    visitor.visitLocalScopeBody(this);
   }
 
   @Override
@@ -29,8 +29,8 @@ public class Gta3ScriptLocalScopeImpl extends ASTWrapperPsiElement implements Gt
 
   @Override
   @NotNull
-  public Gta3ScriptLocalScopeBody getLocalScopeBody() {
-    return findNotNullChildByClass(Gta3ScriptLocalScopeBody.class);
+  public List<Gta3ScriptExpression> getExpressionList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, Gta3ScriptExpression.class);
   }
 
 }

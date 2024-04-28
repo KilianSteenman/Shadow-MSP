@@ -447,26 +447,29 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // '{' expression* '}'
+  // '{' local_scope_body '}'
   public static boolean local_scope(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "local_scope")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, LOCAL_SCOPE, "<local scope>");
     r = consumeToken(b, "{");
-    r = r && local_scope_1(b, l + 1);
+    r = r && local_scope_body(b, l + 1);
     r = r && consumeToken(b, "}");
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
+  /* ********************************************************** */
   // expression*
-  private static boolean local_scope_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "local_scope_1")) return false;
+  public static boolean local_scope_body(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "local_scope_body")) return false;
+    Marker m = enter_section_(b, l, _NONE_, LOCAL_SCOPE_BODY, "<local scope body>");
     while (true) {
       int c = current_position_(b);
       if (!expression(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "local_scope_1", c)) break;
+      if (!empty_element_parsed_guard_(b, "local_scope_body", c)) break;
     }
+    exit_section_(b, l, m, true, false, null);
     return true;
   }
 

@@ -5,9 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface Gta3ScriptLocalScope extends PsiElement {
+public interface Gta3ScriptLocalScopeBody extends PsiElement {
 
   @NotNull
-  Gta3ScriptLocalScopeBody getLocalScopeBody();
+  List<Gta3ScriptExpression> getExpressionList();
 
 }

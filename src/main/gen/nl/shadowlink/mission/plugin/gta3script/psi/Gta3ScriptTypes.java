@@ -25,6 +25,7 @@ public interface Gta3ScriptTypes {
   IElementType LABEL_RETURN = new Gta3ScriptElementType("LABEL_RETURN");
   IElementType LINE_BREAK = new Gta3ScriptElementType("LINE_BREAK");
   IElementType LOCAL_SCOPE = new Gta3ScriptElementType("LOCAL_SCOPE");
+  IElementType LOCAL_SCOPE_BODY = new Gta3ScriptElementType("LOCAL_SCOPE_BODY");
   IElementType MATH_OPERATION = new Gta3ScriptElementType("MATH_OPERATION");
   IElementType MATH_OPERATION_ASSIGNMENT = new Gta3ScriptElementType("MATH_OPERATION_ASSIGNMENT");
   IElementType MATH_OPERATION_SELF_ASSIGNMENT = new Gta3ScriptElementType("MATH_OPERATION_SELF_ASSIGNMENT");
@@ -137,6 +138,9 @@ public interface Gta3ScriptTypes {
       }
       else if (type == LOCAL_SCOPE) {
         return new Gta3ScriptLocalScopeImpl(node);
+      }
+      else if (type == LOCAL_SCOPE_BODY) {
+        return new Gta3ScriptLocalScopeBodyImpl(node);
       }
       else if (type == MATH_OPERATION) {
         return new Gta3ScriptMathOperationImpl(node);
