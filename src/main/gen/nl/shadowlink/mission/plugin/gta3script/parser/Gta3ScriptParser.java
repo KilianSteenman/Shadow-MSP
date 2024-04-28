@@ -243,15 +243,72 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // Param MethodParamDefinition? | '(' Param* ')' MethodParamDefinition?
+  public static boolean MethodParamDefinition(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "MethodParamDefinition")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, METHOD_PARAM_DEFINITION, "<method param definition>");
+    r = MethodParamDefinition_0(b, l + 1);
+    if (!r) r = MethodParamDefinition_1(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // Param MethodParamDefinition?
+  private static boolean MethodParamDefinition_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "MethodParamDefinition_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = Param(b, l + 1);
+    r = r && MethodParamDefinition_0_1(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // MethodParamDefinition?
+  private static boolean MethodParamDefinition_0_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "MethodParamDefinition_0_1")) return false;
+    MethodParamDefinition(b, l + 1);
+    return true;
+  }
+
+  // '(' Param* ')' MethodParamDefinition?
+  private static boolean MethodParamDefinition_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "MethodParamDefinition_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, "(");
+    r = r && MethodParamDefinition_1_1(b, l + 1);
+    r = r && consumeToken(b, ")");
+    r = r && MethodParamDefinition_1_3(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
   // Param*
-  public static boolean MethodParamList(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "MethodParamList")) return false;
-    Marker m = enter_section_(b, l, _NONE_, METHOD_PARAM_LIST, "<method param list>");
+  private static boolean MethodParamDefinition_1_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "MethodParamDefinition_1_1")) return false;
     while (true) {
       int c = current_position_(b);
       if (!Param(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "MethodParamList", c)) break;
+      if (!empty_element_parsed_guard_(b, "MethodParamDefinition_1_1", c)) break;
     }
+    return true;
+  }
+
+  // MethodParamDefinition?
+  private static boolean MethodParamDefinition_1_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "MethodParamDefinition_1_3")) return false;
+    MethodParamDefinition(b, l + 1);
+    return true;
+  }
+
+  /* ********************************************************** */
+  // MethodParamDefinition?
+  public static boolean MethodParamList(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "MethodParamList")) return false;
+    Marker m = enter_section_(b, l, _NONE_, METHOD_PARAM_LIST, "<method param list>");
+    MethodParamDefinition(b, l + 1);
     exit_section_(b, l, m, true, false, null);
     return true;
   }
@@ -1075,41 +1132,6 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "variable_definition_2_0_0")) return false;
     consumeToken(b, ",");
     return true;
-  }
-
-  /* ********************************************************** */
-  // variable linebreak | variable variable_list
-  public static boolean variable_list(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "variable_list")) return false;
-    if (!nextTokenIs(b, IDENTIFIER)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = variable_list_0(b, l + 1);
-    if (!r) r = variable_list_1(b, l + 1);
-    exit_section_(b, m, VARIABLE_LIST, r);
-    return r;
-  }
-
-  // variable linebreak
-  private static boolean variable_list_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "variable_list_0")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = variable(b, l + 1);
-    r = r && consumeToken(b, LINEBREAK);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // variable variable_list
-  private static boolean variable_list_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "variable_list_1")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = variable(b, l + 1);
-    r = r && variable_list(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
   }
 
   /* ********************************************************** */

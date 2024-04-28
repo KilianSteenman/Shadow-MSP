@@ -27,7 +27,6 @@ WHITE_SPACE=[ \t]+
 NEW_LINE=[\n\r|\n|\r]+
 NUMBER=-?[0-9]+(\.[0-9]*)?
 COMMENT="//".*
-OPCODE=[A-Z_]+:
 GOSUB_IDENTIFIER=[a-zA-Z0-9_.]+:
 IDENTIFIER=\$?[a-zA-Z0-9_.@&]+
 COMMENT_BLOCK="/*" !([^]* "*/" [^]*) ("*/")?
@@ -45,7 +44,6 @@ COMMENT_BLOCK="/*" !([^]* "*/" [^]*) ("*/")?
   "ELSE"                   { return ELSE; }
   "AND"                    { return AND; }
   "OR"                     { return OR; }
-  "END"                    { return END; }
   "RETURN"                 { return RETURN; }
   "SET"                    { return SET; }
   "NOT"                    { return NOT; }
@@ -73,7 +71,6 @@ COMMENT_BLOCK="/*" !([^]* "*/" [^]*) ("*/")?
   {NUMBER}                 { return NUMBER; }
   {COMMENT}                { return COMMENT; }
   {COMMENT_BLOCK}          { return COMMENT; }
-  {OPCODE}                 { return OPCODE; }
   {GOSUB_IDENTIFIER}       { return GOSUB_IDENTIFIER; }
   {IDENTIFIER}             { return IDENTIFIER; }
 

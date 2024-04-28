@@ -32,7 +32,6 @@
     ELSE = 'ELSE'
     AND = 'AND'
     OR = 'OR'
-    END = 'END'
     RETURN = 'RETURN'
     SET = 'SET'
     NOT = 'NOT'
@@ -42,7 +41,6 @@
     FALSE = 'FALSE'
     GOSUB = 'GOSUB'
 
-    OPCODE='regexp:[A-Z_]+'
     GOSUB_IDENTIFIER='regexp:[a-zA-Z0-9_.]+:'
     IDENTIFIER='regexp:\$?[a-zA-Z0-9_.@&]+'
 
@@ -86,7 +84,6 @@ method_call ::= method_name MethodParamList line_break
 method_name ::= IDENTIFIER
 
 variable_definition ::= Type variable (','? variable)* line_break
-variable_list ::= variable linebreak | variable variable_list
 variable ::= IDENTIFIER
 line_break ::= NEW_LINE
 
@@ -123,7 +120,8 @@ LocalScope ::= '{' Expression* '}'
 VariableAssignment ::= VariableReference EQUALS Param
 MathOperation ::= VariableReference MathOperator EQUALS Param
 
-MethodParamList ::= Param*
+MethodParamList ::= MethodParamDefinition?
+MethodParamDefinition ::= Param MethodParamDefinition? | '(' Param* ')' MethodParamDefinition?
 MethodParam ::= Param
 
 SubroutineCall ::= GOSUB SubroutineReference

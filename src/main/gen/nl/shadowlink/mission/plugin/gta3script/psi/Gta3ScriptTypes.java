@@ -33,6 +33,7 @@ public interface Gta3ScriptTypes {
   IElementType METHOD_CALL = new Gta3ScriptElementType("METHOD_CALL");
   IElementType METHOD_NAME = new Gta3ScriptElementType("METHOD_NAME");
   IElementType METHOD_PARAM = new Gta3ScriptElementType("METHOD_PARAM");
+  IElementType METHOD_PARAM_DEFINITION = new Gta3ScriptElementType("METHOD_PARAM_DEFINITION");
   IElementType METHOD_PARAM_LIST = new Gta3ScriptElementType("METHOD_PARAM_LIST");
   IElementType MISSION_BLOCK = new Gta3ScriptElementType("MISSION_BLOCK");
   IElementType OR_CONDITION = new Gta3ScriptElementType("OR_CONDITION");
@@ -48,7 +49,6 @@ public interface Gta3ScriptTypes {
   IElementType VARIABLE_DEFINITION = new Gta3ScriptElementType("VARIABLE_DEFINITION");
   IElementType VARIABLE_IDENTIFIER = new Gta3ScriptElementType("VARIABLE_IDENTIFIER");
   IElementType VARIABLE_IDENTIFIER_LIST = new Gta3ScriptElementType("VARIABLE_IDENTIFIER_LIST");
-  IElementType VARIABLE_LIST = new Gta3ScriptElementType("VARIABLE_LIST");
   IElementType VARIABLE_REFERENCE = new Gta3ScriptElementType("VARIABLE_REFERENCE");
   IElementType WHILE_EXPRESSION = new Gta3ScriptElementType("WHILE_EXPRESSION");
 
@@ -56,7 +56,6 @@ public interface Gta3ScriptTypes {
   IElementType COMMENT = new Gta3ScriptTokenType("COMMENT");
   IElementType COMMENTBLOCK = new Gta3ScriptTokenType("COMMENTBLOCK");
   IElementType ELSE = new Gta3ScriptTokenType("ELSE");
-  IElementType END = new Gta3ScriptTokenType("END");
   IElementType END_IF = new Gta3ScriptTokenType("ENDIF");
   IElementType END_WHILE = new Gta3ScriptTokenType("ENDWHILE");
   IElementType EQUALS = new Gta3ScriptTokenType("=");
@@ -65,7 +64,6 @@ public interface Gta3ScriptTypes {
   IElementType GOSUB_IDENTIFIER = new Gta3ScriptTokenType("GOSUB_IDENTIFIER");
   IElementType IDENTIFIER = new Gta3ScriptTokenType("IDENTIFIER");
   IElementType IF = new Gta3ScriptTokenType("IF");
-  IElementType LINEBREAK = new Gta3ScriptTokenType("linebreak");
   IElementType MATHOPERATOR = new Gta3ScriptTokenType("MathOperator");
   IElementType METHODCALL = new Gta3ScriptTokenType("MethodCall");
   IElementType MISSION_END = new Gta3ScriptTokenType("MISSION_END");
@@ -75,7 +73,6 @@ public interface Gta3ScriptTypes {
   IElementType NUMBER = new Gta3ScriptTokenType("NUMBER");
   IElementType OFF = new Gta3ScriptTokenType("OFF");
   IElementType ON = new Gta3ScriptTokenType("ON");
-  IElementType OPCODE = new Gta3ScriptTokenType("OPCODE");
   IElementType OP_DIVISION = new Gta3ScriptTokenType("/");
   IElementType OP_GREATER_THAN = new Gta3ScriptTokenType(">");
   IElementType OP_GREATER_THAN_OR_EQUAL = new Gta3ScriptTokenType(">=");
@@ -174,6 +171,9 @@ public interface Gta3ScriptTypes {
       else if (type == METHOD_PARAM) {
         return new Gta3ScriptMethodParamImpl(node);
       }
+      else if (type == METHOD_PARAM_DEFINITION) {
+        return new Gta3ScriptMethodParamDefinitionImpl(node);
+      }
       else if (type == METHOD_PARAM_LIST) {
         return new Gta3ScriptMethodParamListImpl(node);
       }
@@ -218,9 +218,6 @@ public interface Gta3ScriptTypes {
       }
       else if (type == VARIABLE_IDENTIFIER_LIST) {
         return new Gta3ScriptVariableIdentifierListImpl(node);
-      }
-      else if (type == VARIABLE_LIST) {
-        return new Gta3ScriptVariableListImpl(node);
       }
       else if (type == VARIABLE_REFERENCE) {
         return new Gta3ScriptVariableReferenceImpl(node);

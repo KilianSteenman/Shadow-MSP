@@ -27,6 +27,10 @@ public class Gta3ScriptVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitMethodParamDefinition(@NotNull Gta3ScriptMethodParamDefinition o) {
+    visitPsiElement(o);
+  }
+
   public void visitMethodParamList(@NotNull Gta3ScriptMethodParamList o) {
     visitPsiElement(o);
   }
@@ -168,10 +172,6 @@ public class Gta3ScriptVisitor extends PsiElementVisitor {
   }
 
   public void visitVariableDefinition(@NotNull Gta3ScriptVariableDefinition o) {
-    visitPsiElement(o);
-  }
-
-  public void visitVariableList(@NotNull Gta3ScriptVariableList o) {
     visitPsiElement(o);
   }
 

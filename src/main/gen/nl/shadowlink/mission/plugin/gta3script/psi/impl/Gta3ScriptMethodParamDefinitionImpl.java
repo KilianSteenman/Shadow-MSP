@@ -11,14 +11,14 @@ import static nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import nl.shadowlink.mission.plugin.gta3script.psi.*;
 
-public class Gta3ScriptVariableListImpl extends ASTWrapperPsiElement implements Gta3ScriptVariableList {
+public class Gta3ScriptMethodParamDefinitionImpl extends ASTWrapperPsiElement implements Gta3ScriptMethodParamDefinition {
 
-  public Gta3ScriptVariableListImpl(@NotNull ASTNode node) {
+  public Gta3ScriptMethodParamDefinitionImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull Gta3ScriptVisitor visitor) {
-    visitor.visitVariableList(this);
+    visitor.visitMethodParamDefinition(this);
   }
 
   @Override
@@ -28,15 +28,15 @@ public class Gta3ScriptVariableListImpl extends ASTWrapperPsiElement implements 
   }
 
   @Override
-  @NotNull
-  public Gta3ScriptVariable getVariable() {
-    return findNotNullChildByClass(Gta3ScriptVariable.class);
+  @Nullable
+  public Gta3ScriptMethodParamDefinition getMethodParamDefinition() {
+    return findChildByClass(Gta3ScriptMethodParamDefinition.class);
   }
 
   @Override
-  @Nullable
-  public Gta3ScriptVariableList getVariableList() {
-    return findChildByClass(Gta3ScriptVariableList.class);
+  @NotNull
+  public List<Gta3ScriptParam> getParamList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, Gta3ScriptParam.class);
   }
 
 }
