@@ -5,15 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface Gta3ScriptSubroutineDefinition extends PsiElement {
+public interface Gta3ScriptConditionList extends PsiElement {
 
   @NotNull
-  Gta3ScriptSubroutineBody getSubroutineBody();
+  List<Gta3ScriptAndCondition> getAndConditionList();
 
   @NotNull
-  Gta3ScriptSubroutineLabel getSubroutineLabel();
-
-  @NotNull
-  Gta3ScriptSubroutineReturn getSubroutineReturn();
+  Gta3ScriptCondition getCondition();
 
 }

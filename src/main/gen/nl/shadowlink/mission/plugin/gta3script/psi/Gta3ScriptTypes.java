@@ -14,6 +14,8 @@ public interface Gta3ScriptTypes {
   IElementType COMPARISON_OPERATOR = new Gta3ScriptElementType("COMPARISON_OPERATOR");
   IElementType CONDITION = new Gta3ScriptElementType("CONDITION");
   IElementType CONDITIONAL_STATEMENT = new Gta3ScriptElementType("CONDITIONAL_STATEMENT");
+  IElementType CONDITION_BODY = new Gta3ScriptElementType("CONDITION_BODY");
+  IElementType CONDITION_LIST = new Gta3ScriptElementType("CONDITION_LIST");
   IElementType EXPRESSION = new Gta3ScriptElementType("EXPRESSION");
   IElementType GXT_REFERENCE = new Gta3ScriptElementType("GXT_REFERENCE");
   IElementType IF_EXPRESSION = new Gta3ScriptElementType("IF_EXPRESSION");
@@ -28,6 +30,7 @@ public interface Gta3ScriptTypes {
   IElementType MISSION_BLOCK = new Gta3ScriptElementType("MISSION_BLOCK");
   IElementType PARAM = new Gta3ScriptElementType("PARAM");
   IElementType SCRIPT_FILE = new Gta3ScriptElementType("SCRIPT_FILE");
+  IElementType SUBROUTINE_BODY = new Gta3ScriptElementType("SUBROUTINE_BODY");
   IElementType SUBROUTINE_CALL = new Gta3ScriptElementType("SUBROUTINE_CALL");
   IElementType SUBROUTINE_DEFINITION = new Gta3ScriptElementType("SUBROUTINE_DEFINITION");
   IElementType SUBROUTINE_LABEL = new Gta3ScriptElementType("SUBROUTINE_LABEL");
@@ -104,6 +107,12 @@ public interface Gta3ScriptTypes {
       else if (type == CONDITIONAL_STATEMENT) {
         return new Gta3ScriptConditionalStatementImpl(node);
       }
+      else if (type == CONDITION_BODY) {
+        return new Gta3ScriptConditionBodyImpl(node);
+      }
+      else if (type == CONDITION_LIST) {
+        return new Gta3ScriptConditionListImpl(node);
+      }
       else if (type == EXPRESSION) {
         return new Gta3ScriptExpressionImpl(node);
       }
@@ -145,6 +154,9 @@ public interface Gta3ScriptTypes {
       }
       else if (type == SCRIPT_FILE) {
         return new Gta3ScriptScriptFileImpl(node);
+      }
+      else if (type == SUBROUTINE_BODY) {
+        return new Gta3ScriptSubroutineBodyImpl(node);
       }
       else if (type == SUBROUTINE_CALL) {
         return new Gta3ScriptSubroutineCallImpl(node);

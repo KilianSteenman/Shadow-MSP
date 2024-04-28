@@ -65,8 +65,9 @@ mission_block ::= MISSION_START expression* MISSION_END
 subroutine_call ::= GOSUB subroutine_reference line_break
 subroutine_reference ::= IDENTIFIER
 
-subroutine_definition ::= subroutine_label expression* subroutine_return
+subroutine_definition ::= subroutine_label subroutine_body subroutine_return
 subroutine_label ::= GOSUB_IDENTIFIER line_break
+subroutine_body ::= expression*
 subroutine_return ::= RETURN
 
 variable_assignment ::= variable '=' NUMBER line_break
@@ -79,9 +80,11 @@ variable_list ::= variable linebreak | variable variable_list
 variable ::= IDENTIFIER
 line_break ::= NEW_LINE
 
-if_expression ::= IF condition and_condition* expression* END_IF line_break
+if_expression ::= IF condition_list condition_body END_IF line_break
 while_expression ::= WHILE condition and_condition* expression* END_WHILE line_break
 and_condition ::= AND condition
+condition_list ::= condition and_condition*
+condition_body ::= expression*
 condition ::= NOT? (method_call | comparison)
 comparison ::= Param ComparisonOperator Param line_break
 

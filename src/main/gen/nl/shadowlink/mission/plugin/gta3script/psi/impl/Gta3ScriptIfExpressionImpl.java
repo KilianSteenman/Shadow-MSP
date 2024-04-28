@@ -29,20 +29,14 @@ public class Gta3ScriptIfExpressionImpl extends ASTWrapperPsiElement implements 
 
   @Override
   @NotNull
-  public List<Gta3ScriptAndCondition> getAndConditionList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, Gta3ScriptAndCondition.class);
+  public Gta3ScriptConditionBody getConditionBody() {
+    return findNotNullChildByClass(Gta3ScriptConditionBody.class);
   }
 
   @Override
   @NotNull
-  public Gta3ScriptCondition getCondition() {
-    return findNotNullChildByClass(Gta3ScriptCondition.class);
-  }
-
-  @Override
-  @NotNull
-  public List<Gta3ScriptExpression> getExpressionList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, Gta3ScriptExpression.class);
+  public Gta3ScriptConditionList getConditionList() {
+    return findNotNullChildByClass(Gta3ScriptConditionList.class);
   }
 
   @Override

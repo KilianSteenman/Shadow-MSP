@@ -599,6 +599,43 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // expression*
+  public static boolean condition_body(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "condition_body")) return false;
+    Marker m = enter_section_(b, l, _NONE_, CONDITION_BODY, "<condition body>");
+    while (true) {
+      int c = current_position_(b);
+      if (!expression(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "condition_body", c)) break;
+    }
+    exit_section_(b, l, m, true, false, null);
+    return true;
+  }
+
+  /* ********************************************************** */
+  // condition and_condition*
+  public static boolean condition_list(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "condition_list")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, CONDITION_LIST, "<condition list>");
+    r = condition(b, l + 1);
+    r = r && condition_list_1(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // and_condition*
+  private static boolean condition_list_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "condition_list_1")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!and_condition(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "condition_list_1", c)) break;
+    }
+    return true;
+  }
+
+  /* ********************************************************** */
   // line_break | variable_definition | variable_assignment | subroutine_definition | subroutine_call | method_call | mission_block | if_expression | while_expression
   public static boolean expression(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "expression")) return false;
@@ -618,42 +655,19 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // IF condition and_condition* expression* END_IF line_break
+  // IF condition_list condition_body END_IF line_break
   public static boolean if_expression(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "if_expression")) return false;
     if (!nextTokenIs(b, IF)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, IF);
-    r = r && condition(b, l + 1);
-    r = r && if_expression_2(b, l + 1);
-    r = r && if_expression_3(b, l + 1);
+    r = r && condition_list(b, l + 1);
+    r = r && condition_body(b, l + 1);
     r = r && consumeToken(b, END_IF);
     r = r && line_break(b, l + 1);
     exit_section_(b, m, IF_EXPRESSION, r);
     return r;
-  }
-
-  // and_condition*
-  private static boolean if_expression_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "if_expression_2")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!and_condition(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "if_expression_2", c)) break;
-    }
-    return true;
-  }
-
-  // expression*
-  private static boolean if_expression_3(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "if_expression_3")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!expression(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "if_expression_3", c)) break;
-    }
-    return true;
   }
 
   /* ********************************************************** */
@@ -732,6 +746,20 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // expression*
+  public static boolean subroutine_body(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "subroutine_body")) return false;
+    Marker m = enter_section_(b, l, _NONE_, SUBROUTINE_BODY, "<subroutine body>");
+    while (true) {
+      int c = current_position_(b);
+      if (!expression(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "subroutine_body", c)) break;
+    }
+    exit_section_(b, l, m, true, false, null);
+    return true;
+  }
+
+  /* ********************************************************** */
   // GOSUB subroutine_reference line_break
   public static boolean subroutine_call(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "subroutine_call")) return false;
@@ -746,28 +774,17 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // subroutine_label expression* subroutine_return
+  // subroutine_label subroutine_body subroutine_return
   public static boolean subroutine_definition(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "subroutine_definition")) return false;
     if (!nextTokenIs(b, GOSUB_IDENTIFIER)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = subroutine_label(b, l + 1);
-    r = r && subroutine_definition_1(b, l + 1);
+    r = r && subroutine_body(b, l + 1);
     r = r && subroutine_return(b, l + 1);
     exit_section_(b, m, SUBROUTINE_DEFINITION, r);
     return r;
-  }
-
-  // expression*
-  private static boolean subroutine_definition_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "subroutine_definition_1")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!expression(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "subroutine_definition_1", c)) break;
-    }
-    return true;
   }
 
   /* ********************************************************** */

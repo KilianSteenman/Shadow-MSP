@@ -11,14 +11,14 @@ import static nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import nl.shadowlink.mission.plugin.gta3script.psi.*;
 
-public class Gta3ScriptSubroutineDefinitionImpl extends ASTWrapperPsiElement implements Gta3ScriptSubroutineDefinition {
+public class Gta3ScriptConditionListImpl extends ASTWrapperPsiElement implements Gta3ScriptConditionList {
 
-  public Gta3ScriptSubroutineDefinitionImpl(@NotNull ASTNode node) {
+  public Gta3ScriptConditionListImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull Gta3ScriptVisitor visitor) {
-    visitor.visitSubroutineDefinition(this);
+    visitor.visitConditionList(this);
   }
 
   @Override
@@ -29,20 +29,14 @@ public class Gta3ScriptSubroutineDefinitionImpl extends ASTWrapperPsiElement imp
 
   @Override
   @NotNull
-  public Gta3ScriptSubroutineBody getSubroutineBody() {
-    return findNotNullChildByClass(Gta3ScriptSubroutineBody.class);
+  public List<Gta3ScriptAndCondition> getAndConditionList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, Gta3ScriptAndCondition.class);
   }
 
   @Override
   @NotNull
-  public Gta3ScriptSubroutineLabel getSubroutineLabel() {
-    return findNotNullChildByClass(Gta3ScriptSubroutineLabel.class);
-  }
-
-  @Override
-  @NotNull
-  public Gta3ScriptSubroutineReturn getSubroutineReturn() {
-    return findNotNullChildByClass(Gta3ScriptSubroutineReturn.class);
+  public Gta3ScriptCondition getCondition() {
+    return findNotNullChildByClass(Gta3ScriptCondition.class);
   }
 
 }

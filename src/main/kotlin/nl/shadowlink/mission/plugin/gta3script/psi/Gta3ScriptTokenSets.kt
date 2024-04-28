@@ -17,6 +17,7 @@ object Gta3ScriptTokenSets {
         Gta3ScriptTypes.END_WHILE,
         Gta3ScriptTypes.MISSION_START,
         Gta3ScriptTypes.MISSION_END,
-        Gta3ScriptTypes.RETURN
+        Gta3ScriptTypes.RETURN,
+        Gta3ScriptTypes.NOT,
     )
 }
