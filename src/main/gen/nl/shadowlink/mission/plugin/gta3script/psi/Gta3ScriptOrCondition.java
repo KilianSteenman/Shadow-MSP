@@ -5,18 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface Gta3ScriptWhileExpression extends PsiElement {
+public interface Gta3ScriptOrCondition extends PsiElement {
 
   @NotNull
   Gta3ScriptCondition getCondition();
-
-  @NotNull
-  Gta3ScriptConditionList getConditionList();
-
-  @NotNull
-  List<Gta3ScriptExpression> getExpressionList();
-
-  @NotNull
-  Gta3ScriptLineBreak getLineBreak();
 
 }

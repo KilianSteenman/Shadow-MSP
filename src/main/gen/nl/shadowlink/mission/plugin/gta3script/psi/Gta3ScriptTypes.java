@@ -28,6 +28,7 @@ public interface Gta3ScriptTypes {
   IElementType METHOD_PARAM = new Gta3ScriptElementType("METHOD_PARAM");
   IElementType METHOD_PARAM_LIST = new Gta3ScriptElementType("METHOD_PARAM_LIST");
   IElementType MISSION_BLOCK = new Gta3ScriptElementType("MISSION_BLOCK");
+  IElementType OR_CONDITION = new Gta3ScriptElementType("OR_CONDITION");
   IElementType PARAM = new Gta3ScriptElementType("PARAM");
   IElementType SCRIPT_FILE = new Gta3ScriptElementType("SCRIPT_FILE");
   IElementType SUBROUTINE_BODY = new Gta3ScriptElementType("SUBROUTINE_BODY");
@@ -77,6 +78,7 @@ public interface Gta3ScriptTypes {
   IElementType OP_PLUS = new Gta3ScriptTokenType("+");
   IElementType OP_PLUS_PLUS = new Gta3ScriptTokenType("++");
   IElementType OP_TIMES = new Gta3ScriptTokenType("*");
+  IElementType OR = new Gta3ScriptTokenType("OR");
   IElementType RETURN = new Gta3ScriptTokenType("RETURN");
   IElementType SET = new Gta3ScriptTokenType("SET");
   IElementType SUBROUTINE = new Gta3ScriptTokenType("SUBROUTINE");
@@ -148,6 +150,9 @@ public interface Gta3ScriptTypes {
       }
       else if (type == MISSION_BLOCK) {
         return new Gta3ScriptMissionBlockImpl(node);
+      }
+      else if (type == OR_CONDITION) {
+        return new Gta3ScriptOrConditionImpl(node);
       }
       else if (type == PARAM) {
         return new Gta3ScriptParamImpl(node);

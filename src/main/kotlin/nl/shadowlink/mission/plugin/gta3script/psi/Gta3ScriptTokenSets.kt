@@ -11,6 +11,7 @@ object Gta3ScriptTokenSets {
     val KEYWORDS: TokenSet = TokenSet.create(
         Gta3ScriptTypes.IF,
         Gta3ScriptTypes.AND,
+        Gta3ScriptTypes.OR,
         Gta3ScriptTypes.ELSE,
         Gta3ScriptTypes.END_IF,
         Gta3ScriptTypes.WHILE,

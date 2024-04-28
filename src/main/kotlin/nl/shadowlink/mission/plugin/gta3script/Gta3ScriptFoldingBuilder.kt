@@ -73,7 +73,7 @@ internal class Gta3ScriptFoldingBuilder : FoldingBuilderEx(), DumbAware {
     private fun PsiElement.toConditionalFoldingDescriptor(): FoldingDescriptor {
         val conditionBody = childrenOfType<Gta3ScriptConditionBodyImpl>().first()
         val startOffset = conditionBody.startOffset - 2
-        val endOffset = conditionBody.endOffset - 1
+        val endOffset = conditionBody.endOffset
 
         return FoldingDescriptor(
             this.node,

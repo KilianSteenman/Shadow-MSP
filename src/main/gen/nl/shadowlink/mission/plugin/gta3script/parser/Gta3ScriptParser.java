@@ -613,7 +613,7 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // condition and_condition*
+  // condition (and_condition | or_condition)*
   public static boolean condition_list(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "condition_list")) return false;
     boolean r;
@@ -624,15 +624,24 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // and_condition*
+  // (and_condition | or_condition)*
   private static boolean condition_list_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "condition_list_1")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!and_condition(b, l + 1)) break;
+      if (!condition_list_1_0(b, l + 1)) break;
       if (!empty_element_parsed_guard_(b, "condition_list_1", c)) break;
     }
     return true;
+  }
+
+  // and_condition | or_condition
+  private static boolean condition_list_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "condition_list_1_0")) return false;
+    boolean r;
+    r = and_condition(b, l + 1);
+    if (!r) r = or_condition(b, l + 1);
+    return r;
   }
 
   /* ********************************************************** */
@@ -731,6 +740,19 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
       if (!empty_element_parsed_guard_(b, "mission_block_1", c)) break;
     }
     return true;
+  }
+
+  /* ********************************************************** */
+  // OR condition
+  public static boolean or_condition(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "or_condition")) return false;
+    if (!nextTokenIs(b, OR)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, OR);
+    r = r && condition(b, l + 1);
+    exit_section_(b, m, OR_CONDITION, r);
+    return r;
   }
 
   /* ********************************************************** */
@@ -930,7 +952,7 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // WHILE condition and_condition* expression* END_WHILE line_break
+  // WHILE condition condition_list expression* END_WHILE line_break
   public static boolean while_expression(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "while_expression")) return false;
     if (!nextTokenIs(b, WHILE)) return false;
@@ -938,23 +960,12 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = consumeToken(b, WHILE);
     r = r && condition(b, l + 1);
-    r = r && while_expression_2(b, l + 1);
+    r = r && condition_list(b, l + 1);
     r = r && while_expression_3(b, l + 1);
     r = r && consumeToken(b, END_WHILE);
     r = r && line_break(b, l + 1);
     exit_section_(b, m, WHILE_EXPRESSION, r);
     return r;
-  }
-
-  // and_condition*
-  private static boolean while_expression_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "while_expression_2")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!and_condition(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "while_expression_2", c)) break;
-    }
-    return true;
   }
 
   // expression*

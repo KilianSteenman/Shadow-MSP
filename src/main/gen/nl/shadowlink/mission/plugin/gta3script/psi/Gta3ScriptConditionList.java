@@ -13,4 +13,7 @@ public interface Gta3ScriptConditionList extends PsiElement {
   @NotNull
   Gta3ScriptCondition getCondition();
 
+  @NotNull
+  List<Gta3ScriptOrCondition> getOrConditionList();
+
 }

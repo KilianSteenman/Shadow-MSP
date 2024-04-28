@@ -31,6 +31,7 @@
     END_IF = 'ENDIF'
     ELSE = 'ELSE'
     AND = 'AND'
+    OR = 'OR'
     END = 'END'
     RETURN = 'RETURN'
     SET = 'SET'
@@ -81,9 +82,10 @@ variable ::= IDENTIFIER
 line_break ::= NEW_LINE
 
 if_expression ::= IF condition_list condition_body END_IF line_break
-while_expression ::= WHILE condition and_condition* expression* END_WHILE line_break
+while_expression ::= WHILE condition condition_list expression* END_WHILE line_break
 and_condition ::= AND condition
-condition_list ::= condition and_condition*
+or_condition ::= OR condition
+condition_list ::= condition (and_condition | or_condition)*
 condition_body ::= expression*
 condition ::= NOT? (method_call | comparison)
 comparison ::= Param ComparisonOperator Param line_break

@@ -111,6 +111,10 @@ public class Gta3ScriptVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitOrCondition(@NotNull Gta3ScriptOrCondition o) {
+    visitPsiElement(o);
+  }
+
   public void visitSubroutineBody(@NotNull Gta3ScriptSubroutineBody o) {
     visitPsiElement(o);
   }

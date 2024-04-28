@@ -44,6 +44,7 @@ COMMENT_BLOCK="/*" !([^]* "*/" [^]*) ("*/")?
   "ENDIF"                  { return END_IF; }
   "ELSE"                   { return ELSE; }
   "AND"                    { return AND; }
+  "OR"                     { return OR; }
   "END"                    { return END; }
   "RETURN"                 { return RETURN; }
   "SET"                    { return SET; }
