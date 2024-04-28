@@ -14,7 +14,6 @@ public interface Gta3ScriptTypes {
   IElementType COMPARISON = new Gta3ScriptElementType("COMPARISON");
   IElementType COMPARISON_OPERATOR = new Gta3ScriptElementType("COMPARISON_OPERATOR");
   IElementType CONDITION = new Gta3ScriptElementType("CONDITION");
-  IElementType CONDITIONAL_STATEMENT = new Gta3ScriptElementType("CONDITIONAL_STATEMENT");
   IElementType CONDITION_BODY = new Gta3ScriptElementType("CONDITION_BODY");
   IElementType CONDITION_LIST = new Gta3ScriptElementType("CONDITION_LIST");
   IElementType EXPRESSION = new Gta3ScriptElementType("EXPRESSION");
@@ -32,23 +31,17 @@ public interface Gta3ScriptTypes {
   IElementType MATH_OPERATOR = new Gta3ScriptElementType("MATH_OPERATOR");
   IElementType METHOD_CALL = new Gta3ScriptElementType("METHOD_CALL");
   IElementType METHOD_NAME = new Gta3ScriptElementType("METHOD_NAME");
-  IElementType METHOD_PARAM = new Gta3ScriptElementType("METHOD_PARAM");
   IElementType METHOD_PARAM_DEFINITION = new Gta3ScriptElementType("METHOD_PARAM_DEFINITION");
   IElementType METHOD_PARAM_LIST = new Gta3ScriptElementType("METHOD_PARAM_LIST");
   IElementType MISSION_BLOCK = new Gta3ScriptElementType("MISSION_BLOCK");
   IElementType OR_CONDITION = new Gta3ScriptElementType("OR_CONDITION");
   IElementType PARAM = new Gta3ScriptElementType("PARAM");
-  IElementType SCRIPT_FILE = new Gta3ScriptElementType("SCRIPT_FILE");
   IElementType SUBROUTINE_CALL = new Gta3ScriptElementType("SUBROUTINE_CALL");
-  IElementType SUBROUTINE_DEFINITION = new Gta3ScriptElementType("SUBROUTINE_DEFINITION");
-  IElementType SUBROUTINE_LABEL = new Gta3ScriptElementType("SUBROUTINE_LABEL");
   IElementType SUBROUTINE_REFERENCE = new Gta3ScriptElementType("SUBROUTINE_REFERENCE");
   IElementType TYPE = new Gta3ScriptElementType("TYPE");
   IElementType VARIABLE = new Gta3ScriptElementType("VARIABLE");
   IElementType VARIABLE_ASSIGNMENT = new Gta3ScriptElementType("VARIABLE_ASSIGNMENT");
   IElementType VARIABLE_DEFINITION = new Gta3ScriptElementType("VARIABLE_DEFINITION");
-  IElementType VARIABLE_IDENTIFIER = new Gta3ScriptElementType("VARIABLE_IDENTIFIER");
-  IElementType VARIABLE_IDENTIFIER_LIST = new Gta3ScriptElementType("VARIABLE_IDENTIFIER_LIST");
   IElementType VARIABLE_REFERENCE = new Gta3ScriptElementType("VARIABLE_REFERENCE");
   IElementType WHILE_EXPRESSION = new Gta3ScriptElementType("WHILE_EXPRESSION");
 
@@ -64,8 +57,6 @@ public interface Gta3ScriptTypes {
   IElementType GOSUB_IDENTIFIER = new Gta3ScriptTokenType("GOSUB_IDENTIFIER");
   IElementType IDENTIFIER = new Gta3ScriptTokenType("IDENTIFIER");
   IElementType IF = new Gta3ScriptTokenType("IF");
-  IElementType MATHOPERATOR = new Gta3ScriptTokenType("MathOperator");
-  IElementType METHODCALL = new Gta3ScriptTokenType("MethodCall");
   IElementType MISSION_END = new Gta3ScriptTokenType("MISSION_END");
   IElementType MISSION_START = new Gta3ScriptTokenType("MISSION_START");
   IElementType NEW_LINE = new Gta3ScriptTokenType("NEW_LINE");
@@ -113,9 +104,6 @@ public interface Gta3ScriptTypes {
       }
       else if (type == CONDITION) {
         return new Gta3ScriptConditionImpl(node);
-      }
-      else if (type == CONDITIONAL_STATEMENT) {
-        return new Gta3ScriptConditionalStatementImpl(node);
       }
       else if (type == CONDITION_BODY) {
         return new Gta3ScriptConditionBodyImpl(node);
@@ -168,9 +156,6 @@ public interface Gta3ScriptTypes {
       else if (type == METHOD_NAME) {
         return new Gta3ScriptMethodNameImpl(node);
       }
-      else if (type == METHOD_PARAM) {
-        return new Gta3ScriptMethodParamImpl(node);
-      }
       else if (type == METHOD_PARAM_DEFINITION) {
         return new Gta3ScriptMethodParamDefinitionImpl(node);
       }
@@ -186,17 +171,8 @@ public interface Gta3ScriptTypes {
       else if (type == PARAM) {
         return new Gta3ScriptParamImpl(node);
       }
-      else if (type == SCRIPT_FILE) {
-        return new Gta3ScriptScriptFileImpl(node);
-      }
       else if (type == SUBROUTINE_CALL) {
         return new Gta3ScriptSubroutineCallImpl(node);
-      }
-      else if (type == SUBROUTINE_DEFINITION) {
-        return new Gta3ScriptSubroutineDefinitionImpl(node);
-      }
-      else if (type == SUBROUTINE_LABEL) {
-        return new Gta3ScriptSubroutineLabelImpl(node);
       }
       else if (type == SUBROUTINE_REFERENCE) {
         return new Gta3ScriptSubroutineReferenceImpl(node);
@@ -212,12 +188,6 @@ public interface Gta3ScriptTypes {
       }
       else if (type == VARIABLE_DEFINITION) {
         return new Gta3ScriptVariableDefinitionImpl(node);
-      }
-      else if (type == VARIABLE_IDENTIFIER) {
-        return new Gta3ScriptVariableIdentifierImpl(node);
-      }
-      else if (type == VARIABLE_IDENTIFIER_LIST) {
-        return new Gta3ScriptVariableIdentifierListImpl(node);
       }
       else if (type == VARIABLE_REFERENCE) {
         return new Gta3ScriptVariableReferenceImpl(node);

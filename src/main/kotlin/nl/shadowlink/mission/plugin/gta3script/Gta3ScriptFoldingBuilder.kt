@@ -16,7 +16,6 @@ import com.intellij.refactoring.suggested.startOffset
 import nl.shadowlink.mission.plugin.gta3script.psi.impl.Gta3ScriptConditionBodyImpl
 import nl.shadowlink.mission.plugin.gta3script.psi.impl.Gta3ScriptIfExpressionImpl
 import nl.shadowlink.mission.plugin.gta3script.psi.impl.Gta3ScriptMissionBlockImpl
-import nl.shadowlink.mission.plugin.gta3script.psi.impl.Gta3ScriptSubroutineDefinitionImpl
 import nl.shadowlink.mission.plugin.gta3script.psi.impl.Gta3ScriptWhileExpressionImpl
 
 internal class Gta3ScriptFoldingBuilder : FoldingBuilderEx(), DumbAware {
@@ -26,7 +25,6 @@ internal class Gta3ScriptFoldingBuilder : FoldingBuilderEx(), DumbAware {
         Gta3ScriptMissionBlockImpl::class.java,
         Gta3ScriptWhileExpressionImpl::class.java,
         Gta3ScriptIfExpressionImpl::class.java,
-        Gta3ScriptSubroutineDefinitionImpl::class.java,
     )
 
     override fun buildFoldRegions(root: PsiElement, document: Document, quick: Boolean): Array<FoldingDescriptor> {
@@ -40,20 +38,8 @@ internal class Gta3ScriptFoldingBuilder : FoldingBuilderEx(), DumbAware {
         return when (this) {
             is Gta3ScriptWhileExpressionImpl -> this.toConditionalFoldingDescriptor()
             is Gta3ScriptIfExpressionImpl -> this.toConditionalFoldingDescriptor()
-            is Gta3ScriptSubroutineDefinitionImpl -> this.toFoldingDescriptor()
             else -> this.toDefaultFoldingDescriptor()
         }
-    }
-
-    private fun Gta3ScriptSubroutineDefinitionImpl.toFoldingDescriptor(): FoldingDescriptor {
-        return FoldingDescriptor(
-            this.node,
-            TextRange(
-                this.firstChild.endOffset - 1, // TODO: This feels dirty, but gets rid of the linebreak
-                this.lastChild.startOffset,
-            ),
-            FoldingGroup.newGroup("Subroutine")
-        )
     }
 
     private fun PsiElement.toDefaultFoldingDescriptor(): FoldingDescriptor {
@@ -87,7 +73,6 @@ internal class Gta3ScriptFoldingBuilder : FoldingBuilderEx(), DumbAware {
             is Gta3ScriptMissionBlockImpl -> "..."
             is Gta3ScriptWhileExpressionImpl -> "..."
             is Gta3ScriptIfExpressionImpl -> "..."
-            is Gta3ScriptSubroutineDefinitionImpl -> "..."
             is Gta3ScriptConditionBodyImpl -> "..."
             else -> error("Placeholder not defined for node $node")
         }

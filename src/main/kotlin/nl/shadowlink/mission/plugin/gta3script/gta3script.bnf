@@ -96,50 +96,15 @@ condition_body ::= expression*
 condition ::= NOT? (method_call | comparison)
 comparison ::= Param ComparisonOperator Param line_break
 
-ScriptFile ::= Expression* MissionBlock? Expression*
-
-MissionBlock ::= MISSION_START Expression* MISSION_END
-
-Expression ::= SubroutineDefinition | VariableDefinition | VariableAssignment | MethodCall | LocalScope | IfExpression | WhileExpression | MathOperation | SubroutineCall
-
-VariableDefinition ::= Type VariableIdentifierList
-VariableIdentifierList ::= VariableIdentifier VariableIdentifierList | VariableIdentifier ',' VariableIdentifierList | VariableIdentifier
-VariableIdentifier ::= IDENTIFIER
-
-SubroutineDefinition ::= SubroutineLabel ':' Expression* RETURN {
-    mixin="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptNamedElementImpl"
-    implements="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptNamedElement"
-    methods=[getNameIdentifier setName getName]
-}
-SubroutineLabel ::= IDENTIFIER
-
 Type ::= VAR_INT | VAR_FLOAT
-
-LocalScope ::= '{' Expression* '}'
-
-VariableAssignment ::= VariableReference EQUALS Param
-MathOperation ::= VariableReference MathOperator EQUALS Param
 
 MethodParamList ::= MethodParamDefinition?
 MethodParamDefinition ::= Param MethodParamDefinition? | '(' Param* ')' MethodParamDefinition?
-MethodParam ::= Param
-
-SubroutineCall ::= GOSUB SubroutineReference
-SubroutineReference ::= IDENTIFIER {
-    methods=[getReference]
-}
 VariableReference ::= IDENTIFIER {
     methods=[getReference]
 }
 
 Param ::= NUMBER | VariableReference | SUBROUTINE | Boolean | GxtReference
-
 GxtReference ::= '(' IDENTIFIER ')'
 Boolean ::= TRUE | FALSE | ON | OFF
 ComparisonOperator ::= OP_LESS_THAN | OP_GREATER_THAN | OP_GREATER_THAN_OR_EQUAL | OP_LESS_THAN_OR_EQUAL | EQUALS
-
-ConditionalStatement ::= NOT? (method_call | Comparison)
-Comparison ::= Param ComparisonOperator Param
-
-IfExpression ::= IF ConditionalStatement Expression* (ELSE Expression*)? END_IF
-WhileExpression ::= WHILE ConditionalStatement Expression* END_WHILE

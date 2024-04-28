@@ -15,15 +15,7 @@ public class Gta3ScriptVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitConditionalStatement(@NotNull Gta3ScriptConditionalStatement o) {
-    visitPsiElement(o);
-  }
-
   public void visitGxtReference(@NotNull Gta3ScriptGxtReference o) {
-    visitPsiElement(o);
-  }
-
-  public void visitMethodParam(@NotNull Gta3ScriptMethodParam o) {
     visitPsiElement(o);
   }
 
@@ -39,27 +31,7 @@ public class Gta3ScriptVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitScriptFile(@NotNull Gta3ScriptScriptFile o) {
-    visitPsiElement(o);
-  }
-
-  public void visitSubroutineDefinition(@NotNull Gta3ScriptSubroutineDefinition o) {
-    visitNamedElement(o);
-  }
-
-  public void visitSubroutineLabel(@NotNull Gta3ScriptSubroutineLabel o) {
-    visitPsiElement(o);
-  }
-
   public void visitType(@NotNull Gta3ScriptType o) {
-    visitPsiElement(o);
-  }
-
-  public void visitVariableIdentifier(@NotNull Gta3ScriptVariableIdentifier o) {
-    visitPsiElement(o);
-  }
-
-  public void visitVariableIdentifierList(@NotNull Gta3ScriptVariableIdentifierList o) {
     visitPsiElement(o);
   }
 
@@ -176,10 +148,6 @@ public class Gta3ScriptVisitor extends PsiElementVisitor {
   }
 
   public void visitWhileExpression(@NotNull Gta3ScriptWhileExpression o) {
-    visitPsiElement(o);
-  }
-
-  public void visitNamedElement(@NotNull Gta3ScriptNamedElement o) {
     visitPsiElement(o);
   }
 
