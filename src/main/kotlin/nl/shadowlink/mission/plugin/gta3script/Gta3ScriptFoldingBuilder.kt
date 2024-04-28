@@ -13,12 +13,9 @@ import com.intellij.psi.util.PsiTreeUtil
 import com.intellij.psi.util.childrenOfType
 import com.intellij.refactoring.suggested.endOffset
 import com.intellij.refactoring.suggested.startOffset
-import nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptConditionBody
 import nl.shadowlink.mission.plugin.gta3script.psi.impl.Gta3ScriptConditionBodyImpl
-import nl.shadowlink.mission.plugin.gta3script.psi.impl.Gta3ScriptConditionalStatementImpl
 import nl.shadowlink.mission.plugin.gta3script.psi.impl.Gta3ScriptIfExpressionImpl
 import nl.shadowlink.mission.plugin.gta3script.psi.impl.Gta3ScriptMissionBlockImpl
-import nl.shadowlink.mission.plugin.gta3script.psi.impl.Gta3ScriptSubroutineBodyImpl
 import nl.shadowlink.mission.plugin.gta3script.psi.impl.Gta3ScriptSubroutineDefinitionImpl
 import nl.shadowlink.mission.plugin.gta3script.psi.impl.Gta3ScriptWhileExpressionImpl
 

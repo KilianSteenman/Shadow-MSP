@@ -22,6 +22,8 @@ public interface Gta3ScriptTypes {
   IElementType IF_EXPRESSION = new Gta3ScriptElementType("IF_EXPRESSION");
   IElementType INCREMENT_POST_OPERATION = new Gta3ScriptElementType("INCREMENT_POST_OPERATION");
   IElementType INCREMENT_PRE_OPERATION = new Gta3ScriptElementType("INCREMENT_PRE_OPERATION");
+  IElementType LABEL_IDENTIFIER = new Gta3ScriptElementType("LABEL_IDENTIFIER");
+  IElementType LABEL_RETURN = new Gta3ScriptElementType("LABEL_RETURN");
   IElementType LINE_BREAK = new Gta3ScriptElementType("LINE_BREAK");
   IElementType LOCAL_SCOPE = new Gta3ScriptElementType("LOCAL_SCOPE");
   IElementType MATH_OPERATION = new Gta3ScriptElementType("MATH_OPERATION");
@@ -36,12 +38,10 @@ public interface Gta3ScriptTypes {
   IElementType OR_CONDITION = new Gta3ScriptElementType("OR_CONDITION");
   IElementType PARAM = new Gta3ScriptElementType("PARAM");
   IElementType SCRIPT_FILE = new Gta3ScriptElementType("SCRIPT_FILE");
-  IElementType SUBROUTINE_BODY = new Gta3ScriptElementType("SUBROUTINE_BODY");
   IElementType SUBROUTINE_CALL = new Gta3ScriptElementType("SUBROUTINE_CALL");
   IElementType SUBROUTINE_DEFINITION = new Gta3ScriptElementType("SUBROUTINE_DEFINITION");
   IElementType SUBROUTINE_LABEL = new Gta3ScriptElementType("SUBROUTINE_LABEL");
   IElementType SUBROUTINE_REFERENCE = new Gta3ScriptElementType("SUBROUTINE_REFERENCE");
-  IElementType SUBROUTINE_RETURN = new Gta3ScriptElementType("SUBROUTINE_RETURN");
   IElementType TYPE = new Gta3ScriptElementType("TYPE");
   IElementType VARIABLE = new Gta3ScriptElementType("VARIABLE");
   IElementType VARIABLE_ASSIGNMENT = new Gta3ScriptElementType("VARIABLE_ASSIGNMENT");
@@ -78,7 +78,9 @@ public interface Gta3ScriptTypes {
   IElementType OPCODE = new Gta3ScriptTokenType("OPCODE");
   IElementType OP_DIVISION = new Gta3ScriptTokenType("/");
   IElementType OP_GREATER_THAN = new Gta3ScriptTokenType(">");
+  IElementType OP_GREATER_THAN_OR_EQUAL = new Gta3ScriptTokenType(">=");
   IElementType OP_LESS_THAN = new Gta3ScriptTokenType("<");
+  IElementType OP_LESS_THAN_OR_EQUAL = new Gta3ScriptTokenType("<=");
   IElementType OP_MINUS = new Gta3ScriptTokenType("-");
   IElementType OP_MINUS_MINUS = new Gta3ScriptTokenType("--");
   IElementType OP_PLUS = new Gta3ScriptTokenType("+");
@@ -139,6 +141,12 @@ public interface Gta3ScriptTypes {
       else if (type == INCREMENT_PRE_OPERATION) {
         return new Gta3ScriptIncrementPreOperationImpl(node);
       }
+      else if (type == LABEL_IDENTIFIER) {
+        return new Gta3ScriptLabelIdentifierImpl(node);
+      }
+      else if (type == LABEL_RETURN) {
+        return new Gta3ScriptLabelReturnImpl(node);
+      }
       else if (type == LINE_BREAK) {
         return new Gta3ScriptLineBreakImpl(node);
       }
@@ -181,9 +189,6 @@ public interface Gta3ScriptTypes {
       else if (type == SCRIPT_FILE) {
         return new Gta3ScriptScriptFileImpl(node);
       }
-      else if (type == SUBROUTINE_BODY) {
-        return new Gta3ScriptSubroutineBodyImpl(node);
-      }
       else if (type == SUBROUTINE_CALL) {
         return new Gta3ScriptSubroutineCallImpl(node);
       }
@@ -195,9 +200,6 @@ public interface Gta3ScriptTypes {
       }
       else if (type == SUBROUTINE_REFERENCE) {
         return new Gta3ScriptSubroutineReferenceImpl(node);
-      }
-      else if (type == SUBROUTINE_RETURN) {
-        return new Gta3ScriptSubroutineReturnImpl(node);
       }
       else if (type == TYPE) {
         return new Gta3ScriptTypeImpl(node);

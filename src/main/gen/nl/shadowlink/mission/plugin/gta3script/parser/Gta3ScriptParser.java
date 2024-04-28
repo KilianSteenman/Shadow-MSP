@@ -63,15 +63,15 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // '<' | '>' | '>=' | '<=' | '='
+  // OP_LESS_THAN | OP_GREATER_THAN | OP_GREATER_THAN_OR_EQUAL | OP_LESS_THAN_OR_EQUAL | EQUALS
   public static boolean ComparisonOperator(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ComparisonOperator")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, COMPARISON_OPERATOR, "<comparison operator>");
     r = consumeToken(b, OP_LESS_THAN);
     if (!r) r = consumeToken(b, OP_GREATER_THAN);
-    if (!r) r = consumeToken(b, ">=");
-    if (!r) r = consumeToken(b, "<=");
+    if (!r) r = consumeToken(b, OP_GREATER_THAN_OR_EQUAL);
+    if (!r) r = consumeToken(b, OP_LESS_THAN_OR_EQUAL);
     if (!r) r = consumeToken(b, EQUALS);
     exit_section_(b, l, m, r, false, null);
     return r;
@@ -645,7 +645,7 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // line_break | variable_definition | variable_assignment | subroutine_definition | subroutine_call | method_call | mission_block | if_expression | while_expression | math_operation | subroutine_return | cast_assignment
+  // line_break | variable_definition | variable_assignment | label_identifier | subroutine_call | method_call | mission_block | if_expression | while_expression | math_operation | label_return | cast_assignment | local_scope | MISSION_END
   public static boolean expression(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "expression")) return false;
     boolean r;
@@ -653,15 +653,17 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
     r = line_break(b, l + 1);
     if (!r) r = variable_definition(b, l + 1);
     if (!r) r = variable_assignment(b, l + 1);
-    if (!r) r = subroutine_definition(b, l + 1);
+    if (!r) r = label_identifier(b, l + 1);
     if (!r) r = subroutine_call(b, l + 1);
     if (!r) r = method_call(b, l + 1);
     if (!r) r = mission_block(b, l + 1);
     if (!r) r = if_expression(b, l + 1);
     if (!r) r = while_expression(b, l + 1);
     if (!r) r = math_operation(b, l + 1);
-    if (!r) r = subroutine_return(b, l + 1);
+    if (!r) r = label_return(b, l + 1);
     if (!r) r = cast_assignment(b, l + 1);
+    if (!r) r = local_scope(b, l + 1);
+    if (!r) r = consumeToken(b, MISSION_END);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -748,6 +750,31 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // GOSUB_IDENTIFIER line_break
+  public static boolean label_identifier(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "label_identifier")) return false;
+    if (!nextTokenIs(b, GOSUB_IDENTIFIER)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, GOSUB_IDENTIFIER);
+    r = r && line_break(b, l + 1);
+    exit_section_(b, m, LABEL_IDENTIFIER, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // RETURN
+  public static boolean label_return(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "label_return")) return false;
+    if (!nextTokenIs(b, RETURN)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, RETURN);
+    exit_section_(b, m, LABEL_RETURN, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // NEW_LINE
   public static boolean line_break(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "line_break")) return false;
@@ -757,6 +784,30 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
     r = consumeToken(b, NEW_LINE);
     exit_section_(b, m, LINE_BREAK, r);
     return r;
+  }
+
+  /* ********************************************************** */
+  // '{' expression* '}'
+  public static boolean local_scope(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "local_scope")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, LOCAL_SCOPE, "<local scope>");
+    r = consumeToken(b, "{");
+    r = r && local_scope_1(b, l + 1);
+    r = r && consumeToken(b, "}");
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // expression*
+  private static boolean local_scope_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "local_scope_1")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!expression(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "local_scope_1", c)) break;
+    }
+    return true;
   }
 
   /* ********************************************************** */
@@ -871,7 +922,7 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // MISSION_START expression* MISSION_END
+  // MISSION_START expression*
   public static boolean mission_block(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "mission_block")) return false;
     if (!nextTokenIs(b, MISSION_START)) return false;
@@ -879,7 +930,6 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = consumeToken(b, MISSION_START);
     r = r && mission_block_1(b, l + 1);
-    r = r && consumeToken(b, MISSION_END);
     exit_section_(b, m, MISSION_BLOCK, r);
     return r;
   }
@@ -921,20 +971,6 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // expression*
-  public static boolean subroutine_body(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "subroutine_body")) return false;
-    Marker m = enter_section_(b, l, _NONE_, SUBROUTINE_BODY, "<subroutine body>");
-    while (true) {
-      int c = current_position_(b);
-      if (!expression(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "subroutine_body", c)) break;
-    }
-    exit_section_(b, l, m, true, false, null);
-    return true;
-  }
-
-  /* ********************************************************** */
   // GOSUB subroutine_reference line_break
   public static boolean subroutine_call(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "subroutine_call")) return false;
@@ -949,33 +985,6 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // subroutine_label subroutine_body subroutine_return
-  public static boolean subroutine_definition(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "subroutine_definition")) return false;
-    if (!nextTokenIs(b, GOSUB_IDENTIFIER)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = subroutine_label(b, l + 1);
-    r = r && subroutine_body(b, l + 1);
-    r = r && subroutine_return(b, l + 1);
-    exit_section_(b, m, SUBROUTINE_DEFINITION, r);
-    return r;
-  }
-
-  /* ********************************************************** */
-  // GOSUB_IDENTIFIER line_break
-  public static boolean subroutine_label(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "subroutine_label")) return false;
-    if (!nextTokenIs(b, GOSUB_IDENTIFIER)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, GOSUB_IDENTIFIER);
-    r = r && line_break(b, l + 1);
-    exit_section_(b, m, SUBROUTINE_LABEL, r);
-    return r;
-  }
-
-  /* ********************************************************** */
   // IDENTIFIER
   public static boolean subroutine_reference(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "subroutine_reference")) return false;
@@ -984,18 +993,6 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = consumeToken(b, IDENTIFIER);
     exit_section_(b, m, SUBROUTINE_REFERENCE, r);
-    return r;
-  }
-
-  /* ********************************************************** */
-  // RETURN
-  public static boolean subroutine_return(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "subroutine_return")) return false;
-    if (!nextTokenIs(b, RETURN)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, RETURN);
-    exit_section_(b, m, SUBROUTINE_RETURN, r);
     return r;
   }
 

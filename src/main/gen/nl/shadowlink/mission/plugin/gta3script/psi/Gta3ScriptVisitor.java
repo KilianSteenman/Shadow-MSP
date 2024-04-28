@@ -23,10 +23,6 @@ public class Gta3ScriptVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitLocalScope(@NotNull Gta3ScriptLocalScope o) {
-    visitPsiElement(o);
-  }
-
   public void visitMethodParam(@NotNull Gta3ScriptMethodParam o) {
     visitPsiElement(o);
   }
@@ -40,6 +36,14 @@ public class Gta3ScriptVisitor extends PsiElementVisitor {
   }
 
   public void visitScriptFile(@NotNull Gta3ScriptScriptFile o) {
+    visitPsiElement(o);
+  }
+
+  public void visitSubroutineDefinition(@NotNull Gta3ScriptSubroutineDefinition o) {
+    visitNamedElement(o);
+  }
+
+  public void visitSubroutineLabel(@NotNull Gta3ScriptSubroutineLabel o) {
     visitPsiElement(o);
   }
 
@@ -99,7 +103,19 @@ public class Gta3ScriptVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitLabelIdentifier(@NotNull Gta3ScriptLabelIdentifier o) {
+    visitPsiElement(o);
+  }
+
+  public void visitLabelReturn(@NotNull Gta3ScriptLabelReturn o) {
+    visitPsiElement(o);
+  }
+
   public void visitLineBreak(@NotNull Gta3ScriptLineBreak o) {
+    visitPsiElement(o);
+  }
+
+  public void visitLocalScope(@NotNull Gta3ScriptLocalScope o) {
     visitPsiElement(o);
   }
 
@@ -135,27 +151,11 @@ public class Gta3ScriptVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitSubroutineBody(@NotNull Gta3ScriptSubroutineBody o) {
-    visitPsiElement(o);
-  }
-
   public void visitSubroutineCall(@NotNull Gta3ScriptSubroutineCall o) {
     visitPsiElement(o);
   }
 
-  public void visitSubroutineDefinition(@NotNull Gta3ScriptSubroutineDefinition o) {
-    visitPsiElement(o);
-  }
-
-  public void visitSubroutineLabel(@NotNull Gta3ScriptSubroutineLabel o) {
-    visitPsiElement(o);
-  }
-
   public void visitSubroutineReference(@NotNull Gta3ScriptSubroutineReference o) {
-    visitPsiElement(o);
-  }
-
-  public void visitSubroutineReturn(@NotNull Gta3ScriptSubroutineReturn o) {
     visitPsiElement(o);
   }
 
@@ -176,6 +176,10 @@ public class Gta3ScriptVisitor extends PsiElementVisitor {
   }
 
   public void visitWhileExpression(@NotNull Gta3ScriptWhileExpression o) {
+    visitPsiElement(o);
+  }
+
+  public void visitNamedElement(@NotNull Gta3ScriptNamedElement o) {
     visitPsiElement(o);
   }
 

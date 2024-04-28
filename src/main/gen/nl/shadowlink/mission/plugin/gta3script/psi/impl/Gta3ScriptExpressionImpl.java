@@ -41,8 +41,26 @@ public class Gta3ScriptExpressionImpl extends ASTWrapperPsiElement implements Gt
 
   @Override
   @Nullable
+  public Gta3ScriptLabelIdentifier getLabelIdentifier() {
+    return findChildByClass(Gta3ScriptLabelIdentifier.class);
+  }
+
+  @Override
+  @Nullable
+  public Gta3ScriptLabelReturn getLabelReturn() {
+    return findChildByClass(Gta3ScriptLabelReturn.class);
+  }
+
+  @Override
+  @Nullable
   public Gta3ScriptLineBreak getLineBreak() {
     return findChildByClass(Gta3ScriptLineBreak.class);
+  }
+
+  @Override
+  @Nullable
+  public Gta3ScriptLocalScope getLocalScope() {
+    return findChildByClass(Gta3ScriptLocalScope.class);
   }
 
   @Override
@@ -67,18 +85,6 @@ public class Gta3ScriptExpressionImpl extends ASTWrapperPsiElement implements Gt
   @Nullable
   public Gta3ScriptSubroutineCall getSubroutineCall() {
     return findChildByClass(Gta3ScriptSubroutineCall.class);
-  }
-
-  @Override
-  @Nullable
-  public Gta3ScriptSubroutineDefinition getSubroutineDefinition() {
-    return findChildByClass(Gta3ScriptSubroutineDefinition.class);
-  }
-
-  @Override
-  @Nullable
-  public Gta3ScriptSubroutineReturn getSubroutineReturn() {
-    return findChildByClass(Gta3ScriptSubroutineReturn.class);
   }
 
   @Override

@@ -11,26 +11,20 @@ import static nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import nl.shadowlink.mission.plugin.gta3script.psi.*;
 
-public class Gta3ScriptSubroutineBodyImpl extends ASTWrapperPsiElement implements Gta3ScriptSubroutineBody {
+public class Gta3ScriptLabelReturnImpl extends ASTWrapperPsiElement implements Gta3ScriptLabelReturn {
 
-  public Gta3ScriptSubroutineBodyImpl(@NotNull ASTNode node) {
+  public Gta3ScriptLabelReturnImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull Gta3ScriptVisitor visitor) {
-    visitor.visitSubroutineBody(this);
+    visitor.visitLabelReturn(this);
   }
 
   @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof Gta3ScriptVisitor) accept((Gta3ScriptVisitor)visitor);
     else super.accept(visitor);
-  }
-
-  @Override
-  @NotNull
-  public List<Gta3ScriptExpression> getExpressionList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, Gta3ScriptExpression.class);
   }
 
 }

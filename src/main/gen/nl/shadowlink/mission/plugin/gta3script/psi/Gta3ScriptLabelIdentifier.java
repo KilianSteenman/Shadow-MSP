@@ -5,9 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface Gta3ScriptSubroutineLabel extends PsiElement {
+public interface Gta3ScriptLabelIdentifier extends PsiElement {
 
   @NotNull
-  PsiElement getIdentifier();
+  Gta3ScriptLineBreak getLineBreak();
+
+  @NotNull
+  PsiElement getGosubIdentifier();
 
 }

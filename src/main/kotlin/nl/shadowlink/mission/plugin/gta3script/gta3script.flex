@@ -28,8 +28,8 @@ NEW_LINE=[\n\r|\n|\r]+
 NUMBER=-?[0-9]+(\.[0-9]*)?
 COMMENT="//".*
 OPCODE=[A-Z_]+:
-GOSUB_IDENTIFIER=[a-z0-9_]+:
-IDENTIFIER=\$?[a-zA-Z0-9_.]+
+GOSUB_IDENTIFIER=[a-zA-Z0-9_.]+:
+IDENTIFIER=\$?[a-zA-Z0-9_.@&]+
 COMMENT_BLOCK="/*" !([^]* "*/" [^]*) ("*/")?
 
 %%
@@ -61,7 +61,9 @@ COMMENT_BLOCK="/*" !([^]* "*/" [^]*) ("*/")?
   "*"                      { return OP_TIMES; }
   "/"                      { return OP_DIVISION; }
   "<"                      { return OP_LESS_THAN; }
+  "<="                     { return OP_LESS_THAN_OR_EQUAL; }
   ">"                      { return OP_GREATER_THAN; }
+  ">="                     { return OP_GREATER_THAN_OR_EQUAL; }
   "="                      { return EQUALS; }
   "VAR_INT"                { return VAR_INT; }
   "VAR_FLOAT"              { return VAR_FLOAT; }

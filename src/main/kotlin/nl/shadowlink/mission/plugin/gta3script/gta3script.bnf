@@ -43,8 +43,8 @@
     GOSUB = 'GOSUB'
 
     OPCODE='regexp:[A-Z_]+'
-    GOSUB_IDENTIFIER='regexp:[a-z_0-9]+:'
-    IDENTIFIER='regexp:\$?[a-zA-Z0-9_.]+'
+    GOSUB_IDENTIFIER='regexp:[a-zA-Z0-9_.]+:'
+    IDENTIFIER='regexp:\$?[a-zA-Z0-9_.@&]+'
 
     OP_PLUS_PLUS='++'
     OP_PLUS='+'
@@ -53,23 +53,25 @@
     OP_TIMES='*'
     OP_DIVISION='/'
     OP_LESS_THAN='<'
+    OP_LESS_THAN_OR_EQUAL='<='
     OP_GREATER_THAN='>'
+    OP_GREATER_THAN_OR_EQUAL='>='
     EQUALS='='
   ]
 }
 
 root ::= expression*
-expression ::= (line_break | variable_definition | variable_assignment | subroutine_definition | subroutine_call | method_call | mission_block | if_expression | while_expression | math_operation | subroutine_return | cast_assignment)
+expression ::= (line_break | variable_definition | variable_assignment | label_identifier | subroutine_call | method_call | mission_block | if_expression | while_expression | math_operation | label_return | cast_assignment | local_scope | MISSION_END)
 
-mission_block ::= MISSION_START expression* MISSION_END
+mission_block ::= MISSION_START expression*
 
 subroutine_call ::= GOSUB subroutine_reference line_break
 subroutine_reference ::= IDENTIFIER
 
-subroutine_definition ::= subroutine_label subroutine_body subroutine_return
-subroutine_label ::= GOSUB_IDENTIFIER line_break
-subroutine_body ::= expression*
-subroutine_return ::= RETURN
+label_identifier ::= GOSUB_IDENTIFIER line_break
+label_return ::= RETURN
+
+local_scope ::= '{' expression* '}'
 
 variable_assignment ::= variable '=' (IDENTIFIER | NUMBER | Boolean) line_break
 math_operation ::= (increment_pre_operation | increment_post_operation | math_operation_assignment | math_operation_self_assignment)
@@ -136,7 +138,7 @@ Param ::= NUMBER | VariableReference | SUBROUTINE | Boolean | GxtReference
 
 GxtReference ::= '(' IDENTIFIER ')'
 Boolean ::= TRUE | FALSE | ON | OFF
-ComparisonOperator ::= '<' | '>' | '>=' | '<=' | '='
+ComparisonOperator ::= OP_LESS_THAN | OP_GREATER_THAN | OP_GREATER_THAN_OR_EQUAL | OP_LESS_THAN_OR_EQUAL | EQUALS
 
 ConditionalStatement ::= NOT? (method_call | Comparison)
 Comparison ::= Param ComparisonOperator Param
