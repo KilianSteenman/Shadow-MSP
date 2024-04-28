@@ -59,7 +59,7 @@
 }
 
 root ::= expression*
-expression ::= (line_break | variable_definition | variable_assignment | subroutine_definition | subroutine_call | method_call | mission_block | if_expression | while_expression)
+expression ::= (line_break | variable_definition | variable_assignment | subroutine_definition | subroutine_call | method_call | mission_block | if_expression | while_expression | math_operation | subroutine_return | cast_assignment)
 
 mission_block ::= MISSION_START expression* MISSION_END
 
@@ -71,7 +71,14 @@ subroutine_label ::= GOSUB_IDENTIFIER line_break
 subroutine_body ::= expression*
 subroutine_return ::= RETURN
 
-variable_assignment ::= variable '=' NUMBER line_break
+variable_assignment ::= variable '=' (IDENTIFIER | NUMBER | Boolean) line_break
+math_operation ::= (increment_pre_operation | increment_post_operation | math_operation_assignment | math_operation_self_assignment)
+math_operator ::= OP_PLUS | OP_MINUS | OP_TIMES | OP_DIVISION
+math_operation_assignment ::= IDENTIFIER EQUALS (IDENTIFIER | NUMBER) math_operator (IDENTIFIER | NUMBER)
+math_operation_self_assignment ::= IDENTIFIER math_operator EQUALS (IDENTIFIER | NUMBER)
+increment_pre_operation ::= (OP_PLUS_PLUS | OP_MINUS_MINUS) IDENTIFIER line_break
+increment_post_operation ::= IDENTIFIER (OP_PLUS_PLUS | OP_MINUS_MINUS) line_break
+cast_assignment ::= IDENTIFIER EQUALS '#' IDENTIFIER line_break
 
 method_call ::= method_name MethodParamList line_break
 method_name ::= IDENTIFIER
@@ -81,8 +88,8 @@ variable_list ::= variable linebreak | variable variable_list
 variable ::= IDENTIFIER
 line_break ::= NEW_LINE
 
-if_expression ::= IF condition_list condition_body END_IF line_break
-while_expression ::= WHILE condition condition_list expression* END_WHILE line_break
+if_expression ::= IF condition_list condition_body (ELSE condition_body)? END_IF line_break
+while_expression ::= WHILE condition_list condition_body END_WHILE line_break
 and_condition ::= AND condition
 or_condition ::= OR condition
 condition_list ::= condition (and_condition | or_condition)*
@@ -129,7 +136,6 @@ Param ::= NUMBER | VariableReference | SUBROUTINE | Boolean | GxtReference
 
 GxtReference ::= '(' IDENTIFIER ')'
 Boolean ::= TRUE | FALSE | ON | OFF
-MathOperator ::= OP_PLUS | OP_MINUS | OP_TIMES | OP_DIVISION
 ComparisonOperator ::= '<' | '>' | '>=' | '<=' | '='
 
 ConditionalStatement ::= NOT? (method_call | Comparison)

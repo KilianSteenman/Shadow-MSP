@@ -8,7 +8,7 @@ import com.intellij.psi.PsiElement;
 public interface Gta3ScriptIfExpression extends PsiElement {
 
   @NotNull
-  Gta3ScriptConditionBody getConditionBody();
+  List<Gta3ScriptConditionBody> getConditionBodyList();
 
   @NotNull
   Gta3ScriptConditionList getConditionList();

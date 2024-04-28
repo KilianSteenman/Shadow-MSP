@@ -28,6 +28,12 @@ public class Gta3ScriptVariableAssignmentImpl extends ASTWrapperPsiElement imple
   }
 
   @Override
+  @Nullable
+  public Gta3ScriptBoolean getBoolean() {
+    return findChildByClass(Gta3ScriptBoolean.class);
+  }
+
+  @Override
   @NotNull
   public Gta3ScriptLineBreak getLineBreak() {
     return findNotNullChildByClass(Gta3ScriptLineBreak.class);
@@ -40,9 +46,15 @@ public class Gta3ScriptVariableAssignmentImpl extends ASTWrapperPsiElement imple
   }
 
   @Override
-  @NotNull
+  @Nullable
+  public PsiElement getIdentifier() {
+    return findChildByType(IDENTIFIER);
+  }
+
+  @Override
+  @Nullable
   public PsiElement getNumber() {
-    return findNotNullChildByType(NUMBER);
+    return findChildByType(NUMBER);
   }
 
 }

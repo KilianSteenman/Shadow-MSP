@@ -5,19 +5,10 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface Gta3ScriptVariableAssignment extends PsiElement {
-
-  @Nullable
-  Gta3ScriptBoolean getBoolean();
+public interface Gta3ScriptMathOperationSelfAssignment extends PsiElement {
 
   @NotNull
-  Gta3ScriptLineBreak getLineBreak();
-
-  @NotNull
-  Gta3ScriptVariable getVariable();
-
-  @Nullable
-  PsiElement getIdentifier();
+  Gta3ScriptMathOperator getMathOperator();
 
   @Nullable
   PsiElement getNumber();

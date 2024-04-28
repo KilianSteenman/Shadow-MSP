@@ -11,14 +11,14 @@ import static nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import nl.shadowlink.mission.plugin.gta3script.psi.*;
 
-public class Gta3ScriptWhileExpressionImpl extends ASTWrapperPsiElement implements Gta3ScriptWhileExpression {
+public class Gta3ScriptMathOperationSelfAssignmentImpl extends ASTWrapperPsiElement implements Gta3ScriptMathOperationSelfAssignment {
 
-  public Gta3ScriptWhileExpressionImpl(@NotNull ASTNode node) {
+  public Gta3ScriptMathOperationSelfAssignmentImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull Gta3ScriptVisitor visitor) {
-    visitor.visitWhileExpression(this);
+    visitor.visitMathOperationSelfAssignment(this);
   }
 
   @Override
@@ -29,20 +29,14 @@ public class Gta3ScriptWhileExpressionImpl extends ASTWrapperPsiElement implemen
 
   @Override
   @NotNull
-  public Gta3ScriptConditionBody getConditionBody() {
-    return findNotNullChildByClass(Gta3ScriptConditionBody.class);
+  public Gta3ScriptMathOperator getMathOperator() {
+    return findNotNullChildByClass(Gta3ScriptMathOperator.class);
   }
 
   @Override
-  @NotNull
-  public Gta3ScriptConditionList getConditionList() {
-    return findNotNullChildByClass(Gta3ScriptConditionList.class);
-  }
-
-  @Override
-  @NotNull
-  public Gta3ScriptLineBreak getLineBreak() {
-    return findNotNullChildByClass(Gta3ScriptLineBreak.class);
+  @Nullable
+  public PsiElement getNumber() {
+    return findChildByType(NUMBER);
   }
 
 }

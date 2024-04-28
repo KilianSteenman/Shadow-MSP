@@ -10,6 +10,7 @@ public interface Gta3ScriptTypes {
 
   IElementType AND_CONDITION = new Gta3ScriptElementType("AND_CONDITION");
   IElementType BOOLEAN = new Gta3ScriptElementType("BOOLEAN");
+  IElementType CAST_ASSIGNMENT = new Gta3ScriptElementType("CAST_ASSIGNMENT");
   IElementType COMPARISON = new Gta3ScriptElementType("COMPARISON");
   IElementType COMPARISON_OPERATOR = new Gta3ScriptElementType("COMPARISON_OPERATOR");
   IElementType CONDITION = new Gta3ScriptElementType("CONDITION");
@@ -19,9 +20,13 @@ public interface Gta3ScriptTypes {
   IElementType EXPRESSION = new Gta3ScriptElementType("EXPRESSION");
   IElementType GXT_REFERENCE = new Gta3ScriptElementType("GXT_REFERENCE");
   IElementType IF_EXPRESSION = new Gta3ScriptElementType("IF_EXPRESSION");
+  IElementType INCREMENT_POST_OPERATION = new Gta3ScriptElementType("INCREMENT_POST_OPERATION");
+  IElementType INCREMENT_PRE_OPERATION = new Gta3ScriptElementType("INCREMENT_PRE_OPERATION");
   IElementType LINE_BREAK = new Gta3ScriptElementType("LINE_BREAK");
   IElementType LOCAL_SCOPE = new Gta3ScriptElementType("LOCAL_SCOPE");
   IElementType MATH_OPERATION = new Gta3ScriptElementType("MATH_OPERATION");
+  IElementType MATH_OPERATION_ASSIGNMENT = new Gta3ScriptElementType("MATH_OPERATION_ASSIGNMENT");
+  IElementType MATH_OPERATION_SELF_ASSIGNMENT = new Gta3ScriptElementType("MATH_OPERATION_SELF_ASSIGNMENT");
   IElementType MATH_OPERATOR = new Gta3ScriptElementType("MATH_OPERATOR");
   IElementType METHOD_CALL = new Gta3ScriptElementType("METHOD_CALL");
   IElementType METHOD_NAME = new Gta3ScriptElementType("METHOD_NAME");
@@ -61,6 +66,7 @@ public interface Gta3ScriptTypes {
   IElementType IDENTIFIER = new Gta3ScriptTokenType("IDENTIFIER");
   IElementType IF = new Gta3ScriptTokenType("IF");
   IElementType LINEBREAK = new Gta3ScriptTokenType("linebreak");
+  IElementType MATHOPERATOR = new Gta3ScriptTokenType("MathOperator");
   IElementType METHODCALL = new Gta3ScriptTokenType("MethodCall");
   IElementType MISSION_END = new Gta3ScriptTokenType("MISSION_END");
   IElementType MISSION_START = new Gta3ScriptTokenType("MISSION_START");
@@ -97,6 +103,9 @@ public interface Gta3ScriptTypes {
       else if (type == BOOLEAN) {
         return new Gta3ScriptBooleanImpl(node);
       }
+      else if (type == CAST_ASSIGNMENT) {
+        return new Gta3ScriptCastAssignmentImpl(node);
+      }
       else if (type == COMPARISON) {
         return new Gta3ScriptComparisonImpl(node);
       }
@@ -124,6 +133,12 @@ public interface Gta3ScriptTypes {
       else if (type == IF_EXPRESSION) {
         return new Gta3ScriptIfExpressionImpl(node);
       }
+      else if (type == INCREMENT_POST_OPERATION) {
+        return new Gta3ScriptIncrementPostOperationImpl(node);
+      }
+      else if (type == INCREMENT_PRE_OPERATION) {
+        return new Gta3ScriptIncrementPreOperationImpl(node);
+      }
       else if (type == LINE_BREAK) {
         return new Gta3ScriptLineBreakImpl(node);
       }
@@ -132,6 +147,12 @@ public interface Gta3ScriptTypes {
       }
       else if (type == MATH_OPERATION) {
         return new Gta3ScriptMathOperationImpl(node);
+      }
+      else if (type == MATH_OPERATION_ASSIGNMENT) {
+        return new Gta3ScriptMathOperationAssignmentImpl(node);
+      }
+      else if (type == MATH_OPERATION_SELF_ASSIGNMENT) {
+        return new Gta3ScriptMathOperationSelfAssignmentImpl(node);
       }
       else if (type == MATH_OPERATOR) {
         return new Gta3ScriptMathOperatorImpl(node);

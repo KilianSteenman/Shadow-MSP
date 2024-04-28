@@ -29,8 +29,8 @@ public class Gta3ScriptIfExpressionImpl extends ASTWrapperPsiElement implements 
 
   @Override
   @NotNull
-  public Gta3ScriptConditionBody getConditionBody() {
-    return findNotNullChildByClass(Gta3ScriptConditionBody.class);
+  public List<Gta3ScriptConditionBody> getConditionBodyList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, Gta3ScriptConditionBody.class);
   }
 
   @Override

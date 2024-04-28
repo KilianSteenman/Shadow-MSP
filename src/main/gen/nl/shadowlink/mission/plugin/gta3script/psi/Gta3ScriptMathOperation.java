@@ -7,13 +7,16 @@ import com.intellij.psi.PsiElement;
 
 public interface Gta3ScriptMathOperation extends PsiElement {
 
-  @NotNull
-  Gta3ScriptMathOperator getMathOperator();
+  @Nullable
+  Gta3ScriptIncrementPostOperation getIncrementPostOperation();
 
-  @NotNull
-  Gta3ScriptParam getParam();
+  @Nullable
+  Gta3ScriptIncrementPreOperation getIncrementPreOperation();
 
-  @NotNull
-  Gta3ScriptVariableReference getVariableReference();
+  @Nullable
+  Gta3ScriptMathOperationAssignment getMathOperationAssignment();
+
+  @Nullable
+  Gta3ScriptMathOperationSelfAssignment getMathOperationSelfAssignment();
 
 }

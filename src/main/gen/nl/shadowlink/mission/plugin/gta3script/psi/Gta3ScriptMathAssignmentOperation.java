@@ -5,15 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface Gta3ScriptWhileExpression extends PsiElement {
+public interface Gta3ScriptMathAssignmentOperation extends PsiElement {
 
   @NotNull
-  Gta3ScriptConditionBody getConditionBody();
-
-  @NotNull
-  Gta3ScriptConditionList getConditionList();
-
-  @NotNull
-  Gta3ScriptLineBreak getLineBreak();
+  Gta3ScriptMathOperator getMathOperator();
 
 }

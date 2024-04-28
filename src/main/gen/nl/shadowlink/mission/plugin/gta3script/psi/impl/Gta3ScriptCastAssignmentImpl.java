@@ -11,32 +11,20 @@ import static nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import nl.shadowlink.mission.plugin.gta3script.psi.*;
 
-public class Gta3ScriptWhileExpressionImpl extends ASTWrapperPsiElement implements Gta3ScriptWhileExpression {
+public class Gta3ScriptCastAssignmentImpl extends ASTWrapperPsiElement implements Gta3ScriptCastAssignment {
 
-  public Gta3ScriptWhileExpressionImpl(@NotNull ASTNode node) {
+  public Gta3ScriptCastAssignmentImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull Gta3ScriptVisitor visitor) {
-    visitor.visitWhileExpression(this);
+    visitor.visitCastAssignment(this);
   }
 
   @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof Gta3ScriptVisitor) accept((Gta3ScriptVisitor)visitor);
     else super.accept(visitor);
-  }
-
-  @Override
-  @NotNull
-  public Gta3ScriptConditionBody getConditionBody() {
-    return findNotNullChildByClass(Gta3ScriptConditionBody.class);
-  }
-
-  @Override
-  @NotNull
-  public Gta3ScriptConditionList getConditionList() {
-    return findNotNullChildByClass(Gta3ScriptConditionList.class);
   }
 
   @Override

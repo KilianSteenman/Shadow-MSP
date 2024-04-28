@@ -27,14 +27,6 @@ public class Gta3ScriptVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitMathOperation(@NotNull Gta3ScriptMathOperation o) {
-    visitPsiElement(o);
-  }
-
-  public void visitMathOperator(@NotNull Gta3ScriptMathOperator o) {
-    visitPsiElement(o);
-  }
-
   public void visitMethodParam(@NotNull Gta3ScriptMethodParam o) {
     visitPsiElement(o);
   }
@@ -71,6 +63,10 @@ public class Gta3ScriptVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitCastAssignment(@NotNull Gta3ScriptCastAssignment o) {
+    visitPsiElement(o);
+  }
+
   public void visitComparison(@NotNull Gta3ScriptComparison o) {
     visitPsiElement(o);
   }
@@ -95,7 +91,31 @@ public class Gta3ScriptVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitIncrementPostOperation(@NotNull Gta3ScriptIncrementPostOperation o) {
+    visitPsiElement(o);
+  }
+
+  public void visitIncrementPreOperation(@NotNull Gta3ScriptIncrementPreOperation o) {
+    visitPsiElement(o);
+  }
+
   public void visitLineBreak(@NotNull Gta3ScriptLineBreak o) {
+    visitPsiElement(o);
+  }
+
+  public void visitMathOperation(@NotNull Gta3ScriptMathOperation o) {
+    visitPsiElement(o);
+  }
+
+  public void visitMathOperationAssignment(@NotNull Gta3ScriptMathOperationAssignment o) {
+    visitPsiElement(o);
+  }
+
+  public void visitMathOperationSelfAssignment(@NotNull Gta3ScriptMathOperationSelfAssignment o) {
+    visitPsiElement(o);
+  }
+
+  public void visitMathOperator(@NotNull Gta3ScriptMathOperator o) {
     visitPsiElement(o);
   }
 
