@@ -20,5 +20,7 @@ object Gta3ScriptTokenSets {
         Gta3ScriptTypes.MISSION_END,
         Gta3ScriptTypes.RETURN,
         Gta3ScriptTypes.NOT,
+        Gta3ScriptTypes.VAR_INT,
+        Gta3ScriptTypes.VAR_FLOAT,
     )
 }
