@@ -10,4 +10,7 @@ public interface Gta3ScriptCastAssignment extends PsiElement {
   @NotNull
   Gta3ScriptLineBreak getLineBreak();
 
+  @NotNull
+  List<Gta3ScriptVariable> getVariableList();
+
 }

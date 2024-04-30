@@ -41,8 +41,8 @@ public class Gta3ScriptParamImpl extends ASTWrapperPsiElement implements Gta3Scr
 
   @Override
   @Nullable
-  public Gta3ScriptVariableReference getVariableReference() {
-    return findChildByClass(Gta3ScriptVariableReference.class);
+  public Gta3ScriptVariable getVariable() {
+    return findChildByClass(Gta3ScriptVariable.class);
   }
 
   @Override

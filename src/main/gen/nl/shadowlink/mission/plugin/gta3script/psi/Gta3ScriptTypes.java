@@ -43,7 +43,6 @@ public interface Gta3ScriptTypes {
   IElementType VARIABLE = new Gta3ScriptElementType("VARIABLE");
   IElementType VARIABLE_ASSIGNMENT = new Gta3ScriptElementType("VARIABLE_ASSIGNMENT");
   IElementType VARIABLE_DEFINITION = new Gta3ScriptElementType("VARIABLE_DEFINITION");
-  IElementType VARIABLE_REFERENCE = new Gta3ScriptElementType("VARIABLE_REFERENCE");
   IElementType WHILE_EXPRESSION = new Gta3ScriptElementType("WHILE_EXPRESSION");
 
   IElementType AND = new Gta3ScriptTokenType("AND");
@@ -192,9 +191,6 @@ public interface Gta3ScriptTypes {
       }
       else if (type == VARIABLE_DEFINITION) {
         return new Gta3ScriptVariableDefinitionImpl(node);
-      }
-      else if (type == VARIABLE_REFERENCE) {
-        return new Gta3ScriptVariableReferenceImpl(node);
       }
       else if (type == WHILE_EXPRESSION) {
         return new Gta3ScriptWhileExpressionImpl(node);

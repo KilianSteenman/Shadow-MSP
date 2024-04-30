@@ -35,8 +35,8 @@ public class Gta3ScriptIncrementPostOperationImpl extends ASTWrapperPsiElement i
 
   @Override
   @NotNull
-  public PsiElement getIdentifier() {
-    return findNotNullChildByType(IDENTIFIER);
+  public Gta3ScriptVariable getVariable() {
+    return findNotNullChildByClass(Gta3ScriptVariable.class);
   }
 
 }

@@ -75,11 +75,11 @@ local_scope_body ::= expression*
 variable_assignment ::= variable '=' (IDENTIFIER | NUMBER | Boolean) line_break
 math_operation ::= (increment_pre_operation | increment_post_operation | math_operation_assignment | math_operation_self_assignment)
 math_operator ::= OP_PLUS | OP_MINUS | OP_TIMES | OP_DIVISION
-math_operation_assignment ::= IDENTIFIER EQUALS (IDENTIFIER | NUMBER) math_operator (IDENTIFIER | NUMBER)
-math_operation_self_assignment ::= IDENTIFIER math_operator EQUALS (IDENTIFIER | NUMBER)
-increment_pre_operation ::= (OP_PLUS_PLUS | OP_MINUS_MINUS) IDENTIFIER line_break
-increment_post_operation ::= IDENTIFIER (OP_PLUS_PLUS | OP_MINUS_MINUS) line_break
-cast_assignment ::= IDENTIFIER EQUALS '#' IDENTIFIER line_break
+math_operation_assignment ::= variable EQUALS (variable | NUMBER) math_operator (variable | NUMBER)
+math_operation_self_assignment ::= variable math_operator EQUALS (variable | NUMBER)
+increment_pre_operation ::= (OP_PLUS_PLUS | OP_MINUS_MINUS) variable line_break
+increment_post_operation ::= variable (OP_PLUS_PLUS | OP_MINUS_MINUS) line_break
+cast_assignment ::= variable EQUALS '#' variable line_break
 
 method_call ::= method_name MethodParamList line_break
 method_name ::= IDENTIFIER
@@ -88,7 +88,7 @@ variable_definition ::= Type variable (','? variable)* line_break
 variable ::= IDENTIFIER {
     mixin="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptNamedElementImpl"
     implements="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptNamedElement"
-    methods=[getName setName getNameIdentifier]
+    methods=[getName setName getNameIdentifier getReference type]
 }
 line_break ::= NEW_LINE
 
@@ -105,11 +105,8 @@ Type ::= VAR_INT | VAR_FLOAT
 
 MethodParamList ::= MethodParamDefinition?
 MethodParamDefinition ::= Param MethodParamDefinition? | '(' Param* ')' MethodParamDefinition?
-VariableReference ::= IDENTIFIER {
-    methods=[getReference]
-}
 
-Param ::= NUMBER | VariableReference | SUBROUTINE | Boolean | GxtReference
+Param ::= NUMBER | variable | SUBROUTINE | Boolean | GxtReference
 GxtReference ::= '(' IDENTIFIER ')'
 Boolean ::= TRUE | FALSE | ON | OFF
 ComparisonOperator ::= OP_LESS_THAN | OP_GREATER_THAN | OP_GREATER_THAN_OR_EQUAL | OP_LESS_THAN_OR_EQUAL | EQUALS

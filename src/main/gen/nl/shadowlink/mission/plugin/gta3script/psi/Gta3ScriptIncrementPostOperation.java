@@ -11,6 +11,6 @@ public interface Gta3ScriptIncrementPostOperation extends PsiElement {
   Gta3ScriptLineBreak getLineBreak();
 
   @NotNull
-  PsiElement getIdentifier();
+  Gta3ScriptVariable getVariable();
 
 }

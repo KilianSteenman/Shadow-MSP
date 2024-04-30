@@ -10,4 +10,7 @@ public interface Gta3ScriptMathOperationAssignment extends PsiElement {
   @NotNull
   Gta3ScriptMathOperator getMathOperator();
 
+  @NotNull
+  List<Gta3ScriptVariable> getVariableList();
+
 }

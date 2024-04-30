@@ -34,6 +34,12 @@ public class Gta3ScriptMathOperationSelfAssignmentImpl extends ASTWrapperPsiElem
   }
 
   @Override
+  @NotNull
+  public List<Gta3ScriptVariable> getVariableList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, Gta3ScriptVariable.class);
+  }
+
+  @Override
   @Nullable
   public PsiElement getNumber() {
     return findChildByType(NUMBER);

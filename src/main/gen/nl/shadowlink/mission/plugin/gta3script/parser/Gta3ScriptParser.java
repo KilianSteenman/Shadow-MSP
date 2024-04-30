@@ -149,13 +149,13 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // NUMBER | VariableReference | SUBROUTINE | Boolean | GxtReference
+  // NUMBER | variable | SUBROUTINE | Boolean | GxtReference
   public static boolean Param(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "Param")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, PARAM, "<param>");
     r = consumeToken(b, NUMBER);
-    if (!r) r = VariableReference(b, l + 1);
+    if (!r) r = variable(b, l + 1);
     if (!r) r = consumeToken(b, SUBROUTINE);
     if (!r) r = Boolean(b, l + 1);
     if (!r) r = GxtReference(b, l + 1);
@@ -177,18 +177,6 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // IDENTIFIER
-  public static boolean VariableReference(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "VariableReference")) return false;
-    if (!nextTokenIs(b, IDENTIFIER)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, IDENTIFIER);
-    exit_section_(b, m, VARIABLE_REFERENCE, r);
-    return r;
-  }
-
-  /* ********************************************************** */
   // AND condition
   public static boolean and_condition(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "and_condition")) return false;
@@ -202,15 +190,16 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // IDENTIFIER EQUALS '#' IDENTIFIER line_break
+  // variable EQUALS '#' variable line_break
   public static boolean cast_assignment(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "cast_assignment")) return false;
     if (!nextTokenIs(b, IDENTIFIER)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, IDENTIFIER, EQUALS);
+    r = variable(b, l + 1);
+    r = r && consumeToken(b, EQUALS);
     r = r && consumeToken(b, "#");
-    r = r && consumeToken(b, IDENTIFIER);
+    r = r && variable(b, l + 1);
     r = r && line_break(b, l + 1);
     exit_section_(b, m, CAST_ASSIGNMENT, r);
     return r;
@@ -364,13 +353,13 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // IDENTIFIER (OP_PLUS_PLUS | OP_MINUS_MINUS) line_break
+  // variable (OP_PLUS_PLUS | OP_MINUS_MINUS) line_break
   public static boolean increment_post_operation(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "increment_post_operation")) return false;
     if (!nextTokenIs(b, IDENTIFIER)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeToken(b, IDENTIFIER);
+    r = variable(b, l + 1);
     r = r && increment_post_operation_1(b, l + 1);
     r = r && line_break(b, l + 1);
     exit_section_(b, m, INCREMENT_POST_OPERATION, r);
@@ -387,14 +376,14 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (OP_PLUS_PLUS | OP_MINUS_MINUS) IDENTIFIER line_break
+  // (OP_PLUS_PLUS | OP_MINUS_MINUS) variable line_break
   public static boolean increment_pre_operation(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "increment_pre_operation")) return false;
     if (!nextTokenIs(b, "<increment pre operation>", OP_MINUS_MINUS, OP_PLUS_PLUS)) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, INCREMENT_PRE_OPERATION, "<increment pre operation>");
     r = increment_pre_operation_0(b, l + 1);
-    r = r && consumeToken(b, IDENTIFIER);
+    r = r && variable(b, l + 1);
     r = r && line_break(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
@@ -488,13 +477,14 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // IDENTIFIER EQUALS (IDENTIFIER | NUMBER) math_operator (IDENTIFIER | NUMBER)
+  // variable EQUALS (variable | NUMBER) math_operator (variable | NUMBER)
   public static boolean math_operation_assignment(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "math_operation_assignment")) return false;
     if (!nextTokenIs(b, IDENTIFIER)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, IDENTIFIER, EQUALS);
+    r = variable(b, l + 1);
+    r = r && consumeToken(b, EQUALS);
     r = r && math_operation_assignment_2(b, l + 1);
     r = r && math_operator(b, l + 1);
     r = r && math_operation_assignment_4(b, l + 1);
@@ -502,32 +492,32 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // IDENTIFIER | NUMBER
+  // variable | NUMBER
   private static boolean math_operation_assignment_2(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "math_operation_assignment_2")) return false;
     boolean r;
-    r = consumeToken(b, IDENTIFIER);
+    r = variable(b, l + 1);
     if (!r) r = consumeToken(b, NUMBER);
     return r;
   }
 
-  // IDENTIFIER | NUMBER
+  // variable | NUMBER
   private static boolean math_operation_assignment_4(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "math_operation_assignment_4")) return false;
     boolean r;
-    r = consumeToken(b, IDENTIFIER);
+    r = variable(b, l + 1);
     if (!r) r = consumeToken(b, NUMBER);
     return r;
   }
 
   /* ********************************************************** */
-  // IDENTIFIER math_operator EQUALS (IDENTIFIER | NUMBER)
+  // variable math_operator EQUALS (variable | NUMBER)
   public static boolean math_operation_self_assignment(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "math_operation_self_assignment")) return false;
     if (!nextTokenIs(b, IDENTIFIER)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeToken(b, IDENTIFIER);
+    r = variable(b, l + 1);
     r = r && math_operator(b, l + 1);
     r = r && consumeToken(b, EQUALS);
     r = r && math_operation_self_assignment_3(b, l + 1);
@@ -535,11 +525,11 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // IDENTIFIER | NUMBER
+  // variable | NUMBER
   private static boolean math_operation_self_assignment_3(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "math_operation_self_assignment_3")) return false;
     boolean r;
-    r = consumeToken(b, IDENTIFIER);
+    r = variable(b, l + 1);
     if (!r) r = consumeToken(b, NUMBER);
     return r;
   }

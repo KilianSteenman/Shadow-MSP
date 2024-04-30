@@ -64,9 +64,9 @@
         <lang.foldingBuilder
                 language="Gta3Script"
                 implementationClass="nl.shadowlink.mission.plugin.gta3script.Gta3ScriptFoldingBuilder"/>
-<!--        <lang.findUsagesProvider-->
-<!--                language="Gta3Script"-->
-<!--                implementationClass="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptUsagesProvider"/>-->
+        <lang.findUsagesProvider
+                language="Gta3Script"
+                implementationClass="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptFindUsagesProvider"/>
         <colorSettingsPage
                 implementation="nl.shadowlink.mission.plugin.gta3script.highlighter.Gta3ScriptColorSettingsPage"/>
 

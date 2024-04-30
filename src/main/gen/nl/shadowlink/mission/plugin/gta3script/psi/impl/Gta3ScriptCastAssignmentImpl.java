@@ -33,4 +33,10 @@ public class Gta3ScriptCastAssignmentImpl extends ASTWrapperPsiElement implement
     return findNotNullChildByClass(Gta3ScriptLineBreak.class);
   }
 
+  @Override
+  @NotNull
+  public List<Gta3ScriptVariable> getVariableList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, Gta3ScriptVariable.class);
+  }
+
 }

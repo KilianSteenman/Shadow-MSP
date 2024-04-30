@@ -2,6 +2,9 @@
 package nl.shadowlink.mission.plugin.gta3script.psi.impl;
 
 import java.util.List;
+
+import com.intellij.psi.search.GlobalSearchScope;
+import com.intellij.psi.search.SearchScope;
 import org.jetbrains.annotations.*;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
@@ -10,6 +13,7 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptTypes.*;
 import nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptNamedElementImpl;
 import nl.shadowlink.mission.plugin.gta3script.psi.*;
+import com.intellij.psi.PsiReference;
 
 public class Gta3ScriptVariableImpl extends Gta3ScriptNamedElementImpl implements Gta3ScriptVariable {
 
@@ -46,9 +50,25 @@ public class Gta3ScriptVariableImpl extends Gta3ScriptNamedElementImpl implement
   }
 
   @Override
+  public @NotNull SearchScope getUseScope() {
+    return GlobalSearchScope.projectScope(this.getProject());
+  }
+
+  @Override
+  public @NotNull GlobalSearchScope getResolveScope() {
+    return GlobalSearchScope.projectScope(this.getProject());
+  }
+
+  @Override
   @Nullable
   public PsiElement getNameIdentifier() {
     return Gta3ScriptUtils.getNameIdentifier(this);
+  }
+
+  @Override
+  @NotNull
+  public PsiReference getReference() {
+    return Gta3ScriptUtils.getReference(this);
   }
 
 }

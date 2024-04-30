@@ -35,10 +35,6 @@ public class Gta3ScriptVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitVariableReference(@NotNull Gta3ScriptVariableReference o) {
-    visitPsiElement(o);
-  }
-
   public void visitAndCondition(@NotNull Gta3ScriptAndCondition o) {
     visitPsiElement(o);
   }
