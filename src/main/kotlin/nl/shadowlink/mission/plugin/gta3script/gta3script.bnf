@@ -85,7 +85,11 @@ method_call ::= method_name MethodParamList line_break
 method_name ::= IDENTIFIER
 
 variable_definition ::= Type variable (','? variable)* line_break
-variable ::= IDENTIFIER
+variable ::= IDENTIFIER {
+    mixin="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptNamedElementImpl"
+    implements="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptNamedElement"
+    methods=[getName setName getNameIdentifier]
+}
 line_break ::= NEW_LINE
 
 if_expression ::= IF condition_list condition_body (ELSE condition_body)? END_IF line_break

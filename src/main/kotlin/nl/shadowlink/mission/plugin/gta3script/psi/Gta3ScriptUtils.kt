@@ -1,8 +1,7 @@
 package nl.shadowlink.mission.plugin.gta3script.psi
 
-import com.intellij.openapi.util.TextRange
+import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import com.intellij.psi.PsiReference
 
 object Gta3ScriptUtils {
 
@@ -56,4 +55,27 @@ object Gta3ScriptUtils {
 //        return element.project.findVariableDefinition(element.identifier.text)
 //            ?.let { def -> Gta3ScriptVariableReference(element, TextRange(0, element.textLength)) }
 //    }
+
+    /*
+    * Variable renames
+    */
+    @JvmStatic
+    fun getName(element: Gta3ScriptVariable): String {
+        return element.node.findChildByType(Gta3ScriptTypes.IDENTIFIER)?.text ?: "UNKNOWN"
+    }
+
+    @JvmStatic
+    fun setName(element: Gta3ScriptVariable, newName: String): PsiElement {
+        val identifierNode = element.node.findChildByType(Gta3ScriptTypes.IDENTIFIER)
+        if (identifierNode != null) {
+            val newIdentifier = Gta3ScriptTypeFactory.createVariable(element.project, newName).node
+            element.node.replaceChild(identifierNode, newIdentifier)
+        }
+        return element
+    }
+
+    @JvmStatic
+    fun getNameIdentifier(element: Gta3ScriptVariable): PsiElement? {
+        return element.node.findChildByType(Gta3ScriptTypes.IDENTIFIER)?.psi
+    }
 }

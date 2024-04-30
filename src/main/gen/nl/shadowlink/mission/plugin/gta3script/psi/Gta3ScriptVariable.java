@@ -5,9 +5,18 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface Gta3ScriptVariable extends PsiElement {
+public interface Gta3ScriptVariable extends Gta3ScriptNamedElement {
 
   @NotNull
   PsiElement getIdentifier();
+
+  @NotNull
+  String getName();
+
+  @NotNull
+  PsiElement setName(@NotNull String newName);
+
+  @Nullable
+  PsiElement getNameIdentifier();
 
 }

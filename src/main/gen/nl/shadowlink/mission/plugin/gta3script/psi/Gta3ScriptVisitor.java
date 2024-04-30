@@ -140,7 +140,7 @@ public class Gta3ScriptVisitor extends PsiElementVisitor {
   }
 
   public void visitVariable(@NotNull Gta3ScriptVariable o) {
-    visitPsiElement(o);
+    visitNamedElement(o);
   }
 
   public void visitVariableAssignment(@NotNull Gta3ScriptVariableAssignment o) {
@@ -152,6 +152,10 @@ public class Gta3ScriptVisitor extends PsiElementVisitor {
   }
 
   public void visitWhileExpression(@NotNull Gta3ScriptWhileExpression o) {
+    visitPsiElement(o);
+  }
+
+  public void visitNamedElement(@NotNull Gta3ScriptNamedElement o) {
     visitPsiElement(o);
   }
 
