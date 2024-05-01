@@ -23,8 +23,4 @@ public interface Gta3ScriptVariable extends Gta3ScriptNamedElement {
   @NotNull
   PsiReference getReference();
 
-  //WARNING: type(...) is skipped
-  //matching type(Gta3ScriptVariable, ...)
-  //methods are not found in Gta3ScriptUtils
-
 }

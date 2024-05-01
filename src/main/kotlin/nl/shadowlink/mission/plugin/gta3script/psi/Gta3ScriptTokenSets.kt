@@ -22,5 +22,7 @@ object Gta3ScriptTokenSets {
         Gta3ScriptTypes.NOT,
         Gta3ScriptTypes.VAR_INT,
         Gta3ScriptTypes.VAR_FLOAT,
+        Gta3ScriptTypes.GOSUB,
+        Gta3ScriptTypes.GOTO,
     )
 }

@@ -35,6 +35,12 @@ public class Gta3ScriptExpressionImpl extends ASTWrapperPsiElement implements Gt
 
   @Override
   @Nullable
+  public Gta3ScriptGotoCall getGotoCall() {
+    return findChildByClass(Gta3ScriptGotoCall.class);
+  }
+
+  @Override
+  @Nullable
   public Gta3ScriptIfExpression getIfExpression() {
     return findChildByClass(Gta3ScriptIfExpression.class);
   }

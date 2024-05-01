@@ -2,9 +2,6 @@
 package nl.shadowlink.mission.plugin.gta3script.psi.impl;
 
 import java.util.List;
-
-import com.intellij.psi.search.GlobalSearchScope;
-import com.intellij.psi.search.SearchScope;
 import org.jetbrains.annotations.*;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
@@ -47,16 +44,6 @@ public class Gta3ScriptVariableImpl extends Gta3ScriptNamedElementImpl implement
   @NotNull
   public PsiElement setName(@NotNull String newName) {
     return Gta3ScriptUtils.setName(this, newName);
-  }
-
-  @Override
-  public @NotNull SearchScope getUseScope() {
-    return GlobalSearchScope.projectScope(this.getProject());
-  }
-
-  @Override
-  public @NotNull GlobalSearchScope getResolveScope() {
-    return GlobalSearchScope.projectScope(this.getProject());
   }
 
   @Override

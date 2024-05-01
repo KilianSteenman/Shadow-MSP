@@ -40,6 +40,7 @@
     TRUE = 'TRUE'
     FALSE = 'FALSE'
     GOSUB = 'GOSUB'
+    GOTO = 'GOTO'
 
     GOSUB_IDENTIFIER='regexp:[a-zA-Z0-9_.]+:'
     IDENTIFIER='regexp:\$?[a-zA-Z0-9_.@&]+'
@@ -59,14 +60,24 @@
 }
 
 root ::= expression*
-expression ::= (line_break | variable_definition | variable_assignment | label_identifier | subroutine_call | method_call | mission_block | if_expression | while_expression | math_operation | label_return | cast_assignment | local_scope | MISSION_END)
+expression ::= (line_break | variable_definition | variable_assignment | label_identifier | subroutine_call | method_call | mission_block | if_expression | while_expression | math_operation | label_return | cast_assignment | local_scope | MISSION_END | goto_call)
 
 mission_block ::= MISSION_START expression*
 
 subroutine_call ::= GOSUB subroutine_reference line_break
-subroutine_reference ::= IDENTIFIER
+subroutine_reference ::= IDENTIFIER {
+    mixin="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptNamedElementImpl"
+    implements="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptNamedElement"
+    methods=[getName setName getNameIdentifier getReference]
+}
 
-label_identifier ::= GOSUB_IDENTIFIER line_break
+goto_call ::= GOTO subroutine_reference line_break
+
+label_identifier ::= GOSUB_IDENTIFIER line_break {
+    mixin="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptNamedElementImpl"
+    implements="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptNamedElement"
+    methods=[getName setName getNameIdentifier getReference]
+}
 label_return ::= RETURN
 
 local_scope ::= '{' local_scope_body '}'
@@ -88,7 +99,7 @@ variable_definition ::= Type variable (','? variable)* line_break
 variable ::= IDENTIFIER {
     mixin="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptNamedElementImpl"
     implements="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptNamedElement"
-    methods=[getName setName getNameIdentifier getReference type]
+    methods=[getName setName getNameIdentifier getReference]
 }
 line_break ::= NEW_LINE
 

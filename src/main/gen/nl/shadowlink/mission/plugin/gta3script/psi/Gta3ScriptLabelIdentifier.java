@@ -4,13 +4,26 @@ package nl.shadowlink.mission.plugin.gta3script.psi;
 import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiReference;
 
-public interface Gta3ScriptLabelIdentifier extends PsiElement {
+public interface Gta3ScriptLabelIdentifier extends Gta3ScriptNamedElement {
 
   @NotNull
   Gta3ScriptLineBreak getLineBreak();
 
   @NotNull
   PsiElement getGosubIdentifier();
+
+  @NotNull
+  String getName();
+
+  @NotNull
+  PsiElement setName(@NotNull String newName);
+
+  @Nullable
+  PsiElement getNameIdentifier();
+
+  @NotNull
+  PsiReference getReference();
 
 }

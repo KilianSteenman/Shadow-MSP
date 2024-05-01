@@ -65,6 +65,7 @@ object Gta3ScriptUtils {
     /*
     * Variable
     */
+
     @JvmStatic
     fun getName(element: Gta3ScriptVariable): String {
         return element.node.findChildByType(Gta3ScriptTypes.IDENTIFIER)?.text ?: "UNKNOWN"
@@ -88,5 +89,67 @@ object Gta3ScriptUtils {
     @JvmStatic
     fun getReference(element: Gta3ScriptVariable): PsiReference {
         return VariableReference(element)
+    }
+
+    /*
+    * Label
+    */
+
+    @JvmStatic
+    fun getName(element: Gta3ScriptLabelIdentifier): String {
+        return element.node.findChildByType(Gta3ScriptTypes.GOSUB_IDENTIFIER)?.text?.substringBeforeLast(":")
+            ?: "UNKNOWN"
+    }
+
+    @JvmStatic
+    fun setName(element: Gta3ScriptLabelIdentifier, newName: String): PsiElement {
+        TODO("Implement label set name")
+//        val identifierNode = element.node.findChildByType(Gta3ScriptTypes.IDENTIFIER)
+//        if (identifierNode != null) {
+//            val newIdentifier = Gta3ScriptTypeFactory.createVariable(element.project, newName).node
+//            element.node.replaceChild(identifierNode, newIdentifier)
+//        }
+        return element
+    }
+
+    @JvmStatic
+    fun getNameIdentifier(element: Gta3ScriptLabelIdentifier): PsiElement? {
+        return element.node.findChildByType(Gta3ScriptTypes.GOSUB_IDENTIFIER)?.psi
+    }
+
+    @JvmStatic
+    fun getReference(element: Gta3ScriptLabelIdentifier): PsiReference {
+        return LabelReference(element)
+    }
+
+
+    /*
+    * Label reference
+    */
+
+    @JvmStatic
+    fun getName(element: Gta3ScriptSubroutineReference): String {
+        return element.node.findChildByType(Gta3ScriptTypes.IDENTIFIER)?.text ?: "UNKNOWN"
+    }
+
+    @JvmStatic
+    fun setName(element: Gta3ScriptSubroutineReference, newName: String): PsiElement {
+        TODO("Implement label set name")
+//        val identifierNode = element.node.findChildByType(Gta3ScriptTypes.IDENTIFIER)
+//        if (identifierNode != null) {
+//            val newIdentifier = Gta3ScriptTypeFactory.createVariable(element.project, newName).node
+//            element.node.replaceChild(identifierNode, newIdentifier)
+//        }
+        return element
+    }
+
+    @JvmStatic
+    fun getNameIdentifier(element: Gta3ScriptSubroutineReference): PsiElement? {
+        return element.node.findChildByType(Gta3ScriptTypes.IDENTIFIER)?.psi
+    }
+
+    @JvmStatic
+    fun getReference(element: Gta3ScriptSubroutineReference): PsiReference {
+        return LabelReference(element)
     }
 }

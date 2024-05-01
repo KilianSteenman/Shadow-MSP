@@ -52,6 +52,7 @@ COMMENT_BLOCK="/*" !([^]* "*/" [^]*) ("*/")?
   "TRUE"                   { return TRUE; }
   "FALSE"                  { return FALSE; }
   "GOSUB"                  { return GOSUB; }
+  "GOTO"                   { return GOTO; }
   "++"                     { return OP_PLUS_PLUS; }
   "+"                      { return OP_PLUS; }
   "--"                     { return OP_MINUS_MINUS; }

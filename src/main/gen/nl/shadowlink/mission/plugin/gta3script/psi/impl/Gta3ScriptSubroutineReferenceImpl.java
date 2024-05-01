@@ -8,10 +8,11 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptTypes.*;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
+import nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptNamedElementImpl;
 import nl.shadowlink.mission.plugin.gta3script.psi.*;
+import com.intellij.psi.PsiReference;
 
-public class Gta3ScriptSubroutineReferenceImpl extends ASTWrapperPsiElement implements Gta3ScriptSubroutineReference {
+public class Gta3ScriptSubroutineReferenceImpl extends Gta3ScriptNamedElementImpl implements Gta3ScriptSubroutineReference {
 
   public Gta3ScriptSubroutineReferenceImpl(@NotNull ASTNode node) {
     super(node);
@@ -31,6 +32,30 @@ public class Gta3ScriptSubroutineReferenceImpl extends ASTWrapperPsiElement impl
   @NotNull
   public PsiElement getIdentifier() {
     return findNotNullChildByType(IDENTIFIER);
+  }
+
+  @Override
+  @NotNull
+  public String getName() {
+    return Gta3ScriptUtils.getName(this);
+  }
+
+  @Override
+  @NotNull
+  public PsiElement setName(@NotNull String newName) {
+    return Gta3ScriptUtils.setName(this, newName);
+  }
+
+  @Override
+  @Nullable
+  public PsiElement getNameIdentifier() {
+    return Gta3ScriptUtils.getNameIdentifier(this);
+  }
+
+  @Override
+  @NotNull
+  public PsiReference getReference() {
+    return Gta3ScriptUtils.getReference(this);
   }
 
 }

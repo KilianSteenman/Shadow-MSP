@@ -17,6 +17,7 @@ public interface Gta3ScriptTypes {
   IElementType CONDITION_BODY = new Gta3ScriptElementType("CONDITION_BODY");
   IElementType CONDITION_LIST = new Gta3ScriptElementType("CONDITION_LIST");
   IElementType EXPRESSION = new Gta3ScriptElementType("EXPRESSION");
+  IElementType GOTO_CALL = new Gta3ScriptElementType("GOTO_CALL");
   IElementType GXT_REFERENCE = new Gta3ScriptElementType("GXT_REFERENCE");
   IElementType IF_EXPRESSION = new Gta3ScriptElementType("IF_EXPRESSION");
   IElementType INCREMENT_POST_OPERATION = new Gta3ScriptElementType("INCREMENT_POST_OPERATION");
@@ -55,6 +56,7 @@ public interface Gta3ScriptTypes {
   IElementType FALSE = new Gta3ScriptTokenType("FALSE");
   IElementType GOSUB = new Gta3ScriptTokenType("GOSUB");
   IElementType GOSUB_IDENTIFIER = new Gta3ScriptTokenType("GOSUB_IDENTIFIER");
+  IElementType GOTO = new Gta3ScriptTokenType("GOTO");
   IElementType IDENTIFIER = new Gta3ScriptTokenType("IDENTIFIER");
   IElementType IF = new Gta3ScriptTokenType("IF");
   IElementType MISSION_END = new Gta3ScriptTokenType("MISSION_END");
@@ -113,6 +115,9 @@ public interface Gta3ScriptTypes {
       }
       else if (type == EXPRESSION) {
         return new Gta3ScriptExpressionImpl(node);
+      }
+      else if (type == GOTO_CALL) {
+        return new Gta3ScriptGotoCallImpl(node);
       }
       else if (type == GXT_REFERENCE) {
         return new Gta3ScriptGxtReferenceImpl(node);

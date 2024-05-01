@@ -11,6 +11,9 @@ public interface Gta3ScriptExpression extends PsiElement {
   Gta3ScriptCastAssignment getCastAssignment();
 
   @Nullable
+  Gta3ScriptGotoCall getGotoCall();
+
+  @Nullable
   Gta3ScriptIfExpression getIfExpression();
 
   @Nullable
