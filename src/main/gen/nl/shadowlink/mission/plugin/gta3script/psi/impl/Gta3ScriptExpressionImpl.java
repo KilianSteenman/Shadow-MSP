@@ -59,6 +59,12 @@ public class Gta3ScriptExpressionImpl extends ASTWrapperPsiElement implements Gt
 
   @Override
   @Nullable
+  public Gta3ScriptLaunchMissionCall getLaunchMissionCall() {
+    return findChildByClass(Gta3ScriptLaunchMissionCall.class);
+  }
+
+  @Override
+  @Nullable
   public Gta3ScriptLineBreak getLineBreak() {
     return findChildByClass(Gta3ScriptLineBreak.class);
   }

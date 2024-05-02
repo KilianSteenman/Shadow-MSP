@@ -24,5 +24,6 @@ object Gta3ScriptTokenSets {
         Gta3ScriptTypes.VAR_FLOAT,
         Gta3ScriptTypes.GOSUB,
         Gta3ScriptTypes.GOTO,
+        Gta3ScriptTypes.LAUNCH_MISSION,
     )
 }

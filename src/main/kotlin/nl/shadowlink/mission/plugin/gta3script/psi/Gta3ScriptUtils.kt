@@ -152,4 +152,34 @@ object Gta3ScriptUtils {
     fun getReference(element: Gta3ScriptSubroutineReference): PsiReference {
         return LabelReference(element)
     }
+
+    /*
+    * Script reference
+    */
+
+    @JvmStatic
+    fun getName(element: Gta3ScriptScriptReference): String {
+        return element.node.findChildByType(Gta3ScriptTypes.IDENTIFIER)?.text ?: "UNKNOWN"
+    }
+
+    @JvmStatic
+    fun setName(element: Gta3ScriptScriptReference, newName: String): PsiElement {
+        TODO("Implement label set name")
+//        val identifierNode = element.node.findChildByType(Gta3ScriptTypes.IDENTIFIER)
+//        if (identifierNode != null) {
+//            val newIdentifier = Gta3ScriptTypeFactory.createVariable(element.project, newName).node
+//            element.node.replaceChild(identifierNode, newIdentifier)
+//        }
+        return element
+    }
+
+    @JvmStatic
+    fun getNameIdentifier(element: Gta3ScriptScriptReference): PsiElement? {
+        return element.node.findChildByType(Gta3ScriptTypes.IDENTIFIER)?.psi
+    }
+
+    @JvmStatic
+    fun getReference(element: Gta3ScriptScriptReference): PsiReference {
+        return ScriptReference(element)
+    }
 }

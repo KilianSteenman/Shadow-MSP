@@ -23,6 +23,9 @@ public interface Gta3ScriptExpression extends PsiElement {
   Gta3ScriptLabelReturn getLabelReturn();
 
   @Nullable
+  Gta3ScriptLaunchMissionCall getLaunchMissionCall();
+
+  @Nullable
   Gta3ScriptLineBreak getLineBreak();
 
   @Nullable

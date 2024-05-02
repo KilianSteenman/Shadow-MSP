@@ -87,6 +87,10 @@ public class Gta3ScriptVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitLaunchMissionCall(@NotNull Gta3ScriptLaunchMissionCall o) {
+    visitPsiElement(o);
+  }
+
   public void visitLineBreak(@NotNull Gta3ScriptLineBreak o) {
     visitPsiElement(o);
   }
@@ -129,6 +133,10 @@ public class Gta3ScriptVisitor extends PsiElementVisitor {
 
   public void visitOrCondition(@NotNull Gta3ScriptOrCondition o) {
     visitPsiElement(o);
+  }
+
+  public void visitScriptReference(@NotNull Gta3ScriptScriptReference o) {
+    visitNamedElement(o);
   }
 
   public void visitSubroutineCall(@NotNull Gta3ScriptSubroutineCall o) {

@@ -24,6 +24,7 @@ public interface Gta3ScriptTypes {
   IElementType INCREMENT_PRE_OPERATION = new Gta3ScriptElementType("INCREMENT_PRE_OPERATION");
   IElementType LABEL_IDENTIFIER = new Gta3ScriptElementType("LABEL_IDENTIFIER");
   IElementType LABEL_RETURN = new Gta3ScriptElementType("LABEL_RETURN");
+  IElementType LAUNCH_MISSION_CALL = new Gta3ScriptElementType("LAUNCH_MISSION_CALL");
   IElementType LINE_BREAK = new Gta3ScriptElementType("LINE_BREAK");
   IElementType LOCAL_SCOPE = new Gta3ScriptElementType("LOCAL_SCOPE");
   IElementType LOCAL_SCOPE_BODY = new Gta3ScriptElementType("LOCAL_SCOPE_BODY");
@@ -38,6 +39,7 @@ public interface Gta3ScriptTypes {
   IElementType MISSION_BLOCK = new Gta3ScriptElementType("MISSION_BLOCK");
   IElementType OR_CONDITION = new Gta3ScriptElementType("OR_CONDITION");
   IElementType PARAM = new Gta3ScriptElementType("PARAM");
+  IElementType SCRIPT_REFERENCE = new Gta3ScriptElementType("SCRIPT_REFERENCE");
   IElementType SUBROUTINE_CALL = new Gta3ScriptElementType("SUBROUTINE_CALL");
   IElementType SUBROUTINE_REFERENCE = new Gta3ScriptElementType("SUBROUTINE_REFERENCE");
   IElementType TYPE = new Gta3ScriptElementType("TYPE");
@@ -59,6 +61,7 @@ public interface Gta3ScriptTypes {
   IElementType GOTO = new Gta3ScriptTokenType("GOTO");
   IElementType IDENTIFIER = new Gta3ScriptTokenType("IDENTIFIER");
   IElementType IF = new Gta3ScriptTokenType("IF");
+  IElementType LAUNCH_MISSION = new Gta3ScriptTokenType("LAUNCH_MISSION");
   IElementType MISSION_END = new Gta3ScriptTokenType("MISSION_END");
   IElementType MISSION_START = new Gta3ScriptTokenType("MISSION_START");
   IElementType NEW_LINE = new Gta3ScriptTokenType("NEW_LINE");
@@ -137,6 +140,9 @@ public interface Gta3ScriptTypes {
       else if (type == LABEL_RETURN) {
         return new Gta3ScriptLabelReturnImpl(node);
       }
+      else if (type == LAUNCH_MISSION_CALL) {
+        return new Gta3ScriptLaunchMissionCallImpl(node);
+      }
       else if (type == LINE_BREAK) {
         return new Gta3ScriptLineBreakImpl(node);
       }
@@ -178,6 +184,9 @@ public interface Gta3ScriptTypes {
       }
       else if (type == PARAM) {
         return new Gta3ScriptParamImpl(node);
+      }
+      else if (type == SCRIPT_REFERENCE) {
+        return new Gta3ScriptScriptReferenceImpl(node);
       }
       else if (type == SUBROUTINE_CALL) {
         return new Gta3ScriptSubroutineCallImpl(node);
