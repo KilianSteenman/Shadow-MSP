@@ -25,5 +25,6 @@ object Gta3ScriptTokenSets {
         Gta3ScriptTypes.GOSUB,
         Gta3ScriptTypes.GOTO,
         Gta3ScriptTypes.LAUNCH_MISSION,
+        Gta3ScriptTypes.LOAD_AND_LAUNCH_MISSION,
     )
 }
