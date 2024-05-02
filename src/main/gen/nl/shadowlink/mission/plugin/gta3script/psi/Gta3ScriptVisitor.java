@@ -139,6 +139,10 @@ public class Gta3ScriptVisitor extends PsiElementVisitor {
     visitNamedElement(o);
   }
 
+  public void visitStartNewScriptCall(@NotNull Gta3ScriptStartNewScriptCall o) {
+    visitPsiElement(o);
+  }
+
   public void visitSubroutineCall(@NotNull Gta3ScriptSubroutineCall o) {
     visitPsiElement(o);
   }

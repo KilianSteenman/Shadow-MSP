@@ -41,6 +41,9 @@ public interface Gta3ScriptExpression extends PsiElement {
   Gta3ScriptMissionBlock getMissionBlock();
 
   @Nullable
+  Gta3ScriptStartNewScriptCall getStartNewScriptCall();
+
+  @Nullable
   Gta3ScriptSubroutineCall getSubroutineCall();
 
   @Nullable

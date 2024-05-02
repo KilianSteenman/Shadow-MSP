@@ -40,6 +40,7 @@ public interface Gta3ScriptTypes {
   IElementType OR_CONDITION = new Gta3ScriptElementType("OR_CONDITION");
   IElementType PARAM = new Gta3ScriptElementType("PARAM");
   IElementType SCRIPT_REFERENCE = new Gta3ScriptElementType("SCRIPT_REFERENCE");
+  IElementType START_NEW_SCRIPT_CALL = new Gta3ScriptElementType("START_NEW_SCRIPT_CALL");
   IElementType SUBROUTINE_CALL = new Gta3ScriptElementType("SUBROUTINE_CALL");
   IElementType SUBROUTINE_REFERENCE = new Gta3ScriptElementType("SUBROUTINE_REFERENCE");
   IElementType TYPE = new Gta3ScriptElementType("TYPE");
@@ -83,6 +84,7 @@ public interface Gta3ScriptTypes {
   IElementType OR = new Gta3ScriptTokenType("OR");
   IElementType RETURN = new Gta3ScriptTokenType("RETURN");
   IElementType SET = new Gta3ScriptTokenType("SET");
+  IElementType START_NEW_SCRIPT = new Gta3ScriptTokenType("START_NEW_SCRIPT");
   IElementType SUBROUTINE = new Gta3ScriptTokenType("SUBROUTINE");
   IElementType TRUE = new Gta3ScriptTokenType("TRUE");
   IElementType VAR_FLOAT = new Gta3ScriptTokenType("VAR_FLOAT");
@@ -188,6 +190,9 @@ public interface Gta3ScriptTypes {
       }
       else if (type == SCRIPT_REFERENCE) {
         return new Gta3ScriptScriptReferenceImpl(node);
+      }
+      else if (type == START_NEW_SCRIPT_CALL) {
+        return new Gta3ScriptStartNewScriptCallImpl(node);
       }
       else if (type == SUBROUTINE_CALL) {
         return new Gta3ScriptSubroutineCallImpl(node);

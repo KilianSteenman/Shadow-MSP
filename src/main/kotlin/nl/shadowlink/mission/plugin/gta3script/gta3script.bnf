@@ -43,6 +43,7 @@
     GOTO = 'GOTO'
     LAUNCH_MISSION = 'LAUNCH_MISSION'
     LOAD_AND_LAUNCH_MISSION = 'LOAD_AND_LAUNCH_MISSION'
+    START_NEW_SCRIPT = 'START_NEW_SCRIPT'
 
     GOSUB_IDENTIFIER='regexp:[a-zA-Z0-9_.]+:'
     IDENTIFIER='regexp:\$?[a-zA-Z0-9_.@&]+'
@@ -62,7 +63,7 @@
 }
 
 root ::= expression*
-expression ::= (line_break | variable_definition | variable_assignment | label_identifier | subroutine_call | method_call | mission_block | if_expression | while_expression | math_operation | label_return | cast_assignment | local_scope | MISSION_END | goto_call | launch_mission_call)
+expression ::= (line_break | variable_definition | variable_assignment | label_identifier | subroutine_call | method_call | mission_block | if_expression | while_expression | math_operation | label_return | cast_assignment | local_scope | MISSION_END | goto_call | launch_mission_call | start_new_script_call)
 
 mission_block ::= MISSION_START expression*
 
@@ -79,6 +80,8 @@ script_reference ::= IDENTIFIER {
     implements="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptNamedElement"
     methods=[getName setName getNameIdentifier getReference]
 }
+
+start_new_script_call ::= START_NEW_SCRIPT subroutine_reference line_break
 
 goto_call ::= GOTO subroutine_reference line_break
 

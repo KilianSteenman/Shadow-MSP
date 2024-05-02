@@ -69,6 +69,7 @@ COMMENT_BLOCK="/*" !([^]* "*/" [^]*) ("*/")?
   "SUBROUTINE"             { return SUBROUTINE; }
   "LAUNCH_MISSION"         { return LAUNCH_MISSION; }
   "LOAD_AND_LAUNCH_MISSION"         { return LOAD_AND_LAUNCH_MISSION; }
+  "START_NEW_SCRIPT"       { return START_NEW_SCRIPT; }
 
   {NEW_LINE}               { return NEW_LINE; }
   {NUMBER}                 { return NUMBER; }
