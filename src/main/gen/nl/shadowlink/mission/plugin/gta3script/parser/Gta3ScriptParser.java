@@ -440,15 +440,24 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // LAUNCH_MISSION script_reference
+  // (LAUNCH_MISSION | LOAD_AND_LAUNCH_MISSION) script_reference
   public static boolean launch_mission_call(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "launch_mission_call")) return false;
-    if (!nextTokenIs(b, LAUNCH_MISSION)) return false;
+    if (!nextTokenIs(b, "<launch mission call>", LAUNCH_MISSION, LOAD_AND_LAUNCH_MISSION)) return false;
     boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, LAUNCH_MISSION);
+    Marker m = enter_section_(b, l, _NONE_, LAUNCH_MISSION_CALL, "<launch mission call>");
+    r = launch_mission_call_0(b, l + 1);
     r = r && script_reference(b, l + 1);
-    exit_section_(b, m, LAUNCH_MISSION_CALL, r);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // LAUNCH_MISSION | LOAD_AND_LAUNCH_MISSION
+  private static boolean launch_mission_call_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "launch_mission_call_0")) return false;
+    boolean r;
+    r = consumeToken(b, LAUNCH_MISSION);
+    if (!r) r = consumeToken(b, LOAD_AND_LAUNCH_MISSION);
     return r;
   }
 

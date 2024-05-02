@@ -42,6 +42,7 @@
     GOSUB = 'GOSUB'
     GOTO = 'GOTO'
     LAUNCH_MISSION = 'LAUNCH_MISSION'
+    LOAD_AND_LAUNCH_MISSION = 'LOAD_AND_LAUNCH_MISSION'
 
     GOSUB_IDENTIFIER='regexp:[a-zA-Z0-9_.]+:'
     IDENTIFIER='regexp:\$?[a-zA-Z0-9_.@&]+'
@@ -72,7 +73,7 @@ subroutine_reference ::= IDENTIFIER {
     methods=[getName setName getNameIdentifier getReference]
 }
 
-launch_mission_call ::= LAUNCH_MISSION script_reference
+launch_mission_call ::= (LAUNCH_MISSION | LOAD_AND_LAUNCH_MISSION) script_reference
 script_reference ::= IDENTIFIER {
     mixin="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptNamedElementImpl"
     implements="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptNamedElement"
