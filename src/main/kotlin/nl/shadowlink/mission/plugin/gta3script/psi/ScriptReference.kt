@@ -5,8 +5,8 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReferenceBase
 
 class ScriptReference(
-    element: PsiElement
-) : PsiReferenceBase<PsiElement>(element, TextRange.from(0, element.textLength)) {
+    element: Gta3ScriptScriptReference
+) : PsiReferenceBase<Gta3ScriptScriptReference>(element, TextRange.from(0, element.textLength)) {
 
     private val scriptFileName = element.text
 
@@ -21,8 +21,7 @@ class ScriptReference(
     }
 
     override fun handleElementRename(newElementName: String): PsiElement {
-        TODO("Implement")
-//        Gta3ScriptUtils.setName(element as Gta3ScriptVariable, newElementName)
+        Gta3ScriptUtils.setName(element, newElementName)
         return element
     }
 }

@@ -1,13 +1,7 @@
 package nl.shadowlink.mission.plugin.gta3script.psi
 
-import com.intellij.lang.ASTNode
-import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
-import com.intellij.psi.PsiElementResolveResult
 import com.intellij.psi.PsiReference
-import com.intellij.psi.PsiReferenceBase
-import com.intellij.psi.PsiReferenceFactory
-import nl.shadowlink.mission.plugin.gta3d.psi.global.GlobalVarElement
 
 object Gta3ScriptUtils {
 
@@ -75,7 +69,7 @@ object Gta3ScriptUtils {
     fun setName(element: Gta3ScriptVariable, newName: String): PsiElement {
         val identifierNode = element.node.findChildByType(Gta3ScriptTypes.IDENTIFIER)
         if (identifierNode != null) {
-            val newIdentifier = Gta3ScriptTypeFactory.createVariable(element.project, newName).node
+            val newIdentifier = Gta3ScriptTypeFactory.createIdentifier(element.project, newName)
             element.node.replaceChild(identifierNode, newIdentifier)
         }
         return element
@@ -164,12 +158,13 @@ object Gta3ScriptUtils {
 
     @JvmStatic
     fun setName(element: Gta3ScriptScriptReference, newName: String): PsiElement {
-        TODO("Implement label set name")
-//        val identifierNode = element.node.findChildByType(Gta3ScriptTypes.IDENTIFIER)
-//        if (identifierNode != null) {
-//            val newIdentifier = Gta3ScriptTypeFactory.createVariable(element.project, newName).node
-//            element.node.replaceChild(identifierNode, newIdentifier)
-//        }
+        println("Setting script reference node to $newName")
+        val identifierNode = element.node.findChildByType(Gta3ScriptTypes.IDENTIFIER)
+        if (identifierNode != null) {
+            val newIdentifier = Gta3ScriptTypeFactory.createIdentifier(element.project, newName)
+            println("New Identifier node ${newIdentifier.text}")
+            element.node.replaceChild(identifierNode, newIdentifier)
+        }
         return element
     }
 
