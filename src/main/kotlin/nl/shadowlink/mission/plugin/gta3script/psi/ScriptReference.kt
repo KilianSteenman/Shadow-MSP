@@ -11,9 +11,7 @@ class ScriptReference(
     private val scriptFileName = element.text
 
     override fun resolve(): PsiElement? {
-        return element.project.findScript(scriptFileName).also {
-            println("Search file '$scriptFileName' Found file")
-        }
+        return element.project.findScript(scriptFileName)
     }
 
     override fun getAbsoluteRange(): TextRange {

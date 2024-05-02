@@ -22,7 +22,7 @@ import nl.shadowlink.mission.plugin.gta3script.psi.impl.Gta3ScriptWhileExpressio
 internal class Gta3ScriptFoldingBuilder : FoldingBuilderEx(), DumbAware {
     private val LOG: Logger = Logger.getInstance(this::class.java)
 
-    private val foldableElementTypes = listOf(
+    private val foldableElementTypes = setOf(
         Gta3ScriptMissionBlockImpl::class.java,
         Gta3ScriptWhileExpressionImpl::class.java,
         Gta3ScriptIfExpressionImpl::class.java,
@@ -76,7 +76,7 @@ internal class Gta3ScriptFoldingBuilder : FoldingBuilderEx(), DumbAware {
             is Gta3ScriptWhileExpressionImpl -> "..."
             is Gta3ScriptIfExpressionImpl -> "..."
             is Gta3ScriptConditionBodyImpl -> "..."
-            else -> "...".also { println("Placeholder not defined for node $node") }
+            else -> "..."
         }
     }
 

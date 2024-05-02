@@ -11,9 +11,7 @@ class VariableReference(
     private val variableName = element.text
 
     override fun resolve(): PsiElement? {
-        return element.project.findVariableDefinition(variableName).also {
-            println("Search '$variableName' Found definition '${it?.text}' at ${it?.textRange}")
-        }
+        return element.project.findVariableDefinition(variableName)
     }
 
     override fun getAbsoluteRange(): TextRange {

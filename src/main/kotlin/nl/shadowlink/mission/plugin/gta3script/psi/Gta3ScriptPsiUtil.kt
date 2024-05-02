@@ -24,14 +24,6 @@ fun Project.findVariableDefinition(name: String): Gta3ScriptVariable? {
         .firstOrNull { definition -> definition.text == name }
 }
 
-fun Project.findVariableReferences(name: String): List<Gta3ScriptVariable> {
-    return FileTypeIndex.getFiles(Gta3ScriptFileType, GlobalSearchScope.allScope(this))
-        .mapNotNull { virtualFile -> PsiManager.getInstance(this).findFile(virtualFile) as? Gta3ScriptFile }
-        .flatMap { file -> file.findChildrenOfType<Gta3ScriptVariable>() }
-        .also { println("Found references count ${it.count()} before filtering") }
-//        .filter { definition -> definition.text == name }
-}
-
 fun Project.findScript(name: String): PsiFileBase? {
     return FileTypeIndex.getFiles(Gta3ScriptFileType, GlobalSearchScope.allScope(this))
         .find { it.name == name }

@@ -11,9 +11,7 @@ class LabelReference(
     private val labelName = element.text.substringBefore(":")
 
     override fun resolve(): PsiElement? {
-        return element.project.findLabelDefinition(labelName).also {
-            println("Search '$labelName' Found definition '${it?.text}' at ${it?.textRange}")
-        }
+        return element.project.findLabelDefinition(labelName)
     }
 
     override fun getAbsoluteRange(): TextRange {
