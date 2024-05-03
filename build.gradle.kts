@@ -2,18 +2,21 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jetbrains.compose.compose
 
 buildscript {
-    repositories { mavenCentral() }
-    dependencies { classpath(kotlin("gradle-plugin", "1.8.0")) }
+    repositories {
+        mavenCentral()
+    }
+    dependencies { classpath(kotlin("gradle-plugin", "1.9.23")) }
 }
 
 plugins {
     id("org.jetbrains.intellij") version "1.16.1"
-    id("org.jetbrains.kotlin.jvm") version "1.8.0"
-    id("org.jetbrains.compose") version "1.5.12"
+    id("org.jetbrains.kotlin.jvm") version "1.9.23"
+    id("org.jetbrains.compose") version "1.6.1"
 }
 
 repositories {
     mavenCentral()
+    google()
     maven(url = "https://maven.pkg.jetbrains.space/public/p/compose/dev")
     maven(url = "https://jitpack.io")
 }
@@ -36,7 +39,6 @@ dependencies {
     implementation("com.google.code.gson", "gson", "2.8.6")
 
     // Compose
-    implementation("org.jetbrains.compose.material:material:")
     implementation(compose.desktop.currentOs)
 
     testImplementation("junit", "junit", "4.12")
