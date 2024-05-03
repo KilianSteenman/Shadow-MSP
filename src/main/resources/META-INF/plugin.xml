@@ -67,6 +67,9 @@
         <lang.findUsagesProvider
                 language="Gta3Script"
                 implementationClass="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptFindUsagesProvider"/>
+        <lang.commenter
+                language="Gta3Script"
+                implementationClass="nl.shadowlink.mission.plugin.gta3script.commenter.Gta3ScriptCommenter"/>
         <colorSettingsPage
                 implementation="nl.shadowlink.mission.plugin.gta3script.highlighter.Gta3ScriptColorSettingsPage"/>
 
