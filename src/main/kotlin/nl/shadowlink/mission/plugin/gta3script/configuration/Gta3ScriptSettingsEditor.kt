@@ -34,7 +34,7 @@ internal class Gta3ScriptSettingsEditor : Configurable {
 
         return panel {
             row {
-                label("Delfi's GTA-2 Compiler")
+                label("TheLink2012's GTAScript Compiler")
                 compilerBrowser(grow)
             }
         }
@@ -43,7 +43,7 @@ internal class Gta3ScriptSettingsEditor : Configurable {
     private fun createCompilerBrowser(): TextFieldWithBrowseButton {
         val chooseDirectoryDescriptor = FileChooserDescriptorFactory.createSingleFileDescriptor("exe").apply {
             isHideIgnored = false
-            title = "Select Delfi's GTA-2 Compiler"
+            title = "Select GTA3Script Compiler"
 
             withFileFilter { file ->
                 file.name == DELFI_COMPILER_NAME/* TODO: && file.getCRC32Checksum() == DELFI_COMPILER_CHECKSUM */
