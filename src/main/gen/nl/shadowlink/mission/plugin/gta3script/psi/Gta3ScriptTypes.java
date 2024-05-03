@@ -22,7 +22,8 @@ public interface Gta3ScriptTypes {
   IElementType IF_EXPRESSION = new Gta3ScriptElementType("IF_EXPRESSION");
   IElementType INCREMENT_POST_OPERATION = new Gta3ScriptElementType("INCREMENT_POST_OPERATION");
   IElementType INCREMENT_PRE_OPERATION = new Gta3ScriptElementType("INCREMENT_PRE_OPERATION");
-  IElementType LABEL_IDENTIFIER = new Gta3ScriptElementType("LABEL_IDENTIFIER");
+  IElementType LABEL = new Gta3ScriptElementType("LABEL");
+  IElementType LABEL_DEFINITION = new Gta3ScriptElementType("LABEL_DEFINITION");
   IElementType LABEL_RETURN = new Gta3ScriptElementType("LABEL_RETURN");
   IElementType LAUNCH_MISSION_CALL = new Gta3ScriptElementType("LAUNCH_MISSION_CALL");
   IElementType LINE_BREAK = new Gta3ScriptElementType("LINE_BREAK");
@@ -42,7 +43,6 @@ public interface Gta3ScriptTypes {
   IElementType SCRIPT_REFERENCE = new Gta3ScriptElementType("SCRIPT_REFERENCE");
   IElementType START_NEW_SCRIPT_CALL = new Gta3ScriptElementType("START_NEW_SCRIPT_CALL");
   IElementType SUBROUTINE_CALL = new Gta3ScriptElementType("SUBROUTINE_CALL");
-  IElementType SUBROUTINE_REFERENCE = new Gta3ScriptElementType("SUBROUTINE_REFERENCE");
   IElementType TYPE = new Gta3ScriptElementType("TYPE");
   IElementType VARIABLE = new Gta3ScriptElementType("VARIABLE");
   IElementType VARIABLE_ASSIGNMENT = new Gta3ScriptElementType("VARIABLE_ASSIGNMENT");
@@ -50,6 +50,7 @@ public interface Gta3ScriptTypes {
   IElementType WHILE_EXPRESSION = new Gta3ScriptElementType("WHILE_EXPRESSION");
 
   IElementType AND = new Gta3ScriptTokenType("AND");
+  IElementType COLON = new Gta3ScriptTokenType(":");
   IElementType COMMENT = new Gta3ScriptTokenType("COMMENT");
   IElementType COMMENTBLOCK = new Gta3ScriptTokenType("COMMENTBLOCK");
   IElementType ELSE = new Gta3ScriptTokenType("ELSE");
@@ -58,7 +59,6 @@ public interface Gta3ScriptTypes {
   IElementType EQUALS = new Gta3ScriptTokenType("=");
   IElementType FALSE = new Gta3ScriptTokenType("FALSE");
   IElementType GOSUB = new Gta3ScriptTokenType("GOSUB");
-  IElementType GOSUB_IDENTIFIER = new Gta3ScriptTokenType("GOSUB_IDENTIFIER");
   IElementType GOTO = new Gta3ScriptTokenType("GOTO");
   IElementType IDENTIFIER = new Gta3ScriptTokenType("IDENTIFIER");
   IElementType IF = new Gta3ScriptTokenType("IF");
@@ -86,6 +86,7 @@ public interface Gta3ScriptTypes {
   IElementType SET = new Gta3ScriptTokenType("SET");
   IElementType START_NEW_SCRIPT = new Gta3ScriptTokenType("START_NEW_SCRIPT");
   IElementType SUBROUTINE = new Gta3ScriptTokenType("SUBROUTINE");
+  IElementType SUBROUTINE_REFERENCE = new Gta3ScriptTokenType("subroutine_reference");
   IElementType TRUE = new Gta3ScriptTokenType("TRUE");
   IElementType VAR_FLOAT = new Gta3ScriptTokenType("VAR_FLOAT");
   IElementType VAR_INT = new Gta3ScriptTokenType("VAR_INT");
@@ -137,8 +138,11 @@ public interface Gta3ScriptTypes {
       else if (type == INCREMENT_PRE_OPERATION) {
         return new Gta3ScriptIncrementPreOperationImpl(node);
       }
-      else if (type == LABEL_IDENTIFIER) {
-        return new Gta3ScriptLabelIdentifierImpl(node);
+      else if (type == LABEL) {
+        return new Gta3ScriptLabelImpl(node);
+      }
+      else if (type == LABEL_DEFINITION) {
+        return new Gta3ScriptLabelDefinitionImpl(node);
       }
       else if (type == LABEL_RETURN) {
         return new Gta3ScriptLabelReturnImpl(node);
@@ -196,9 +200,6 @@ public interface Gta3ScriptTypes {
       }
       else if (type == SUBROUTINE_CALL) {
         return new Gta3ScriptSubroutineCallImpl(node);
-      }
-      else if (type == SUBROUTINE_REFERENCE) {
-        return new Gta3ScriptSubroutineReferenceImpl(node);
       }
       else if (type == TYPE) {
         return new Gta3ScriptTypeImpl(node);

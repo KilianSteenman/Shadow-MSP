@@ -10,7 +10,4 @@ public interface Gta3ScriptStartNewScriptCall extends PsiElement {
   @NotNull
   Gta3ScriptLineBreak getLineBreak();
 
-  @NotNull
-  Gta3ScriptSubroutineReference getSubroutineReference();
-
 }

@@ -27,7 +27,6 @@ WHITE_SPACE=[ \t]+
 NEW_LINE=[\n\r|\n|\r]+
 NUMBER=-?[0-9]+(\.[0-9]*)?
 COMMENT="//".*
-GOSUB_IDENTIFIER=[a-zA-Z0-9_.]+:
 IDENTIFIER=\$?[a-zA-Z0-9_.@&]+
 COMMENT_BLOCK="/*" !([^]* "*/" [^]*) ("*/")?
 
@@ -64,6 +63,7 @@ COMMENT_BLOCK="/*" !([^]* "*/" [^]*) ("*/")?
   ">"                      { return OP_GREATER_THAN; }
   ">="                     { return OP_GREATER_THAN_OR_EQUAL; }
   "="                      { return EQUALS; }
+  ":"                      { return COLON; }
   "VAR_INT"                { return VAR_INT; }
   "VAR_FLOAT"              { return VAR_FLOAT; }
   "SUBROUTINE"             { return SUBROUTINE; }
@@ -75,7 +75,6 @@ COMMENT_BLOCK="/*" !([^]* "*/" [^]*) ("*/")?
   {NUMBER}                 { return NUMBER; }
   {COMMENT}                { return COMMENT; }
   {COMMENT_BLOCK}          { return COMMENT; }
-  {GOSUB_IDENTIFIER}       { return GOSUB_IDENTIFIER; }
   {IDENTIFIER}             { return IDENTIFIER; }
 
 }

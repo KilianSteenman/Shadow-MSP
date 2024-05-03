@@ -15,8 +15,25 @@ object Gta3ScriptTypeFactory {
     fun createIdentifier(project: Project, name: String): ASTNode {
         val text = "VAR_INT $name\n"
         val dummyFile = createGta3ScriptFile(project, text)
-        return dummyFile.findChildrenOfType<Gta3ScriptVariable>().firstOrNull()?.node?.findChildByType(Gta3ScriptTypes.IDENTIFIER)
+        return dummyFile.findChildrenOfType<Gta3ScriptVariable>()
+            .firstOrNull()?.node?.findChildByType(Gta3ScriptTypes.IDENTIFIER)
             ?: error("Unable to create identifier for $name")
+    }
+
+    fun createLabelReference(project: Project, name: String): ASTNode {
+        val text = "GOSUB $name\n"
+        val dummyFile = createGta3ScriptFile(project, text)
+        return dummyFile.findChildrenOfType<Gta3ScriptLabel>()
+            .firstOrNull()?.node?.findChildByType(Gta3ScriptTypes.IDENTIFIER)
+            ?: error("Unable to create label reference for $name")
+    }
+
+    fun createLabel(project: Project, name: String): ASTNode {
+        val text = "$name:\n"
+        val dummyFile = createGta3ScriptFile(project, text)
+        return dummyFile.findChildrenOfType<Gta3ScriptLabel>()
+            .firstOrNull()?.node?.findChildByType(Gta3ScriptTypes.IDENTIFIER)
+            ?: error("Unable to create label for $name")
     }
 
     private fun createGta3ScriptFile(project: Project, text: String): Gta3ScriptFile {

@@ -5,10 +5,10 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReferenceBase
 
 class LabelReference(
-    element: PsiElement
-) : PsiReferenceBase<PsiElement>(element, TextRange.from(0, element.textLength)) {
+    element: Gta3ScriptLabel
+) : PsiReferenceBase<Gta3ScriptLabel>(element, TextRange.from(0, element.textLength)) {
 
-    private val labelName = element.text.substringBefore(":")
+    private val labelName = element.text
 
     override fun resolve(): PsiElement? {
         return element.project.findLabelDefinition(labelName)
@@ -19,7 +19,7 @@ class LabelReference(
     }
 
     override fun handleElementRename(newElementName: String): PsiElement {
-        Gta3ScriptUtils.setName(element as Gta3ScriptVariable, newElementName)
+        Gta3ScriptUtils.setName(element, newElementName)
         return element
     }
 }

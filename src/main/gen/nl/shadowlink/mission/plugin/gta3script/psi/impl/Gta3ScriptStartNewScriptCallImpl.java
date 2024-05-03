@@ -33,10 +33,4 @@ public class Gta3ScriptStartNewScriptCallImpl extends ASTWrapperPsiElement imple
     return findNotNullChildByClass(Gta3ScriptLineBreak.class);
   }
 
-  @Override
-  @NotNull
-  public Gta3ScriptSubroutineReference getSubroutineReference() {
-    return findNotNullChildByClass(Gta3ScriptSubroutineReference.class);
-  }
-
 }

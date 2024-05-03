@@ -9,11 +9,11 @@ import nl.shadowlink.mission.plugin.gta3script.Gta3ScriptFile
 import nl.shadowlink.mission.plugin.gta3script.Gta3ScriptFileType
 import nl.shadowlink.mission.plugin.utils.findChildrenOfType
 
-fun Project.findLabelDefinition(name: String): Gta3ScriptLabelIdentifier? {
+fun Project.findLabelDefinition(name: String): Gta3ScriptLabel? {
     return FileTypeIndex.getFiles(Gta3ScriptFileType, GlobalSearchScope.allScope(this))
         .mapNotNull { virtualFile -> PsiManager.getInstance(this).findFile(virtualFile) as? Gta3ScriptFile }
-        .flatMap { file -> file.findChildrenOfType<Gta3ScriptLabelIdentifier>() }
-        .firstOrNull { definition -> definition.text.substringBefore(':') == name }
+        .flatMap { file -> file.findChildrenOfType<Gta3ScriptLabel>() }
+        .firstOrNull { definition -> definition.text == name }
 }
 
 fun Project.findVariableDefinition(name: String): Gta3ScriptVariable? {

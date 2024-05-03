@@ -47,8 +47,8 @@ public class Gta3ScriptExpressionImpl extends ASTWrapperPsiElement implements Gt
 
   @Override
   @Nullable
-  public Gta3ScriptLabelIdentifier getLabelIdentifier() {
-    return findChildByClass(Gta3ScriptLabelIdentifier.class);
+  public Gta3ScriptLabelDefinition getLabelDefinition() {
+    return findChildByClass(Gta3ScriptLabelDefinition.class);
   }
 
   @Override

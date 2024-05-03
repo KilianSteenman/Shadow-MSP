@@ -6,13 +6,10 @@ import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiReference;
 
-public interface Gta3ScriptLabelIdentifier extends Gta3ScriptNamedElement {
+public interface Gta3ScriptLabel extends Gta3ScriptNamedElement {
 
   @NotNull
-  Gta3ScriptLineBreak getLineBreak();
-
-  @NotNull
-  PsiElement getGosubIdentifier();
+  PsiElement getIdentifier();
 
   @NotNull
   String getName();

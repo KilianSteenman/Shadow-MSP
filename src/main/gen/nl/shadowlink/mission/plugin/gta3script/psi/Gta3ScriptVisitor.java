@@ -79,8 +79,12 @@ public class Gta3ScriptVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitLabelIdentifier(@NotNull Gta3ScriptLabelIdentifier o) {
+  public void visitLabel(@NotNull Gta3ScriptLabel o) {
     visitNamedElement(o);
+  }
+
+  public void visitLabelDefinition(@NotNull Gta3ScriptLabelDefinition o) {
+    visitPsiElement(o);
   }
 
   public void visitLabelReturn(@NotNull Gta3ScriptLabelReturn o) {
@@ -145,10 +149,6 @@ public class Gta3ScriptVisitor extends PsiElementVisitor {
 
   public void visitSubroutineCall(@NotNull Gta3ScriptSubroutineCall o) {
     visitPsiElement(o);
-  }
-
-  public void visitSubroutineReference(@NotNull Gta3ScriptSubroutineReference o) {
-    visitNamedElement(o);
   }
 
   public void visitVariable(@NotNull Gta3ScriptVariable o) {
