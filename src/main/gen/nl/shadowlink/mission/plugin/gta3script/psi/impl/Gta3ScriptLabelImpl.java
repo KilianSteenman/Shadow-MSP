@@ -12,14 +12,14 @@ import nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptNamedElementImpl;
 import nl.shadowlink.mission.plugin.gta3script.psi.*;
 import com.intellij.psi.PsiReference;
 
-public class Gta3ScriptLabelIdentifierImpl extends Gta3ScriptNamedElementImpl implements Gta3ScriptLabelIdentifier {
+public class Gta3ScriptLabelImpl extends Gta3ScriptNamedElementImpl implements Gta3ScriptLabel {
 
-  public Gta3ScriptLabelIdentifierImpl(@NotNull ASTNode node) {
+  public Gta3ScriptLabelImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull Gta3ScriptVisitor visitor) {
-    visitor.visitLabelIdentifier(this);
+    visitor.visitLabel(this);
   }
 
   @Override
@@ -30,14 +30,8 @@ public class Gta3ScriptLabelIdentifierImpl extends Gta3ScriptNamedElementImpl im
 
   @Override
   @NotNull
-  public Gta3ScriptLineBreak getLineBreak() {
-    return findNotNullChildByClass(Gta3ScriptLineBreak.class);
-  }
-
-  @Override
-  @NotNull
-  public PsiElement getGosubIdentifier() {
-    return findNotNullChildByType(GOSUB_IDENTIFIER);
+  public PsiElement getIdentifier() {
+    return findNotNullChildByType(IDENTIFIER);
   }
 
   @Override

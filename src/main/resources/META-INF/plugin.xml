@@ -64,6 +64,10 @@
         <lang.foldingBuilder
                 language="Gta3Script"
                 implementationClass="nl.shadowlink.mission.plugin.gta3script.Gta3ScriptFoldingBuilder"/>
+        <lang.refactoringSupport
+                language="Gta3Script"
+                implementationClass="nl.shadowlink.mission.plugin.gta3script.refactoring.Gta3ScriptRefactoringSupportProvider"/>
+
         <lang.findUsagesProvider
                 language="Gta3Script"
                 implementationClass="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptFindUsagesProvider"/>

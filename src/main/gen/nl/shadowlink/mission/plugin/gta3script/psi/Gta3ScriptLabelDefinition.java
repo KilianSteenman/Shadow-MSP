@@ -5,7 +5,7 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface Gta3ScriptGotoCall extends PsiElement {
+public interface Gta3ScriptLabelDefinition extends PsiElement {
 
   @NotNull
   Gta3ScriptLabel getLabel();

@@ -15,7 +15,7 @@ class Gta3ScriptHighlighter : SyntaxHighlighterBase() {
             KEYWORDS.contains(tokenType) -> arrayOf(Gta3ScriptColor.KEYWORD.attributesKey)
             tokenType == Gta3ScriptTypes.COMMENT -> arrayOf(Gta3ScriptColor.LINE_COMMENT.attributesKey)
             tokenType == Gta3ScriptTypes.NUMBER -> arrayOf(Gta3ScriptColor.NUMBER.attributesKey)
-            tokenType == Gta3ScriptTypes.LABEL_IDENTIFIER -> arrayOf(Gta3ScriptColor.SUBROUTINE_DECLARATION.attributesKey)
+            tokenType == Gta3ScriptTypes.LABEL_DEFINITION -> arrayOf(Gta3ScriptColor.SUBROUTINE_DECLARATION.attributesKey)
             tokenType == Gta3ScriptTypes.SUBROUTINE -> arrayOf(Gta3ScriptColor.SUBROUTINE_REFERENCE.attributesKey)
             else -> emptyArray()
         }

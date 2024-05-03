@@ -17,7 +17,7 @@ public interface Gta3ScriptExpression extends PsiElement {
   Gta3ScriptIfExpression getIfExpression();
 
   @Nullable
-  Gta3ScriptLabelIdentifier getLabelIdentifier();
+  Gta3ScriptLabelDefinition getLabelDefinition();
 
   @Nullable
   Gta3ScriptLabelReturn getLabelReturn();

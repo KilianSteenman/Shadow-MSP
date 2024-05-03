@@ -11,14 +11,14 @@ import static nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import nl.shadowlink.mission.plugin.gta3script.psi.*;
 
-public class Gta3ScriptGotoCallImpl extends ASTWrapperPsiElement implements Gta3ScriptGotoCall {
+public class Gta3ScriptLabelDefinitionImpl extends ASTWrapperPsiElement implements Gta3ScriptLabelDefinition {
 
-  public Gta3ScriptGotoCallImpl(@NotNull ASTNode node) {
+  public Gta3ScriptLabelDefinitionImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull Gta3ScriptVisitor visitor) {
-    visitor.visitGotoCall(this);
+    visitor.visitLabelDefinition(this);
   }
 
   @Override
