@@ -5,6 +5,9 @@
       <module name="plugin" target="1.8" />
       <module name="plugin.main" target="1.8" />
       <module name="plugin.test" target="1.8" />
+      <module name="Shadow-MSP" target="11" />
+      <module name="Shadow-MSP.main" target="11" />
+      <module name="Shadow-MSP.test" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>

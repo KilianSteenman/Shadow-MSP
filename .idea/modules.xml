@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Shadow-MSP.iml" filepath="$PROJECT_DIR$/.idea/modules/Shadow-MSP.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Shadow-MSP.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Shadow-MSP.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Shadow-MSP.test.iml" filepath="$PROJECT_DIR$/.idea/modules/Shadow-MSP.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/Shadow-MissionPlugin.iml" filepath="$PROJECT_DIR$/.idea/Shadow-MissionPlugin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/tools.Shadow-MSP.test.iml" filepath="$PROJECT_DIR$/.idea/modules/tools.Shadow-MSP.test.iml" />
     </modules>
   </component>
 </project>

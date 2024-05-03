@@ -1,10 +1,11 @@
 <idea-plugin>
     <id>nl.shadowlink.mission.plugin</id>
-    <name>Shadow-Mission</name>
-    <vendor email="info@shadow-link.nl" url="http://www.shadow-link.nl">Shadow-Link</vendor>
+    <name>Shadow-MSP</name>
+    <vendor email="info@shadow-link.nl" url="https://www.shadow-link.nl">Shadow-Link</vendor>
 
     <description><![CDATA[
-    Basic editor (by Sanny Builder) decompiled mission scripts<br>
+    Language support for GTA Mission scripts.<br/>
+    Supported games. GTA 2, GTA: III, GTA: VC and GTA: SA.
     ]]></description>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
@@ -14,79 +15,167 @@
     -->
 
     <extensions defaultExtensionNs="com.intellij">
-        <fileType name="Mission Script file" implementationClass="nl.shadowlink.mission.plugin.MissionFileType"
-            language="MissionScript" extensions="dsc" />
+        <!-- GTA 2 - Language -->
+        <fileType
+                name="GTA 2 - Mission Script"
+                implementationClass="nl.shadowlink.mission.plugin.gta2.Gta2MissionFileType"
+                language="Gta2MissionScript"
+                extensions="mis"/>
+        <lang.parserDefinition
+                language="Gta2MissionScript"
+                implementationClass="nl.shadowlink.mission.plugin.gta2.Gta2MissionParserDefinition"/>
+        <lang.syntaxHighlighterFactory
+                language="Gta2MissionScript"
+                implementationClass="nl.shadowlink.mission.plugin.gta2.highlighter.Gta2MissionHighlighterFactory"/>
+        <lang.foldingBuilder
+                language="Gta2MissionScript"
+                implementationClass="nl.shadowlink.mission.plugin.gta2.Gta2FoldingBuilder"/>
+        <lang.findUsagesProvider
+                language="Gta2MissionScript"
+                implementationClass="nl.shadowlink.mission.plugin.gta2.psi.Gta2UsagesProvider"/>
+        <colorSettingsPage
+                implementation="nl.shadowlink.mission.plugin.gta2.highlighter.Gta2MissionColorSettingsPage"/>
 
-        <lang.parserDefinition language="MissionScript"
-            implementationClass="nl.shadowlink.mission.plugin.parser.MissionParserDefinition" />
-        <lang.syntaxHighlighterFactory language="MissionScript"
-            implementationClass="nl.shadowlink.mission.plugin.highlighter.MissionHighlighterFactory" />
-        <lang.refactoringSupport language="MissionScript"
-            implementationClass="nl.shadowlink.mission.plugin.refactoring.MissionRefactoringSupportProvider" />
-        <lang.findUsagesProvider language="MissionScript"
-            implementationClass="nl.shadowlink.mission.plugin.usages.MissionUsagesProvider" />
-        <lang.commenter language="MissionScript"
-            implementationClass="nl.shadowlink.mission.plugin.commenter.MissionCommenter" />
+        <!-- GTA 2 - run -->
+        <configurationType
+                implementation="nl.shadowlink.mission.plugin.gta2.run.Gta2ConfigurationType"/>
+        <programRunner
+                id="Gta2MissionScript"
+                implementation="nl.shadowlink.mission.plugin.gta2.run.Gta2ProgramRunner"/>
 
-        <annotator language="MissionScript"
-            implementationClass="nl.shadowlink.mission.plugin.annotator.MissionAnnotator" />
+        <!-- GTA 2 - Settings -->
+        <applicationConfigurable
+                instance="nl.shadowlink.mission.plugin.gta2.configuration.Gta2SettingsEditor"
+                groupId="language"
+                id="Gta2MissionScript"/>
+
+        <!-- GTA 3 - Script -->
+        <fileType
+                name="GTA 3 - Script"
+                implementationClass="nl.shadowlink.mission.plugin.gta3script.Gta3ScriptFileType"
+                language="Gta3Script"
+                extensions="sc"/>
+        <lang.parserDefinition
+                language="Gta3Script"
+                implementationClass="nl.shadowlink.mission.plugin.gta3script.Gta3ScriptParserDefinition"/>
+        <lang.syntaxHighlighterFactory
+                language="Gta3Script"
+                implementationClass="nl.shadowlink.mission.plugin.gta3script.highlighter.Gta3ScriptHighlighterFactory"/>
+        <lang.foldingBuilder
+                language="Gta3Script"
+                implementationClass="nl.shadowlink.mission.plugin.gta3script.Gta3ScriptFoldingBuilder"/>
+        <lang.findUsagesProvider
+                language="Gta3Script"
+                implementationClass="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptFindUsagesProvider"/>
+        <colorSettingsPage
+                implementation="nl.shadowlink.mission.plugin.gta3script.highlighter.Gta3ScriptColorSettingsPage"/>
+
+        <!-- RW Era -->
+        <fileType
+                name="Mission Script"
+                implementationClass="nl.shadowlink.mission.plugin.gta3d.MissionFileType"
+                language="MissionScript"
+                extensions="dsc"/>
+        <lang.parserDefinition
+                language="MissionScript"
+                implementationClass="nl.shadowlink.mission.plugin.gta3d.parser.MissionParserDefinition"/>
+        <lang.syntaxHighlighterFactory
+                language="MissionScript"
+                implementationClass="nl.shadowlink.mission.plugin.gta3d.highlighter.MissionHighlighterFactory"/>
+        <lang.refactoringSupport
+                language="MissionScript"
+                implementationClass="nl.shadowlink.mission.plugin.gta3d.refactoring.MissionRefactoringSupportProvider"/>
+        <lang.findUsagesProvider
+                language="MissionScript"
+                implementationClass="nl.shadowlink.mission.plugin.gta3d.usages.MissionUsagesProvider"/>
+        <lang.commenter
+                language="MissionScript"
+                implementationClass="nl.shadowlink.mission.plugin.gta3d.commenter.MissionCommenter"/>
+
+        <annotator
+                language="MissionScript"
+                implementationClass="nl.shadowlink.mission.plugin.gta3d.annotator.MissionAnnotator"/>
 
         <!-- Completions -->
-        <completion.contributor language="MissionScript"
-            implementationClass="nl.shadowlink.mission.plugin.completion.OpcodeCompletionContributor" />
-        <completion.contributor language="MissionScript"
-            implementationClass="nl.shadowlink.mission.plugin.completion.ModelCompletionContributor" />
-        <completion.contributor language="MissionScript"
-            implementationClass="nl.shadowlink.mission.plugin.completion.LabelCompletionContributor" />
-        <completion.contributor language="MissionScript"
-            implementationClass="nl.shadowlink.mission.plugin.completion.GlobalsCompletionContributor" />
-        <completion.contributor language="MissionScript"
-            implementationClass="nl.shadowlink.mission.plugin.completion.ParameterCompletionContributor" />
+        <completion.contributor
+                language="MissionScript"
+                implementationClass="nl.shadowlink.mission.plugin.gta3d.completion.OpcodeCompletionContributor"/>
+        <completion.contributor
+                language="MissionScript"
+                implementationClass="nl.shadowlink.mission.plugin.gta3d.completion.ModelCompletionContributor"/>
+        <completion.contributor
+                language="MissionScript"
+                implementationClass="nl.shadowlink.mission.plugin.gta3d.completion.LabelCompletionContributor"/>
+        <completion.contributor
+                language="MissionScript"
+                implementationClass="nl.shadowlink.mission.plugin.gta3d.completion.GlobalsCompletionContributor"/>
+        <completion.contributor
+                language="MissionScript"
+                implementationClass="nl.shadowlink.mission.plugin.gta3d.completion.ParameterCompletionContributor"/>
         <codeInsight.parameterInfo
-            implementationClass="nl.shadowlink.mission.plugin.completion.OpcodeParameterInfoHandler"
-            language="MissionScript" />
+                implementationClass="nl.shadowlink.mission.plugin.gta3d.completion.OpcodeParameterInfoHandler"
+                language="MissionScript"/>
 
         <!-- Folding -->
-        <lang.foldingBuilder language="MissionScript"
-            implementationClass="nl.shadowlink.mission.plugin.folding.MissionFolding" />
-        <lang.foldingBuilder language="MissionScript"
-            implementationClass="nl.shadowlink.mission.plugin.folding.OpcodeFolding" />
+        <lang.foldingBuilder
+                language="MissionScript"
+                implementationClass="nl.shadowlink.mission.plugin.gta3d.folding.MissionFolding"/>
+        <lang.foldingBuilder
+                language="MissionScript"
+                implementationClass="nl.shadowlink.mission.plugin.gta3d.folding.OpcodeFolding"/>
 
         <!-- Settings -->
-        <colorSettingsPage implementation="nl.shadowlink.mission.plugin.highlighter.MissionColorSettingsPage" />
-        <applicationConfigurable instance="nl.shadowlink.mission.plugin.configuration.MissionConfiguration"
-            groupId="language" id="MissionScript" />
+        <colorSettingsPage
+                implementation="nl.shadowlink.mission.plugin.gta3d.highlighter.MissionColorSettingsPage"/>
+        <applicationConfigurable
+                instance="nl.shadowlink.mission.plugin.gta3d.configuration.MissionConfiguration"
+                groupId="language"
+                id="MissionScript"/>
 
         <!-- Run related extensions -->
-        <configurationType implementation="nl.shadowlink.mission.plugin.run.MissionConfigurationType" />
-        <programRunner id="MissionScript" implementation="nl.shadowlink.mission.plugin.run.MissionProgramRunner" />
+        <configurationType
+                implementation="nl.shadowlink.mission.plugin.gta3d.run.MissionConfigurationType"/>
+        <programRunner
+                id="MissionScript"
+                implementation="nl.shadowlink.mission.plugin.gta3d.run.MissionProgramRunner"/>
 
         <!-- Project / Module wizard -->
-        <moduleType id="MissionModule"
-            implementationClass="nl.shadowlink.mission.plugin.projectwizard.MissionModuleType" />
-        <moduleBuilder builderClass="nl.shadowlink.mission.plugin.projectwizard.MissionModuleBuilder" />
+        <!--        <moduleType-->
+        <!--                id="MissionModule"-->
+        <!--                implementationClass="nl.shadowlink.mission.plugin.projectwizard.MissionModuleType"/>-->
+        <!--        <moduleBuilder-->
+        <!--                builderClass="nl.shadowlink.mission.plugin.projectwizard.MissionModuleBuilder"/>-->
 
         <!-- Tool windows -->
-        <toolWindow id="OpcodeDbViewer" anchor="right"
-            factoryClass="nl.shadowlink.mission.plugin.tools.opcodedb.OpcodeDbViewerToolWindowFactory" />
+        <toolWindow
+                id="OpcodeDbViewer"
+                anchor="right"
+                factoryClass="nl.shadowlink.mission.plugin.gta3d.tools.opcodedb.OpcodeDbViewerToolWindowFactory"/>
     </extensions>
 
     <actions>
 
-        <action id="nl.shadowlink.mission.plugin.actions.OpenInSannyBuilderAction"
-            class="nl.shadowlink.mission.plugin.actions.OpenInSannyBuilderAction" text="Open in Sanny Builder"
-            description="Open file in Sanny Builder">
-            <add-to-group group-id="RevealGroup" anchor="last" />
+        <action
+                id="nl.shadowlink.mission.plugin.actions.OpenInSannyBuilderAction"
+                class="nl.shadowlink.mission.plugin.gta3d.actions.OpenInSannyBuilderAction"
+                text="Open in Sanny Builder"
+                description="Open file in Sanny Builder">
+            <add-to-group group-id="RevealGroup" anchor="last"/>
         </action>
 
-        <group id="nl.shadowlink.mission.plugin.MissionActions" text="Mission Script" popup="true">
-            <add-to-group group-id="ToolsMenu" anchor="last" />
+        <group
+                id="nl.shadowlink.mission.plugin.MissionActions"
+                text="Mission Script"
+                popup="true">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
         </group>
 
-        <action id="nl.shadowlink.mission.plugin.tools.opcodedb.OpenOpcodeDbAction"
-            class="nl.shadowlink.mission.plugin.tools.opcodedb.OpenOpcodeDbAction" text="Open Opcode Database"
-            description="Browse a list of all available opcodes">
-            <add-to-group group-id="nl.shadowlink.mission.plugin.MissionActions" anchor="last" />
+        <action
+                id="nl.shadowlink.mission.plugin.tools.gta3d.opcodedb.OpenOpcodeDbAction"
+                class="nl.shadowlink.mission.plugin.gta3d.tools.opcodedb.OpenOpcodeDbAction"
+                text="Open Opcode Database"
+                description="Browse a list of all available opcodes">
+            <add-to-group group-id="nl.shadowlink.mission.plugin.MissionActions" anchor="last"/>
         </action>
 
     </actions>
