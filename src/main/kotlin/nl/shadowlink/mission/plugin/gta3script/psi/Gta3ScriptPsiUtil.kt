@@ -12,7 +12,8 @@ import nl.shadowlink.mission.plugin.utils.findChildrenOfType
 fun Project.findLabelDefinition(name: String): Gta3ScriptLabel? {
     return FileTypeIndex.getFiles(Gta3ScriptFileType, GlobalSearchScope.allScope(this))
         .mapNotNull { virtualFile -> PsiManager.getInstance(this).findFile(virtualFile) as? Gta3ScriptFile }
-        .flatMap { file -> file.findChildrenOfType<Gta3ScriptLabel>() }
+        .flatMap { file -> file.findChildrenOfType<Gta3ScriptLabelDefinition>() }
+        .flatMap { definition -> definition.findChildrenOfType<Gta3ScriptLabel>() }
         .firstOrNull { definition -> definition.text == name }
 }
 
