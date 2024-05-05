@@ -12,7 +12,6 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.search.PsiSearchHelper
 import java.io.File
 
-
 internal class Gta3ScriptRunConfiguration(
     project: Project,
     factory: ConfigurationFactory?,

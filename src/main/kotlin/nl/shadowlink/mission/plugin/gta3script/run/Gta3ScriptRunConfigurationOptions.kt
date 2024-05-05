@@ -1,15 +1,15 @@
 package nl.shadowlink.mission.plugin.gta3script.run
 
 import com.intellij.execution.configurations.RunConfigurationOptions
-import com.intellij.ide.util.PropertiesComponent
+import com.intellij.openapi.components.StoredProperty
 
 class Gta3ScriptRunConfigurationOptions : RunConfigurationOptions() {
 
-    private val gamePathProperty: PropertiesComponent by lazy { PropertiesComponent.getInstance() }
+    private val gamePathProperty: StoredProperty<String?> = string("").provideDelegate(this, CONFIG_OPTION_GAME_PATH)
 
     var gamePath: String
-        get() = gamePathProperty.getValue(CONFIG_OPTION_GAME_PATH) ?: ""
-        set(value) = gamePathProperty.setValue(CONFIG_OPTION_GAME_PATH, value)
+        get() = gamePathProperty.getValue(this) ?: ""
+        set(value) = gamePathProperty.setValue(this, value)
 
     companion object {
         private const val CONFIG_OPTION_GAME_PATH = "gamePath"
