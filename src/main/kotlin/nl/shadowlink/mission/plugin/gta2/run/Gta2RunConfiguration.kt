@@ -10,7 +10,7 @@ import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.search.PsiSearchHelper
-import nl.shadowlink.mission.plugin.gta2.configuration.Gta2Settings
+import nl.shadowlink.mission.plugin.settings.ShadowMspSettings
 import java.io.File
 
 
@@ -43,10 +43,12 @@ internal class Gta2RunConfiguration(
 
                 val levelScript = findLevelScript(environment) ?: throw IllegalStateException("Level script not found")
 
+                val settings = ShadowMspSettings()
+
                 // TODO: Clean this all up
                 val commandLine = GeneralCommandLine()
-                    .withExePath(Gta2Settings().compilerPath)
-                    .withWorkDirectory(File(Gta2Settings().compilerPath).parent)
+                    .withExePath(settings.gta2CompilerPath)
+                    .withWorkDirectory(File(settings.gta2CompilerPath).parent)
                     .withParameters(levelScript.path.replace("/", "\\"))
 
                 return ProcessHandlerFactory.getInstance()

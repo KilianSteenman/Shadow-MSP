@@ -1,4 +1,4 @@
-package nl.shadowlink.mission.plugin.gta2.configuration
+package nl.shadowlink.mission.plugin.settings
 
 import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.options.Configurable
@@ -6,48 +6,52 @@ import com.intellij.openapi.ui.TextBrowseFolderListener
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.ui.layout.panel
 import nl.shadowlink.mission.plugin.gta2.Gta2MissionLanguage
-import nl.shadowlink.mission.plugin.utils.getCRC32Checksum
 import javax.swing.JComponent
 
-internal class Gta2SettingsEditor : Configurable {
+internal class ShadowMspSettingsEditor : Configurable {
 
-    private val settings = Gta2Settings()
+    private val settings = ShadowMspSettings()
 
-    private val compilerBrowser = createCompilerBrowser()
+    private val gta3scBrowser = createCompilerBrowser(GTA3SC_FILE_NAME)
+    private val gta2CompilerBrowser = createCompilerBrowser(GTA2_COMPILER_NAME)
 
     override fun isModified(): Boolean {
-        return compilerBrowser.text != settings.compilerPath
+        return gta3scBrowser.text != settings.gta3scPath
     }
 
     override fun getDisplayName(): String = Gta2MissionLanguage.displayName
 
     override fun apply() {
-        settings.compilerPath = compilerBrowser.text
+        settings.gta3scPath = gta3scBrowser.text
     }
 
     override fun reset() {
         super.reset()
-        compilerBrowser.text = settings.compilerPath
+        gta3scBrowser.text = settings.gta3scPath
     }
 
     override fun createComponent(): JComponent {
-        compilerBrowser.text = settings.compilerPath
+        gta3scBrowser.text = settings.gta3scPath
 
         return panel {
             row {
-                label("Delfi's GTA-2 Compiler")
-                compilerBrowser(grow)
+                label("GTA-2 Compiler path")
+                gta2CompilerBrowser(grow)
+            }
+            row {
+                label("gta3sc path")
+                gta3scBrowser(grow)
             }
         }
     }
 
-    private fun createCompilerBrowser(): TextFieldWithBrowseButton {
+    private fun createCompilerBrowser(compilerExeName: String): TextFieldWithBrowseButton {
         val chooseDirectoryDescriptor = FileChooserDescriptorFactory.createSingleFileDescriptor("exe").apply {
             isHideIgnored = false
-            title = "Select Delfi's GTA-2 Compiler"
+            title = "Select $compilerExeName"
 
             withFileFilter { file ->
-                file.name == DELFI_COMPILER_NAME/* TODO: && file.getCRC32Checksum() == DELFI_COMPILER_CHECKSUM */
+                file.nameWithoutExtension == compilerExeName
             }
         }
 
@@ -57,7 +61,7 @@ internal class Gta2SettingsEditor : Configurable {
     }
 
     companion object {
-        private const val DELFI_COMPILER_NAME = "miscomp.exe"//"compiler.exe"
-        private const val DELFI_COMPILER_CHECKSUM = 1182121558L
+        private const val GTA3SC_FILE_NAME = "gta3sc"
+        private const val GTA2_COMPILER_NAME = "miscomp"
     }
 }

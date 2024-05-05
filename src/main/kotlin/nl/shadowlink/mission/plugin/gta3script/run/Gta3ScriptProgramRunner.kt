@@ -39,6 +39,6 @@ internal class Gta3ScriptProgramRunner : ProgramRunner<RunnerSettings> {
     }
 
     override fun getRunnerId(): String {
-        return "Gta2Runner"
+        return "Gta3ScriptRunner"
     }
 }

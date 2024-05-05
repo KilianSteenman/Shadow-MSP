@@ -19,7 +19,7 @@ internal class Gta3ScriptRunConfigSettingsEditor : SettingsEditor<Gta3ScriptRunC
     override fun createEditor(): JComponent {
         return panel {
             row {
-                label("GTA-2 directory")
+                label("GTA III/VC/SA directory")
                 gamePathField(grow)
             }
         }
@@ -32,9 +32,9 @@ internal class Gta3ScriptRunConfigSettingsEditor : SettingsEditor<Gta3ScriptRunC
     private fun createGameInstallBrowseTextField(): TextFieldWithBrowseButton {
         val chooseDirectoryDescriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor().apply {
             isHideIgnored = false
-            title = "Select GTA-2 directory"
+            title = "Select GTA directory"
             isShowFileSystemRoots = true
-            withFileFilter { file -> File("${file.path}/gta2.exe").exists() }
+            withFileFilter { file -> File("${file.path}/gta3.exe").exists() || File("${file.path}/gta-vc.exe").exists() }
         }
 
         return TextFieldWithBrowseButton().apply {
