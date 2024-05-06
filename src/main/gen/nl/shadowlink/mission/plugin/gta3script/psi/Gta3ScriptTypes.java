@@ -86,7 +86,6 @@ public interface Gta3ScriptTypes {
   IElementType SET = new Gta3ScriptTokenType("SET");
   IElementType START_NEW_SCRIPT = new Gta3ScriptTokenType("START_NEW_SCRIPT");
   IElementType SUBROUTINE = new Gta3ScriptTokenType("SUBROUTINE");
-  IElementType SUBROUTINE_REFERENCE = new Gta3ScriptTokenType("subroutine_reference");
   IElementType TRUE = new Gta3ScriptTokenType("TRUE");
   IElementType VAR_FLOAT = new Gta3ScriptTokenType("VAR_FLOAT");
   IElementType VAR_INT = new Gta3ScriptTokenType("VAR_INT");

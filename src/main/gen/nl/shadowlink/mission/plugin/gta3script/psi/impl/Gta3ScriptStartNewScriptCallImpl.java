@@ -29,6 +29,12 @@ public class Gta3ScriptStartNewScriptCallImpl extends ASTWrapperPsiElement imple
 
   @Override
   @NotNull
+  public Gta3ScriptLabel getLabel() {
+    return findNotNullChildByClass(Gta3ScriptLabel.class);
+  }
+
+  @Override
+  @NotNull
   public Gta3ScriptLineBreak getLineBreak() {
     return findNotNullChildByClass(Gta3ScriptLineBreak.class);
   }
