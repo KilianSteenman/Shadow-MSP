@@ -9,18 +9,24 @@ import com.intellij.execution.runners.ExecutionEnvironment
 import nl.shadowlink.mission.plugin.settings.ShadowMspSettings
 import java.io.File
 
-class Gta3ScriptRunState(environment: ExecutionEnvironment) : CommandLineState(environment) {
+class Gta3ScriptRunState(
+    private val options: Gta3ScriptRunConfigurationOptions,
+    environment: ExecutionEnvironment
+) : CommandLineState(environment) {
     override fun startProcess(): ProcessHandler {
 
         val settings = ShadowMspSettings()
         settings.verifyGtaScript()
 
-        // TODO: Clean this all up
         val compileCommandLine = GeneralCommandLine()
             .withExePath(settings.gta3scPath)
             // TODO: Change work directory
-            .withWorkDirectory(File(settings.gta3scPath).parent)
-//            .withParameters(levelScript.path.replace("/", "\\"))
+            .withWorkDirectory(environment.project.basePath)
+            .withParameters(
+                "main.sc", /*options.mainScript*/ // TODO: Make main script selectable
+                /*"--datadir=${options.gamePath}",*/ // TODO: Make datadir param work
+                "--config=gta3" // TODO: Extract from options by gamepath (Do we really want / need the gamepath?)
+            )
 
         return ProcessHandlerFactory.getInstance()
             .createColoredProcessHandler(compileCommandLine).apply {

@@ -2,14 +2,9 @@ package nl.shadowlink.mission.plugin.gta3script.run
 
 import com.intellij.execution.Executor
 import com.intellij.execution.configurations.*
-import com.intellij.execution.process.ProcessHandler
-import com.intellij.execution.process.ProcessHandlerFactory
-import com.intellij.execution.process.ProcessTerminatedListener
 import com.intellij.execution.runners.ExecutionEnvironment
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
-import com.intellij.openapi.vfs.VirtualFile
-import com.intellij.psi.search.PsiSearchHelper
 import java.io.File
 
 internal class Gta3ScriptRunConfiguration(
@@ -31,7 +26,7 @@ internal class Gta3ScriptRunConfiguration(
     override fun getConfigurationEditor(): SettingsEditor<out RunConfiguration> = Gta3ScriptRunConfigSettingsEditor()
 
     override fun getState(executor: Executor, environment: ExecutionEnvironment): RunProfileState {
-        return Gta3ScriptRunState(environment)
+        return Gta3ScriptRunState(options, environment)
     }
 
     override fun checkConfiguration() {
