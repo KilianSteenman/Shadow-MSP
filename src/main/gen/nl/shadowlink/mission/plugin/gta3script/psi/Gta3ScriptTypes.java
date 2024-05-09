@@ -52,7 +52,7 @@ public interface Gta3ScriptTypes {
   IElementType AND = new Gta3ScriptTokenType("AND");
   IElementType COLON = new Gta3ScriptTokenType(":");
   IElementType COMMENT = new Gta3ScriptTokenType("COMMENT");
-  IElementType COMMENTBLOCK = new Gta3ScriptTokenType("COMMENTBLOCK");
+  IElementType COMMENT_BLOCK = new Gta3ScriptTokenType("COMMENT_BLOCK");
   IElementType ELSE = new Gta3ScriptTokenType("ELSE");
   IElementType END_IF = new Gta3ScriptTokenType("ENDIF");
   IElementType END_WHILE = new Gta3ScriptTokenType("ENDWHILE");

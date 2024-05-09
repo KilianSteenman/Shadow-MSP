@@ -32,7 +32,11 @@ internal class Gta3ScriptColorSettingsPage : ColorSettingsPage {
     override fun getDisplayName(): String = Gta3ScriptLanguage.displayName
 
     override fun getDemoText(): String {
-        return "VAR_INT player_car\n" +
+        return "/*\n" +
+                "* This is a demo\n" +
+                "*/\n" +
+                "\n" +
+                "VAR_INT player_car\n" +
                 "VAR_FLOAT player_x player_y player_z\n" +
                 "\n" +
                 "SETUP_ZONE_PED_INFO CHINA DAY (30) 0 650 0 (0 0 0 0) 0\n" +

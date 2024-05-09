@@ -102,13 +102,13 @@ public class Gta3ScriptLexer implements FlexLexer {
   private static final String ZZ_ACTION_PACKED_0 =
     "\1\0\1\1\1\2\1\3\1\1\1\4\1\5\1\6"+
     "\1\7\1\10\1\11\1\12\1\13\1\14\1\15\16\4"+
-    "\1\16\1\17\1\11\2\20\1\11\1\21\1\22\5\4"+
-    "\1\23\5\4\1\24\1\25\7\4\1\11\1\20\1\26"+
-    "\10\4\1\27\1\30\1\4\1\31\5\4\1\20\1\32"+
-    "\4\4\1\33\6\4\1\34\2\4\1\35\1\4\1\36"+
-    "\1\37\10\4\1\40\4\4\1\41\13\4\1\42\1\43"+
-    "\14\4\1\44\5\4\1\45\2\4\1\46\10\4\1\47"+
-    "\1\4\1\50\5\4\1\51\6\4\1\52";
+    "\1\16\1\17\1\11\1\20\1\21\1\11\1\22\1\23"+
+    "\5\4\1\24\5\4\1\25\1\26\7\4\1\11\1\20"+
+    "\1\27\10\4\1\30\1\31\1\4\1\32\5\4\1\20"+
+    "\1\33\4\4\1\34\6\4\1\35\2\4\1\36\1\4"+
+    "\1\37\1\40\10\4\1\41\4\4\1\42\13\4\1\43"+
+    "\1\44\14\4\1\45\5\4\1\46\2\4\1\47\10\4"+
+    "\1\50\1\4\1\51\5\4\1\52\6\4\1\53";
 
   private static int [] zzUnpackAction() {
     int [] result = new int[170];
@@ -708,212 +708,217 @@ public class Gta3ScriptLexer implements FlexLexer {
             { return BAD_CHARACTER;
             }
           // fall through
-          case 43: break;
+          case 44: break;
           case 2:
             { return WHITE_SPACE;
             }
           // fall through
-          case 44: break;
+          case 45: break;
           case 3:
             { return NEW_LINE;
             }
           // fall through
-          case 45: break;
+          case 46: break;
           case 4:
             { return IDENTIFIER;
             }
           // fall through
-          case 46: break;
+          case 47: break;
           case 5:
             { return OP_TIMES;
             }
           // fall through
-          case 47: break;
+          case 48: break;
           case 6:
             { return OP_PLUS;
             }
           // fall through
-          case 48: break;
+          case 49: break;
           case 7:
             { return OP_MINUS;
             }
           // fall through
-          case 49: break;
+          case 50: break;
           case 8:
             { return OP_DIVISION;
             }
           // fall through
-          case 50: break;
+          case 51: break;
           case 9:
             { return NUMBER;
             }
           // fall through
-          case 51: break;
+          case 52: break;
           case 10:
             { return COLON;
             }
           // fall through
-          case 52: break;
+          case 53: break;
           case 11:
             { return OP_LESS_THAN;
             }
           // fall through
-          case 53: break;
+          case 54: break;
           case 12:
             { return EQUALS;
             }
           // fall through
-          case 54: break;
+          case 55: break;
           case 13:
             { return OP_GREATER_THAN;
             }
           // fall through
-          case 55: break;
+          case 56: break;
           case 14:
             { return OP_PLUS_PLUS;
             }
           // fall through
-          case 56: break;
+          case 57: break;
           case 15:
             { return OP_MINUS_MINUS;
             }
           // fall through
-          case 57: break;
-          case 16:
-            { return COMMENT;
-            }
-          // fall through
           case 58: break;
-          case 17:
-            { return OP_LESS_THAN_OR_EQUAL;
+          case 16:
+            { return COMMENT_BLOCK;
             }
           // fall through
           case 59: break;
-          case 18:
-            { return OP_GREATER_THAN_OR_EQUAL;
+          case 17:
+            { return COMMENT;
             }
           // fall through
           case 60: break;
-          case 19:
-            { return IF;
+          case 18:
+            { return OP_LESS_THAN_OR_EQUAL;
             }
           // fall through
           case 61: break;
-          case 20:
-            { return ON;
+          case 19:
+            { return OP_GREATER_THAN_OR_EQUAL;
             }
           // fall through
           case 62: break;
-          case 21:
-            { return OR;
+          case 20:
+            { return IF;
             }
           // fall through
           case 63: break;
-          case 22:
-            { return AND;
+          case 21:
+            { return ON;
             }
           // fall through
           case 64: break;
-          case 23:
-            { return NOT;
+          case 22:
+            { return OR;
             }
           // fall through
           case 65: break;
-          case 24:
-            { return OFF;
+          case 23:
+            { return AND;
             }
           // fall through
           case 66: break;
-          case 25:
-            { return SET;
+          case 24:
+            { return NOT;
             }
           // fall through
           case 67: break;
-          case 26:
-            { return ELSE;
+          case 25:
+            { return OFF;
             }
           // fall through
           case 68: break;
-          case 27:
-            { return GOTO;
+          case 26:
+            { return SET;
             }
           // fall through
           case 69: break;
-          case 28:
-            { return TRUE;
+          case 27:
+            { return ELSE;
             }
           // fall through
           case 70: break;
-          case 29:
-            { return END_IF;
+          case 28:
+            { return GOTO;
             }
           // fall through
           case 71: break;
-          case 30:
-            { return FALSE;
+          case 29:
+            { return TRUE;
             }
           // fall through
           case 72: break;
-          case 31:
-            { return GOSUB;
+          case 30:
+            { return END_IF;
             }
           // fall through
           case 73: break;
-          case 32:
-            { return WHILE;
+          case 31:
+            { return FALSE;
             }
           // fall through
           case 74: break;
-          case 33:
-            { return RETURN;
+          case 32:
+            { return GOSUB;
             }
           // fall through
           case 75: break;
-          case 34:
-            { return VAR_INT;
+          case 33:
+            { return WHILE;
             }
           // fall through
           case 76: break;
-          case 35:
-            { return END_WHILE;
+          case 34:
+            { return RETURN;
             }
           // fall through
           case 77: break;
-          case 36:
-            { return VAR_FLOAT;
+          case 35:
+            { return VAR_INT;
             }
           // fall through
           case 78: break;
-          case 37:
-            { return SUBROUTINE;
+          case 36:
+            { return END_WHILE;
             }
           // fall through
           case 79: break;
-          case 38:
-            { return MISSION_END;
+          case 37:
+            { return VAR_FLOAT;
             }
           // fall through
           case 80: break;
-          case 39:
-            { return MISSION_START;
+          case 38:
+            { return SUBROUTINE;
             }
           // fall through
           case 81: break;
-          case 40:
-            { return LAUNCH_MISSION;
+          case 39:
+            { return MISSION_END;
             }
           // fall through
           case 82: break;
-          case 41:
-            { return START_NEW_SCRIPT;
+          case 40:
+            { return MISSION_START;
             }
           // fall through
           case 83: break;
-          case 42:
-            { return LOAD_AND_LAUNCH_MISSION;
+          case 41:
+            { return LAUNCH_MISSION;
             }
           // fall through
           case 84: break;
+          case 42:
+            { return START_NEW_SCRIPT;
+            }
+          // fall through
+          case 85: break;
+          case 43:
+            { return LOAD_AND_LAUNCH_MISSION;
+            }
+          // fall through
+          case 86: break;
           default:
             zzScanError(ZZ_NO_MATCH);
           }

@@ -20,7 +20,7 @@
     WHITE_SPACE='regexp:\\s+'
     NUMBER='regexp:-?\d+(\.\d*)?'
     COMMENT='regexp://.*'
-    COMMENTBLOCK='regexp:\/\*(\*(?!\/)|[^*])*\*\/'
+    COMMENT_BLOCK='regexp:\/\*(\*(?!\/)|[^*])*\*\/'
 
     // Reserved words
     MISSION_START='MISSION_START'
