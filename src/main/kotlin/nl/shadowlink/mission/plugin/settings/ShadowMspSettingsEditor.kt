@@ -4,6 +4,7 @@ import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.options.Configurable
 import com.intellij.openapi.ui.TextBrowseFolderListener
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
+import com.intellij.openapi.vfs.VfsUtilCore
 import com.intellij.ui.layout.panel
 import nl.shadowlink.mission.plugin.gta2.Gta2MissionLanguage
 import javax.swing.JComponent
@@ -46,12 +47,18 @@ internal class ShadowMspSettingsEditor : Configurable {
     }
 
     private fun createCompilerBrowser(compilerExeName: String): TextFieldWithBrowseButton {
+        val fullFileName = if (System.getProperty("os.name").equals("windows", true)) {
+            "$compilerExeName.exe"
+        } else {
+            compilerExeName
+        }
+
         val chooseDirectoryDescriptor = FileChooserDescriptorFactory.createSingleFileDescriptor("exe").apply {
             isHideIgnored = false
             title = "Select $compilerExeName"
 
             withFileFilter { file ->
-                file.nameWithoutExtension == compilerExeName
+                file.name == fullFileName && VfsUtilCore.virtualToIoFile(file).canExecute()
             }
         }
 
