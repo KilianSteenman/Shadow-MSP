@@ -14,12 +14,12 @@ enum class Gta3ScriptColor(humanName: String, val attributesKey: TextAttributesK
     CONSTANT("Constants", Default.CONSTANT),
     KEYWORD("Keywords//Define", Default.KEYWORD),
 
-    SUBROUTINE_DECLARATION("Subroutine//Declaration", Default.FUNCTION_DECLARATION),
-    SUBROUTINE_REFERENCE("Subroutine//Reference", Default.FUNCTION_DECLARATION),
+    LABEL_DECLARATION("Label//Declaration", Default.FUNCTION_DECLARATION),
+    LABEL_REFERENCE("Label//Reference", Default.FUNCTION_CALL),
 
-    GLOBAL_VAR("Variables//Global", Default.INSTANCE_FIELD),
-    LOCAL_VAR("Variables//Local", Default.LOCAL_VARIABLE);
+    VARIABLE_DECLARATION("Variables//Declaration", Default.GLOBAL_VARIABLE),
+    VARIABLE_REFERENCE("Variables//Reference", Default.GLOBAL_VARIABLE);
 
-    private val textAttributesKey = TextAttributesKey.createTextAttributesKey("gta2missionscript.$name", attributesKey)
+    private val textAttributesKey = TextAttributesKey.createTextAttributesKey("gta3script.$name", attributesKey)
     val attributesDescriptor = AttributesDescriptor(humanName, textAttributesKey)
 }

@@ -32,76 +32,44 @@ internal class Gta3ScriptColorSettingsPage : ColorSettingsPage {
     override fun getDisplayName(): String = Gta3ScriptLanguage.displayName
 
     override fun getDemoText(): String {
-        return "CHAR_DATA p1_killer\n" +
-                "CHAR_DATA p2_killer\n" +
-                "CHAR_DATA p3_killer\n" +
-                "CHAR_DATA p4_killer\n" +
+        return "VAR_INT player_car\n" +
+                "VAR_FLOAT player_x player_y player_z\n" +
                 "\n" +
-                "COUNTER regenerating_characters = 1\n" +
+                "SETUP_ZONE_PED_INFO CHINA DAY (30) 0 650 0 (0 0 0 0) 0\n" +
                 "\n" +
-                "LEVELSTART\n" +
+                "// Math operations\n" +
+                "++ ped_counter\n" +
+                "-- ped_counter\n" +
+                "ped_counter ++\n" +
+                "ped_counter --\n" +
+                "time_chunk = ped_time_limit / number_of_injured_peds\n" +
+                "time_chunk /= 2\n" +
+                "brackets_var = number_of_injured_peds + 1\n" +
+                "time_chunk *= brackets_var\n" +
+                "ped_time_limit += time_chunk\n" +
+                "debug_crap_on = TRUE\n" +
                 "\n" +
-                "// Create the killers:\n" +
-                "p1_killer = CREATE_CHAR (6.5,7.5,255.0) 0 315 CRIMINAL_TYPE2 END\n" +
-                "p2_killer = CREATE_CHAR (7.5,7.5,255.0) 0 045 CRIMINAL_TYPE2 END\n" +
-                "p3_killer = CREATE_CHAR (6.5,6.5,255.0) 0 225 CRIMINAL_TYPE2 END\n" +
-                "p4_killer = CREATE_CHAR (7.5,6.5,255.0) 0 135 CRIMINAL_TYPE2 END\n" +
+                "GOSUB label\n" +
                 "\n" +
-                "// Arm the killers:\n" +
-                "GIVE_WEAPON (p1_killer, MACHINE_GUN)\n" +
-                "GIVE_WEAPON (p2_killer, MACHINE_GUN)\n" +
-                "GIVE_WEAPON (p3_killer, MACHINE_GUN)\n" +
-                "GIVE_WEAPON (p4_killer, MACHINE_GUN)\n" +
+                "{\n" +
+                "// Label test\n" +
+                "label:\n" +
+                "IF info_time_lapsed > 3000\n" +
+                "AND flag_info < 2\n" +
+                "OR flag_info < 2\n" +
+                "\tFLASH_HUD_OBJECT -1\n" +
+                "ENDIF\n" +
                 "\n" +
-                "// Make the killers attack any nearby player:\n" +
-                "SET_CHAR_THREAT_SEARCH (p1_killer, AREA_PLAYER_ONLY)\n" +
-                "SET_CHAR_THREAT_SEARCH (p2_killer, AREA_PLAYER_ONLY)\n" +
-                "SET_CHAR_THREAT_SEARCH (p3_killer, AREA_PLAYER_ONLY)\n" +
-                "SET_CHAR_THREAT_SEARCH (p4_killer, AREA_PLAYER_ONLY)\n" +
-                "SET_CHAR_THREAT_REACTION (p1_killer, REACT_AS_NORMAL)\n" +
-                "SET_CHAR_THREAT_REACTION (p2_killer, REACT_AS_NORMAL)\n" +
-                "SET_CHAR_THREAT_REACTION (p3_killer, REACT_AS_NORMAL)\n" +
-                "SET_CHAR_THREAT_REACTION (p4_killer, REACT_AS_NORMAL)\n" +
-                "SET_CHAR_OBJECTIVE (p1_killer, KILL_CHAR_ON_FOOT, p1)\n" +
-                "SET_CHAR_OBJECTIVE (p2_killer, KILL_CHAR_ON_FOOT, p2)\n" +
-                "SET_CHAR_OBJECTIVE (p3_killer, KILL_CHAR_ON_FOOT, p3)\n" +
-                "SET_CHAR_OBJECTIVE (p4_killer, KILL_CHAR_ON_FOOT, p4)\n" +
+                "IF NOT police_guard2 = 0\n" +
+                "\tIF get_away_car = 0\n" +
+                "\t\tPRINT_NOW RM1_4 5000 1//\"You have run out of grenades! Get some more from ammunation\"\n" +
+                "\t\tREMOVE_BLIP\tray1_blip\n" +
+                "\t\tADD_SPRITE_BLIP_FOR_COORD 345.5 -713.5 26.1 RADAR_SPRITE_WEAPON ray1_blip\n" +
+                "\t\tpolice_guard2 = 1\n" +
+                "\tENDIF\n" +
+                "ENDIF\n" +
                 "\n" +
-                "// Respawn each killer if they die:\n" +
-                "WHILE_EXEC (regenerating_characters = 1)\n" +
-                " IF (HAS_CHARACTER_DIED(p1_killer))\n" +
-                "  p1_killer = CREATE_CHAR (6.5,7.5,6.0) 0 0 CRIMINAL_TYPE2 END\n" +
-                "  GIVE_WEAPON (p1_killer, MACHINE_GUN)\n" +
-                "  SET_CHAR_THREAT_SEARCH (p1_killer, AREA_PLAYER_ONLY)\n" +
-                "  SET_CHAR_THREAT_REACTION (p1_killer, REACT_AS_NORMAL)\n" +
-                "  SET_CHAR_OBJECTIVE (p1_killer, KILL_CHAR_ON_FOOT, p1)\n" +
-                " ENDIF\n" +
-                "\n" +
-                " IF (HAS_CHARACTER_DIED(p2_killer))\n" +
-                "  p2_killer = CREATE_CHAR (7.5,7.5,6.0) 0 45 CRIMINAL_TYPE2 END\n" +
-                "  GIVE_WEAPON (p2_killer, MACHINE_GUN)\n" +
-                "  SET_CHAR_THREAT_SEARCH (p2_killer, AREA_PLAYER_ONLY)\n" +
-                "  SET_CHAR_THREAT_REACTION (p2_killer, REACT_AS_NORMAL)\n" +
-                "  SET_CHAR_OBJECTIVE (p2_killer, KILL_CHAR_ON_FOOT, p2)\n" +
-                " ENDIF\n" +
-                "\n" +
-                " IF (HAS_CHARACTER_DIED(p3_killer))\n" +
-                "  p3_killer = CREATE_CHAR (6.5,6.5,6.0) 0 225 CRIMINAL_TYPE2 END\n" +
-                "  GIVE_WEAPON (p3_killer, MACHINE_GUN)\n" +
-                "  SET_CHAR_THREAT_SEARCH (p3_killer, AREA_PLAYER_ONLY)\n" +
-                "  SET_CHAR_THREAT_REACTION (p3_killer, REACT_AS_NORMAL)\n" +
-                "  SET_CHAR_OBJECTIVE (p3_killer, KILL_CHAR_ON_FOOT, p3)\n" +
-                " ENDIF\n" +
-                "\n" +
-                " IF (HAS_CHARACTER_DIED(p4_killer))\n" +
-                "  p4_killer = CREATE_CHAR (7.5,6.5,6.0) 0 135 CRIMINAL_TYPE2 END\n" +
-                "  GIVE_WEAPON (p4_killer, MACHINE_GUN)\n" +
-                "  SET_CHAR_THREAT_SEARCH (p4_killer, AREA_PLAYER_ONLY)\n" +
-                "  SET_CHAR_THREAT_REACTION (p4_killer, REACT_AS_NORMAL)\n" +
-                "  SET_CHAR_OBJECTIVE (p4_killer, KILL_CHAR_ON_FOOT, p4)\n" +
-                " ENDIF\n" +
-                "ENDWHILE\n" +
-                "\n" +
-                "LEVELEND"
+                "RETURN\n" +
+                "}"
     }
 }
