@@ -2,6 +2,7 @@ package nl.shadowlink.mission.plugin.gta3script.run
 
 import com.intellij.execution.configurations.RunConfigurationOptions
 import com.intellij.openapi.components.StoredProperty
+import java.io.File
 
 class Gta3ScriptRunConfigurationOptions : RunConfigurationOptions() {
 
@@ -14,6 +15,19 @@ class Gta3ScriptRunConfigurationOptions : RunConfigurationOptions() {
     var gamePath: String
         get() = gamePathProperty.getValue(this) ?: ""
         set(value) = gamePathProperty.setValue(this, value)
+
+    val dataDir: String
+        get() = "$gamePath/data"
+
+    val gameConfig: String
+        get() {
+            return when {
+                File("$gamePath/gta3.exe").exists() -> "gta3"
+                File("$gamePath/gta-vc.exe").exists() -> "gtavc"
+                File("$gamePath/gta-sa.exe").exists() -> "gtasa"
+                else -> error("Unknown gta directory selected")
+            }
+        }
 
     var mainScript: String
         get() = mainScriptProperty.getValue(this) ?: ""

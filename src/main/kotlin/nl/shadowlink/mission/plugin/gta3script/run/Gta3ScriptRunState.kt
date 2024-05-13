@@ -24,8 +24,8 @@ class Gta3ScriptRunState(
             .withWorkDirectory(environment.project.basePath)
             .withParameters(
                 "main.sc", /*options.mainScript*/ // TODO: Make main script selectable
-                /*"--datadir=${options.gamePath}",*/ // TODO: Make datadir param work
-                "--config=gta3" // TODO: Extract from options by gamepath (Do we really want / need the gamepath?)
+                "--datadir=${options.dataDir}",
+                "--config=${options.gameConfig}"
             )
 
         return ProcessHandlerFactory.getInstance()
