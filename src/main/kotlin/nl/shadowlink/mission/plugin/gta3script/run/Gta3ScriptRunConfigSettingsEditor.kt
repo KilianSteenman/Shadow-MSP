@@ -10,6 +10,7 @@ import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.ui.layout.panel
 import nl.shadowlink.mission.plugin.gta3script.Gta3ScriptFileType
 import java.io.File
+import javax.swing.DefaultComboBoxModel
 import javax.swing.JComponent
 
 internal class Gta3ScriptRunConfigSettingsEditor : SettingsEditor<Gta3ScriptRunConfiguration>() {
@@ -18,32 +19,31 @@ internal class Gta3ScriptRunConfigSettingsEditor : SettingsEditor<Gta3ScriptRunC
 
     private var project: Project? = null
 
+    private var selectedGame: String? = ""
+
     override fun resetEditorFrom(config: Gta3ScriptRunConfiguration) {
         gamePathField.text = config.gamePath
         project = config.project
     }
 
     override fun createEditor(): JComponent {
-//        val inputArray: Array<String> = arrayOf("test1", "test2")
-//        val model = DefaultComboBoxModel(inputArray)
-//        comboTest.setModel(model)
+        val comboBoxModel = DefaultComboBoxModel<String>().apply {
+            addElement("III")
+            addElement("VC")
+            addElement("SA")
+        }
 
         return panel {
             row {
-                label("GTA III/VC/SA directory")
+                label("Game type")
+                comboBox(comboBoxModel, { selectedGame }, { selection -> selectedGame = selection })
+            }
+            row {
+                label("Game directory")
                 gamePathField(grow)
             }
             row {
                 label("Script")
-//                textFieldWithBrowseButton {  }
-//                comboBox(model)//getFilesInProject()))
-//                showDialog()
-//                TreeFileChooserFactory.getInstance(project).createFileChooser(
-//                    "Title",
-//                    Gta3ScriptFileType,
-//                    Gta3ScriptFileType
-//                )
-//                gamePathField(grow)
             }
         }
     }
@@ -62,7 +62,11 @@ internal class Gta3ScriptRunConfigSettingsEditor : SettingsEditor<Gta3ScriptRunC
 
         // Get an instance of TreeFileChooser
         val factory = TreeFileChooserFactory.getInstance(project)
-        val chooser = factory.createFileChooser("Choose a directory", null, Gta3ScriptFileType, TreeFileChooser.PsiFileFilter { true })
+        val chooser = factory.createFileChooser(
+            "Choose a directory",
+            null,
+            Gta3ScriptFileType,
+            TreeFileChooser.PsiFileFilter { true })
         chooser.showDialog()
 
         // Show the dialog
