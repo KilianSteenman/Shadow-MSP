@@ -32,6 +32,18 @@ internal class Gta3ScriptRunConfiguration(
             options.script = value
         }
 
+    var launchGame: Boolean
+        get() = options.launchGame
+        set(value) {
+            options.launchGame = value
+        }
+
+    var backup: Boolean
+        get() = options.backup
+        set(value) {
+            options.backup = value
+        }
+
     override fun getOptions(): Gta3ScriptRunConfigurationOptions {
         return super.getOptions() as Gta3ScriptRunConfigurationOptions
     }
