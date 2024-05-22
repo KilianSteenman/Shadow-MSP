@@ -5,6 +5,7 @@ import com.intellij.execution.configurations.*
 import com.intellij.execution.runners.ExecutionEnvironment
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
+import nl.shadowlink.mission.plugin.GameType
 import java.io.File
 
 internal class Gta3ScriptRunConfiguration(
@@ -13,10 +14,22 @@ internal class Gta3ScriptRunConfiguration(
     name: String?
 ) : RunConfigurationBase<Gta3ScriptRunConfigurationOptions>(project, factory, name) {
 
-    var gamePath: String
+    var gameType: GameType
+        get() = options.gameType
+        set(value) {
+            options.gameType = value
+        }
+
+    var gamePath: String?
         get() = options.gamePath
         set(value) {
             options.gamePath = value
+        }
+
+    var scriptFile: String?
+        get() = options.script
+        set(value) {
+            options.script = value
         }
 
     override fun getOptions(): Gta3ScriptRunConfigurationOptions {
@@ -30,15 +43,14 @@ internal class Gta3ScriptRunConfiguration(
     }
 
     override fun checkConfiguration() {
-        // TODO: Implement EXE checks
         when {
-            gamePath.isEmpty() ->
-                throw RuntimeConfigurationException("GTA directory not set, make sure you select the directory that contains gta2.exe.")
-
-            !File("$gamePath/gta3.exe").exists() ->
-                throw RuntimeConfigurationException("'$gamePath' is not a valid GTA directory. Select the directory that contains gta2.exe.")
-
+            gamePath.isNullOrEmpty() -> throwInvalidGamePathException("Empty")
+            !File("$gamePath/${gameType.exeName}").exists() -> throwInvalidGamePathException("Invalid")
             else -> super.checkConfiguration()
         }
+    }
+
+    private fun throwInvalidGamePathException(reason: String) {
+        throw RuntimeConfigurationException("$reason gamepath selected, make sure you select the directory that contains '${gameType.exeName}'")
     }
 }

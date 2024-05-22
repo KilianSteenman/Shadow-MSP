@@ -5,7 +5,7 @@ import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.ui.TextBrowseFolderListener
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.ui.layout.panel
-import nl.shadowlink.mission.plugin.gta3d.game.Game
+import nl.shadowlink.mission.plugin.GameType
 import nl.shadowlink.mission.plugin.gta3d.run.MissionRunConfiguration
 import javax.swing.DefaultComboBoxModel
 import javax.swing.JCheckBox
@@ -15,14 +15,14 @@ internal class MissionRunConfigSettingsEditor : SettingsEditor<MissionRunConfigu
 
     private val gamePathField = createGameInstallBrowseTextField()
     private val launchGameCheckbox = JCheckBox()
-    private val gameComboBoxModel = DefaultComboBoxModel<String>(arrayOf(Game.III.gameName, Game.VC.gameName, Game.SA.gameName)).apply {
-        selectedItem = Game.VC.gameName
+    private val gameComboBoxModel = DefaultComboBoxModel<String>(arrayOf(GameType.III.visualName, GameType.VC.visualName, GameType.SA.visualName)).apply {
+        selectedItem = GameType.VC.visualName
     }
     private var gameComboBoxSelection: String? = null
 
     override fun resetEditorFrom(missionRunConfiguration: MissionRunConfiguration) {
         gamePathField.text = missionRunConfiguration.gamePath
-        gameComboBoxModel.selectedItem = missionRunConfiguration.game.gameName
+        gameComboBoxModel.selectedItem = missionRunConfiguration.game.visualName
         launchGameCheckbox.isSelected = missionRunConfiguration.launchGame
     }
 
@@ -49,12 +49,12 @@ internal class MissionRunConfigSettingsEditor : SettingsEditor<MissionRunConfigu
         missionRunConfiguration.game = gameComboBoxModel.selectedItem.toString().toGame()
     }
 
-    private fun String.toGame(): Game {
+    private fun String.toGame(): GameType {
         return when(this) {
-            Game.III.gameName -> Game.III
-            Game.VC.gameName -> Game.VC
-            Game.SA.gameName -> Game.SA
-            else -> Game.VC
+            GameType.III.visualName -> GameType.III
+            GameType.VC.visualName -> GameType.VC
+            GameType.SA.visualName -> GameType.SA
+            else -> GameType.VC
         }
     }
 

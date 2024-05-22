@@ -15,7 +15,7 @@ internal class ShadowMspSettings {
         get() = component.getValue(GTA_2_COMPILER_PATH) ?: ""
         set(value) = component.setValue(GTA_2_COMPILER_PATH, value)
 
-    fun verifyGtaScript() {
+    fun verifyGtaScriptCompiler() {
         if (gta3scPath.isBlank() || !File(gta3scPath).exists()) {
             throw IllegalStateException("gta3sc is path not defined")
         }

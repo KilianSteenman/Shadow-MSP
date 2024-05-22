@@ -9,7 +9,7 @@ import nl.shadowlink.mission.plugin.utils.readBoolean
 import nl.shadowlink.mission.plugin.utils.readString
 import nl.shadowlink.mission.plugin.utils.writeBoolean
 import nl.shadowlink.mission.plugin.utils.writeString
-import nl.shadowlink.mission.plugin.gta3d.game.Game
+import nl.shadowlink.mission.plugin.GameType
 import nl.shadowlink.mission.plugin.gta3d.run.ui.MissionRunConfigSettingsEditor
 import org.jdom.Element
 import java.io.File
@@ -18,7 +18,7 @@ internal class MissionRunConfiguration(project: Project, factory: ConfigurationF
 
     var gamePath: String = ""
 
-    var game: Game = Game.VC
+    var game: GameType = GameType.VC
 
     var launchGame: Boolean = false
 
@@ -41,12 +41,12 @@ internal class MissionRunConfiguration(project: Project, factory: ConfigurationF
         super.readExternal(element)
         gamePath = element.readString("path", "")
         launchGame = element.readBoolean("launch_game", false)
-        game = Game.valueOf(element.readString("game", Game.VC.name))
+        game = GameType.valueOf(element.readString("game", GameType.VC.name))
     }
 
     override fun checkConfiguration() {
         if (!File("$gamePath/${game.exeName}").exists()) {
-            throw RuntimeConfigurationException("'$gamePath' is not a valid ${game.gameName} directory, make sure you select the directory that contains ${game.exeName}.");
+            throw RuntimeConfigurationException("'$gamePath' is not a valid ${game.visualName} directory, make sure you select the directory that contains ${game.exeName}.");
         }
         super.checkConfiguration()
     }

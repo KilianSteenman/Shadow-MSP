@@ -7,7 +7,6 @@ import com.intellij.execution.process.ProcessHandlerFactory
 import com.intellij.execution.process.ProcessTerminatedListener
 import com.intellij.execution.runners.ExecutionEnvironment
 import nl.shadowlink.mission.plugin.settings.ShadowMspSettings
-import java.io.File
 
 class Gta3ScriptRunState(
     private val options: Gta3ScriptRunConfigurationOptions,
@@ -16,18 +15,25 @@ class Gta3ScriptRunState(
     override fun startProcess(): ProcessHandler {
 
         val settings = ShadowMspSettings()
-        settings.verifyGtaScript()
+        settings.verifyGtaScriptCompiler()
+
+        val gameType = requireNotNull(options.gameType) { "GameType not set" }
+        val script = requireNotNull(options.script) { "Script not set" }
 
         val compileCommandLine = GeneralCommandLine()
             .withExePath(settings.gta3scPath)
             // TODO: Change work directory
             .withWorkDirectory(environment.project.basePath)
             .withParameters(
-                "main.sc", /*options.mainScript*/ // TODO: Make main script selectable
-                "--datadir=${options.dataDir}",
-                "--config=${options.gameConfig}"
-            )
-
+                script,
+                "--config=${gameType.gta3scConfig}",
+            ).apply {
+                // Optionally set the data directory
+                val dataDir = options.dataDir
+                if (dataDir?.isNotEmpty() == true) {
+                    withParameters("--datadir=$dataDir")
+                }
+            }
         return ProcessHandlerFactory.getInstance()
             .createColoredProcessHandler(compileCommandLine).apply {
                 ProcessTerminatedListener.attach(this)
