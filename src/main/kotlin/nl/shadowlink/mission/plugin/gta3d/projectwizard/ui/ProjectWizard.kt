@@ -86,7 +86,7 @@ internal fun ProjectTile(scriptModuleType: ScriptModuleType, isSelected: Boolean
                 color = textColor,
             )
             Text(
-                text = scriptModuleType.game.gameName,
+                text = scriptModuleType.game.visualName,
                 fontSize = 12.sp,
                 color = textColor
             )

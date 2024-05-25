@@ -688,13 +688,14 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // START_NEW_SCRIPT subroutine_reference line_break
+  // START_NEW_SCRIPT label line_break
   public static boolean start_new_script_call(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "start_new_script_call")) return false;
     if (!nextTokenIs(b, START_NEW_SCRIPT)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, START_NEW_SCRIPT, SUBROUTINE_REFERENCE);
+    r = consumeToken(b, START_NEW_SCRIPT);
+    r = r && label(b, l + 1);
     r = r && line_break(b, l + 1);
     exit_section_(b, m, START_NEW_SCRIPT_CALL, r);
     return r;

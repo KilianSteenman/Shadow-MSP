@@ -74,7 +74,7 @@ COMMENT_BLOCK="/*" !([^]* "*/" [^]*) ("*/")?
   {NEW_LINE}               { return NEW_LINE; }
   {NUMBER}                 { return NUMBER; }
   {COMMENT}                { return COMMENT; }
-  {COMMENT_BLOCK}          { return COMMENT; }
+  {COMMENT_BLOCK}          { return COMMENT_BLOCK; }
   {IDENTIFIER}             { return IDENTIFIER; }
 
 }

@@ -20,14 +20,6 @@ object Gta3ScriptTypeFactory {
             ?: error("Unable to create identifier for $name")
     }
 
-    fun createLabelReference(project: Project, name: String): ASTNode {
-        val text = "GOSUB $name\n"
-        val dummyFile = createGta3ScriptFile(project, text)
-        return dummyFile.findChildrenOfType<Gta3ScriptLabel>()
-            .firstOrNull()?.node?.findChildByType(Gta3ScriptTypes.IDENTIFIER)
-            ?: error("Unable to create label reference for $name")
-    }
-
     fun createLabel(project: Project, name: String): ASTNode {
         val text = "$name:\n"
         val dummyFile = createGta3ScriptFile(project, text)

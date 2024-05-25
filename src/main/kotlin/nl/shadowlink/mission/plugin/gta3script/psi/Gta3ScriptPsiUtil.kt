@@ -2,6 +2,7 @@ package nl.shadowlink.mission.plugin.gta3script.psi
 
 import com.intellij.extapi.psi.PsiFileBase
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiManager
 import com.intellij.psi.search.FileTypeIndex
 import com.intellij.psi.search.GlobalSearchScope
@@ -29,4 +30,9 @@ fun Project.findScript(name: String): PsiFileBase? {
     return FileTypeIndex.getFiles(Gta3ScriptFileType, GlobalSearchScope.allScope(this))
         .find { it.name == name }
         ?.let { PsiManager.getInstance(this).findFile(it) as? Gta3ScriptFile }
+}
+
+fun Project.getScriptFiles(): Collection<VirtualFile> {
+    return FileTypeIndex.getFiles(Gta3ScriptFileType, GlobalSearchScope.allScope(this))
+//        ?.let { PsiManager.getInstance(this).findFile(it) as? Gta3ScriptFile }
 }

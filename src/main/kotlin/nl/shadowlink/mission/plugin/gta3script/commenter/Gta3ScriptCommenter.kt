@@ -8,9 +8,9 @@ class Gta3ScriptCommenter : Commenter {
 
     override fun getCommentedBlockCommentSuffix(): String? = null
 
-    override fun getBlockCommentPrefix(): String? = "/*"
+    override fun getBlockCommentPrefix(): String = "/*"
 
-    override fun getBlockCommentSuffix(): String? = "*/"
+    override fun getBlockCommentSuffix(): String = "*/"
 
     override fun getLineCommentPrefix(): String = "//"
 }

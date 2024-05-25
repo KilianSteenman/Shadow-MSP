@@ -5,13 +5,18 @@ import com.intellij.execution.configurations.ConfigurationTypeBase
 import nl.shadowlink.mission.plugin.MissionIcons
 import nl.shadowlink.mission.plugin.gta3script.Gta3ScriptLanguage
 
-object Gta3ScriptConfigurationType : ConfigurationTypeBase(
-    Gta3ScriptLanguage.id,
-    Gta3ScriptLanguage.displayName,
-    null,
-    MissionIcons.FILE
+class Gta3ScriptConfigurationType : ConfigurationTypeBase(
+    id = ID,
+    displayName = Gta3ScriptLanguage.displayName,
+    description = null,
+    icon = MissionIcons.FILE
 ) {
 
-    override fun getConfigurationFactories(): Array<ConfigurationFactory> =
-        arrayOf(Gta3ScriptConfigurationFactory())
+    init {
+        addFactory(Gta3ScriptConfigurationFactory(this))
+    }
+
+    companion object {
+        const val ID: String = "Gta3ScriptConfiguration"
+    }
 }

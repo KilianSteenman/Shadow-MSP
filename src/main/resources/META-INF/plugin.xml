@@ -15,6 +15,12 @@
     -->
 
     <extensions defaultExtensionNs="com.intellij">
+        <!-- Shadow-MSP - Settings -->
+        <applicationConfigurable
+                instance="nl.shadowlink.mission.plugin.settings.ShadowMspSettingsEditor"
+                groupId="language"
+                displayName="Shadow-MSP"/>
+
         <!-- GTA 2 - Language -->
         <fileType
                 name="GTA 2 - Mission Script"
@@ -43,12 +49,6 @@
                 id="Gta2MissionScript"
                 implementation="nl.shadowlink.mission.plugin.gta2.run.Gta2ProgramRunner"/>
 
-        <!-- GTA 2 - Settings -->
-        <applicationConfigurable
-                instance="nl.shadowlink.mission.plugin.gta2.configuration.Gta2SettingsEditor"
-                groupId="language"
-                id="Gta2MissionScript"/>
-
         <!-- GTA 3 - Script -->
         <fileType
                 name="GTA 3 - Script"
@@ -76,6 +76,12 @@
                 implementationClass="nl.shadowlink.mission.plugin.gta3script.commenter.Gta3ScriptCommenter"/>
         <colorSettingsPage
                 implementation="nl.shadowlink.mission.plugin.gta3script.highlighter.Gta3ScriptColorSettingsPage"/>
+
+        <configurationType
+                implementation="nl.shadowlink.mission.plugin.gta3script.run.Gta3ScriptConfigurationType"/>
+        <programRunner
+                id="Gta3Script"
+                implementation="nl.shadowlink.mission.plugin.gta3script.run.Gta3ScriptProgramRunner"/>
 
         <!-- RW Era -->
         <fileType
