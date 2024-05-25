@@ -29,7 +29,7 @@ object Gta3ScriptTypeFactory {
     }
 
     private fun createGta3ScriptFile(project: Project, text: String): Gta3ScriptFile {
-        val file = PsiFileFactory.getInstance(project).createFileFromText("dummy.sc", Gta3ScriptFileType, text)
+        val file = PsiFileFactory.getInstance(project).createFileFromText("dummy.sc", Gta3ScriptFileType(), text)
         return file as Gta3ScriptFile
     }
 }

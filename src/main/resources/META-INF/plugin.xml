@@ -51,7 +51,7 @@
 
         <!-- GTA 3 - Script -->
         <fileType
-                name="GTA 3 - Script"
+                name="GTA - Script"
                 implementationClass="nl.shadowlink.mission.plugin.gta3script.Gta3ScriptFileType"
                 language="Gta3Script"
                 extensions="sc"/>
@@ -82,6 +82,13 @@
         <programRunner
                 id="Gta3Script"
                 implementation="nl.shadowlink.mission.plugin.gta3script.run.Gta3ScriptProgramRunner"/>
+
+        <!-- Project / Module wizard -->
+        <moduleType
+                id="MissionModule"
+                implementationClass="nl.shadowlink.mission.plugin.gta3script.projectwizard.GtaScriptModuleType"/>
+        <moduleBuilder
+                builderClass="nl.shadowlink.mission.plugin.gta3script.projectwizard.GtaScriptModuleBuilder"/>
 
         <!-- RW Era -->
         <fileType

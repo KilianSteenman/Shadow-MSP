@@ -4,5 +4,5 @@ import com.intellij.lang.Language
 
 object Gta3ScriptLanguage : Language("Gta3Script") {
 
-    override fun getDisplayName(): String = "GTA 3 - Script"
+    override fun getDisplayName(): String = Gta3ScriptFileType.DisplayName
 }

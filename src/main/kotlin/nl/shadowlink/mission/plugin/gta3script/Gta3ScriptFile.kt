@@ -6,5 +6,5 @@ import com.intellij.psi.FileViewProvider
 
 class Gta3ScriptFile(fileViewProvider: FileViewProvider) : PsiFileBase(fileViewProvider, Gta3ScriptLanguage) {
 
-    override fun getFileType(): FileType = Gta3ScriptFileType
+    override fun getFileType(): FileType = Gta3ScriptFileType()
 }
