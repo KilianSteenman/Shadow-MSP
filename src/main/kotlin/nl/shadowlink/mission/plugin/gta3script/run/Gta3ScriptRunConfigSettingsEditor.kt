@@ -11,6 +11,7 @@ import com.intellij.ui.dsl.builder.bindText
 import com.intellij.ui.dsl.builder.panel
 import com.intellij.ui.dsl.builder.selected
 import com.intellij.ui.dsl.gridLayout.HorizontalAlign
+import com.jetbrains.rd.util.string.printToString
 import nl.shadowlink.mission.plugin.GameType
 import nl.shadowlink.mission.plugin.gta3script.psi.getScriptFiles
 import java.io.File
@@ -36,13 +37,21 @@ internal class Gta3ScriptRunConfigSettingsEditor : SettingsEditor<Gta3ScriptRunC
         backup = config.backup
 
         scriptFileComboBoxModel.removeAllElements()
-        config.project.getScriptFiles().forEach { scriptFileComboBoxModel.addElement(it.name) }
+        config.project.getScriptFiles().forEach {
+            // TODO: Make this pretty and order it properly
+            scriptFileComboBoxModel.addElement(
+                it.presentableUrl.replace(
+                    "${config.project.basePath}/" ?: "",
+                    ""
+                )
+            )
+        }
 
         panel.reset()
     }
 
     override fun createEditor(): JComponent {
-        val gameTypeComboBoxModel = DefaultComboBoxModel(GameType.values())
+        val gameTypeComboBoxModel = DefaultComboBoxModel(GameType.entries.toTypedArray())
 
         return panel {
             row("Game type") {
@@ -76,9 +85,8 @@ internal class Gta3ScriptRunConfigSettingsEditor : SettingsEditor<Gta3ScriptRunC
                 )
             }
             group("Run Game") {
-                lateinit var checkBox: Cell<JBCheckBox>
                 row {
-                    checkBox = checkBox("Launch game")
+                    checkBox("Launch game")
                         .comment("Launch the game after compilation")
                         .bindSelected(
                             getter = { launchGame },
@@ -92,7 +100,7 @@ internal class Gta3ScriptRunConfigSettingsEditor : SettingsEditor<Gta3ScriptRunC
                             getter = { backup },
                             setter = { selected -> backup = selected }
                         )
-                }.visibleIf(checkBox.selected)
+                }
             }
         }.also { panel = it }
     }
