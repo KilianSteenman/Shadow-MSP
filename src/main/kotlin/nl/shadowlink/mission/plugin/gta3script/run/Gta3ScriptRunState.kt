@@ -22,12 +22,11 @@ class Gta3ScriptRunState(
 
         val compileCommandLine = GeneralCommandLine()
             .withExePath(settings.gta3scPath)
-            // TODO: Change work directory
+            // TODO: Change work directory?
             .withWorkDirectory(environment.project.basePath)
-            .withParameters(
-                script,
-                "--config=${gameType.gta3scConfig}",
-            ).apply {
+            .withParameters("${requireNotNull(environment.project.basePath)}/$script")
+            .withParameters("--config=${gameType.gta3scConfig}")
+            .apply {
                 // Optionally set the data directory
                 val dataDir = options.dataDir
                 if (dataDir?.isNotEmpty() == true) {
