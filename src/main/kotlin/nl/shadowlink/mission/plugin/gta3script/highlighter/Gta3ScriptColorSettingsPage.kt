@@ -20,7 +20,7 @@ internal class Gta3ScriptColorSettingsPage : ColorSettingsPage {
     override fun getIcon(): Icon = MissionIcons.FILE
 
     override fun getAttributeDescriptors(): Array<AttributesDescriptor> {
-        return Gta3ScriptColor.values()
+        return Gta3ScriptColor.entries
                 .map { it.attributesDescriptor }
                 .toTypedArray()
     }

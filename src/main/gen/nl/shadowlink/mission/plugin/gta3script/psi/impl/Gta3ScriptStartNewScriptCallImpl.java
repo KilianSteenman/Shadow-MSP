@@ -29,6 +29,12 @@ public class Gta3ScriptStartNewScriptCallImpl extends ASTWrapperPsiElement imple
 
   @Override
   @NotNull
+  public List<Gta3ScriptParam> getParamList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, Gta3ScriptParam.class);
+  }
+
+  @Override
+  @NotNull
   public Gta3ScriptLabel getLabel() {
     return findNotNullChildByClass(Gta3ScriptLabel.class);
   }

@@ -64,6 +64,8 @@ public interface Gta3ScriptTypes {
   IElementType IF = new Gta3ScriptTokenType("IF");
   IElementType LAUNCH_MISSION = new Gta3ScriptTokenType("LAUNCH_MISSION");
   IElementType LOAD_AND_LAUNCH_MISSION = new Gta3ScriptTokenType("LOAD_AND_LAUNCH_MISSION");
+  IElementType LVAR_FLOAT = new Gta3ScriptTokenType("LVAR_FLOAT");
+  IElementType LVAR_INT = new Gta3ScriptTokenType("LVAR_INT");
   IElementType MISSION_END = new Gta3ScriptTokenType("MISSION_END");
   IElementType MISSION_START = new Gta3ScriptTokenType("MISSION_START");
   IElementType NEW_LINE = new Gta3ScriptTokenType("NEW_LINE");

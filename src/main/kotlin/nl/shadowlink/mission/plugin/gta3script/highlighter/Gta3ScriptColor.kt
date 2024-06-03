@@ -12,10 +12,12 @@ enum class Gta3ScriptColor(humanName: String, val attributesKey: TextAttributesK
     STRING("Literals//String", Default.STRING),
 
     CONSTANT("Constants", Default.CONSTANT),
-    KEYWORD("Keywords//Define", Default.KEYWORD),
+    KEYWORD("Keywords", Default.KEYWORD),
 
     LABEL_DECLARATION("Label//Declaration", Default.FUNCTION_DECLARATION),
     LABEL_REFERENCE("Label//Reference", Default.FUNCTION_CALL),
+
+    METHOD_CALL("Methods//Method call", Default.FUNCTION_CALL),
 
     VARIABLE_DECLARATION("Variables//Declaration", Default.GLOBAL_VARIABLE),
     VARIABLE_REFERENCE("Variables//Reference", Default.GLOBAL_VARIABLE);

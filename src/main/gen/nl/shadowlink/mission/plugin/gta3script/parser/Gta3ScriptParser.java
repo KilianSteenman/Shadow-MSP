@@ -164,14 +164,15 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // VAR_INT | VAR_FLOAT
+  // VAR_INT | VAR_FLOAT | LVAR_INT | LVAR_FLOAT
   public static boolean Type(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "Type")) return false;
-    if (!nextTokenIs(b, "<type>", VAR_FLOAT, VAR_INT)) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, TYPE, "<type>");
     r = consumeToken(b, VAR_INT);
     if (!r) r = consumeToken(b, VAR_FLOAT);
+    if (!r) r = consumeToken(b, LVAR_INT);
+    if (!r) r = consumeToken(b, LVAR_FLOAT);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -688,7 +689,7 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // START_NEW_SCRIPT label line_break
+  // START_NEW_SCRIPT label Param* line_break
   public static boolean start_new_script_call(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "start_new_script_call")) return false;
     if (!nextTokenIs(b, START_NEW_SCRIPT)) return false;
@@ -696,9 +697,21 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = consumeToken(b, START_NEW_SCRIPT);
     r = r && label(b, l + 1);
+    r = r && start_new_script_call_2(b, l + 1);
     r = r && line_break(b, l + 1);
     exit_section_(b, m, START_NEW_SCRIPT_CALL, r);
     return r;
+  }
+
+  // Param*
+  private static boolean start_new_script_call_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "start_new_script_call_2")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!Param(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "start_new_script_call_2", c)) break;
+    }
+    return true;
   }
 
   /* ********************************************************** */
@@ -756,7 +769,6 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
   // Type variable (','? variable)* line_break
   public static boolean variable_definition(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "variable_definition")) return false;
-    if (!nextTokenIs(b, "<variable definition>", VAR_FLOAT, VAR_INT)) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, VARIABLE_DEFINITION, "<variable definition>");
     r = Type(b, l + 1);

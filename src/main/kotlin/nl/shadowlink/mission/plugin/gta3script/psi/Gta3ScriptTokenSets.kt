@@ -22,10 +22,19 @@ object Gta3ScriptTokenSets {
         Gta3ScriptTypes.NOT,
         Gta3ScriptTypes.VAR_INT,
         Gta3ScriptTypes.VAR_FLOAT,
+        Gta3ScriptTypes.LVAR_INT,
+        Gta3ScriptTypes.LVAR_FLOAT,
         Gta3ScriptTypes.GOSUB,
         Gta3ScriptTypes.GOTO,
         Gta3ScriptTypes.LAUNCH_MISSION,
         Gta3ScriptTypes.LOAD_AND_LAUNCH_MISSION,
         Gta3ScriptTypes.START_NEW_SCRIPT,
+    )
+
+    val CONSTANTS: TokenSet = TokenSet.create(
+        Gta3ScriptTypes.TRUE,
+        Gta3ScriptTypes.FALSE,
+        Gta3ScriptTypes.ON,
+        Gta3ScriptTypes.OFF,
     )
 }

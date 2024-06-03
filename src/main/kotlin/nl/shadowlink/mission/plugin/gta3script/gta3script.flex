@@ -66,6 +66,8 @@ COMMENT_BLOCK="/*" !([^]* "*/" [^]*) ("*/")?
   ":"                      { return COLON; }
   "VAR_INT"                { return VAR_INT; }
   "VAR_FLOAT"              { return VAR_FLOAT; }
+  "LVAR_INT"               { return LVAR_INT; }
+  "LVAR_FLOAT"             { return LVAR_FLOAT; }
   "SUBROUTINE"             { return SUBROUTINE; }
   "LAUNCH_MISSION"         { return LAUNCH_MISSION; }
   "LOAD_AND_LAUNCH_MISSION"         { return LOAD_AND_LAUNCH_MISSION; }
