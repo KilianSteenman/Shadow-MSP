@@ -61,7 +61,7 @@ tasks {
     patchPluginXml {
         version.set("${project.version}")
         sinceBuild.set("221")
-        untilBuild.set("223.*")
+        untilBuild.set("241.*")
     }
 
     compileKotlin {
