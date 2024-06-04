@@ -1,0 +1,33 @@
+VAR_INT player
+VAR_INT scplayer
+VAR_INT flag_player_on_mission
+
+SCRIPT_NAME MAIN
+SET_MAX_WANTED_LEVEL 6
+SET_DEATHARREST_STATE OFF
+// TODO: 04E4: request_collision_at 83.0 -849.8
+LOAD_SCENE 83.0 -849.8 9.3
+SET_TIME_OF_DAY 12 0
+
+CREATE_PLAYER 0 83.0 -849.8 9.3 player
+GET_PLAYER_CHAR player scplayer
+WAIT 0
+LOAD_SPLASH_SCREEN splash1
+DECLARE_MISSION_FLAG flag_player_on_mission
+
+IF NOT IS_CHAR_DEAD scplayer
+	UNDRESS_CHAR scplayer player
+    LOAD_ALL_MODELS_NOW
+    DRESS_CHAR scplayer
+ENDIF
+DO_FADE 0 FADE_IN
+
+IF IS_PLAYER_PLAYING player
+    SET_PLAYER_CONTROL player 1
+ENDIF
+
+main_loop:
+WAIT 0
+GOTO main_loop
+
+// scripts go here

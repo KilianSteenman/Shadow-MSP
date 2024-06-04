@@ -1,0 +1,42 @@
+MISSION_START
+GOSUB mission_start_${NAME}
+IF HAS_DEATHARREST_BEEN_EXECUTED
+    GOSUB mission_${NAME}_failed
+ENDIF
+GOSUB mission_cleanup_${NAME}
+MISSION_END
+
+{
+
+// Variables for mission
+// For III/VC you'll probably declare globals, but SA has an abundant amount of local variables in a mission.
+LVAR_INT mistery1_delivery_car mistery1_delivery_blip
+LVAR_FLOAT x y z
+
+mission_start_${NAME}:
+flag_player_on_mission = 1
+REGISTER_MISSION_GIVEN
+WAIT 0 // let other scripts know a mission has been started
+
+SCRIPT_NAME ${NAME}
+
+// Add mission logic here
+
+RETURN
+
+mission_${NAME}_failed:
+PRINT_BIG (M_FAIL) 5000 1
+RETURN
+
+mission_${NAME}_success:
+// Add player rewards and mission state logic here
+PLAY_MISSION_PASSED_TUNE 1
+RETURN
+
+mission_cleanup_${NAME}:
+// Add mission cleanup here
+flag_player_on_mission = 0
+MISSION_HAS_FINISHED // runs the mission cleanup list
+RETURN
+
+}
