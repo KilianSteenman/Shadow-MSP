@@ -15,6 +15,7 @@
     -->
 
     <extensions defaultExtensionNs="com.intellij">
+
         <!-- Shadow-MSP - Settings -->
         <applicationConfigurable
                 instance="nl.shadowlink.mission.plugin.settings.ShadowMspSettingsEditor"
@@ -189,6 +190,14 @@
                 text="Open Opcode Database"
                 description="Browse a list of all available opcodes">
             <add-to-group group-id="nl.shadowlink.mission.plugin.MissionActions" anchor="last"/>
+        </action>
+
+        <action
+                id="nl.shadowlink.mission.plugin.gta3script.actions.CreateScriptAction"
+                class="nl.shadowlink.mission.plugin.gta3script.actions.CreateScriptAction"
+                text="GTA Script"
+                description="Create new GTA Script file">
+            <add-to-group group-id="NewGroup" relative-to-action="NewFile" anchor="after"/>
         </action>
 
     </actions>

@@ -1,0 +1,14 @@
+SCRIPT_START
+{
+
+/**
+* Define your local variables here
+* IE: LVAR_INT scplayer
+**/
+
+main_loop:
+WAIT 0
+GOTO main_loop
+
+}
+SCRIPT_END
