@@ -23,6 +23,6 @@ class CreateScriptAction : CreateFileFromTemplateAction("GTA Script", "Create ne
     }
 
     override fun getActionName(psiDirectory: PsiDirectory?, p1: String, p2: String?): String {
-        return "action"
+        return "Create GTA Script"
     }
 }
