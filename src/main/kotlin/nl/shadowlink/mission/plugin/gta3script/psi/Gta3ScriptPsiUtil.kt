@@ -42,3 +42,10 @@ fun Project.getLabels(): List<Gta3ScriptLabel> {
         .flatMap { file -> file.findChildrenOfType<Gta3ScriptLabelDefinition>() }
         .flatMap { definition -> definition.findChildrenOfType<Gta3ScriptLabel>() }
 }
+
+fun Project.getVariables(): List<Gta3ScriptVariable> {
+    return FileTypeIndex.getFiles(Gta3ScriptFileType, GlobalSearchScope.allScope(this))
+        .mapNotNull { virtualFile -> PsiManager.getInstance(this).findFile(virtualFile) as? Gta3ScriptFile }
+        .flatMap { file -> file.findChildrenOfType<Gta3ScriptVariableDefinition>() }
+        .flatMap { definition -> definition.findChildrenOfType<Gta3ScriptVariable>() }
+}
