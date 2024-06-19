@@ -22,4 +22,8 @@ class ScriptReference(
         Gta3ScriptUtils.setName(element, newElementName)
         return element
     }
+
+    override fun getVariants(): Array<Any> {
+        return element.project.getScriptFiles().map { it.name }.toTypedArray()
+    }
 }
