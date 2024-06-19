@@ -34,5 +34,11 @@ fun Project.findScript(name: String): PsiFileBase? {
 
 fun Project.getScriptFiles(): Collection<VirtualFile> {
     return FileTypeIndex.getFiles(Gta3ScriptFileType, GlobalSearchScope.allScope(this))
-//        ?.let { PsiManager.getInstance(this).findFile(it) as? Gta3ScriptFile }
+}
+
+fun Project.getLabels(): List<Gta3ScriptLabel> {
+    return FileTypeIndex.getFiles(Gta3ScriptFileType, GlobalSearchScope.allScope(this))
+        .mapNotNull { virtualFile -> PsiManager.getInstance(this).findFile(virtualFile) as? Gta3ScriptFile }
+        .flatMap { file -> file.findChildrenOfType<Gta3ScriptLabelDefinition>() }
+        .flatMap { definition -> definition.findChildrenOfType<Gta3ScriptLabel>() }
 }
