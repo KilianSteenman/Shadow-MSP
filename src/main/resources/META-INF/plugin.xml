@@ -74,6 +74,9 @@
                 language="Gta3Script"
                 implementationClass="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptFindUsagesProvider"/>
         <usageTypeProvider implementation="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptUsageTypeProvider"/>
+        <completion.contributor
+                language="Gta3Script"
+                implementationClass="nl.shadowlink.mission.plugin.gta3script.completion.OpcodeCompletionContributor"/>
         <lang.commenter
                 language="Gta3Script"
                 implementationClass="nl.shadowlink.mission.plugin.gta3script.commenter.Gta3ScriptCommenter"/>
