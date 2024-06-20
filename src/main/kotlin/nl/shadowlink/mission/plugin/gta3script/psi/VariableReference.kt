@@ -22,4 +22,8 @@ class VariableReference(
         Gta3ScriptUtils.setName(element as Gta3ScriptVariable, newElementName)
         return element
     }
+
+    override fun getVariants(): Array<Any> {
+        return element.project.getVariables().toTypedArray()
+    }
 }

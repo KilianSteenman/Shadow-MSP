@@ -22,4 +22,8 @@ class LabelReference(
         Gta3ScriptUtils.setName(element, newElementName)
         return element
     }
+
+    override fun getVariants(): Array<Any> {
+        return element.project.getLabels().map { it.name }.toTypedArray()
+    }
 }
