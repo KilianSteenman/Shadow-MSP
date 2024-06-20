@@ -14,7 +14,9 @@ import com.intellij.psi.util.childrenOfType
 import com.intellij.refactoring.suggested.endOffset
 import com.intellij.refactoring.suggested.startOffset
 import nl.shadowlink.mission.plugin.gta3script.psi.impl.Gta3ScriptConditionBodyImpl
+import nl.shadowlink.mission.plugin.gta3script.psi.impl.Gta3ScriptConditionListImpl
 import nl.shadowlink.mission.plugin.gta3script.psi.impl.Gta3ScriptIfExpressionImpl
+import nl.shadowlink.mission.plugin.gta3script.psi.impl.Gta3ScriptLineBreakImpl
 import nl.shadowlink.mission.plugin.gta3script.psi.impl.Gta3ScriptLocalScopeImpl
 import nl.shadowlink.mission.plugin.gta3script.psi.impl.Gta3ScriptMissionBlockImpl
 import nl.shadowlink.mission.plugin.gta3script.psi.impl.Gta3ScriptWhileExpressionImpl
@@ -56,9 +58,10 @@ internal class Gta3ScriptFoldingBuilder : FoldingBuilderEx(), DumbAware {
     }
 
     private fun PsiElement.toConditionalFoldingDescriptor(): FoldingDescriptor {
-        val conditionBody = childrenOfType<Gta3ScriptConditionBodyImpl>().first()
-        val startOffset = conditionBody.startOffset - 2
-        val endOffset = conditionBody.endOffset
+        val conditionStart = childrenOfType<Gta3ScriptConditionListImpl>().first()
+        val startOffset = conditionStart.endOffset - 1
+        val conditionEnd = childrenOfType<Gta3ScriptConditionBodyImpl>().first()
+        val endOffset = conditionEnd.endOffset
 
         return FoldingDescriptor(
             this.node,
