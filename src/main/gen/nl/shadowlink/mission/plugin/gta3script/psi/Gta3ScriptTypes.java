@@ -4,6 +4,7 @@ package nl.shadowlink.mission.plugin.gta3script.psi;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.PsiElement;
 import com.intellij.lang.ASTNode;
+import nl.shadowlink.mission.plugin.gta3script.indexing.StubElementTypeFactory;
 import nl.shadowlink.mission.plugin.gta3script.psi.impl.*;
 
 public interface Gta3ScriptTypes {
@@ -44,7 +45,7 @@ public interface Gta3ScriptTypes {
   IElementType START_NEW_SCRIPT_CALL = new Gta3ScriptElementType("START_NEW_SCRIPT_CALL");
   IElementType SUBROUTINE_CALL = new Gta3ScriptElementType("SUBROUTINE_CALL");
   IElementType TYPE = new Gta3ScriptElementType("TYPE");
-  IElementType VARIABLE = new Gta3ScriptElementType("VARIABLE");
+  IElementType VARIABLE = StubElementTypeFactory.factory("VARIABLE");
   IElementType VARIABLE_ASSIGNMENT = new Gta3ScriptElementType("VARIABLE_ASSIGNMENT");
   IElementType VARIABLE_DEFINITION = new Gta3ScriptElementType("VARIABLE_DEFINITION");
   IElementType WHILE_EXPRESSION = new Gta3ScriptElementType("WHILE_EXPRESSION");
@@ -57,6 +58,8 @@ public interface Gta3ScriptTypes {
   IElementType END_IF = new Gta3ScriptTokenType("ENDIF");
   IElementType END_WHILE = new Gta3ScriptTokenType("ENDWHILE");
   IElementType EQUALS = new Gta3ScriptTokenType("=");
+  IElementType FADE_IN = new Gta3ScriptTokenType("FADE_IN");
+  IElementType FADE_OUT = new Gta3ScriptTokenType("FADE_OUT");
   IElementType FALSE = new Gta3ScriptTokenType("FALSE");
   IElementType GOSUB = new Gta3ScriptTokenType("GOSUB");
   IElementType GOTO = new Gta3ScriptTokenType("GOTO");

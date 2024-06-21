@@ -11,6 +11,8 @@
 
     elementTypeHolderClass="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptTypes"
     elementTypeClass="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptElementType"
+    elementTypeFactory("variable")=
+    "nl.shadowlink.mission.plugin.gta3script.indexing.StubElementTypeFactory.factory"
     tokenTypeClass="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptTokenType"
 
     psiImplUtilClass="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptUtils"
