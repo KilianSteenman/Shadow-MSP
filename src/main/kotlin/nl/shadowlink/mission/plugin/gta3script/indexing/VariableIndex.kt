@@ -10,12 +10,11 @@ class VariableIndex : StringStubIndexExtension<Gta3ScriptVariable>() {
         println("VariableIndex called")
     }
 
-    override fun getKey(): StubIndexKey<String, Gta3ScriptVariable> {
-        return KEY
+    companion object {
+        val INSTANCE = VariableIndex()
     }
 
-    companion object {
-        val KEY: StubIndexKey<String, Gta3ScriptVariable> =
-            StubIndexKey.createIndexKey("Gta3Script.Variable")
-    }
+    override fun getKey(): StubIndexKey<String, Gta3ScriptVariable> = Indices.VARIABLE
+
+    override fun getVersion(): Int = Indices.VERSION
 }

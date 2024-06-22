@@ -30,7 +30,7 @@ public class Gta3ScriptLocalScopeImpl extends ASTWrapperPsiElement implements Gt
   @Override
   @NotNull
   public Gta3ScriptLocalScopeBody getLocalScopeBody() {
-    return findNotNullChildByClass(Gta3ScriptLocalScopeBody.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, Gta3ScriptLocalScopeBody.class));
   }
 
 }

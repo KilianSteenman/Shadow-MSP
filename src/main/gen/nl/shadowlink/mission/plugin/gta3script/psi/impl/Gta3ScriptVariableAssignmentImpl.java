@@ -30,19 +30,19 @@ public class Gta3ScriptVariableAssignmentImpl extends ASTWrapperPsiElement imple
   @Override
   @Nullable
   public Gta3ScriptBoolean getBoolean() {
-    return findChildByClass(Gta3ScriptBoolean.class);
+    return PsiTreeUtil.getChildOfType(this, Gta3ScriptBoolean.class);
   }
 
   @Override
   @NotNull
   public Gta3ScriptLineBreak getLineBreak() {
-    return findNotNullChildByClass(Gta3ScriptLineBreak.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, Gta3ScriptLineBreak.class));
   }
 
   @Override
   @NotNull
   public Gta3ScriptVariable getVariable() {
-    return findNotNullChildByClass(Gta3ScriptVariable.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, Gta3ScriptVariable.class));
   }
 
   @Override

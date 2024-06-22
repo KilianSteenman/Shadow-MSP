@@ -11,8 +11,6 @@
 
     elementTypeHolderClass="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptTypes"
     elementTypeClass="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptElementType"
-    elementTypeFactory("variable")=
-    "nl.shadowlink.mission.plugin.gta3script.indexing.StubElementTypeFactory.factory"
     tokenTypeClass="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptTokenType"
 
     psiImplUtilClass="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptUtils"
@@ -110,9 +108,11 @@ method_name ::= IDENTIFIER
 
 variable_definition ::= Type variable (','? variable)* line_break
 variable ::= IDENTIFIER {
-    mixin="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptNamedElementImpl"
-    implements="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptNamedElement"
+    mixin="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptVariableElementImpl"
+    implements="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptVariableElement"
     methods=[getName setName getNameIdentifier getReference]
+    stubClass="nl.shadowlink.mission.plugin.gta3script.indexing.VariableStub"
+    elementTypeFactory="nl.shadowlink.mission.plugin.gta3script.indexing.VariableStubElementType.getInstance"
 }
 line_break ::= NEW_LINE
 

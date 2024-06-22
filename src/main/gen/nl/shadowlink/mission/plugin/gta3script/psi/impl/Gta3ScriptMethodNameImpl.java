@@ -30,7 +30,7 @@ public class Gta3ScriptMethodNameImpl extends ASTWrapperPsiElement implements Gt
   @Override
   @NotNull
   public PsiElement getIdentifier() {
-    return findNotNullChildByType(IDENTIFIER);
+    return notNullChild(findChildByType(IDENTIFIER));
   }
 
 }

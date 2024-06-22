@@ -43,7 +43,7 @@ internal class Gta3ScriptFindUsagesProvider : FindUsagesProvider {
 
     override fun getNodeText(element: PsiElement, useFullName: Boolean): String {
         if (element is Gta3ScriptVariable) {
-            return element.name
+            return element.name ?: error("No name")
         }
         return ""
     }

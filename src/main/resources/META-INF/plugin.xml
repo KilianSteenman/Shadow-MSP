@@ -84,6 +84,7 @@
                 id="Gta3Script"
                 implementation="nl.shadowlink.mission.plugin.gta3script.run.Gta3ScriptProgramRunner"/>
 
+        <stubElementTypeHolder class="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptTypes" externalIdPrefix="sc."/>
         <stubIndex implementation="nl.shadowlink.mission.plugin.gta3script.indexing.VariableIndex"/>
 
         <!-- RW Era -->

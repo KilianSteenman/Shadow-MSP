@@ -8,14 +8,20 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptTypes.*;
-import nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptNamedElementImpl;
+import nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptVariableElementImpl;
 import nl.shadowlink.mission.plugin.gta3script.psi.*;
 import com.intellij.psi.PsiReference;
+import nl.shadowlink.mission.plugin.gta3script.indexing.VariableStub;
+import com.intellij.psi.stubs.IStubElementType;
 
-public class Gta3ScriptVariableImpl extends Gta3ScriptNamedElementImpl implements Gta3ScriptVariable {
+public class Gta3ScriptVariableImpl extends Gta3ScriptVariableElementImpl implements Gta3ScriptVariable {
 
   public Gta3ScriptVariableImpl(@NotNull ASTNode node) {
     super(node);
+  }
+
+  public Gta3ScriptVariableImpl(@NotNull VariableStub stub, @NotNull IStubElementType<?, ?> type) {
+    super(stub, type);
   }
 
   public void accept(@NotNull Gta3ScriptVisitor visitor) {
@@ -31,7 +37,7 @@ public class Gta3ScriptVariableImpl extends Gta3ScriptNamedElementImpl implement
   @Override
   @NotNull
   public PsiElement getIdentifier() {
-    return findNotNullChildByType(IDENTIFIER);
+    return notNullChild(findChildByType(IDENTIFIER));
   }
 
   @Override

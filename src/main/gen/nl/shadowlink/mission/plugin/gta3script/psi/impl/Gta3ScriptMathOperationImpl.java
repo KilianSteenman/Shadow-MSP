@@ -30,25 +30,25 @@ public class Gta3ScriptMathOperationImpl extends ASTWrapperPsiElement implements
   @Override
   @Nullable
   public Gta3ScriptIncrementPostOperation getIncrementPostOperation() {
-    return findChildByClass(Gta3ScriptIncrementPostOperation.class);
+    return PsiTreeUtil.getChildOfType(this, Gta3ScriptIncrementPostOperation.class);
   }
 
   @Override
   @Nullable
   public Gta3ScriptIncrementPreOperation getIncrementPreOperation() {
-    return findChildByClass(Gta3ScriptIncrementPreOperation.class);
+    return PsiTreeUtil.getChildOfType(this, Gta3ScriptIncrementPreOperation.class);
   }
 
   @Override
   @Nullable
   public Gta3ScriptMathOperationAssignment getMathOperationAssignment() {
-    return findChildByClass(Gta3ScriptMathOperationAssignment.class);
+    return PsiTreeUtil.getChildOfType(this, Gta3ScriptMathOperationAssignment.class);
   }
 
   @Override
   @Nullable
   public Gta3ScriptMathOperationSelfAssignment getMathOperationSelfAssignment() {
-    return findChildByClass(Gta3ScriptMathOperationSelfAssignment.class);
+    return PsiTreeUtil.getChildOfType(this, Gta3ScriptMathOperationSelfAssignment.class);
   }
 
 }

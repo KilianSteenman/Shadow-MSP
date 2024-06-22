@@ -30,7 +30,7 @@ public class Gta3ScriptLaunchMissionCallImpl extends ASTWrapperPsiElement implem
   @Override
   @NotNull
   public Gta3ScriptScriptReference getScriptReference() {
-    return findNotNullChildByClass(Gta3ScriptScriptReference.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, Gta3ScriptScriptReference.class));
   }
 
 }
