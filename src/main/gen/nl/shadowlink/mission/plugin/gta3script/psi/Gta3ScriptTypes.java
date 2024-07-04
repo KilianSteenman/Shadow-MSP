@@ -4,7 +4,7 @@ package nl.shadowlink.mission.plugin.gta3script.psi;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.PsiElement;
 import com.intellij.lang.ASTNode;
-import nl.shadowlink.mission.plugin.gta3script.indexing.VariableStubElementType;
+import nl.shadowlink.mission.plugin.gta3script.indexing.VariableDeclStubElementType;
 import nl.shadowlink.mission.plugin.gta3script.psi.impl.*;
 
 public interface Gta3ScriptTypes {
@@ -45,8 +45,9 @@ public interface Gta3ScriptTypes {
   IElementType START_NEW_SCRIPT_CALL = new Gta3ScriptElementType("START_NEW_SCRIPT_CALL");
   IElementType SUBROUTINE_CALL = new Gta3ScriptElementType("SUBROUTINE_CALL");
   IElementType TYPE = new Gta3ScriptElementType("TYPE");
-  IElementType VARIABLE = VariableStubElementType.getInstance("VARIABLE");
+  IElementType VARIABLE = new Gta3ScriptElementType("VARIABLE");
   IElementType VARIABLE_ASSIGNMENT = new Gta3ScriptElementType("VARIABLE_ASSIGNMENT");
+  IElementType VARIABLE_DECL = VariableDeclStubElementType.getInstance("VARIABLE_DECL");
   IElementType VARIABLE_DEFINITION = new Gta3ScriptElementType("VARIABLE_DEFINITION");
   IElementType WHILE_EXPRESSION = new Gta3ScriptElementType("WHILE_EXPRESSION");
 
@@ -213,6 +214,9 @@ public interface Gta3ScriptTypes {
       }
       else if (type == VARIABLE_ASSIGNMENT) {
         return new Gta3ScriptVariableAssignmentImpl(node);
+      }
+      else if (type == VARIABLE_DECL) {
+        return new Gta3ScriptVariableDeclImpl(node);
       }
       else if (type == VARIABLE_DEFINITION) {
         return new Gta3ScriptVariableDefinitionImpl(node);

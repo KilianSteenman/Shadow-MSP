@@ -152,11 +152,15 @@ public class Gta3ScriptVisitor extends PsiElementVisitor {
   }
 
   public void visitVariable(@NotNull Gta3ScriptVariable o) {
-    visitVariableElement(o);
+    visitNamedElement(o);
   }
 
   public void visitVariableAssignment(@NotNull Gta3ScriptVariableAssignment o) {
     visitPsiElement(o);
+  }
+
+  public void visitVariableDecl(@NotNull Gta3ScriptVariableDecl o) {
+    visitVariableDeclElement(o);
   }
 
   public void visitVariableDefinition(@NotNull Gta3ScriptVariableDefinition o) {
@@ -171,7 +175,7 @@ public class Gta3ScriptVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitVariableElement(@NotNull Gta3ScriptVariableElement o) {
+  public void visitVariableDeclElement(@NotNull Gta3ScriptVariableDeclElement o) {
     visitPsiElement(o);
   }
 

@@ -1,10 +1,10 @@
 package nl.shadowlink.mission.plugin.gta3script.indexing
 
 import com.intellij.psi.stubs.StubIndexKey
-import nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptVariable
+import nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptVariableDecl
 
 object Indices {
-    val VERSION = 1
+    val VERSION = 3
 
-    val VARIABLE = StubIndexKey.createIndexKey<String, Gta3ScriptVariable>("gta3script.variable")
+    val VARIABLE_DECL = StubIndexKey.createIndexKey<String, Gta3ScriptVariableDecl>("gta3script.variable.decl")
 }

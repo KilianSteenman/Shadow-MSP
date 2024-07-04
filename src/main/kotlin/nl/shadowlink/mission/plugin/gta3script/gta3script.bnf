@@ -106,13 +106,18 @@ cast_assignment ::= variable EQUALS '#' variable line_break
 method_call ::= method_name MethodParamList line_break
 method_name ::= IDENTIFIER
 
-variable_definition ::= Type variable (','? variable)* line_break
-variable ::= IDENTIFIER {
-    mixin="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptVariableElementImpl"
-    implements="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptVariableElement"
+variable_definition ::= Type variable_decl (','? variable_decl)* line_break
+variable_decl ::= IDENTIFIER {
+    mixin="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptVariableDeclElementImpl"
+    implements="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptVariableDeclElement"
     methods=[getName setName getNameIdentifier getReference]
-    stubClass="nl.shadowlink.mission.plugin.gta3script.indexing.VariableStub"
-    elementTypeFactory="nl.shadowlink.mission.plugin.gta3script.indexing.VariableStubElementType.getInstance"
+    stubClass="nl.shadowlink.mission.plugin.gta3script.indexing.VariableDeclStub"
+    elementTypeFactory="nl.shadowlink.mission.plugin.gta3script.indexing.VariableDeclStubElementType.getInstance"
+}
+variable ::= IDENTIFIER {
+    mixin="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptNamedElementImpl"
+    implements="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptNamedElement"
+    methods=[getName setName getNameIdentifier getReference]
 }
 line_break ::= NEW_LINE
 

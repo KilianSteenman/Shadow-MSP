@@ -35,6 +35,35 @@ object Gta3ScriptUtils {
     }
 
     /*
+    * Variable decl
+    */
+
+    @JvmStatic
+    fun getName(element: Gta3ScriptVariableDecl): String {
+        return element.node.findChildByType(Gta3ScriptTypes.IDENTIFIER)?.text ?: "UNKNOWN"
+    }
+
+    @JvmStatic
+    fun setName(element: Gta3ScriptVariableDecl, newName: String): PsiElement {
+        val identifierNode = element.node.findChildByType(Gta3ScriptTypes.IDENTIFIER)
+        if (identifierNode != null) {
+            val newIdentifier = Gta3ScriptTypeFactory.createIdentifier(element.project, newName)
+            element.node.replaceChild(identifierNode, newIdentifier)
+        }
+        return element
+    }
+
+    @JvmStatic
+    fun getNameIdentifier(element: Gta3ScriptVariableDecl): PsiElement? {
+        return element.node.findChildByType(Gta3ScriptTypes.IDENTIFIER)?.psi
+    }
+
+    @JvmStatic
+    fun getReference(element: Gta3ScriptVariableDecl): PsiReference {
+        return VariableReference(element)
+    }
+
+    /*
     * Label
     */
 

@@ -10,7 +10,6 @@ import com.intellij.psi.stubs.StubIndex
 import nl.shadowlink.mission.plugin.gta3script.Gta3ScriptFile
 import nl.shadowlink.mission.plugin.gta3script.Gta3ScriptFileType
 import nl.shadowlink.mission.plugin.gta3script.indexing.Indices
-import nl.shadowlink.mission.plugin.gta3script.indexing.VariableIndex
 import nl.shadowlink.mission.plugin.utils.findChildrenOfType
 
 fun Project.findLabelDefinition(name: String): Gta3ScriptLabel? {
@@ -21,21 +20,11 @@ fun Project.findLabelDefinition(name: String): Gta3ScriptLabel? {
         .firstOrNull { definition -> definition.text == name }
 }
 
-fun Project.findVariableDefinition(name: String): Gta3ScriptVariable? {
-//    fun findGlobalVariables(project: Project, name: String): Collection<MyLanguageGlobalVariable> {
-    return requireNotNull(
-        StubIndex.getElements(
-            Indices.VARIABLE, name, this, GlobalSearchScope.allScope(this), Gta3ScriptVariable::class.java
-        ).first()
-    )
+fun Project.findVariableDeclaration(name: String): Gta3ScriptVariableDecl? {
+    return StubIndex.getElements(
+            Indices.VARIABLE_DECL, name, this, GlobalSearchScope.allScope(this), Gta3ScriptVariableDecl::class.java
+        ).firstOrNull()
 }
-
-//    return FileTypeIndex.getFiles(Gta3ScriptFileType, GlobalSearchScope.allScope(this))
-//        .mapNotNull { virtualFile -> PsiManager.getInstance(this).findFile(virtualFile) as? Gta3ScriptFile }
-//        .flatMap { file -> file.findChildrenOfType<Gta3ScriptVariableDefinition>() }
-//        .flatMap { definition -> definition.findChildrenOfType<Gta3ScriptVariable>() }
-//        .firstOrNull { definition -> definition.text == name }
-//}
 
 fun Project.findScript(name: String): PsiFileBase? {
     return FileTypeIndex.getFiles(Gta3ScriptFileType, GlobalSearchScope.allScope(this))

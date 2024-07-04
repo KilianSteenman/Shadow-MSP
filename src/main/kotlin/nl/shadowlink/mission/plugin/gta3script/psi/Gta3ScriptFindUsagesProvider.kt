@@ -28,23 +28,26 @@ internal class Gta3ScriptFindUsagesProvider : FindUsagesProvider {
     }
 
     override fun getType(element: PsiElement): String {
-        if (element is Gta3ScriptVariable) {
-            return "Variable"
+        return when(element) {
+            is Gta3ScriptVariable -> "Variable"
+            is Gta3ScriptVariableDecl -> "VariableDeclaration"
+            else -> ""
         }
-        return ""
     }
 
     override fun getDescriptiveName(element: PsiElement): String {
-        if (element is Gta3ScriptVariable) {
-            return "${element.name}_DESC"
+        return when(element) {
+            is Gta3ScriptVariable -> "${element.name}_DESC"
+            is Gta3ScriptVariableDecl -> "${element.name}_DESC"
+            else -> ""
         }
-        return ""
     }
 
     override fun getNodeText(element: PsiElement, useFullName: Boolean): String {
-        if (element is Gta3ScriptVariable) {
-            return element.name ?: error("No name")
+        return when(element) {
+            is Gta3ScriptVariable -> element.name
+            is Gta3ScriptVariableDecl -> element.name
+            else -> ""
         }
-        return ""
     }
 }
