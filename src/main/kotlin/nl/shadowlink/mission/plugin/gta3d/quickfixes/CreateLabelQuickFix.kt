@@ -6,7 +6,6 @@ import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiFile
 import nl.shadowlink.mission.plugin.gta3d.psi.label.LabelReferenceElement
-import org.jdom.filter2.Filters.document
 
 
 class CreateLabelQuickFix(

@@ -23,17 +23,19 @@ fun Project.findLabelDefinition(name: String): Gta3ScriptLabel? {
 
 fun Project.findVariableDefinition(name: String): Gta3ScriptVariable? {
 //    fun findGlobalVariables(project: Project, name: String): Collection<MyLanguageGlobalVariable> {
-//        return requireNotNull(StubIndex.getElements(
-//            Indices.VARIABLE, "Gta3Script.Variable.name", this, GlobalSearchScope.allScope(this), Gta3ScriptVariable::class.java
-//        ).first())
-//    }
-
-    return FileTypeIndex.getFiles(Gta3ScriptFileType, GlobalSearchScope.allScope(this))
-        .mapNotNull { virtualFile -> PsiManager.getInstance(this).findFile(virtualFile) as? Gta3ScriptFile }
-        .flatMap { file -> file.findChildrenOfType<Gta3ScriptVariableDefinition>() }
-        .flatMap { definition -> definition.findChildrenOfType<Gta3ScriptVariable>() }
-        .firstOrNull { definition -> definition.text == name }
+    return requireNotNull(
+        StubIndex.getElements(
+            Indices.VARIABLE, name, this, GlobalSearchScope.allScope(this), Gta3ScriptVariable::class.java
+        ).first()
+    )
 }
+
+//    return FileTypeIndex.getFiles(Gta3ScriptFileType, GlobalSearchScope.allScope(this))
+//        .mapNotNull { virtualFile -> PsiManager.getInstance(this).findFile(virtualFile) as? Gta3ScriptFile }
+//        .flatMap { file -> file.findChildrenOfType<Gta3ScriptVariableDefinition>() }
+//        .flatMap { definition -> definition.findChildrenOfType<Gta3ScriptVariable>() }
+//        .firstOrNull { definition -> definition.text == name }
+//}
 
 fun Project.findScript(name: String): PsiFileBase? {
     return FileTypeIndex.getFiles(Gta3ScriptFileType, GlobalSearchScope.allScope(this))
