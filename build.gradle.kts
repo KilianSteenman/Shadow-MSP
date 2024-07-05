@@ -60,7 +60,7 @@ tasks {
 
     patchPluginXml {
         version.set("${project.version}")
-        sinceBuild.set("221")
+        sinceBuild.set("233")
         untilBuild.set("241.*")
     }
 
