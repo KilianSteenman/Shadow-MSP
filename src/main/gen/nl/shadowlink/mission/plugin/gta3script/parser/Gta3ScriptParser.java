@@ -429,13 +429,25 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // label COLON line_break
+  // IDENTIFIER
+  public static boolean label_decl(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "label_decl")) return false;
+    if (!nextTokenIs(b, IDENTIFIER)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, IDENTIFIER);
+    exit_section_(b, m, LABEL_DECL, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // label_decl COLON line_break
   public static boolean label_definition(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "label_definition")) return false;
     if (!nextTokenIs(b, IDENTIFIER)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = label(b, l + 1);
+    r = label_decl(b, l + 1);
     r = r && consumeToken(b, COLON);
     r = r && line_break(b, l + 1);
     exit_section_(b, m, LABEL_DEFINITION, r);

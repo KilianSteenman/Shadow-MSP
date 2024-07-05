@@ -4,6 +4,7 @@ package nl.shadowlink.mission.plugin.gta3script.psi;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.PsiElement;
 import com.intellij.lang.ASTNode;
+import nl.shadowlink.mission.plugin.gta3script.indexing.LabelDeclStubElementType;
 import nl.shadowlink.mission.plugin.gta3script.indexing.VariableDeclStubElementType;
 import nl.shadowlink.mission.plugin.gta3script.psi.impl.*;
 
@@ -24,6 +25,7 @@ public interface Gta3ScriptTypes {
   IElementType INCREMENT_POST_OPERATION = new Gta3ScriptElementType("INCREMENT_POST_OPERATION");
   IElementType INCREMENT_PRE_OPERATION = new Gta3ScriptElementType("INCREMENT_PRE_OPERATION");
   IElementType LABEL = new Gta3ScriptElementType("LABEL");
+  IElementType LABEL_DECL = LabelDeclStubElementType.getInstance("LABEL_DECL");
   IElementType LABEL_DEFINITION = new Gta3ScriptElementType("LABEL_DEFINITION");
   IElementType LABEL_RETURN = new Gta3ScriptElementType("LABEL_RETURN");
   IElementType LAUNCH_MISSION_CALL = new Gta3ScriptElementType("LAUNCH_MISSION_CALL");
@@ -145,6 +147,9 @@ public interface Gta3ScriptTypes {
       }
       else if (type == LABEL) {
         return new Gta3ScriptLabelImpl(node);
+      }
+      else if (type == LABEL_DECL) {
+        return new Gta3ScriptLabelDeclImpl(node);
       }
       else if (type == LABEL_DEFINITION) {
         return new Gta3ScriptLabelDefinitionImpl(node);

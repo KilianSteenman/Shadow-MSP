@@ -29,8 +29,8 @@ public class Gta3ScriptLabelDefinitionImpl extends ASTWrapperPsiElement implemen
 
   @Override
   @NotNull
-  public Gta3ScriptLabel getLabel() {
-    return notNullChild(PsiTreeUtil.getChildOfType(this, Gta3ScriptLabel.class));
+  public Gta3ScriptLabelDecl getLabelDecl() {
+    return notNullChild(PsiTreeUtil.getChildOfType(this, Gta3ScriptLabelDecl.class));
   }
 
   @Override

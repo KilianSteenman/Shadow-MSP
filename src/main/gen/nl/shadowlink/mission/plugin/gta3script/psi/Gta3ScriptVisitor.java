@@ -83,6 +83,10 @@ public class Gta3ScriptVisitor extends PsiElementVisitor {
     visitNamedElement(o);
   }
 
+  public void visitLabelDecl(@NotNull Gta3ScriptLabelDecl o) {
+    visitLabelDeclElement(o);
+  }
+
   public void visitLabelDefinition(@NotNull Gta3ScriptLabelDefinition o) {
     visitPsiElement(o);
   }
@@ -168,6 +172,10 @@ public class Gta3ScriptVisitor extends PsiElementVisitor {
   }
 
   public void visitWhileExpression(@NotNull Gta3ScriptWhileExpression o) {
+    visitPsiElement(o);
+  }
+
+  public void visitLabelDeclElement(@NotNull Gta3ScriptLabelDeclElement o) {
     visitPsiElement(o);
   }
 

@@ -83,7 +83,14 @@ start_new_script_call ::= START_NEW_SCRIPT label Param* line_break
 
 goto_call ::= GOTO label line_break
 
-label_definition ::= label COLON line_break
+label_definition ::= label_decl COLON line_break
+label_decl ::= IDENTIFIER  {
+    mixin="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptLabelDeclElementImpl"
+    implements="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptLabelDeclElement"
+    methods=[getName setName getNameIdentifier getReference]
+    stubClass="nl.shadowlink.mission.plugin.gta3script.indexing.LabelDeclStub"
+    elementTypeFactory="nl.shadowlink.mission.plugin.gta3script.indexing.LabelDeclStubElementType.getInstance"
+}
 label ::= IDENTIFIER  {
     mixin="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptNamedElementImpl"
     implements="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptNamedElement"

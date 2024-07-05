@@ -12,12 +12,10 @@ import nl.shadowlink.mission.plugin.gta3script.Gta3ScriptFileType
 import nl.shadowlink.mission.plugin.gta3script.indexing.Indices
 import nl.shadowlink.mission.plugin.utils.findChildrenOfType
 
-fun Project.findLabelDefinition(name: String): Gta3ScriptLabel? {
-    return FileTypeIndex.getFiles(Gta3ScriptFileType, GlobalSearchScope.allScope(this))
-        .mapNotNull { virtualFile -> PsiManager.getInstance(this).findFile(virtualFile) as? Gta3ScriptFile }
-        .flatMap { file -> file.findChildrenOfType<Gta3ScriptLabelDefinition>() }
-        .flatMap { definition -> definition.findChildrenOfType<Gta3ScriptLabel>() }
-        .firstOrNull { definition -> definition.text == name }
+fun Project.findLabelDeclaration(name: String): Gta3ScriptLabelDecl? {
+    return StubIndex.getElements(
+        Indices.LABEL_DECL, name, this, GlobalSearchScope.allScope(this), Gta3ScriptLabelDecl::class.java
+    ).firstOrNull()
 }
 
 fun Project.findVariableDeclaration(name: String): Gta3ScriptVariableDecl? {
