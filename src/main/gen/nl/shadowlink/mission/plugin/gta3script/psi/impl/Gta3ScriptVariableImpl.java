@@ -31,7 +31,7 @@ public class Gta3ScriptVariableImpl extends Gta3ScriptNamedElementImpl implement
   @Override
   @NotNull
   public PsiElement getIdentifier() {
-    return findNotNullChildByType(IDENTIFIER);
+    return notNullChild(findChildByType(IDENTIFIER));
   }
 
   @Override

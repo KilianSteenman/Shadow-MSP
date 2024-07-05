@@ -5,7 +5,6 @@ import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.openapi.fileTypes.SyntaxHighlighterBase
 import com.intellij.psi.tree.IElementType
 import nl.shadowlink.mission.plugin.gta3script.Gta3ScriptLexerAdapter
-import nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptTokenSets.COMMENTS
 import nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptTokenSets.CONSTANTS
 import nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptTokenSets.KEYWORDS
 import nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptTypes

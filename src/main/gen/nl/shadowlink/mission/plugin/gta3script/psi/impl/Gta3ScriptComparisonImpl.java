@@ -30,7 +30,7 @@ public class Gta3ScriptComparisonImpl extends ASTWrapperPsiElement implements Gt
   @Override
   @NotNull
   public Gta3ScriptComparisonOperator getComparisonOperator() {
-    return findNotNullChildByClass(Gta3ScriptComparisonOperator.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, Gta3ScriptComparisonOperator.class));
   }
 
   @Override
@@ -42,7 +42,7 @@ public class Gta3ScriptComparisonImpl extends ASTWrapperPsiElement implements Gt
   @Override
   @NotNull
   public Gta3ScriptLineBreak getLineBreak() {
-    return findNotNullChildByClass(Gta3ScriptLineBreak.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, Gta3ScriptLineBreak.class));
   }
 
 }

@@ -30,7 +30,7 @@ public class Gta3ScriptLineBreakImpl extends ASTWrapperPsiElement implements Gta
   @Override
   @NotNull
   public PsiElement getNewLine() {
-    return findNotNullChildByType(NEW_LINE);
+    return notNullChild(findChildByType(NEW_LINE));
   }
 
 }

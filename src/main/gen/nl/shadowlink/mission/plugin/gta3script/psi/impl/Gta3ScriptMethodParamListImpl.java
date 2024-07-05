@@ -30,7 +30,7 @@ public class Gta3ScriptMethodParamListImpl extends ASTWrapperPsiElement implemen
   @Override
   @Nullable
   public Gta3ScriptMethodParamDefinition getMethodParamDefinition() {
-    return findChildByClass(Gta3ScriptMethodParamDefinition.class);
+    return PsiTreeUtil.getChildOfType(this, Gta3ScriptMethodParamDefinition.class);
   }
 
 }

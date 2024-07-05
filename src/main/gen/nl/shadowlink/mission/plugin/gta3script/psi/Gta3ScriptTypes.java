@@ -4,6 +4,8 @@ package nl.shadowlink.mission.plugin.gta3script.psi;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.PsiElement;
 import com.intellij.lang.ASTNode;
+import nl.shadowlink.mission.plugin.gta3script.indexing.LabelDeclStubElementType;
+import nl.shadowlink.mission.plugin.gta3script.indexing.VariableDeclStubElementType;
 import nl.shadowlink.mission.plugin.gta3script.psi.impl.*;
 
 public interface Gta3ScriptTypes {
@@ -23,6 +25,7 @@ public interface Gta3ScriptTypes {
   IElementType INCREMENT_POST_OPERATION = new Gta3ScriptElementType("INCREMENT_POST_OPERATION");
   IElementType INCREMENT_PRE_OPERATION = new Gta3ScriptElementType("INCREMENT_PRE_OPERATION");
   IElementType LABEL = new Gta3ScriptElementType("LABEL");
+  IElementType LABEL_DECL = LabelDeclStubElementType.getInstance("LABEL_DECL");
   IElementType LABEL_DEFINITION = new Gta3ScriptElementType("LABEL_DEFINITION");
   IElementType LABEL_RETURN = new Gta3ScriptElementType("LABEL_RETURN");
   IElementType LAUNCH_MISSION_CALL = new Gta3ScriptElementType("LAUNCH_MISSION_CALL");
@@ -46,6 +49,7 @@ public interface Gta3ScriptTypes {
   IElementType TYPE = new Gta3ScriptElementType("TYPE");
   IElementType VARIABLE = new Gta3ScriptElementType("VARIABLE");
   IElementType VARIABLE_ASSIGNMENT = new Gta3ScriptElementType("VARIABLE_ASSIGNMENT");
+  IElementType VARIABLE_DECL = VariableDeclStubElementType.getInstance("VARIABLE_DECL");
   IElementType VARIABLE_DEFINITION = new Gta3ScriptElementType("VARIABLE_DEFINITION");
   IElementType WHILE_EXPRESSION = new Gta3ScriptElementType("WHILE_EXPRESSION");
 
@@ -57,6 +61,8 @@ public interface Gta3ScriptTypes {
   IElementType END_IF = new Gta3ScriptTokenType("ENDIF");
   IElementType END_WHILE = new Gta3ScriptTokenType("ENDWHILE");
   IElementType EQUALS = new Gta3ScriptTokenType("=");
+  IElementType FADE_IN = new Gta3ScriptTokenType("FADE_IN");
+  IElementType FADE_OUT = new Gta3ScriptTokenType("FADE_OUT");
   IElementType FALSE = new Gta3ScriptTokenType("FALSE");
   IElementType GOSUB = new Gta3ScriptTokenType("GOSUB");
   IElementType GOTO = new Gta3ScriptTokenType("GOTO");
@@ -142,6 +148,9 @@ public interface Gta3ScriptTypes {
       else if (type == LABEL) {
         return new Gta3ScriptLabelImpl(node);
       }
+      else if (type == LABEL_DECL) {
+        return new Gta3ScriptLabelDeclImpl(node);
+      }
       else if (type == LABEL_DEFINITION) {
         return new Gta3ScriptLabelDefinitionImpl(node);
       }
@@ -210,6 +219,9 @@ public interface Gta3ScriptTypes {
       }
       else if (type == VARIABLE_ASSIGNMENT) {
         return new Gta3ScriptVariableAssignmentImpl(node);
+      }
+      else if (type == VARIABLE_DECL) {
+        return new Gta3ScriptVariableDeclImpl(node);
       }
       else if (type == VARIABLE_DEFINITION) {
         return new Gta3ScriptVariableDefinitionImpl(node);

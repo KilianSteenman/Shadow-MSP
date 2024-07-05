@@ -30,7 +30,7 @@ public class Gta3ScriptMathOperationAssignmentImpl extends ASTWrapperPsiElement 
   @Override
   @NotNull
   public Gta3ScriptMathOperator getMathOperator() {
-    return findNotNullChildByClass(Gta3ScriptMathOperator.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, Gta3ScriptMathOperator.class));
   }
 
   @Override

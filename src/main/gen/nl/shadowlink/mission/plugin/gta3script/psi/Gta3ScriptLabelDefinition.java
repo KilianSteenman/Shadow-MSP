@@ -8,7 +8,7 @@ import com.intellij.psi.PsiElement;
 public interface Gta3ScriptLabelDefinition extends PsiElement {
 
   @NotNull
-  Gta3ScriptLabel getLabel();
+  Gta3ScriptLabelDecl getLabelDecl();
 
   @NotNull
   Gta3ScriptLineBreak getLineBreak();

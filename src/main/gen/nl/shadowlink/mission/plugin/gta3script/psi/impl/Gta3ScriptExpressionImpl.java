@@ -30,97 +30,97 @@ public class Gta3ScriptExpressionImpl extends ASTWrapperPsiElement implements Gt
   @Override
   @Nullable
   public Gta3ScriptCastAssignment getCastAssignment() {
-    return findChildByClass(Gta3ScriptCastAssignment.class);
+    return PsiTreeUtil.getChildOfType(this, Gta3ScriptCastAssignment.class);
   }
 
   @Override
   @Nullable
   public Gta3ScriptGotoCall getGotoCall() {
-    return findChildByClass(Gta3ScriptGotoCall.class);
+    return PsiTreeUtil.getChildOfType(this, Gta3ScriptGotoCall.class);
   }
 
   @Override
   @Nullable
   public Gta3ScriptIfExpression getIfExpression() {
-    return findChildByClass(Gta3ScriptIfExpression.class);
+    return PsiTreeUtil.getChildOfType(this, Gta3ScriptIfExpression.class);
   }
 
   @Override
   @Nullable
   public Gta3ScriptLabelDefinition getLabelDefinition() {
-    return findChildByClass(Gta3ScriptLabelDefinition.class);
+    return PsiTreeUtil.getChildOfType(this, Gta3ScriptLabelDefinition.class);
   }
 
   @Override
   @Nullable
   public Gta3ScriptLabelReturn getLabelReturn() {
-    return findChildByClass(Gta3ScriptLabelReturn.class);
+    return PsiTreeUtil.getChildOfType(this, Gta3ScriptLabelReturn.class);
   }
 
   @Override
   @Nullable
   public Gta3ScriptLaunchMissionCall getLaunchMissionCall() {
-    return findChildByClass(Gta3ScriptLaunchMissionCall.class);
+    return PsiTreeUtil.getChildOfType(this, Gta3ScriptLaunchMissionCall.class);
   }
 
   @Override
   @Nullable
   public Gta3ScriptLineBreak getLineBreak() {
-    return findChildByClass(Gta3ScriptLineBreak.class);
+    return PsiTreeUtil.getChildOfType(this, Gta3ScriptLineBreak.class);
   }
 
   @Override
   @Nullable
   public Gta3ScriptLocalScope getLocalScope() {
-    return findChildByClass(Gta3ScriptLocalScope.class);
+    return PsiTreeUtil.getChildOfType(this, Gta3ScriptLocalScope.class);
   }
 
   @Override
   @Nullable
   public Gta3ScriptMathOperation getMathOperation() {
-    return findChildByClass(Gta3ScriptMathOperation.class);
+    return PsiTreeUtil.getChildOfType(this, Gta3ScriptMathOperation.class);
   }
 
   @Override
   @Nullable
   public Gta3ScriptMethodCall getMethodCall() {
-    return findChildByClass(Gta3ScriptMethodCall.class);
+    return PsiTreeUtil.getChildOfType(this, Gta3ScriptMethodCall.class);
   }
 
   @Override
   @Nullable
   public Gta3ScriptMissionBlock getMissionBlock() {
-    return findChildByClass(Gta3ScriptMissionBlock.class);
+    return PsiTreeUtil.getChildOfType(this, Gta3ScriptMissionBlock.class);
   }
 
   @Override
   @Nullable
   public Gta3ScriptStartNewScriptCall getStartNewScriptCall() {
-    return findChildByClass(Gta3ScriptStartNewScriptCall.class);
+    return PsiTreeUtil.getChildOfType(this, Gta3ScriptStartNewScriptCall.class);
   }
 
   @Override
   @Nullable
   public Gta3ScriptSubroutineCall getSubroutineCall() {
-    return findChildByClass(Gta3ScriptSubroutineCall.class);
+    return PsiTreeUtil.getChildOfType(this, Gta3ScriptSubroutineCall.class);
   }
 
   @Override
   @Nullable
   public Gta3ScriptVariableAssignment getVariableAssignment() {
-    return findChildByClass(Gta3ScriptVariableAssignment.class);
+    return PsiTreeUtil.getChildOfType(this, Gta3ScriptVariableAssignment.class);
   }
 
   @Override
   @Nullable
   public Gta3ScriptVariableDefinition getVariableDefinition() {
-    return findChildByClass(Gta3ScriptVariableDefinition.class);
+    return PsiTreeUtil.getChildOfType(this, Gta3ScriptVariableDefinition.class);
   }
 
   @Override
   @Nullable
   public Gta3ScriptWhileExpression getWhileExpression() {
-    return findChildByClass(Gta3ScriptWhileExpression.class);
+    return PsiTreeUtil.getChildOfType(this, Gta3ScriptWhileExpression.class);
   }
 
 }

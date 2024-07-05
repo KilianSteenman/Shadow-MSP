@@ -7,7 +7,9 @@ import com.intellij.openapi.project.Project
 import com.intellij.psi.FileViewProvider
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
+import com.intellij.psi.stubs.PsiFileStub
 import com.intellij.psi.tree.IFileElementType
+import com.intellij.psi.tree.IStubFileElementType
 import com.intellij.psi.tree.TokenSet
 import nl.shadowlink.mission.plugin.gta3script.parser.Gta3ScriptParser
 import nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptTokenSets
@@ -30,6 +32,6 @@ class Gta3ScriptParserDefinition : ParserDefinition {
     override fun createFile(viewProvider: FileViewProvider): PsiFile = Gta3ScriptFile(viewProvider)
 
     private companion object {
-        val FILE = IFileElementType(Gta3ScriptLanguage)
+        val FILE = IStubFileElementType<PsiFileStub<Gta3ScriptFile>>("Gta3ScriptFile", Gta3ScriptLanguage)
     }
 }

@@ -15,7 +15,7 @@ object Gta3ScriptTypeFactory {
     fun createIdentifier(project: Project, name: String): ASTNode {
         val text = "VAR_INT $name\n"
         val dummyFile = createGta3ScriptFile(project, text)
-        return dummyFile.findChildrenOfType<Gta3ScriptVariable>()
+        return dummyFile.findChildrenOfType<Gta3ScriptVariableDecl>()
             .firstOrNull()?.node?.findChildByType(Gta3ScriptTypes.IDENTIFIER)
             ?: error("Unable to create identifier for $name")
     }

@@ -83,7 +83,14 @@ start_new_script_call ::= START_NEW_SCRIPT label Param* line_break
 
 goto_call ::= GOTO label line_break
 
-label_definition ::= label COLON line_break
+label_definition ::= label_decl COLON line_break
+label_decl ::= IDENTIFIER  {
+    mixin="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptLabelDeclElementImpl"
+    implements="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptLabelDeclElement"
+    methods=[getName setName getNameIdentifier getReference]
+    stubClass="nl.shadowlink.mission.plugin.gta3script.indexing.LabelDeclStub"
+    elementTypeFactory="nl.shadowlink.mission.plugin.gta3script.indexing.LabelDeclStubElementType.getInstance"
+}
 label ::= IDENTIFIER  {
     mixin="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptNamedElementImpl"
     implements="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptNamedElement"
@@ -106,7 +113,14 @@ cast_assignment ::= variable EQUALS '#' variable line_break
 method_call ::= method_name MethodParamList line_break
 method_name ::= IDENTIFIER
 
-variable_definition ::= Type variable (','? variable)* line_break
+variable_definition ::= Type variable_decl (','? variable_decl)* line_break
+variable_decl ::= IDENTIFIER {
+    mixin="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptVariableDeclElementImpl"
+    implements="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptVariableDeclElement"
+    methods=[getName setName getNameIdentifier getReference]
+    stubClass="nl.shadowlink.mission.plugin.gta3script.indexing.VariableDeclStub"
+    elementTypeFactory="nl.shadowlink.mission.plugin.gta3script.indexing.VariableDeclStubElementType.getInstance"
+}
 variable ::= IDENTIFIER {
     mixin="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptNamedElementImpl"
     implements="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptNamedElement"

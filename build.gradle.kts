@@ -46,11 +46,11 @@ dependencies {
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    version.set("2022.1.4")
+    version.set("2023.3")
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.VERSION_17
 }
 
 tasks {
@@ -60,15 +60,15 @@ tasks {
 
     patchPluginXml {
         version.set("${project.version}")
-        sinceBuild.set("221")
+        sinceBuild.set("233")
         untilBuild.set("241.*")
     }
 
     compileKotlin {
-        kotlinOptions.jvmTarget = "11"
+        kotlinOptions.jvmTarget = "17"
     }
 
     compileTestKotlin {
-        kotlinOptions.jvmTarget = "11"
+        kotlinOptions.jvmTarget = "17"
     }
 }

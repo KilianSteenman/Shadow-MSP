@@ -30,19 +30,19 @@ public class Gta3ScriptVariableDefinitionImpl extends ASTWrapperPsiElement imple
   @Override
   @NotNull
   public Gta3ScriptType getType() {
-    return findNotNullChildByClass(Gta3ScriptType.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, Gta3ScriptType.class));
   }
 
   @Override
   @NotNull
   public Gta3ScriptLineBreak getLineBreak() {
-    return findNotNullChildByClass(Gta3ScriptLineBreak.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, Gta3ScriptLineBreak.class));
   }
 
   @Override
   @NotNull
-  public List<Gta3ScriptVariable> getVariableList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, Gta3ScriptVariable.class);
+  public List<Gta3ScriptVariableDecl> getVariableDeclList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, Gta3ScriptVariableDecl.class);
   }
 
 }

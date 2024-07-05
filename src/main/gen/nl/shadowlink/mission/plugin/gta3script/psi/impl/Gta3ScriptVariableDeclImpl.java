@@ -8,18 +8,24 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptTypes.*;
-import nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptNamedElementImpl;
+import nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptVariableDeclElementImpl;
 import nl.shadowlink.mission.plugin.gta3script.psi.*;
 import com.intellij.psi.PsiReference;
+import nl.shadowlink.mission.plugin.gta3script.indexing.VariableDeclStub;
+import com.intellij.psi.stubs.IStubElementType;
 
-public class Gta3ScriptScriptReferenceImpl extends Gta3ScriptNamedElementImpl implements Gta3ScriptScriptReference {
+public class Gta3ScriptVariableDeclImpl extends Gta3ScriptVariableDeclElementImpl implements Gta3ScriptVariableDecl {
 
-  public Gta3ScriptScriptReferenceImpl(@NotNull ASTNode node) {
+  public Gta3ScriptVariableDeclImpl(@NotNull ASTNode node) {
     super(node);
   }
 
+  public Gta3ScriptVariableDeclImpl(@NotNull VariableDeclStub stub, @NotNull IStubElementType<?, ?> type) {
+    super(stub, type);
+  }
+
   public void accept(@NotNull Gta3ScriptVisitor visitor) {
-    visitor.visitScriptReference(this);
+    visitor.visitVariableDecl(this);
   }
 
   @Override

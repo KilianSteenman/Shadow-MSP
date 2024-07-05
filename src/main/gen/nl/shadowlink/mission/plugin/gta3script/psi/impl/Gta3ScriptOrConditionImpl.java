@@ -30,7 +30,7 @@ public class Gta3ScriptOrConditionImpl extends ASTWrapperPsiElement implements G
   @Override
   @NotNull
   public Gta3ScriptCondition getCondition() {
-    return findNotNullChildByClass(Gta3ScriptCondition.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, Gta3ScriptCondition.class));
   }
 
 }

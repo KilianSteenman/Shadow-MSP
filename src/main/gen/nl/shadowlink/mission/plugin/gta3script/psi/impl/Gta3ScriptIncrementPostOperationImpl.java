@@ -30,13 +30,13 @@ public class Gta3ScriptIncrementPostOperationImpl extends ASTWrapperPsiElement i
   @Override
   @NotNull
   public Gta3ScriptLineBreak getLineBreak() {
-    return findNotNullChildByClass(Gta3ScriptLineBreak.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, Gta3ScriptLineBreak.class));
   }
 
   @Override
   @NotNull
   public Gta3ScriptVariable getVariable() {
-    return findNotNullChildByClass(Gta3ScriptVariable.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, Gta3ScriptVariable.class));
   }
 
 }

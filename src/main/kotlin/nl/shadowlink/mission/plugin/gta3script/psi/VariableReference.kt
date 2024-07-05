@@ -11,7 +11,7 @@ class VariableReference(
     private val variableName = element.text
 
     override fun resolve(): PsiElement? {
-        return element.project.findVariableDefinition(variableName)
+        return element.project.findVariableDeclaration(variableName)
     }
 
     override fun getAbsoluteRange(): TextRange {
@@ -19,7 +19,10 @@ class VariableReference(
     }
 
     override fun handleElementRename(newElementName: String): PsiElement {
-        Gta3ScriptUtils.setName(element as Gta3ScriptVariable, newElementName)
+        when (val el = element) {
+            is Gta3ScriptVariable -> Gta3ScriptUtils.setName(el, newElementName)
+            is Gta3ScriptVariableDecl -> Gta3ScriptUtils.setName(el, newElementName)
+        }
         return element
     }
 

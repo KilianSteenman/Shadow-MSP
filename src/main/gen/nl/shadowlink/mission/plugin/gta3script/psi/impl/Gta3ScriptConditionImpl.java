@@ -30,13 +30,13 @@ public class Gta3ScriptConditionImpl extends ASTWrapperPsiElement implements Gta
   @Override
   @Nullable
   public Gta3ScriptComparison getComparison() {
-    return findChildByClass(Gta3ScriptComparison.class);
+    return PsiTreeUtil.getChildOfType(this, Gta3ScriptComparison.class);
   }
 
   @Override
   @Nullable
   public Gta3ScriptMethodCall getMethodCall() {
-    return findChildByClass(Gta3ScriptMethodCall.class);
+    return PsiTreeUtil.getChildOfType(this, Gta3ScriptMethodCall.class);
   }
 
 }

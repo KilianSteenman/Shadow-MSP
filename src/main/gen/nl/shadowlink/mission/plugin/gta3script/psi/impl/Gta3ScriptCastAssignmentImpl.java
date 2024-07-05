@@ -30,7 +30,7 @@ public class Gta3ScriptCastAssignmentImpl extends ASTWrapperPsiElement implement
   @Override
   @NotNull
   public Gta3ScriptLineBreak getLineBreak() {
-    return findNotNullChildByClass(Gta3ScriptLineBreak.class);
+    return notNullChild(PsiTreeUtil.getChildOfType(this, Gta3ScriptLineBreak.class));
   }
 
   @Override

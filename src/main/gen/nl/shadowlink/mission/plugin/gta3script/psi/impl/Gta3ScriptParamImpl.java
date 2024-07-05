@@ -30,19 +30,19 @@ public class Gta3ScriptParamImpl extends ASTWrapperPsiElement implements Gta3Scr
   @Override
   @Nullable
   public Gta3ScriptBoolean getBoolean() {
-    return findChildByClass(Gta3ScriptBoolean.class);
+    return PsiTreeUtil.getChildOfType(this, Gta3ScriptBoolean.class);
   }
 
   @Override
   @Nullable
   public Gta3ScriptGxtReference getGxtReference() {
-    return findChildByClass(Gta3ScriptGxtReference.class);
+    return PsiTreeUtil.getChildOfType(this, Gta3ScriptGxtReference.class);
   }
 
   @Override
   @Nullable
   public Gta3ScriptVariable getVariable() {
-    return findChildByClass(Gta3ScriptVariable.class);
+    return PsiTreeUtil.getChildOfType(this, Gta3ScriptVariable.class);
   }
 
   @Override

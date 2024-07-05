@@ -429,13 +429,25 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // label COLON line_break
+  // IDENTIFIER
+  public static boolean label_decl(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "label_decl")) return false;
+    if (!nextTokenIs(b, IDENTIFIER)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, IDENTIFIER);
+    exit_section_(b, m, LABEL_DECL, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // label_decl COLON line_break
   public static boolean label_definition(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "label_definition")) return false;
     if (!nextTokenIs(b, IDENTIFIER)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = label(b, l + 1);
+    r = label_decl(b, l + 1);
     r = r && consumeToken(b, COLON);
     r = r && line_break(b, l + 1);
     exit_section_(b, m, LABEL_DEFINITION, r);
@@ -766,20 +778,32 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // Type variable (','? variable)* line_break
+  // IDENTIFIER
+  public static boolean variable_decl(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "variable_decl")) return false;
+    if (!nextTokenIs(b, IDENTIFIER)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, IDENTIFIER);
+    exit_section_(b, m, VARIABLE_DECL, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // Type variable_decl (','? variable_decl)* line_break
   public static boolean variable_definition(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "variable_definition")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, VARIABLE_DEFINITION, "<variable definition>");
     r = Type(b, l + 1);
-    r = r && variable(b, l + 1);
+    r = r && variable_decl(b, l + 1);
     r = r && variable_definition_2(b, l + 1);
     r = r && line_break(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
-  // (','? variable)*
+  // (','? variable_decl)*
   private static boolean variable_definition_2(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "variable_definition_2")) return false;
     while (true) {
@@ -790,13 +814,13 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // ','? variable
+  // ','? variable_decl
   private static boolean variable_definition_2_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "variable_definition_2_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = variable_definition_2_0_0(b, l + 1);
-    r = r && variable(b, l + 1);
+    r = r && variable_decl(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
