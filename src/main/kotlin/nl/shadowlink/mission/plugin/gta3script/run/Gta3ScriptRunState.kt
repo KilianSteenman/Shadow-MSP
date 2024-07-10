@@ -27,6 +27,11 @@ class Gta3ScriptRunState(
             .withParameters("${requireNotNull(environment.project.basePath)}/$script")
             .withParameters("--config=${gameType.gta3scConfig}")
             .apply {
+                if(options.isCustomScript) {
+                    withParameters("--cs")
+                }
+            }
+            .apply {
                 // Optionally set the data directory
                 val dataDir = options.dataDir
                 if (dataDir?.isNotEmpty() == true) {

@@ -32,6 +32,12 @@ internal class Gta3ScriptRunConfiguration(
             options.script = value
         }
 
+    var isCustomScript: Boolean
+        get() = options.isCustomScript
+        set(value) {
+            options.isCustomScript = value
+        }
+
     var launchGame: Boolean
         get() = options.launchGame
         set(value) {

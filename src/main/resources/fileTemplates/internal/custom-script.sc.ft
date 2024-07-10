@@ -1,6 +1,8 @@
 SCRIPT_START
 {
 
+SCRIPT_NAME ${NAME}
+
 /**
 * Define your local variables here
 * IE: LVAR_INT scplayer

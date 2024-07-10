@@ -18,7 +18,7 @@ class CreateScriptAction : CreateFileFromTemplateAction("GTA Script", "Create ne
             addKind("Main script", null, "main-vc")
             addKind("Subscript", null, "subscript")
             addKind("Mission script", null, "mission-script")
-            addKind("Custom script", null, "Option C.kt.ft")
+            addKind("Custom script (Cleo)", null, "custom-script")
         }
     }
 
