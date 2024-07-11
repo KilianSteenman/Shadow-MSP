@@ -12,19 +12,22 @@ import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiFile
 import com.intellij.util.FunctionUtil
+import nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptScriptStartExpression
+import nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptTypes
 import nl.shadowlink.mission.plugin.gta3script.run.Gta3ScriptConfigurationType
 import nl.shadowlink.mission.plugin.gta3script.run.Gta3ScriptRunConfiguration
 
 class Gta3ScriptRunLineMarkerContributor : RunLineMarkerContributor() {
 
     override fun getInfo(element: PsiElement): Info? {
-        if (element !is Gta3ScriptFile) return null
+        if (element !is Gta3ScriptScriptStartExpression) return null
 
         val runAction = object : AnAction() {
             override fun actionPerformed(e: AnActionEvent) {
                 e.project?.let {
-                    createAndRunConfiguration(it, element)
+                    createAndRunConfiguration(it, element.containingFile)
                 }
             }
         }
@@ -36,7 +39,7 @@ class Gta3ScriptRunLineMarkerContributor : RunLineMarkerContributor() {
         )
     }
 
-    private fun createAndRunConfiguration(project: Project, file: Gta3ScriptFile) {
+    private fun createAndRunConfiguration(project: Project, file: PsiFile) {
         val runManager = RunManager.getInstance(project) as RunManagerImpl
         val configurationType = ConfigurationTypeUtil.findConfigurationType(Gta3ScriptConfigurationType::class.java)
         val factory = configurationType.configurationFactories[0]

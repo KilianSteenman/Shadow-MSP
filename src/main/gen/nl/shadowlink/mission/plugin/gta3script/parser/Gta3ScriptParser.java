@@ -295,7 +295,7 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // line_break | variable_definition | variable_assignment | label_definition | subroutine_call | method_call | mission_block | if_expression | while_expression | math_operation | label_return | cast_assignment | local_scope | MISSION_END | goto_call | launch_mission_call | start_new_script_call
+  // line_break | variable_definition | variable_assignment | label_definition | subroutine_call | method_call | mission_block | if_expression | while_expression | math_operation | label_return | cast_assignment | local_scope | MISSION_END | goto_call | launch_mission_call | start_new_script_call | script_start_expression | SCRIPT_END
   public static boolean expression(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "expression")) return false;
     boolean r;
@@ -317,6 +317,8 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
     if (!r) r = goto_call(b, l + 1);
     if (!r) r = launch_mission_call(b, l + 1);
     if (!r) r = start_new_script_call(b, l + 1);
+    if (!r) r = script_start_expression(b, l + 1);
+    if (!r) r = consumeToken(b, SCRIPT_END);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -697,6 +699,18 @@ public class Gta3ScriptParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = consumeToken(b, IDENTIFIER);
     exit_section_(b, m, SCRIPT_REFERENCE, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // SCRIPT_START
+  public static boolean script_start_expression(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "script_start_expression")) return false;
+    if (!nextTokenIs(b, SCRIPT_START)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, SCRIPT_START);
+    exit_section_(b, m, SCRIPT_START_EXPRESSION, r);
     return r;
   }
 
