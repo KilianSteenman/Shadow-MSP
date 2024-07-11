@@ -15,6 +15,9 @@ class Gta3ScriptRunConfigurationOptions : RunConfigurationOptions() {
     private val mainScriptProperty: StoredProperty<String?> =
         string("").provideDelegate(this, CONFIG_OPTION_SCRIPT)
 
+    private val isCustomScriptProperty: StoredProperty<Boolean> =
+        property(false).provideDelegate(this, CONFIG_OPTION_IS_CUSTOM_SCRIPT)
+
     private val launchGameProperty: StoredProperty<Boolean> =
         property(false).provideDelegate(this, CONFIG_OPTION_LAUNCH_GAME)
 
@@ -36,6 +39,10 @@ class Gta3ScriptRunConfigurationOptions : RunConfigurationOptions() {
         get() = mainScriptProperty.getValue(this)
         set(value) = mainScriptProperty.setValue(this, value)
 
+    var isCustomScript: Boolean
+        get() = isCustomScriptProperty.getValue(this)
+        set(value) = isCustomScriptProperty.setValue(this, value)
+
     var launchGame: Boolean
         get() = launchGameProperty.getValue(this)
         set(value) = launchGameProperty.setValue(this, value)
@@ -48,6 +55,7 @@ class Gta3ScriptRunConfigurationOptions : RunConfigurationOptions() {
         private const val CONFIG_OPTION_GAME_TYPE = "gameType"
         private const val CONFIG_OPTION_GAME_PATH = "gamePath"
         private const val CONFIG_OPTION_SCRIPT = "script"
+        private const val CONFIG_OPTION_IS_CUSTOM_SCRIPT = "isCustomScript"
         private const val CONFIG_OPTION_LAUNCH_GAME = "launchGame"
         private const val CONFIG_OPTION_BACKUP = "backup"
     }

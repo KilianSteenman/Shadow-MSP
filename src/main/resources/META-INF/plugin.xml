@@ -91,6 +91,11 @@
         <stubIndex implementation="nl.shadowlink.mission.plugin.gta3script.indexing.VariableDeclIndex"/>
         <stubIndex implementation="nl.shadowlink.mission.plugin.gta3script.indexing.LabelDeclIndex"/>
 
+        <runLineMarkerContributor
+                language="Gta3Script"
+                implementationClass="nl.shadowlink.mission.plugin.gta3script.Gta3ScriptRunLineMarkerContributor"
+        />
+
         <!-- RW Era -->
         <fileType
                 name="Mission Script"

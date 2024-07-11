@@ -95,6 +95,12 @@ public class Gta3ScriptExpressionImpl extends ASTWrapperPsiElement implements Gt
 
   @Override
   @Nullable
+  public Gta3ScriptScriptStartExpression getScriptStartExpression() {
+    return PsiTreeUtil.getChildOfType(this, Gta3ScriptScriptStartExpression.class);
+  }
+
+  @Override
+  @Nullable
   public Gta3ScriptStartNewScriptCall getStartNewScriptCall() {
     return PsiTreeUtil.getChildOfType(this, Gta3ScriptStartNewScriptCall.class);
   }

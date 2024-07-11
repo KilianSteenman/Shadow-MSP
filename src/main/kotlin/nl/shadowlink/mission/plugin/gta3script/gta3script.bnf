@@ -25,6 +25,8 @@
     // Reserved words
     MISSION_START='MISSION_START'
     MISSION_END='MISSION_END'
+    SCRIPT_START='SCRIPT_START'
+    SCRIPT_END='SCRIPT_END'
     WHILE = 'WHILE'
     END_WHILE = 'ENDWHILE'
     IF = 'IF'
@@ -66,7 +68,9 @@
 }
 
 root ::= expression*
-expression ::= (line_break | variable_definition | variable_assignment | label_definition | subroutine_call | method_call | mission_block | if_expression | while_expression | math_operation | label_return | cast_assignment | local_scope | MISSION_END | goto_call | launch_mission_call | start_new_script_call)
+expression ::= (line_break | variable_definition | variable_assignment | label_definition | subroutine_call | method_call | mission_block | if_expression | while_expression | math_operation | label_return | cast_assignment | local_scope | MISSION_END | goto_call | launch_mission_call | start_new_script_call | script_start_expression | SCRIPT_END)
+
+script_start_expression ::= SCRIPT_START
 
 mission_block ::= MISSION_START expression*
 

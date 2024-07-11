@@ -36,6 +36,8 @@ COMMENT_BLOCK="/*" !([^]* "*/" [^]*) ("*/")?
 
   "MISSION_START"          { return MISSION_START; }
   "MISSION_END"            { return MISSION_END; }
+  "SCRIPT_START"           { return SCRIPT_START; }
+  "SCRIPT_END"             { return SCRIPT_END; }
   "WHILE"                  { return WHILE; }
   "ENDWHILE"               { return END_WHILE; }
   "IF"                     { return IF; }
