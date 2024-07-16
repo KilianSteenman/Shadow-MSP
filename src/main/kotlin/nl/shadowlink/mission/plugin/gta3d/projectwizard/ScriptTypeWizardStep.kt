@@ -1,10 +1,10 @@
 package nl.shadowlink.mission.plugin.gta3d.projectwizard
 
-import androidx.compose.ui.awt.ComposePanel
+//import androidx.compose.ui.awt.ComposePanel
 import com.intellij.ide.util.projectWizard.ModuleWizardStep
 import com.intellij.openapi.options.ConfigurationException
-import nl.shadowlink.mission.plugin.gta3d.projectwizard.ui.ProjectSetupScreen
-import java.awt.Dimension
+//import nl.shadowlink.mission.plugin.gta3d.projectwizard.ui.ProjectSetupScreen
+//import java.awt.Dimension
 import javax.swing.JComponent
 
 internal class ScriptTypeWizardStep(
@@ -23,13 +23,14 @@ internal class ScriptTypeWizardStep(
     }
 
     override fun getComponent(): JComponent {
-        return ComposePanel().apply {
-            preferredSize = Dimension(800, 600)
-            setContent {
-//                    WidgetTheme(darkTheme = true) {
-                ProjectSetupScreen { missionModuleBuilder.type = it }
+        TODO()
+//        return ComposePanel().apply {
+//            preferredSize = Dimension(800, 600)
+//            setContent {
+////                    WidgetTheme(darkTheme = true) {
+//                ProjectSetupScreen { missionModuleBuilder.type = it }
+////            }
 //            }
-            }
-        }
+//        }
     }
 }
