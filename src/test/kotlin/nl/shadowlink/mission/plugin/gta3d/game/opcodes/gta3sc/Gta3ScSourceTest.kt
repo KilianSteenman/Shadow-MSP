@@ -21,9 +21,32 @@ class Gta3ScSourceTest {
 
     @Test
     fun `test`() {
-        val commands = XML.decodeFromString(Gta3ScriptCommands.serializer(), testInput)
+//        val commands = XML.decodeFromString(Gta3ScriptCommands.serializer(), testInput)
 
-//        println(XML.encodeToString(Gta3ScriptCommands(Commands(listOf(Command(id = "some_id", name = "some_name"))))))
-        assertTrue(false)
+//        val encoded = XML.encodeToString(
+//            Gta3ScriptCommands(
+//                Commands(
+//                    listOf(
+//                        Command(
+//                            id = "some_id", name = "some_name", args = Args(
+//                                listOf(
+//                                    Arg(
+//                                        type = ArgType.INT,
+//                                        desc = "",
+//                                        allowConstant = true
+//                                    )
+//                                )
+//                            )
+//                        )
+//                    )
+//                )
+//            )
+//        )
+//
+//        println(encoded)
+//
+//        val commands = XML.decodeFromString(Gta3ScriptCommands.serializer(), encoded)
+//
+//        assertTrue(false)
     }
 }
