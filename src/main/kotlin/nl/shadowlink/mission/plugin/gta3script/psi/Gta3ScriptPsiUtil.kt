@@ -3,14 +3,15 @@ package nl.shadowlink.mission.plugin.gta3script.psi
 import com.intellij.extapi.psi.PsiFileBase
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiManager
 import com.intellij.psi.search.FileTypeIndex
 import com.intellij.psi.search.GlobalSearchScope
 import com.intellij.psi.stubs.StubIndex
+import com.intellij.psi.stubs.StubIndexKey
 import nl.shadowlink.mission.plugin.gta3script.Gta3ScriptFile
 import nl.shadowlink.mission.plugin.gta3script.Gta3ScriptFileType
 import nl.shadowlink.mission.plugin.gta3script.indexing.Indices
-import nl.shadowlink.mission.plugin.utils.findChildrenOfType
 
 fun Project.findLabelDeclaration(name: String): Gta3ScriptLabelDecl? {
     return StubIndex.getElements(
@@ -35,31 +36,27 @@ fun Project.getScriptFiles(): Collection<VirtualFile> {
 }
 
 fun Project.getLabels(): List<Gta3ScriptLabelDecl> {
-    val scope = GlobalSearchScope.projectScope(this)
-    val stubIndex = StubIndex.getInstance()
-    return stubIndex.getAllKeys(Indices.LABEL_DECL, this)
-        .flatMap { key ->
-            StubIndex.getElements(
-                Indices.LABEL_DECL,
-                key,
-                this,
-                scope,
-                Gta3ScriptLabelDecl::class.java
-            )
-        }
+    return getAllElementsForIndex(Indices.LABEL_DECL, this)
 }
 
 fun Project.getVariables(): List<Gta3ScriptVariableDecl> {
-    val scope = GlobalSearchScope.projectScope(this)
+    return getAllElementsForIndex(Indices.VARIABLE_DECL, this)
+}
+
+private inline fun <reified Key : Any, reified Psi : PsiElement?> getAllElementsForIndex(
+    indexKey: StubIndexKey<Key, Psi>,
+    project: Project
+): List<Psi> {
+    val scope = GlobalSearchScope.projectScope(project)
     val stubIndex = StubIndex.getInstance()
-    return stubIndex.getAllKeys(Indices.VARIABLE_DECL, this)
+    return stubIndex.getAllKeys(indexKey, project)
         .flatMap { key ->
             StubIndex.getElements(
-                Indices.VARIABLE_DECL,
+                indexKey,
                 key,
-                this,
+                project,
                 scope,
-                Gta3ScriptVariableDecl::class.java
+                Psi::class.java,
             )
         }
 }
