@@ -38,7 +38,6 @@ internal class IniOpcodeSource : OpcodeSource {
             opcodeMap[opcode.toUpperCase()] = Opcode(
                     opcode = opcode.toUpperCase(),
                     format = opcodeFormat,
-                    paramCount = paramCount,
                     params = params,
                     description = null
             )

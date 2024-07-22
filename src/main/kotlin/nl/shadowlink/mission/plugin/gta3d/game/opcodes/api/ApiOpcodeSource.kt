@@ -11,22 +11,22 @@ class ApiOpcodeSource : OpcodeSource {
 
     override fun loadOpcodes(): Map<String, Opcode> {
         val itemType = object : TypeToken<List<OpcodeEntry>>() {}.type
-        val entries = Gson().fromJson<List<OpcodeEntry>>(javaClass.getResource("/opcodes/opcodes.json").readText(), itemType)
+        val entries =
+            Gson().fromJson<List<OpcodeEntry>>(javaClass.getResource("/opcodes/opcodes.json").readText(), itemType)
         return entries.associate { entry ->
             entry.opcode to Opcode(
-                    opcode = entry.opcode,
-                    format = entry.command,
-                    paramCount = entry.parameters.size,
-                    params = entry.parameters.map { it.toOpcodeParam() },
-                    description = entry.description
+                opcode = entry.opcode,
+                format = entry.command,
+                params = entry.parameters.map { it.toOpcodeParam() },
+                description = entry.description
             )
         }
     }
 
     private fun OpcodeParameter.toOpcodeParam(): OpcodeParam {
         return OpcodeParam(
-                type = this.type.toParamType(),
-                description = this.name
+            type = this.type.toParamType(),
+            description = this.name
         )
     }
 

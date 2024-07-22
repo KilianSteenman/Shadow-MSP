@@ -14,36 +14,52 @@ import nl.shadowlink.mission.plugin.utils.findChildrenOfType
 
 fun Project.findLabelDeclaration(name: String): Gta3ScriptLabelDecl? {
     return StubIndex.getElements(
-        Indices.LABEL_DECL, name, this, GlobalSearchScope.allScope(this), Gta3ScriptLabelDecl::class.java
+        Indices.LABEL_DECL, name, this, GlobalSearchScope.projectScope(this), Gta3ScriptLabelDecl::class.java
     ).firstOrNull()
 }
 
 fun Project.findVariableDeclaration(name: String): Gta3ScriptVariableDecl? {
     return StubIndex.getElements(
-            Indices.VARIABLE_DECL, name, this, GlobalSearchScope.allScope(this), Gta3ScriptVariableDecl::class.java
-        ).firstOrNull()
+        Indices.VARIABLE_DECL, name, this, GlobalSearchScope.projectScope(this), Gta3ScriptVariableDecl::class.java
+    ).firstOrNull()
 }
 
 fun Project.findScript(name: String): PsiFileBase? {
-    return FileTypeIndex.getFiles(Gta3ScriptFileType, GlobalSearchScope.allScope(this))
+    return FileTypeIndex.getFiles(Gta3ScriptFileType, GlobalSearchScope.projectScope(this))
         .find { it.name == name }
         ?.let { PsiManager.getInstance(this).findFile(it) as? Gta3ScriptFile }
 }
 
 fun Project.getScriptFiles(): Collection<VirtualFile> {
-    return FileTypeIndex.getFiles(Gta3ScriptFileType, GlobalSearchScope.allScope(this))
+    return FileTypeIndex.getFiles(Gta3ScriptFileType, GlobalSearchScope.projectScope(this))
 }
 
-fun Project.getLabels(): List<Gta3ScriptLabel> {
-    return FileTypeIndex.getFiles(Gta3ScriptFileType, GlobalSearchScope.allScope(this))
-        .mapNotNull { virtualFile -> PsiManager.getInstance(this).findFile(virtualFile) as? Gta3ScriptFile }
-        .flatMap { file -> file.findChildrenOfType<Gta3ScriptLabelDefinition>() }
-        .flatMap { definition -> definition.findChildrenOfType<Gta3ScriptLabel>() }
+fun Project.getLabels(): List<Gta3ScriptLabelDecl> {
+    val scope = GlobalSearchScope.projectScope(this)
+    val stubIndex = StubIndex.getInstance()
+    return stubIndex.getAllKeys(Indices.LABEL_DECL, this)
+        .flatMap { key ->
+            StubIndex.getElements(
+                Indices.LABEL_DECL,
+                key,
+                this,
+                scope,
+                Gta3ScriptLabelDecl::class.java
+            )
+        }
 }
 
-fun Project.getVariables(): List<Gta3ScriptVariable> {
-    return FileTypeIndex.getFiles(Gta3ScriptFileType, GlobalSearchScope.allScope(this))
-        .mapNotNull { virtualFile -> PsiManager.getInstance(this).findFile(virtualFile) as? Gta3ScriptFile }
-        .flatMap { file -> file.findChildrenOfType<Gta3ScriptVariableDefinition>() }
-        .flatMap { definition -> definition.findChildrenOfType<Gta3ScriptVariable>() }
+fun Project.getVariables(): List<Gta3ScriptVariableDecl> {
+    val scope = GlobalSearchScope.projectScope(this)
+    val stubIndex = StubIndex.getInstance()
+    return stubIndex.getAllKeys(Indices.VARIABLE_DECL, this)
+        .flatMap { key ->
+            StubIndex.getElements(
+                Indices.VARIABLE_DECL,
+                key,
+                this,
+                scope,
+                Gta3ScriptVariableDecl::class.java
+            )
+        }
 }

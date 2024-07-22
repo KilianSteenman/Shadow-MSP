@@ -77,6 +77,9 @@
         <completion.contributor
                 language="Gta3Script"
                 implementationClass="nl.shadowlink.mission.plugin.gta3script.completion.OpcodeCompletionContributor"/>
+        <codeInsight.parameterInfo
+                language="Gta3Script"
+                implementationClass="nl.shadowlink.mission.plugin.gta3script.completion.Gta3ScParameterInfoHandler"/>
         <lang.commenter
                 language="Gta3Script"
                 implementationClass="nl.shadowlink.mission.plugin.gta3script.commenter.Gta3ScriptCommenter"/>
