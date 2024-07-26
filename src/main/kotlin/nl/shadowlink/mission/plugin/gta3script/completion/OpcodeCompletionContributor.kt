@@ -5,6 +5,7 @@ import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.patterns.PlatformPatterns.psiElement
 import com.intellij.psi.PsiElement
+import com.intellij.psi.util.findParentOfType
 import com.intellij.util.ProcessingContext
 import com.jetbrains.rd.util.string.print
 import nl.shadowlink.mission.plugin.MissionIcons
@@ -13,6 +14,7 @@ import nl.shadowlink.mission.plugin.gta3d.game.opcodes.Opcode
 import nl.shadowlink.mission.plugin.gta3d.game.opcodes.OpcodeDatabase
 import nl.shadowlink.mission.plugin.gta3d.game.opcodes.OpcodeDatabaseFactory
 import nl.shadowlink.mission.plugin.gta3script.Gta3ScriptLanguage
+import nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptVariable
 import kotlin.math.log
 
 class OpcodeCompletionContributor : CompletionContributor() {
@@ -37,6 +39,8 @@ private class OpcodeCompletionProvider(
         context: ProcessingContext,
         result: CompletionResultSet
     ) {
+        if(parameters.position.findParentOfType<Gta3ScriptVariable>() != null) return
+
         println("Completion ${parameters.position.printTree()}")
         opcodeDatabase.opcodes.forEach { opcode ->
             result.addElement(opcode.toLookupElement())
