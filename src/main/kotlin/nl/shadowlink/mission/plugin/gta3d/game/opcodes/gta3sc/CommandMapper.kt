@@ -23,8 +23,11 @@ class CommandMapper {
     private fun ArgType.toParamType(): ParamType {
         return when (this) {
             ArgType.INT -> ParamType.INT
+            ArgType.FLOAT -> ParamType.FLOAT
             ArgType.LABEL -> ParamType.LABEL_REF
-            else -> ParamType.ANY
+            ArgType.TEXT_LABEL -> ParamType.STRING
+            ArgType.CONSTANT -> ParamType.CONSTANT
+            ArgType.PARAM -> ParamType.ANY
         }
     }
 }

@@ -67,6 +67,7 @@ class OpcodeExpression(node: ASTNode) : ASTWrapperPsiElement(node), Annotatable 
                 ParamType.GXT_REF -> GxtProvider.provide(file)
                 ParamType.LABEL_REF -> getLabelCompletions(file)
                 ParamType.MODEL -> ModelProvider.provide(file)
+                ParamType.CONSTANT -> emptyList()
             }
         }
         return emptyList()

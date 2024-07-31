@@ -1,5 +1,6 @@
 package nl.shadowlink.mission.plugin.gta3d.game.opcodes
 
+import com.intellij.openapi.util.NlsSafe
 import nl.shadowlink.mission.plugin.utils.logWarn
 
 class OpcodeDatabase(source: OpcodeSource) {
@@ -18,5 +19,9 @@ class OpcodeDatabase(source: OpcodeSource) {
 
     fun opcode(opcode: String?): Opcode? {
         return opcodeMap["0${opcode?.substring(1)}"]
+    }
+
+    fun getOpcodeByName(name: String): Opcode? {
+        return opcodes.find { it.format == name }
     }
 }
