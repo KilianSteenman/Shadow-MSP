@@ -69,6 +69,9 @@
         <lang.refactoringSupport
                 language="Gta3Script"
                 implementationClass="nl.shadowlink.mission.plugin.gta3script.refactoring.Gta3ScriptRefactoringSupportProvider"/>
+        <lang.documentationProvider
+                language="Gta3Script"
+                implementationClass="nl.shadowlink.mission.plugin.gta3script.documentation.Gta3ScriptDocumentation"/>
         <annotator
                 language="Gta3Script"
                 implementationClass="nl.shadowlink.mission.plugin.gta3script.annotator.Gta3ScriptAnnotator"/>

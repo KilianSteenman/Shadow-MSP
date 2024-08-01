@@ -16,7 +16,7 @@ class CommandMapper {
                     description = arg.desc,
                 )
             } ?: emptyList(),
-            description = ""
+            description = null
         )
     }
 

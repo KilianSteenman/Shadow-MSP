@@ -14,8 +14,7 @@ class Gta3ScSource(
     private val commandMapper = CommandMapper()
 
     override fun loadOpcodes(): Map<String, Opcode> {
-//        val parser
-        val file = File("${File(gta3scPath).parentFile}/config/gtavc/commands.xml")
+        val file = File("${File(gta3scPath).parentFile}/config/gta3/commands.xml")
         println("Commands file $file")
         if (file.exists()) {
             val commands = parser.parseCommands(file.readText())

@@ -3,6 +3,7 @@ package nl.shadowlink.mission.plugin.gta3script.annotator
 import com.intellij.lang.annotation.AnnotationHolder
 import com.intellij.lang.annotation.Annotator
 import com.intellij.lang.annotation.HighlightSeverity
+import com.intellij.lang.annotation.ProblemGroup
 import com.intellij.psi.PsiElement
 import nl.shadowlink.mission.plugin.gta3d.game.opcodes.Opcode
 import nl.shadowlink.mission.plugin.gta3d.game.opcodes.OpcodeDatabaseFactory

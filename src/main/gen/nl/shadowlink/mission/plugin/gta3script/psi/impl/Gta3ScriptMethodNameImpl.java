@@ -2,16 +2,19 @@
 package nl.shadowlink.mission.plugin.gta3script.psi.impl;
 
 import java.util.List;
+
+import com.intellij.openapi.util.NlsSafe;
+import com.intellij.util.IncorrectOperationException;
 import org.jetbrains.annotations.*;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptTypes.*;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
+import nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptMethodCallElementImpl;
 import nl.shadowlink.mission.plugin.gta3script.psi.*;
 
-public class Gta3ScriptMethodNameImpl extends ASTWrapperPsiElement implements Gta3ScriptMethodName {
+public class Gta3ScriptMethodNameImpl extends Gta3ScriptMethodCallElementImpl implements Gta3ScriptMethodName {
 
   public Gta3ScriptMethodNameImpl(@NotNull ASTNode node) {
     super(node);
@@ -33,4 +36,13 @@ public class Gta3ScriptMethodNameImpl extends ASTWrapperPsiElement implements Gt
     return notNullChild(findChildByType(IDENTIFIER));
   }
 
+  @Override
+  public @Nullable PsiElement getNameIdentifier() {
+    return this.getNode().findChildByType(Gta3ScriptTypes.IDENTIFIER).getPsi();
+  }
+
+  @Override
+  public PsiElement setName(@NlsSafe @NotNull String name) throws IncorrectOperationException {
+    return null;
+  }
 }

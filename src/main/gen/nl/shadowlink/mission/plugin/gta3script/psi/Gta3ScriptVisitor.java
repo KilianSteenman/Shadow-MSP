@@ -132,7 +132,7 @@ public class Gta3ScriptVisitor extends PsiElementVisitor {
   }
 
   public void visitMethodName(@NotNull Gta3ScriptMethodName o) {
-    visitPsiElement(o);
+    visitMethodCallElement(o);
   }
 
   public void visitMissionBlock(@NotNull Gta3ScriptMissionBlock o) {
@@ -180,6 +180,10 @@ public class Gta3ScriptVisitor extends PsiElementVisitor {
   }
 
   public void visitLabelDeclElement(@NotNull Gta3ScriptLabelDeclElement o) {
+    visitPsiElement(o);
+  }
+
+  public void visitMethodCallElement(@NotNull Gta3ScriptMethodCallElement o) {
     visitPsiElement(o);
   }
 
