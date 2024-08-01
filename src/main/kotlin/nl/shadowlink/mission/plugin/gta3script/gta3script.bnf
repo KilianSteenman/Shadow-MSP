@@ -116,8 +116,8 @@ cast_assignment ::= variable EQUALS '#' variable line_break
 
 method_call ::= method_name MethodParamList line_break
 method_name ::= IDENTIFIER {
-                    mixin="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptMethodCallElementImpl"
-                    implements="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptMethodCallElement"
+    mixin="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptMethodCallElementImpl"
+    implements="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptMethodCallElement"
 //                    methods=[getName setName getNameIdentifier getReference]
                 }
 

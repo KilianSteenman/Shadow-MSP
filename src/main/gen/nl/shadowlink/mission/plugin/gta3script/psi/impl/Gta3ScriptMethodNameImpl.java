@@ -37,11 +37,6 @@ public class Gta3ScriptMethodNameImpl extends Gta3ScriptMethodCallElementImpl im
   }
 
   @Override
-  public @Nullable PsiElement getNameIdentifier() {
-    return this.getNode().findChildByType(Gta3ScriptTypes.IDENTIFIER).getPsi();
-  }
-
-  @Override
   public PsiElement setName(@NlsSafe @NotNull String name) throws IncorrectOperationException {
     return null;
   }
