@@ -115,7 +115,11 @@ increment_post_operation ::= variable (OP_PLUS_PLUS | OP_MINUS_MINUS) line_break
 cast_assignment ::= variable EQUALS '#' variable line_break
 
 method_call ::= method_name MethodParamList line_break
-method_name ::= IDENTIFIER
+method_name ::= IDENTIFIER {
+    mixin="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptMethodCallElementImpl"
+    implements="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptMethodCallElement"
+//                    methods=[getName setName getNameIdentifier getReference]
+                }
 
 variable_definition ::= Type variable_decl (','? variable_decl)* line_break
 variable_decl ::= IDENTIFIER {

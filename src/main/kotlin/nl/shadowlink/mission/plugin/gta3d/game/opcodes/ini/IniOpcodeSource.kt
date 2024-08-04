@@ -1,6 +1,10 @@
-package nl.shadowlink.mission.plugin.gta3d.game.opcodes
+package nl.shadowlink.mission.plugin.gta3d.game.opcodes.ini
 
 import nl.shadowlink.mission.plugin.gta3d.configuration.MissionSettings
+import nl.shadowlink.mission.plugin.gta3d.game.opcodes.Opcode
+import nl.shadowlink.mission.plugin.gta3d.game.opcodes.OpcodeParam
+import nl.shadowlink.mission.plugin.gta3d.game.opcodes.OpcodeSource
+import nl.shadowlink.mission.plugin.gta3d.game.opcodes.ParamType
 import nl.shadowlink.mission.plugin.utils.logWarn
 import org.ini4j.Config
 import org.ini4j.Ini
@@ -34,7 +38,6 @@ internal class IniOpcodeSource : OpcodeSource {
             opcodeMap[opcode.toUpperCase()] = Opcode(
                     opcode = opcode.toUpperCase(),
                     format = opcodeFormat,
-                    paramCount = paramCount,
                     params = params,
                     description = null
             )

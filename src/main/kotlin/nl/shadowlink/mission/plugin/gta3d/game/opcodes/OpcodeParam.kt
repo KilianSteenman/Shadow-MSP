@@ -6,5 +6,5 @@ data class OpcodeParam(
 )
 
 enum class ParamType {
-    STRING, INT, FLOAT, GXT_REF, LABEL_REF, MODEL, ANY
+    STRING, INT, FLOAT, GXT_REF, LABEL_REF, MODEL, ANY, CONSTANT
 }

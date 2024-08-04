@@ -27,6 +27,8 @@ class LabelReference(
     }
 
     override fun getVariants(): Array<Any> {
-        return element.project.getLabels().map { it.name }.toTypedArray()
+        return element.project.getLabels()
+            .map { it.name }
+            .toTypedArray()
     }
 }

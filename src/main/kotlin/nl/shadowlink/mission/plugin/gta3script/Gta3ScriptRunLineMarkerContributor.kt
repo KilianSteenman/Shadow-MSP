@@ -13,8 +13,10 @@ import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
+import com.intellij.psi.util.elementType
 import com.intellij.util.FunctionUtil
 import nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptScriptStartExpression
+import nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptTokenType
 import nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptTypes
 import nl.shadowlink.mission.plugin.gta3script.run.Gta3ScriptConfigurationType
 import nl.shadowlink.mission.plugin.gta3script.run.Gta3ScriptRunConfiguration
@@ -22,7 +24,7 @@ import nl.shadowlink.mission.plugin.gta3script.run.Gta3ScriptRunConfiguration
 class Gta3ScriptRunLineMarkerContributor : RunLineMarkerContributor() {
 
     override fun getInfo(element: PsiElement): Info? {
-        if (element !is Gta3ScriptScriptStartExpression) return null
+        if (element.elementType != Gta3ScriptTypes.SCRIPT_START) return null
 
         val runAction = object : AnAction() {
             override fun actionPerformed(e: AnActionEvent) {

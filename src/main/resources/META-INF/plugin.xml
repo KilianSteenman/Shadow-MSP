@@ -69,11 +69,23 @@
         <lang.refactoringSupport
                 language="Gta3Script"
                 implementationClass="nl.shadowlink.mission.plugin.gta3script.refactoring.Gta3ScriptRefactoringSupportProvider"/>
+        <lang.documentationProvider
+                language="Gta3Script"
+                implementationClass="nl.shadowlink.mission.plugin.gta3script.documentation.Gta3ScriptDocumentation"/>
+        <annotator
+                language="Gta3Script"
+                implementationClass="nl.shadowlink.mission.plugin.gta3script.annotator.Gta3ScriptAnnotator"/>
 
         <lang.findUsagesProvider
                 language="Gta3Script"
                 implementationClass="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptFindUsagesProvider"/>
         <usageTypeProvider implementation="nl.shadowlink.mission.plugin.gta3script.psi.Gta3ScriptUsageTypeProvider"/>
+        <completion.contributor
+                language="Gta3Script"
+                implementationClass="nl.shadowlink.mission.plugin.gta3script.completion.OpcodeCompletionContributor"/>
+        <codeInsight.parameterInfo
+                language="Gta3Script"
+                implementationClass="nl.shadowlink.mission.plugin.gta3script.completion.Gta3ScParameterInfoHandler"/>
         <lang.commenter
                 language="Gta3Script"
                 implementationClass="nl.shadowlink.mission.plugin.gta3script.commenter.Gta3ScriptCommenter"/>
