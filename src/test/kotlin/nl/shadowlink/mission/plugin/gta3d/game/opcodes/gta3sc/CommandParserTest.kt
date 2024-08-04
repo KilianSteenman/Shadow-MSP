@@ -11,16 +11,6 @@ class CommandParserTest {
     @Test
     fun `valid command xml is parsed into Gta3ScriptCommands`() {
         val input = this::class.java.getResource("/commands.xml")!!.readText()
-//        val input = "<GTA3Script>\n" +
-//                "  <Commands>\n" +
-//                "    <Command ID=\"0x0\" Name=\"NOP\"/>\n" +
-//                "    <Command ID=\"0x1\" Name=\"WAIT\">\n" +
-//                "       <Args>\n" +
-//                "           <Arg Type=\"INT\" Desc=\"Time\"/>\n" +
-//                "       </Args>\n" +
-//                "    </Command>\n" +
-//                "  </Commands>\n" +
-//                "</GTA3Script>"
 
         assertNotNull(parser.parseCommands(input))
     }

@@ -1,5 +1,4 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-//import org.jetbrains.compose.compose
 
 buildscript {
     repositories {
@@ -14,14 +13,12 @@ buildscript {
 plugins {
     id("org.jetbrains.intellij") version "1.17.4"
     id("org.jetbrains.kotlin.jvm") version "2.0.0"
-//    id("org.jetbrains.compose") version "1.6.11"
     id("org.jetbrains.kotlin.plugin.serialization") version "2.0.0"
 }
 
 repositories {
     mavenCentral()
     google()
-//    maven(url = "https://maven.pkg.jetbrains.space/public/p/compose/dev")
     maven(url = "https://jitpack.io")
 }
 
@@ -46,11 +43,7 @@ dependencies {
     implementation("io.github.pdvrieze.xmlutil:core:0.90.1")
     implementation("io.github.pdvrieze.xmlutil:serialization-jvm:0.90.1")
 
-    // Compose
-//    implementation(compose.desktop.currentOs)
-
     testImplementation(kotlin("test"))
-//    testImplementation("junit", "junit", "4.12")
 }
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
