@@ -41,7 +41,7 @@ dependencies {
 
     // XML Parsing
     implementation("io.github.pdvrieze.xmlutil:core:0.90.1")
-    implementation("io.github.pdvrieze.xmlutil:serialization-jvm:0.90.1")
+    implementation("io.github.pdvrieze.xmlutil:serialization-jvm:0.90.2")
 
     testImplementation(kotlin("test"))
 }
