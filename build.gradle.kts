@@ -40,7 +40,7 @@ dependencies {
     implementation("com.google.code.gson", "gson", "2.8.6")
 
     // XML Parsing
-    implementation("io.github.pdvrieze.xmlutil:core:0.90.1")
+    implementation("io.github.pdvrieze.xmlutil:core:0.90.2")
     implementation("io.github.pdvrieze.xmlutil:serialization-jvm:0.90.1")
 
     testImplementation(kotlin("test"))
